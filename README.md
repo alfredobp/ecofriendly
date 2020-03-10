@@ -1,4 +1,4 @@
-https://raw.githubusercontent.com/alfredobp/ecofriendly/master/guia/imagenes/logo.png
+https://raw.githubusercontent.com/alfredobp/ecofriendly/master/guia/images/logo.png
 
 **Ecofriendly**: en búsqueda de la sostebinilidad.
 Proyecto Integrado del Ciclo Formativo Desarrollo de Aplicaciones WEB del IES DOÑANA.
