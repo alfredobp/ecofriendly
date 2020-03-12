@@ -32,7 +32,7 @@ class Usuarios extends \yii\db\ActiveRecord
         return [
             [['nombre', 'password'], 'required'],
             [['nombre', 'auth_key', 'telefono', 'poblacion'], 'string', 'max' => 255],
-            [['password'], 'string', 'max' => 60],
+            [['password'], 'string', 'max' => 50],
         ];
     }
 
