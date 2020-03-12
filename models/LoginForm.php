@@ -78,4 +78,16 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+    public function validateCuenta($attribute, $params)
+    {
+        $usuario = Usuarios::findOne(['nombre'=>$this->username]);
+
+        if (!$usuario->cuentaActivada) {
+            $this->addError(
+                $attribute,
+                'Para iniciar sesión deberá activar su cuenta por correo electronico '
+                . $usuario->email
+            );
+        }
+    }
 }

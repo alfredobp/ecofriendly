@@ -35,8 +35,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'username','apellidos','email', 'contrasena'], 'required'],
-            [['nombre'], 'unique'],
+            [['nombre', 'username', 'apellidos', 'email', 'contrasena'], 'required'],
+            [['username'], ['email'], 'unique'],
             [['nombre', 'auth_key', 'direccion'], 'string', 'max' => 255],
             [['contrasena'], 'string', 'max' => 60],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
@@ -91,6 +91,17 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['nombre' => $nombre]);
     }
+    /**
+     * Metodo que busca si existe el token de activación
+     *
+     * @param [type] $token_acti es una cadena aleatoria
+     * @return null si lo encuentra
+     */
+    public static function findPorToken($token_acti)
+    {
+
+        return static::findOne(['token_act' => $token_acti]);
+    }
 
     public function validatePassword($contrasena)
     {
@@ -108,9 +119,20 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 $security = Yii::$app->security;
                 $this->auth_key = $security->generateRandomString();
                 $this->contrasena = $security->generatePasswordHash($this->contrasena);
+                $this->token_acti = $security->generateRandomString();
             }
         }
 
         return true;
+    }
+
+    /**
+     * Función que comprueba si la cuenta del usuario esta activada
+     *
+     * @return true
+     */
+    public function getCuentaActivada()
+    {
+        return $this->token_acti === null;
     }
 }
