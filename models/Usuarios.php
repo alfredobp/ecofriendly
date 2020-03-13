@@ -35,6 +35,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+
             [['nombre', 'username', 'apellidos', 'email', 'contrasena'], 'required'],
             [['username'], ['email'], 'unique'],
             [['nombre', 'auth_key', 'direccion'], 'string', 'max' => 255],
@@ -42,6 +43,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             // [['password'], 'compare'],
             [['password_repeat'], 'compare', 'compareAttribute' => 'contrasena'],
+
         ];
     }
 
