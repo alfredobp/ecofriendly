@@ -18,8 +18,10 @@ use yii\web\IdentityInterface;
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const SCENARIO_CREAR = 'crear';
-
+    const SCENARIO_MODIFICAR = 'modificar';
     public $password_repeat;
+
+ 
 
     /**
      * {@inheritdoc}
@@ -35,7 +37,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'username','apellidos','email', 'contrasena'], 'required'],
+            [['nombre', 'username', 'apellidos', 'email', 'contrasena'], 'required'],
             [['nombre'], 'unique'],
             [['nombre', 'auth_key', 'direccion'], 'string', 'max' => 255],
             [['contrasena'], 'string', 'max' => 60],
@@ -71,7 +73,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
     }
-//obtiene el id
+    //obtiene el id
     public function getId()
     {
         return $this->id;
