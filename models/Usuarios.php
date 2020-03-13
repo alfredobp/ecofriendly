@@ -108,6 +108,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 $security = Yii::$app->security;
                 $this->auth_key = $security->generateRandomString();
                 $this->contrasena = $security->generatePasswordHash($this->contrasena);
+                $this->token_acti = $security->generateRandomString();
             }
         }
 
