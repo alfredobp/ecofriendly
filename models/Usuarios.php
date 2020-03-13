@@ -71,7 +71,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
     }
-
+//obtiene el id
     public function getId()
     {
         return $this->id;
