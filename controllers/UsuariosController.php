@@ -151,12 +151,12 @@ class UsuariosController extends Controller
                     //Guardamos los cambios en la tabla users
 
                     $table->save();
-         
+
                     //Creamos el mensaje que será enviado a la cuenta de correo del usuario
                     $subject = 'Recuperar password';
                     $body = '<p>Copie el siguiente código de verificación para restablecer su password ... ';
                     $body .= '<strong>' . $verification_code . '</strong></p>';
-                   
+
                     $body .= '<p><a href="' . Url::to('/usuarios/resetpass', true) . '">Recuperar password</a></p>';
 
                     //Enviamos el correo
@@ -177,7 +177,7 @@ class UsuariosController extends Controller
                 } else //El usuario no existe
                 {
                     Yii::$app->session->setFlash('error', 'Se ha producido un error. No se ha encontrado la dirección de correo.');
-                                    }
+                }
             } else {
                 $model->getErrors();
             }
@@ -252,10 +252,16 @@ class UsuariosController extends Controller
                     }
                 }
             }
-        } else {
-            var_dump('holasa');
         }
 
         return $this->render('resetpass', ['model' => $model, 'msg' => $msg]);
+    }
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        Yii::$app->session->setFlash('success', 'Se ha borrado el género.');
+        $model->delete();
+        return $this->redirect(['index']);
     }
 }
