@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Button;
+use yii\bootstrap4\ButtonDropdown;
 use yii\bootstrap\Button as BootstrapButton;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -46,33 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php ActiveForm::end(); ?>
-    <?php echo Button::widget([
+  
+    <?= Button::widget([
 
         'label' => 'Eliminar cuenta',
 
-        'options' => ['class' => 'btn-primary grid-button', 'href' => Url::to(['usuarios/delete'])],
 
-    ]); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
+        'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/delete', 'id'=> $model->id])],
 
-        'columns' => [
-       
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
-                            'class' => '',
-                            'data' => [
-                                'confirm' => 'Estas seguro? Con esta accion borraras todos los libros de este genero.',
-                                'method' => 'post',
-                            ],
-                        ]);
-                    }
-                ]
-            ],
-        ],
     ]); ?>
 </div>

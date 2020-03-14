@@ -18,21 +18,17 @@ CREATE TABLE usuarios (
 );
 
 -- DROP TABLE IF EXISTS ranking CASCADE;
-
 -- CREATE TABLE ranking (
 --     id bigserial PRIMARY KEY,
 --     puntuacion integer (10),
 --     usuariosid bigint NOT NULL REFERENCES usuarios(id)
 -- );
-
 -- DROP TABLE IF EXISTS bloqueos CASCADE;
-
 -- CREATE TABLE bloqueos (
 --     id bigserial PRIMARY KEY,
 --     usuariosid bigint NOT NULL REFERENCES usuarios(id),
 --     bloqueadosid bigint NOT NULL REFERENCES usuarios(id)
 -- );
-
 -- Insert Into
 --     usuarios (username, contrasena, nombre, apellidos, email)
 -- values
@@ -43,3 +39,21 @@ CREATE TABLE usuarios (
 --         'Romani',
 --         'peperro@gmail.com'
 --     )
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion
+    )
+VALUES
+    (
+        'demo',
+        'demo',
+        'demo',
+        'alfredobape@gmail.com',
+        crypt('demo', gen_salt('bf', 10)),
+        'c/ Isabel II 1º '
+    );

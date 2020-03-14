@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class UsuariosController extends Controller
 {
@@ -258,10 +259,17 @@ class UsuariosController extends Controller
     }
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
         $model = $this->findModel($id);
-        Yii::$app->session->setFlash('success', 'Se ha borrado el género.');
         $model->delete();
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
+        return $this->goHome();
+    }
+    protected function findModel($id)
+    {
+        if (($model = Usuarios::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
