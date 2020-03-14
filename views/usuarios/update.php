@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'direccion')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'apellidos')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($model, 'email')->passwordInput(['type' => 'email']) ?>
-    <?= $form->field($model, 'contrasena')->passwordInput() ?>
-    <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+    <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
+    <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
+    <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
 
 
 

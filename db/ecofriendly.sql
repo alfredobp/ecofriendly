@@ -2,6 +2,7 @@
 -- Archivo de base de datos --
 ------------------------------
 DROP TABLE IF EXISTS usuarios CASCADE;
+
 CREATE TABLE usuarios (
     id bigserial PRIMARY KEY,
     username varchar(15) NOT NULL UNIQUE,
@@ -12,16 +13,33 @@ CREATE TABLE usuarios (
     email varchar(50) NOT NULL UNIQUE,
     direccion varchar(255),
     fecha_nac date,
-    token_acti VARCHAR(255)
+    token_acti VARCHAR(255),
+    codigo_verificacion VARCHAR(255)
 );
 
-Insert Into
-    usuarios (username, contrasena, nombre, apellidos, email)
-values
-    (
-        'pepito',
-        'pepe',
-        'pepe',
-        'Romani',
-        'peperro@gmail.com'
-    )
+-- DROP TABLE IF EXISTS ranking CASCADE;
+
+-- CREATE TABLE ranking (
+--     id bigserial PRIMARY KEY,
+--     puntuacion integer (10),
+--     usuariosid bigint NOT NULL REFERENCES usuarios(id)
+-- );
+
+-- DROP TABLE IF EXISTS bloqueos CASCADE;
+
+-- CREATE TABLE bloqueos (
+--     id bigserial PRIMARY KEY,
+--     usuariosid bigint NOT NULL REFERENCES usuarios(id),
+--     bloqueadosid bigint NOT NULL REFERENCES usuarios(id)
+-- );
+
+-- Insert Into
+--     usuarios (username, contrasena, nombre, apellidos, email)
+-- values
+--     (
+--         'pepito',
+--         'pepe',
+--         'pepe',
+--         'Romani',
+--         'peperro@gmail.com'
+--     )

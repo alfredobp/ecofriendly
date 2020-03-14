@@ -45,18 +45,18 @@ use yii\bootstrap4\ActiveForm;
                                 </div>
                             </div>
                         </div>
-                        <div class="row align-items-center remember">
+                        <!-- <div class="row align-items-center remember">
                             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
 
-                        </div>
+                        </div> -->
                         <br>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center links">
                                 ¿Todavía sin cuenta?<a href="index.php?r=usuarios%2Fregistrar">Date de alta</a>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <a href="#">¿Olvídaste tu contraseña?</a>
+                                <a href="index.php?r=usuarios%2Frecoverpass">¿Olvídaste tu contraseña?</a>
                             </div>
                             <?php ActiveForm::end(); ?>
                         </div>
