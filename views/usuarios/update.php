@@ -16,10 +16,36 @@ $this->title = 'Actualizar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuarios-actualizar">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <h3>Bienvenido a su perfil personal de ecofriendly: <?= Yii::$app->user->identity->username ?></h3>
-    <p>Puede modificar sus datos a continuación:</p>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="container">
+        <div class="col-6">
+
+
+            <?php $url = Url::to(['usuarios/view', 'id' => 1]); ?>
+            <?php
+            //error, no localiza bien la ruta, hay que ver el foro de yii
+            $file =  Url::to('@web/img/basica.jpg');
+            $exists = file_exists($file);
+            $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
+            $urlImagenBasica = Url::to('@web/img/basica.jpg');
+
+            if (!$exists) {
+                $imagenUsuario = $urlImagenBasica;
+            }
+            ?>
+
+            <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= $imagenUsuario ?>" width=250px alt=" un coche"></div>
+
+
+
+            <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= Url::to('@web/img/' . $model->id . '.jpg') ?>" width=250px alt=" un coche"></div> -->
+
+
+            <p>Puede modificar sus datos a continuación:</p>
+        </div>
+    </div>
+
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -36,7 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
     <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
     <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
-    <?= $form->field($model, 'imagen')->fileInput() ?>
 
 
 
@@ -48,25 +73,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php ActiveForm::end(); ?>
-  
+
     <?= Button::widget([
 
         'label' => 'Eliminar cuenta',
 
 
-        'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/imagen', 'id'=> $model->id])],
+        'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/delete', 'id' => $model->id])],
 
     ]); ?>
 
-
-
-  
-    <?= Button::widget([
-
-        'label' => 'subir imagen',
-
-
-        'options' => ['class' => 'btn-danger grid-button', 'href' => Url::to(['usuarios/imagen', 'id'=> $model->id])],
-
-    ]); ?>
+    <?= Html::a('<span class="btn-label">Subir imagen avatar</span>', ['imagen', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 </div>

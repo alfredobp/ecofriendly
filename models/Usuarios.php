@@ -125,13 +125,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
         return true;
     }
-    public function actionDelete($id)
-    {
-        $model = $this->findModel($id);
-        $model->delete();
-        Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
-        return $this->goHome();
-    }
+ 
 
     public function getImagen()
     {

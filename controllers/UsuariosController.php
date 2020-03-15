@@ -259,6 +259,13 @@ class UsuariosController extends Controller
 
         return $this->render('resetpass', ['model' => $model, 'msg' => $msg]);
     }
+       public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
+        return $this->goHome();
+    }
 
     public function actionImagen($id)
     {
