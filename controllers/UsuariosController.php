@@ -5,6 +5,7 @@ namespace app\controllers;
 use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
+use app\models\ImagenForm;
 use app\models\Usuarios;
 use Yii;
 use yii\bootstrap4\Alert;
@@ -13,6 +14,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class UsuariosController extends Controller
 {
@@ -257,13 +259,30 @@ class UsuariosController extends Controller
 
         return $this->render('resetpass', ['model' => $model, 'msg' => $msg]);
     }
-    public function actionDelete($id)
+       public function actionDelete($id)
     {
         $model = $this->findModel($id);
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
         return $this->goHome();
     }
+
+    public function actionImagen($id)
+    {
+        $model = new ImagenForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model->upload($id)) {
+                return $this->redirect('index');
+            }
+        }
+
+        return $this->render('imagen', [
+            'model' => $model,
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {
