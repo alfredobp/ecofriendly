@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
     <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
     <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
+    <?= $form->field($model, 'imagen')->fileInput() ?>
 
 
 
@@ -53,7 +54,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'label' => 'Eliminar cuenta',
 
 
-        'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/delete', 'id'=> $model->id])],
+        'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/imagen', 'id'=> $model->id])],
+
+    ]); ?>
+
+
+
+  
+    <?= Button::widget([
+
+        'label' => 'subir imagen',
+
+
+        'options' => ['class' => 'btn-danger grid-button', 'href' => Url::to(['usuarios/imagen', 'id'=> $model->id])],
 
     ]); ?>
 </div>

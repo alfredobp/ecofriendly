@@ -21,7 +21,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     const SCENARIO_MODIFICAR = 'modificar';
     public $password_repeat;
     public $verification_code;
-
+    private $_imagen = null;
+    private $_imagenUrl = null;
 
 
     /**
@@ -123,5 +124,41 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         }
 
         return true;
+    }
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
+        return $this->goHome();
+    }
+
+    public function getImagen()
+    {
+        if ($this->_imagen !== null) {
+            return $this->_imagen;
+        }
+
+        $this->setImagen(Yii::getAlias('@img/' . $this->id . '.jpg'));
+        return $this->_imagen;
+    }
+
+
+    public function setImagen($imagen)
+    {
+        $this->_imagen = $imagen;
+    }
+
+    public static function getImagenUrl()
+    {
+
+
+
+        return Yii::getAlias('@imgUrl/' . 1 . '.jpg');
+    }
+
+    public function setImagenUrl($imagenUrl)
+    {
+        $this->_imagenUrl = $imagenUrl;
     }
 }
