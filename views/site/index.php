@@ -156,7 +156,7 @@ $this->title = 'EcoFriendly'; ?>
                     </div>
                 </div>
             </div>
-         
+         <br>
             <div class="card-block">
                 <h4 class="card-title"><img src="https://www.institutomedios.com/wp-content/themes/institutomedios/img/logo.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"> Sara Miles</h4>
                 <p class="card-text">Un dia en el pico naiguata.</p>

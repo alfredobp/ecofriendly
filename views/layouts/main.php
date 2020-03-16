@@ -30,7 +30,7 @@ AppAsset::register($this);
 
     <div class="wrap">
         <?php
-
+        $contador = 3;
         NavBar::begin([
             'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
             'brandUrl' => Yii::$app->homeUrl,
@@ -50,14 +50,14 @@ AppAsset::register($this);
 
             ],
         ]);
-        $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius'=>'30px']];
+        $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
-                Yii::$app->user->isGuest ? '': Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options),
+                Yii::$app->user->isGuest ? '' : Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options),
                 ['label' => 'Inicio', 'url' => ['/site/index']],
                 ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
-                ['label' => 'Mensajes', 'url' => ['/usuarios/update']],
+                ['label' => 'Mensajes ' . $contador, 'url' => ['/usuarios/update']],
                 ['label' => 'Notificaciones', 'url' => ['/taller']],
                 Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
