@@ -20,9 +20,8 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="./web/css/bootstrap.min.css"></script>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode('Ecofriendly.es') ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -31,23 +30,35 @@ AppAsset::register($this);
 
     <div class="wrap">
         <?php
+
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
+                'class' => 'navbar-dark bg-dark navbar-expand-md fixed-top',
+
             ],
             'collapseOptions' => [
                 'class' => 'justify-content-end',
             ],
         ]);
         echo Nav::widget([
+            'options' => ['class' => 'navbar-nav-left'],
+            'items' => [
+
+                Html::textInput('q', '', ['placeholder' => 'Buscar en Ecofriendly']),
+
+            ],
+        ]);
+        $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius'=>'30px']];
+        echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+                Yii::$app->user->isGuest ? '': Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options),
+                ['label' => 'Inicio', 'url' => ['/site/index']],
+                ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
+                ['label' => 'Mensajes', 'url' => ['/usuarios/update']],
+                ['label' => 'Notificaciones', 'url' => ['/taller']],
                 Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
@@ -58,10 +69,12 @@ AppAsset::register($this);
                     . '</li>')
             ],
         ]);
+
+
         NavBar::end();
         ?>
 
-        <div class="container-fluid">
+        <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
@@ -72,7 +85,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="float-left">&copy; Ecofriendly <?= date('Y') ?></p>
+            <p class="float-left">&copy; Ecofriendly.es <?= date('Y') ?></p>
 
             <p class="float-right"><?= Yii::powered() ?></p>
         </div>
