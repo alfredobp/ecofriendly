@@ -27,8 +27,8 @@ $this->title = 'EcoFriendly'; ?>
             <?= Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) ?>
 
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
-            <h4>Estado: "La vida pasa despacio"</h4>
-            <h4>ECOpuntuación:
+            <h4>Estado:<h6><?=$estado['estado']?><h6></h4>
+            <h4>ECOpuntuación:<h6><?=$estado['nombre']?><h6>
             </h4>
             <h5>Retos Propuestos</h5>
             <ul>

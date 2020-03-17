@@ -38,6 +38,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public $verification_code;
     private $_imagen = null;
     private $_imagenUrl = null;
+    private $_estado;
 
 
     /**
@@ -145,7 +146,15 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return true;
     }
 
+    public function getEstado()
+    {
+        return Yii::getAlias('@imgUrl/' . 1 . '.jpg');
+    }
 
+    public function setEstado($estado)
+    {
+        $this->_estado= $estado;
+    }
     public function getImagen()
     {
         if ($this->_imagen !== null) {

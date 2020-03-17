@@ -42,13 +42,29 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'estado' => $this->estados(),
         ]);
+    }
+    // public function actionValorar()
+    // {
+    //     return $this->render('valorar', [
+            
+    //     ]);
+    // }
+    public static function estados()
+    {
+
+        return array_merge([''], Usuarios::find()
+            ->select('estado')
+            ->indexBy('id')
+            ->column());
     }
 
     /**
@@ -67,11 +83,7 @@ class UsuariosController extends Controller
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-        //     Yii::$app->session->setFlash('success', 'Se ha creado el usuario correctamente.');
-        //     return $this->redirect(['site/login']);
-        // }
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -113,7 +125,7 @@ class UsuariosController extends Controller
 
         Yii::$app->session->setFlash(key($mensaje), $mensaje[key($mensaje)]);
 
-        return $this->redirect(['site/login']);
+        return $this->redirect(['index/login']);
     }
     public function actionUpdate($id = null)
     {
@@ -286,7 +298,7 @@ class UsuariosController extends Controller
 
         return $this->render('resetpass', ['model' => $model, 'msg' => $msg]);
     }
-       public function actionDelete($id)
+    public function actionDelete($id)
     {
         $model = $this->findModel($id);
         $model->delete();
