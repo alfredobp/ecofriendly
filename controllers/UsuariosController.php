@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\EcoValora;
 use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
@@ -36,6 +37,8 @@ class UsuariosController extends Controller
             ],
         ];
     }
+
+    public $input1 = '';
     /**
      * Lists all Usuarios models.
      * @return mixed
@@ -52,10 +55,34 @@ class UsuariosController extends Controller
             'estado' => $this->estados(),
         ]);
     }
-    // public function actionValorar()
+    public function actionValorar()
+    {
+
+        $model = new EcoValora();
+
+        if ($model->load(Yii::$app->request->post()) && $model->calculo(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->render('index', [
+                'model' => $model,
+            ]);
+        }
+        return $this->render('valoracioneco', [
+            'model' => $model,
+        ]);
+    }
+
+
+    // public function actionContact()
     // {
-    //     return $this->render('valorar', [
-            
+    //     $model = new ContactForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+    //         Yii::$app->session->setFlash('contactFormSubmitted');
+
+    //         return $this->refresh();
+    //     }
+    //     return $this->render('contact', [
+    //         'model' => $model,
     //     ]);
     // }
     public static function estados()
@@ -83,7 +110,7 @@ class UsuariosController extends Controller
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
-        
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
