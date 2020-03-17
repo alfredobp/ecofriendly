@@ -8,21 +8,20 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+
+<div class="container2">
+    <div class="site-login">
+        <h1><?= Html::encode($this->title) ?></h1>
 
 
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'horizontalCssClasses' => ['wrapper' => 'col-sm-8'],
-        ],
-    ]); ?>
-    <div class="container-fluid">
-
-        <div class=" container2">
+        <?php $form = ActiveForm::begin([
+            'id' => 'login-form',
+            'layout' => 'horizontal',
+            'fieldConfig' => [
+                'horizontalCssClasses' => ['wrapper' => 'col-sm-8'],
+            ],
+        ]); ?>
 
             <h1>EcoFriendly:<p><em> en busca de la sostenibilidad</em></h1>
 

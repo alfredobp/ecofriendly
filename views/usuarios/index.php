@@ -1,10 +1,48 @@
 <?php
-/* @var $this yii\web\View */
-?>
-<h1>usuarios/index</h1>
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-    <div class="col-4"><a href='<?= $url ?>'>Portal de alquiler de coches</a> <img class='img-fluid rounded-circle' src="<?= Url::to('@web/imgs/1.jpg') ?>" width=500px alt=" un coche"></div>
-</p>
+use yii\bootstrap4\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\UsuariosSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Usuarios';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="usuarios-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?=$estado[1] ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'username',
+            'contrasena',
+            'auth_key',
+            'nombre',
+            //'apellidos',
+            //'email:email',
+            //'direccion',
+            //'estado',
+            //'fecha_nac',
+            //'token_acti',
+            //'codigo_verificacion',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+
+</div>
