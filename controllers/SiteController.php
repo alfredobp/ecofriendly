@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\EcoValora;
+use app\models\Ranking;
 use app\models\Usuarios;
 
 class SiteController extends Controller
@@ -62,11 +64,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $estado = 'Estado de manolete';
 
+        $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+
+        if ($puntuacion['puntuacion'] < 1) {
+            return $this->redirect(['usuarios/valorar', 'id' => $this->id]);
+        }
         return $this->render('index', [
 
             'estado' => Usuarios::findOne(1),
+            'puntos' => $puntuacion,
 
         ]);
     }

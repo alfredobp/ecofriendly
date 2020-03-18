@@ -28,7 +28,8 @@ $this->title = 'EcoFriendly'; ?>
 
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <h4>Estado:<h6><?=$estado['estado']?><h6></h4>
-            <h4>ECOpuntuación:<h6><?=$estado['nombre']?><h6>
+            
+            <h4>ECOpuntuación:<h6><?=$puntos['puntuacion']?><h6>
             </h4>
             <h5>Retos Propuestos</h5>
             <ul>

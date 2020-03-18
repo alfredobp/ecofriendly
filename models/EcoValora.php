@@ -24,7 +24,12 @@ class EcoValora extends Model
     public $valorBloque1;
     public $valorBloque2;
     public $valorBloque3;
+    public $puntuacion2;
+    public $user;
 
+ 
+
+    
 
     /**
      * @return array the validation rules.

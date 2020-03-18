@@ -28,7 +28,7 @@ $this->title = 'EcoFriendly'; ?>
 
         <div class="alert alert-success" role="alert">
             <h4>Desplazamientos</h4>
-            
+
         </div>
 
         <p>
@@ -80,7 +80,7 @@ $this->title = 'EcoFriendly'; ?>
         <div class="alert alert-success" role="alert">
             <h4>Compras cotidianas</h4>
         </div>
-  
+
         <hr class="hr-danger" />
         ¿Con qué frecuencia haces las compras de artículos de primera necesidad? (alimentos, artículos de limpieza, etc)
         </p>
@@ -104,7 +104,7 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-
+        <?=$punto['puntuacion']?>
         </p>
         ¿Dónde adquiere el mayor volumen de estas compras?
         </p>

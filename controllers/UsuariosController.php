@@ -7,6 +7,7 @@ use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
 use app\models\ImagenForm;
+use app\models\Ranking;
 use app\models\Usuarios;
 use Yii;
 use yii\bootstrap4\Alert;
@@ -45,30 +46,33 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-
+    
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        // $puntuacion = Ranking::find()->where(['usuariosid' => '1'])->one();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+           
             'estado' => $this->estados(),
         ]);
     }
     public function actionValorar()
     {
-
         $model = new EcoValora();
+        // $puntuacion2 = Ranking::findOne('4')->puntuacion;
+        $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
+        // if ($model->load(Yii::$app->request->post()) && $model->calculo(Yii::$app->params['adminEmail'])) {
+        //     Yii::$app->session->setFlash('contactFormSubmitted');
 
-        if ($model->load(Yii::$app->request->post()) && $model->calculo(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+        //     return $this->render('index', [
+        //         'model' => $model,
 
-            return $this->render('index', [
-                'model' => $model,
-            ]);
-        }
+        //     ]);
+        // }
         return $this->render('valoracioneco', [
             'model' => $model,
+            'punto' => $puntuacion2,
         ]);
     }
 
