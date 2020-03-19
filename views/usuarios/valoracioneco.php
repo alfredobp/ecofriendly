@@ -104,7 +104,7 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-        <?=$punto['puntuacion']?>
+    
         </p>
         ¿Dónde adquiere el mayor volumen de estas compras?
         </p>

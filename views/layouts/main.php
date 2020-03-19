@@ -9,6 +9,7 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -56,7 +57,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav'],
                 'items' => [
-                    Yii::$app->user->isGuest ? '' : Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options),
+                    Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
                     ['label' => 'Inicio', 'url' => ['/site/index']],
                     ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => 'Mensajes', 'url' => ['/usuarios/update']],
@@ -97,10 +98,10 @@ AppAsset::register($this);
     <?php  } else {
 
     ?> <div class="container-fluid">
-          
-        
-                <?= $content ?>
-            </div>
+
+
+            <?= $content ?>
+        </div>
         </div>
 
         <footer class="footer">

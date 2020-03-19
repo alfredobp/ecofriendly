@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $exists = file_exists($file);
             $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
             $urlImagenBasica = Url::to('@web/img/basica.jpg');
-            var_dump($file);
+         
             if (!$exists) {
                 $imagenUsuario = $urlImagenBasica;
             }

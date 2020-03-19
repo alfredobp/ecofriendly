@@ -18,6 +18,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
+use yii\base\Model;
 
 class UsuariosController extends Controller
 {
@@ -46,14 +47,14 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-    
+
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         // $puntuacion = Ranking::find()->where(['usuariosid' => '1'])->one();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-           
+
             'estado' => $this->estados(),
         ]);
     }
@@ -62,33 +63,25 @@ class UsuariosController extends Controller
         $model = new EcoValora();
         // $puntuacion2 = Ranking::findOne('4')->puntuacion;
         $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
-        // if ($model->load(Yii::$app->request->post()) && $model->calculo(Yii::$app->params['adminEmail'])) {
-        //     Yii::$app->session->setFlash('contactFormSubmitted');
 
-        //     return $this->render('index', [
-        //         'model' => $model,
 
-        //     ]);
-        // }
+        if ($model->load(Yii::$app->request->post())&&$model->validate()) {
+            $ranking = new Ranking();
+            $ranking->usuariosid = Yii::$app->user->identity->id;
+            $ranking->puntuacion = 30;
+            $ranking->save();
+            Yii::$app->session->setFlash('Su puntuación ha sido actualizada correctamente');
+            return $this->goHome();
+        }
+
         return $this->render('valoracioneco', [
             'model' => $model,
-            'punto' => $puntuacion2,
+            'punto' => $puntuacion2
         ]);
     }
 
 
-    // public function actionContact()
-    // {
-    //     $model = new ContactForm();
-    //     if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-    //         Yii::$app->session->setFlash('contactFormSubmitted');
 
-    //         return $this->refresh();
-    //     }
-    //     return $this->render('contact', [
-    //         'model' => $model,
-    //     ]);
-    // }
     public static function estados()
     {
 

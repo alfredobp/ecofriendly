@@ -27,9 +27,9 @@ class EcoValora extends Model
     public $puntuacion2;
     public $user;
 
- 
 
-    
+
+
 
     /**
      * @return array the validation rules.
@@ -87,10 +87,10 @@ class EcoValora extends Model
 
         $this->valorBloque3 = $this->estilo1 + $this->estilo2 + $this->estilo3;
 
-        $this->puntuacion= $this->valorBloque1+$this->valorBloque2+$this->valorBloque3;
-
-        Yii::$app->session->setFlash('success', ($this->puntuacion));
+        $this->puntuacion = $this->valorBloque1 + $this->valorBloque2 + $this->valorBloque3;
+        $ranking = new Ranking();
+        $ranking->usuariosid = Yii::$app->user->identity->id;
+        $ranking->puntuacion = $this->puntuacion;
+        $ranking->save();
     }
-    
-
 }
