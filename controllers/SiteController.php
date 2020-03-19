@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\EcoRetos;
 use app\models\EcoValora;
 use app\models\Ranking;
 use app\models\Usuarios;
@@ -68,12 +69,37 @@ class SiteController extends Controller
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
 
         if ($puntuacion['puntuacion'] < 1) {
-            return $this->redirect(['usuarios/valorar', 'id' => $this->id]);
+            return $this->redirect(['usuarios/valora', 'id' => $this->id]);
         }
+        $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
+        if ($puntuacion['puntuacion']<10) {
+            $reto = new EcoRetos();
+            $reto->usuario_id = '1';
+            $reto->descripcion = 'Caminar más km al día';
+            $reto->puntaje = '3';
+            $reto->categoria_id = '1';
+            $reto->save();
+        }   if ($puntuacion['puntuacion']>10) {
+            $reto = new EcoRetos();
+            $reto->usuario_id = '1';
+            $reto->descripcion = 'Coger el coche menos';
+            $reto->puntaje = '3';
+            $reto->categoria_id = '1';
+            $reto->save();
+        }   if ($puntuacion['puntuacion']>20) {
+            $reto = new EcoRetos();
+            $reto->usuario_id = '1';
+            $reto->descripcion = 'Comprar en el super';
+            $reto->puntaje = '3';
+            $reto->categoria_id = '1';
+            $reto->save();
+        }
+
         return $this->render('index', [
 
             'estado' => Usuarios::findOne(1),
             'puntos' => $puntuacion,
+            'retos'=>$retos,
 
         ]);
     }

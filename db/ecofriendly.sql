@@ -68,8 +68,7 @@ DROP TABLE IF EXISTS notificaciones CASCADE;
 
 DROP TABLE IF EXISTS tipos_notificaciones CASCADE;
 
-CREATE TABLE tipos_notificacionesq
- (
+CREATE TABLE tipos_notificaciones (
     id bigserial PRIMARY KEY,
     tipo varchar (255)
 );
@@ -133,3 +132,8 @@ VALUES
         'c/ Isabel II 1º ',
         'estoy cansado'
     );
+
+INSERT INTO
+    tipo_eco_retos (tipo)
+VALUES
+    ('deporte');
