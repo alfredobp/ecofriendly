@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\EcoRetos;
 use app\models\EcoValora;
 use yii\web\Session;
 use app\models\FormRecoverPass;
@@ -46,14 +47,16 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-    
+
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+
         // $puntuacion = Ranking::find()->where(['usuariosid' => '1'])->one();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-           
+
             'estado' => $this->estados(),
         ]);
     }
@@ -79,7 +82,7 @@ class UsuariosController extends Controller
         ]);
     }
 
-  
+
     public static function estados()
     {
 

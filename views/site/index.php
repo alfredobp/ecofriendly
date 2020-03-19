@@ -27,17 +27,19 @@ $this->title = 'EcoFriendly'; ?>
             <?= Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) ?>
 
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
-            <h4>Estado:<h6><?=$estado['estado']?><h6></h4>
-            
-            <h4>ECOpuntuación:<h6><?=$puntos['puntuacion']?><h6>
+            <h4>Estado:<h6><?= $estado['estado'] ?><h6>
+            </h4>
+
+            <h4>ECOpuntuación:<h6><?= $puntos['puntuacion'] ?><h6>
             </h4>
             <h5>Retos Propuestos</h5>
+            <p> En función de su puntuación de le ha otorgado los siguientes retos:</p>
             <ul>
-                <li>Coger menos la bicicleta</li>
-                <li>Correr mas</li>
-                <li>No comer alimentos procesados</li>
-                <li>Colaborar en acciones de voluntariado</li>
-                <li>Compartir coche</li>
+                <?php for ($i = 0; $i < 8; $i++) {
+                    echo '<li>' . $retos[$i]->descripcion . ' ' .  '<span class="badge badge-secondary">   ' . $retos[$i]->puntaje  .  '</span></h1>' . '</li>';
+                } ?>
+
+
             </ul>
         </div>
 
@@ -68,7 +70,7 @@ $this->title = 'EcoFriendly'; ?>
                         <div class="col-2">
                             <a href="#"><img src="https://s.w.org/images/core/emoji/2/svg/1f601.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                         </div>
-                       
+
                     </div>
 
                 </div>
@@ -121,7 +123,7 @@ $this->title = 'EcoFriendly'; ?>
                                 <div class="col-2">
                                     <a href="#"><img src="https://emoji-38d7.kxcdn.com/emojione/twitter-facebook-share/1f912.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                 </div>
-                               
+
                             </div>
                             <br>
                             <div class="row">
@@ -157,7 +159,7 @@ $this->title = 'EcoFriendly'; ?>
                     </div>
                 </div>
             </div>
-         
+
             <div class="card-block">
                 <h4 class="card-title"><img src="https://www.institutomedios.com/wp-content/themes/institutomedios/img/logo.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"> Sara Miles</h4>
                 <p class="card-text">Un dia en el pico naiguata.</p>
@@ -202,7 +204,7 @@ $this->title = 'EcoFriendly'; ?>
                             <div class="col-2">
                                 <a href="#"><img src="https://emoji-38d7.kxcdn.com/emojione/twitter-facebook-share/1f912.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                             </div>
-                           
+
                         </div>
                         <br>
                         <div class="row">

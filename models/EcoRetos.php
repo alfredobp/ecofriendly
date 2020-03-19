@@ -73,4 +73,11 @@ class EcoRetos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('ecoRetos');
     }
+
+    public function otorgarReto()
+    {
+        $puntuacion = Ranking::find()->select('puntuacion')->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+       
+        return $puntuacion;
+    }
 }
