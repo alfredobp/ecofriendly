@@ -67,10 +67,26 @@ class EcoValora extends Model
      */
     public function attributeLabels()
     {
-        return [];
+
+        return [
+            'desplazamiento1' => 'Este campo ',
+            'desplazamiento2' => 'Este campo ',
+            'desplazamiento3' => 'Este campo ',
+            'desplazamiento4' => 'Este campo ',
+            'desplazamiento5' => 'Este campo ',
+           
+            'compra1' => 'Este campo ',
+            'compra2' => 'Este campo ',
+            'compra3' => 'Este campo ',
+            'estilo1' => 'Este campo ',
+            'estilo2' => 'Este campo ',
+            'estilo3' => 'Este campo ',
+
+
+        ];
     }
 
-    public  function calculo()
+    public function calculo()
 
     {
         $this->sumatorio1 = $this->desplazamiento2 + $this->desplazamiento3 + $this->desplazamiento4 + $this->desplazamiento5;

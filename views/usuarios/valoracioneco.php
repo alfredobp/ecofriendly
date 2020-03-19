@@ -54,7 +54,7 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-
+        <!-- <?= $form->field($model, 'desplazamiento1')->inline()->radioList(['example1' => 'example1', 'example2' => 'example2'])->label(false) ?> -->
         <hr size="3px">
         <p> Introduzca el número de Km. aproximados que viaja al año en cada modo de transporte:</p>
 
@@ -104,7 +104,7 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-    
+
         </p>
         ¿Dónde adquiere el mayor volumen de estas compras?
         </p>

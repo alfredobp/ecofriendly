@@ -18,7 +18,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
-use yii\base\Model;
 
 class UsuariosController extends Controller
 {
@@ -47,14 +46,14 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-
+    
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         // $puntuacion = Ranking::find()->where(['usuariosid' => '1'])->one();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-
+           
             'estado' => $this->estados(),
         ]);
     }
@@ -65,10 +64,10 @@ class UsuariosController extends Controller
         $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
 
 
-        if ($model->load(Yii::$app->request->post())&&$model->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $ranking = new Ranking();
             $ranking->usuariosid = Yii::$app->user->identity->id;
-            $ranking->puntuacion =$model->calculo();
+            $ranking->puntuacion = $model->calculo();
             $ranking->save();
             Yii::$app->session->setFlash('Su puntuación ha sido actualizada correctamente');
             return $this->goHome();
@@ -80,8 +79,7 @@ class UsuariosController extends Controller
         ]);
     }
 
-
-
+  
     public static function estados()
     {
 
