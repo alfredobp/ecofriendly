@@ -39,6 +39,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'desplazamiento1')
                 ->radioList(
                     [0 => 'Nunca', 1 => 'A veces', 2 => 'Con frecuencia', 3 => 'Siempre'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -89,6 +90,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'compra1')
                 ->radioList(
                     [0 => 'Todos los dias', 1 => '3 días a la semana', 2 => '1 dia a la semana', 3 => 'Compro por internet'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -113,6 +115,8 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'compra2')
                 ->radioList(
                     [0 => 'Supermercados', 1 => 'Internet', 2 => 'Comercio local', 3 => 'Proximidad'],
+                    
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -138,6 +142,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'compra3')
                 ->radioList(
                     [0 => 'Nunca', 1 => 'Casi Nunca', 2 => 'A veces', 3 => 'La mayoría de las veces'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -162,6 +167,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'estilo1')
                 ->radioList(
                     [0 => 'Botellas/envases de plásticos', 1 => 'Botellas de vidrio', 2 => 'Tupperware', 3 => 'Utilizo mi propio envase'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -182,6 +188,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'estilo2')
                 ->radioList(
                     [0 => '5 min', 1 => '5-10 min', 2 => '> 10 min', 3 => 'No me ducho, me baño'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
@@ -203,6 +210,7 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'estilo3')
                 ->radioList(
                     [0 => 'Lujo', 1 => 'Duplex con parcela', 2 => 'Duplex', 3 => 'Bloque de viviendas'],
+                    ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
