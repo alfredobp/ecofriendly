@@ -68,7 +68,7 @@ class UsuariosController extends Controller
         if ($model->load(Yii::$app->request->post())&&$model->validate()) {
             $ranking = new Ranking();
             $ranking->usuariosid = Yii::$app->user->identity->id;
-            $ranking->puntuacion = 30;
+            $ranking->puntuacion =$model->calculo();
             $ranking->save();
             Yii::$app->session->setFlash('Su puntuación ha sido actualizada correctamente');
             return $this->goHome();

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Composer\XdebugHandler\Status;
 use Yii;
 use yii\base\Model;
 
@@ -26,8 +27,6 @@ class EcoValora extends Model
     public $valorBloque3;
     public $puntuacion2;
     public $user;
-
-
 
 
 
@@ -61,6 +60,8 @@ class EcoValora extends Model
         ];
     }
 
+
+
     /**
      * @return array customized attribute labels
      */
@@ -69,7 +70,7 @@ class EcoValora extends Model
         return [];
     }
 
-    public function calculo()
+    public  function calculo()
 
     {
         $this->sumatorio1 = $this->desplazamiento2 + $this->desplazamiento3 + $this->desplazamiento4 + $this->desplazamiento5;
@@ -88,9 +89,8 @@ class EcoValora extends Model
         $this->valorBloque3 = $this->estilo1 + $this->estilo2 + $this->estilo3;
 
         $this->puntuacion = $this->valorBloque1 + $this->valorBloque2 + $this->valorBloque3;
-        $ranking = new Ranking();
-        $ranking->usuariosid = Yii::$app->user->identity->id;
-        $ranking->puntuacion = $this->puntuacion;
-        $ranking->save();
+        // static $puntuacion2 = ($this->puntuacion);
+        $mi_static = $this->puntuacion;
+        return $mi_static;
     }
 }
