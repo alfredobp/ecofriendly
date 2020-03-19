@@ -30,17 +30,17 @@ $this->title = 'EcoFriendly'; ?>
             <h4>Estado:<h6><?= $estado['estado'] ?><h6>
             </h4>
 
-            <h4>ECOpuntuación:<h6><?= $puntos['puntuacion'] ?><h6>
+           <h6 style="text-align: center"> <h4>ECOpuntuación  <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span><h6>
             </h4>
             <h5>Retos Propuestos</h5>
-            <p> En función de su puntuación de le ha otorgado los siguientes retos:</p>
+            <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
-                <?php for ($i = 0; $i < 8; $i++) {
-                    echo '<li>' . $retos[$i]->descripcion . ' ' .  '<span class="badge badge-secondary">   ' . $retos[$i]->puntaje  .  '</span></h1>' . '</li>';
+                <?php for ($i = 0; $i <  sizeof($retos); $i++) {
+                    echo '<li> <a href="index.php?r=ecoretos/view&id=' . $retos[$i]->id . '">'  . $retos[$i]->descripcion . ' ' .  '<span class="badge badge-primary">   ' . $retos[$i]->puntaje  .  '</span></h1>' . '</li>';
                 } ?>
 
-
             </ul>
+            <h5>Tu porgreso:</h5>
         </div>
 
         <div class="col-6">
