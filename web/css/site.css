@@ -293,3 +293,27 @@ a.desc:after {
 	}
 	
 }
+#five:checked ~ .progress > .progress-bar {
+	width: 5%;
+	background-color: #f34213;
+}
+
+  .progress > .progress-bar {
+	width: 25%;
+	background-color: #f27011;
+}
+
+#fifty:checked ~ .progress > .progress-bar {
+	width: 50%;
+	background-color: #f2b01e;
+}
+
+#seventyfive:checked ~ .progress > .progress-bar {
+	width: 75%;
+	background-color: #f2d31b;
+}
+
+#onehundred:checked ~ .progress > .progress-bar {
+	width: 100%;
+	background-color: #86e01e;
+}

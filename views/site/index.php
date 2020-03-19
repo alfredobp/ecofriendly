@@ -25,22 +25,35 @@ $this->title = 'EcoFriendly'; ?>
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
             <?= Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) ?>
-
+            <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
-            <h4>Estado:<h6><?= $estado['estado'] ?><h6>
-            </h4>
+            <br>
+            <h5>Estado: "<?= $estado['estado'] ?>"
+            </h5>
 
-           <h6 style="text-align: center"> <h4>ECOpuntuación  <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span><h6>
-            </h4>
+            <h4> ECOpuntuación <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
+
             <h5>Retos Propuestos</h5>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
                 <?php for ($i = 0; $i <  sizeof($retos); $i++) {
-                    echo '<li> <a href="index.php?r=ecoretos/view&id=' . $retos[$i]->id . '">'  . $retos[$i]->descripcion . ' ' .  '<span class="badge badge-primary">   ' . $retos[$i]->puntaje  .  '</span></h1>' . '</li>';
-                } ?>
-
+                    echo '<li> <a href="index.php?r=ecoretos/view&id=' . $retos[$i]->id . '">'  . $retos[$i]->descripcion . '</a> ' .  '<span class="badge badge-primary">   ' . $retos[$i]->puntaje  .
+                        '</span></h1>' . '</li>';
+                }
+              
+                ?>
             </ul>
-            <h5>Tu porgreso:</h5>
+            <br>
+            <br>
+            <h5>Tu progreso:</h5>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, suscipit velit. Maxime reprehenderit nisi repellendus asperiores nesciunt? Vel quos, eos itaque ad est iste rem deserunt saepe explicabo vero praesentium.</p>
+
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+            <br>
+            <br>
+            <h5>Ultimas noticias:</h5>
         </div>
 
         <div class="col-6">
