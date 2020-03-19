@@ -22,20 +22,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-6">
 
 
-            <?php $url = Url::to(['usuarios/view', 'id' => 1]); ?>
+            <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
             <?php
-            //error, no localiza bien la ruta, hay que ver el foro de yii
-            $file =  Url::to('@web/img/basica.jpg');
+            //Comprueba que existe la imagen
+            $file =  Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
             $exists = file_exists($file);
             $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
             $urlImagenBasica = Url::to('@web/img/basica.jpg');
-
+         
             if (!$exists) {
                 $imagenUsuario = $urlImagenBasica;
             }
             ?>
 
-            <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= $imagenUsuario ?>" width=250px alt=" un coche"></div>
+            <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= $imagenUsuario ?>" width=250px alt=" avatar"></div>
 
 
 

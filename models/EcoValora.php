@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Composer\XdebugHandler\Status;
 use Yii;
 use yii\base\Model;
 
@@ -24,6 +25,9 @@ class EcoValora extends Model
     public $valorBloque1;
     public $valorBloque2;
     public $valorBloque3;
+    public $puntuacion2;
+    public $user;
+
 
 
     /**
@@ -56,12 +60,30 @@ class EcoValora extends Model
         ];
     }
 
+
+
     /**
      * @return array customized attribute labels
      */
     public function attributeLabels()
     {
-        return [];
+
+        return [
+            'desplazamiento1' => 'Este campo ',
+            'desplazamiento2' => 'Este campo ',
+            'desplazamiento3' => 'Este campo ',
+            'desplazamiento4' => 'Este campo ',
+            'desplazamiento5' => 'Este campo ',
+           
+            'compra1' => 'Este campo ',
+            'compra2' => 'Este campo ',
+            'compra3' => 'Este campo ',
+            'estilo1' => 'Este campo ',
+            'estilo2' => 'Este campo ',
+            'estilo3' => 'Este campo ',
+
+
+        ];
     }
 
     public function calculo()
@@ -82,10 +104,9 @@ class EcoValora extends Model
 
         $this->valorBloque3 = $this->estilo1 + $this->estilo2 + $this->estilo3;
 
-        $this->puntuacion= $this->valorBloque1+$this->valorBloque2+$this->valorBloque3;
-
-        Yii::$app->session->setFlash('success', ($this->puntuacion));
+        $this->puntuacion = $this->valorBloque1 + $this->valorBloque2 + $this->valorBloque3;
+        // static $puntuacion2 = ($this->puntuacion);
+        $mi_static = $this->puntuacion;
+        return $mi_static;
     }
-    
-
 }

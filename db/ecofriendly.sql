@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS ranking CASCADE;
 CREATE TABLE ranking (
     id bigserial PRIMARY KEY,
     puntuacion integer,
-    usuariosid bigint NOT NULL REFERENCES usuarios(id)
+    usuariosid bigint NOT NULL UNIQUE REFERENCES usuarios(id)
 );
 
 DROP TABLE IF EXISTS bloqueos CASCADE;
