@@ -32,7 +32,9 @@ AppAsset::register($this);
     if (isset(Yii::$app->user->identity)) {
 
     ?> <div class="wrap">
-
+            <br>
+            <br>
+            <br>
             <?php
 
             NavBar::begin([
@@ -64,7 +66,7 @@ AppAsset::register($this);
                             ['class' => 'btn btn-dark nav-link ']
                         )
                         . Html::endForm()
-                   
+
 
                 ],
             ]);
@@ -116,9 +118,9 @@ AppAsset::register($this);
     <?php  } else {
 
     ?> <div class="container-fluid">
-
-
-            <?= $content ?>
+        
+        <?= Alert::widget() ?>
+        <?= $content ?>
         </div>
         </div>
 

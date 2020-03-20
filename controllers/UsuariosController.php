@@ -100,8 +100,9 @@ class UsuariosController extends Controller
      */
     public function actionView($id)
     {
+        //limito la busqueda a solo el mismo.
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel(Yii::$app->user->id)
         ]);
     }
     public function actionRegistrar()

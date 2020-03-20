@@ -31,13 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="container-fluid">
 
-    <div>
-        <br>
-        <br>
-        <br>
-        <br>
-
-    </div>
+ 
     <div class="row">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
