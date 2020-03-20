@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EcoRetos;
 use app\models\EcoValora;
+use app\models\Feeds;
 use app\models\Ranking;
 use app\models\Usuarios;
 
@@ -95,11 +96,13 @@ class SiteController extends Controller
             $reto->save();
         }
 
+        $feed= Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->all();
         return $this->render('index', [
 
             'estado' => Usuarios::findOne(1),
             'puntos' => $puntuacion,
             'retos'=>$retos,
+            'feeds'=>$feed,
 
         ]);
     }
