@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Feeds;
 
 /**
- * FeedSearch represents the model behind the search form of `app\models\Feeds`.
+ * FeedsSearch represents the model behind the search form of `app\models\Feeds`.
  */
-class FeedSearch extends Feeds
+class FeedsSearch extends Feeds
 {
     /**
      * {@inheritdoc}

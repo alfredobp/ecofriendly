@@ -14,6 +14,7 @@ use app\models\EcoValora;
 use app\models\Feeds;
 use app\models\Ranking;
 use app\models\Usuarios;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -73,21 +74,23 @@ class SiteController extends Controller
             return $this->redirect(['usuarios/valora', 'id' => $this->id]);
         }
         $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
-        if ($puntuacion['puntuacion']<10) {
+        if ($puntuacion['puntuacion'] < 10) {
             $reto = new EcoRetos();
             $reto->usuario_id = '1';
             $reto->descripcion = 'Caminar más km al día';
             $reto->puntaje = '3';
             $reto->categoria_id = '1';
             $reto->save();
-        }   if ($puntuacion['puntuacion']>10) {
+        }
+        if ($puntuacion['puntuacion'] > 10) {
             $reto = new EcoRetos();
             $reto->usuario_id = '1';
             $reto->descripcion = 'Coger el coche menos';
             $reto->puntaje = '3';
             $reto->categoria_id = '1';
             $reto->save();
-        }   if ($puntuacion['puntuacion']>20) {
+        }
+        if ($puntuacion['puntuacion'] > 20) {
             $reto = new EcoRetos();
             $reto->usuario_id = '1';
             $reto->descripcion = 'Comprar en el super';
@@ -96,13 +99,14 @@ class SiteController extends Controller
             $reto->save();
         }
 
-        $feed= Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->all();
+        $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->all();
         return $this->render('index', [
 
             'estado' => Usuarios::findOne(1),
             'puntos' => $puntuacion,
-            'retos'=>$retos,
-            'feeds'=>$feed,
+            'retos' => $retos,
+            'feeds' => $feed,
+
 
         ]);
     }
@@ -158,7 +162,24 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionBuscar()
+    {
+        $usuarios = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
+        ]);
+        $feed = new ActiveDataProvider([
+            'query' => Feeds::find()->where('1=0'),
+        ]);
 
+        if (($cadena = Yii::$app->request->get('cadena', ''))) {
+            $usuarios->query->where(['ilike', 'nombre', $cadena]);
+            $feed->query->where(['ilike', 'contenido', $cadena]);
+        }
+        return $this->render('buscar', [
+            'feed' => $feed,
+            'usuarios' => $usuarios,
+        ]);
+    }
     /**
      * Displays about page.
      *

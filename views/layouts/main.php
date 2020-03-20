@@ -32,6 +32,7 @@ AppAsset::register($this);
     if (isset(Yii::$app->user->identity)) {
 
     ?> <div class="wrap">
+
             <?php
 
             NavBar::begin([
@@ -45,14 +46,31 @@ AppAsset::register($this);
                     'class' => 'justify-content-end',
                 ],
             ]);
+
+
+
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav-left'],
                 'items' => [
-
-                    Html::textInput('q', '', ['placeholder' => 'Buscar en Ecofriendly']),
+                    Html::beginForm(['/site/buscar'], 'get')
+                        .  Html::textInput(
+                            'cadena',
+                            '',
+                            ['placeholder' => 'Buscar  #Ecofriendly'],
+                            ['class' => 'form-control']
+                        )
+                        . Html::submitButton(
+                            '',
+                            ['class' => 'btn btn-dark nav-link ']
+                        )
+                        . Html::endForm()
+                   
 
                 ],
             ]);
+            ?>
+
+            <?php
             $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav'],

@@ -4,15 +4,15 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Feeds;
-use app\models\FeedSearch;
+use app\models\FeedsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FeedController implements the CRUD actions for Feeds model.
+ * FeedsController implements the CRUD actions for Feeds model.
  */
-class FeedController extends Controller
+class FeedsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,7 +35,7 @@ class FeedController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FeedSearch();
+        $searchModel = new FeedsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
