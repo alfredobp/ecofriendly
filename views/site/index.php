@@ -2,11 +2,13 @@
 
 /* @var $this yii\web\View */
 
+use app\models\Feeds;
 use kartik\rating\StarRating;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap\Html;
 use kartik\widgets\Spinner;
+use yii\helpers\Url;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -31,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="container-fluid">
 
- 
+
     <div class="row">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
@@ -79,17 +81,35 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="card-block">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="home" role="tabpanel">
-                            <textarea class="form-control border-0 sinborde" id="exampleTextarea" rows="3" placeholder="Compartir contenido" style="resize: none;"></textarea>
-                        </div>
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                 
+                                                         
+                                <?=
+                                    Html::beginForm(['/feeds/create'], 'post')
+                                        .  Html::textarea(
+                                            'contenido',
+                                            '',
+                                            ['placeholder' => 'Publicar #ecofeed',
+                                            'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'],
+                                            ['class' => 'form-control']
+                                        )
+                                        . Html::submitButton(
+                                            'Publicar',
 
+                                            ['class' => 'btn btn-success m- float-right'],
+                                        )
+                                        . Html::endForm()
+                                ?>
+                
+                      
                     </div>
                     <div class="divider"></div>
                     <br>
-                    <a class="text-left" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a>
-                    <button type="button" class="btn btn-outline-primary btn-sm float-right">Publicar</button>
+                    <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+
+
                 </div>
+
                 <div class="card-footer text-muted collapse" id="collapseExample">
 
                     <br>

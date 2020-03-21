@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class FeedsController extends Controller
 {
+
+    public $contenido;
     /**
      * {@inheritdoc}
      */
@@ -65,14 +67,19 @@ class FeedsController extends Controller
     public function actionCreate()
     {
         $model = new Feeds();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $contenido = $_POST['contenido'];
+        if (true) {
+            $feed = new Feeds();
+            $feed->usuariosid = Yii::$app->user->identity->id;
+            $feed->contenido = $contenido;
+            $feed->created_at=date('Y-m-d H:i:s');
+            $feed->save();
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**
