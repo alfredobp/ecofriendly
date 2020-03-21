@@ -67,9 +67,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Feeds();
 
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-
+        $listaUsuarios = Usuarios::find()->select(['nombre','id'])->all();
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valora', 'id' => $this->id]);
         }
@@ -106,6 +107,8 @@ class SiteController extends Controller
             'puntos' => $puntuacion,
             'retos' => $retos,
             'feeds' => $feed,
+            'model' => $model,
+            'usuarios' => $listaUsuarios,
 
 
         ]);

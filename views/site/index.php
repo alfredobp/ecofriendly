@@ -82,26 +82,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
-                 
-                                                         
-                                <?=
-                                    Html::beginForm(['/feeds/create'], 'post')
-                                        .  Html::textarea(
-                                            'contenido',
-                                            '',
-                                            ['placeholder' => 'Publicar #ecofeed',
-                                            'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'],
-                                            ['class' => 'form-control']
-                                        )
-                                        . Html::submitButton(
-                                            'Publicar',
 
-                                            ['class' => 'btn btn-success m- float-right'],
-                                        )
-                                        . Html::endForm()
-                                ?>
-                
-                      
+
+                        <?=
+                            Html::beginForm(['/feeds/create'], 'post')
+                                .  Html::textarea(
+                                    'contenido',
+                                    '',
+                                    [
+                                        'placeholder' => 'Publicar #ecofeed',
+                                        'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'
+                                    ],
+                                    ['class' => 'form-control']
+                                )
+                                . Html::fileInput('')
+                                . Html::submitButton(
+                                    'Publicar',
+
+                                    ['class' => 'btn btn-success m- float-right'],
+                                )
+                                . Html::endForm()
+
+                        ?>
+
                     </div>
                     <div class="divider"></div>
                     <br>
@@ -210,8 +213,32 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card card-inverse">
                 <div class="card-block">
                     <h3 class="card-title">Encuentra a mas usuarios</h3>
-                    <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.</p>
-                    <a href="#" class="btn btn-primary">Buscar</a>
+                    <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
+                        <div class="list-group col-12 ">
+
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '20px', 'height' => '20px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+
+                            <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
+                                // echo '<p>' . $usuarios[$i]->id;
+                                 echo '<a href="usuarios/View" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                            } ?>
+                        </div>
+                    </p>
+                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+                </div>
+            </div>
+            <br>
+          
+            <div class="card card-inverse">
+                <div class="card-block">
+                    <h3 class="card-title">Novedades en grupos</h3>
+                    <p class="card-text">.
+                        <div class="list-group col-12 ">
+
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
+                        </div>
+                    </p>
+                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
 

@@ -50,7 +50,7 @@ class Feeds extends \yii\db\ActiveRecord
             'id' => 'ID',
             'usuariosid' => 'Usuariosid',
             'contenido' => 'Contenido',
-            'created_at' => 'Created At',
+            'created_at' => 'Fecha de creación',
             'updated_at' => 'Updated At',
         ];
     }

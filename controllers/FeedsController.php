@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Feeds;
 use app\models\FeedsSearch;
+use app\models\ImagenForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * FeedsController implements the CRUD actions for Feeds model.
@@ -67,19 +69,18 @@ class FeedsController extends Controller
     public function actionCreate()
     {
         $model = new Feeds();
+        $model2 = new ImagenForm();
         $contenido = $_POST['contenido'];
+        //CAMBIAR
         if (true) {
+            $model2->imagen = UploadedFile::getInstance($model, 'imagen');
             $feed = new Feeds();
             $feed->usuariosid = Yii::$app->user->identity->id;
             $feed->contenido = $contenido;
-            $feed->created_at=date('Y-m-d H:i:s');
+            $feed->created_at = date('Y-m-d H:i:s');
             $feed->save();
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['site/index', 'id' => $model->id]);
         }
-
-        // return $this->render('create', [
-        //     'model' => $model,
-        // ]);
     }
 
     /**
@@ -115,7 +116,21 @@ class FeedsController extends Controller
 
         return $this->redirect(['index']);
     }
+    public function actionImagen($id)
+    {
+        $model = new ImagenForm();
 
+        if (Yii::$app->request->isPost) {
+            $model->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model->upload($id)) {
+                return $this->redirect('index');
+            }
+        }
+
+        return $this->render('imagen', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Finds the Feeds model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
