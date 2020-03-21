@@ -41,7 +41,7 @@ AppAsset::register($this);
                 'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-dark bg-dark navbar-expand-md fixed-top',
+                    'class' => 'navbar-dark sticky  bg-dark navbar-expand-md fixed-top',
 
                 ],
                 'collapseOptions' => [

@@ -21,6 +21,7 @@ class Feeds extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    private $_imagen = null;
     public static function tableName()
     {
         return 'feeds';
@@ -32,8 +33,9 @@ class Feeds extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuariosid', 'contenido'], 'required'],
+            [['contenido'], 'required'],
             [['usuariosid'], 'default', 'value' => null],
+            [['contenido'], 'safe'],
             [['usuariosid'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['contenido'], 'string', 'max' => 255],
@@ -54,7 +56,34 @@ class Feeds extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+    public function getImagen()
+    {
+        if ($this->_imagen !== null) {
+            return $this->_imagen;
+        }
 
+        $this->setImagen(Yii::getAlias('@img/' . $this->id . 'feed.jpg'));
+        return $this->_imagen;
+    }
+
+
+    public function setImagen($imagen)
+    {
+        $this->_imagen = $imagen;
+    }
+
+    public static function getImagenUrl()
+    {
+
+
+
+        return Yii::getAlias('@imgUrl/' . 1 . '.jpg');
+    }
+
+    public function setImagenUrl($imagenUrl)
+    {
+        $this->_imagenUrl = $imagenUrl;
+    }
     /**
      * Gets query for [[Comentarios]].
      *

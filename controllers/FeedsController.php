@@ -18,6 +18,7 @@ class FeedsController extends Controller
 {
 
     public $contenido;
+    public $imagen;
     /**
      * {@inheritdoc}
      */
@@ -71,9 +72,14 @@ class FeedsController extends Controller
         $model = new Feeds();
         $model2 = new ImagenForm();
         $contenido = $_POST['contenido'];
+
         //CAMBIAR
         if (true) {
+
             $model2->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model2->upload($model->id)) {
+                return $this->redirect('index');
+            }
             $feed = new Feeds();
             $feed->usuariosid = Yii::$app->user->identity->id;
             $feed->contenido = $contenido;
@@ -115,21 +121,6 @@ class FeedsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-    public function actionImagen($id)
-    {
-        $model = new ImagenForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->upload($id)) {
-                return $this->redirect('index');
-            }
-        }
-
-        return $this->render('imagen', [
-            'model' => $model,
-        ]);
     }
     /**
      * Finds the Feeds model based on its primary key value.

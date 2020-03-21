@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container-fluid">
 
 
-    <div class="row">
+    <div class="row ">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                     ['class' => 'form-control']
                                 )
-                                . Html::fileInput('')
+                                . Html::fileInput(['imagen'])
                                 . Html::submitButton(
                                     'Publicar',
 
@@ -127,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . Yii::$app->user->identity->id . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= Yii::$app->user->identity->nombre ?></h4>
                         <p class="card-text"><?= $feeds[$i]->contenido ?></p>
-                        <p class="card-text"><small class="text-muted"><?= $feeds[$i]->contenido ?></small></p>
+                        <p class="card-text"><small class="text-muted">Publicado: <?= $feeds[$i]->created_at  ?></small></p>
                     </div>
                     <img class="card-img-bottom" src="http://www.climbingvenezuela.com/sites/default/files/styles/bigwig_940x460/public/bigwig/ascenso_pico_naiguata_02_0.jpg?itok=mAq5kzme" alt="Card image cap">
 
