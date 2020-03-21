@@ -4,16 +4,18 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Feeds;
-use app\models\FeedSearch;
+use app\models\FeedsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FeedController implements the CRUD actions for Feeds model.
+ * FeedsController implements the CRUD actions for Feeds model.
  */
-class FeedController extends Controller
+class FeedsController extends Controller
 {
+
+    public $contenido;
     /**
      * {@inheritdoc}
      */
@@ -35,7 +37,7 @@ class FeedController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FeedSearch();
+        $searchModel = new FeedsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,14 +67,19 @@ class FeedController extends Controller
     public function actionCreate()
     {
         $model = new Feeds();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $contenido = $_POST['contenido'];
+        if (true) {
+            $feed = new Feeds();
+            $feed->usuariosid = Yii::$app->user->identity->id;
+            $feed->contenido = $contenido;
+            $feed->created_at=date('Y-m-d H:i:s');
+            $feed->save();
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**
