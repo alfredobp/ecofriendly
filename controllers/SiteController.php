@@ -59,7 +59,35 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionEditableDemo()
+    {
+        $model = new Feeds(); // your model can be loaded here
 
+        // Check if there is an Editable ajax request
+        if (isset($_POST['hasEditable'])) {
+            // use Yii's response format to encode output as JSON
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            // read your posted model attributes
+            if ($model->load($_POST)) {
+                // read or convert your posted information
+                $value = $model->estado;
+
+                // return JSON encoded output in the below format
+                return ['output' => $value, 'message' => ''];
+
+                // alternatively you can return a validation error
+                // return ['output'=>'', 'message'=>'Validation error'];
+            }
+            // else if nothing to do always return an empty JSON encoded output
+            else {
+                return ['output' => '', 'message' => ''];
+            }
+        }
+
+        // Else return to rendering a normal view
+        return $this->render('view', ['model' => $model]);
+    }
     /**
      * Displays homepage.
      *
@@ -68,11 +96,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new Feeds();
+        $model2 = Usuarios::findOne(Yii::$app->user->identity->id);
 
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-        $listaUsuarios = Usuarios::find()->select(['nombre','id'])->all();
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->all();
         if ($puntuacion['puntuacion'] < 1) {
-            return $this->redirect(['usuarios/valora', 'id' => $this->id]);
+            return $this->redirect(['usuarios/valorar']);
         }
         $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
         if ($puntuacion['puntuacion'] < 10) {
@@ -109,6 +138,7 @@ class SiteController extends Controller
             'feeds' => $feed,
             'model' => $model,
             'usuarios' => $listaUsuarios,
+            'model2' => Usuarios::findOne(Yii::$app->user->identity->id),
 
 
         ]);

@@ -119,9 +119,9 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->auth_key === $authKey;
     }
 
-    public static function findPorNombre($nombre)
+    public static function findPorNombre($username)
     {
-        return static::findOne(['nombre' => $nombre]);
+        return static::findOne(['username' => $username]);
     }
 
     public function validatePassword($contrasena)
@@ -271,7 +271,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getRankings()
     {
-        return $this->hasMany(Ranking::className(), ['usuariosid' => 'id'])->inverseOf('usuarios');
+        return $this->hasMa••••••••••••ny(Ranking::className(), ['usuariosid' => 'id'])->inverseOf('usuarios');
     }
 
     /**

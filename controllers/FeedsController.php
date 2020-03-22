@@ -72,14 +72,16 @@ class FeedsController extends Controller
         $model = new Feeds();
         $model2 = new ImagenForm();
         $contenido = $_POST['contenido'];
+        var_dump($_POST);
+
 
         //CAMBIAR
         if (true) {
 
             $model2->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model2->upload($model->id)) {
-                return $this->redirect('index');
-            }
+            // if ($model2->upload($model->id)) {
+            //     return $this->redirect('index');
+            // }
             $feed = new Feeds();
             $feed->usuariosid = Yii::$app->user->identity->id;
             $feed->contenido = $contenido;

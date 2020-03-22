@@ -40,7 +40,7 @@ class UsuariosController extends Controller
         ];
     }
 
-    public $input1 = '';
+
     /**
      * Lists all Usuarios models.
      * @return mixed
@@ -59,6 +59,35 @@ class UsuariosController extends Controller
 
             'estado' => $this->estados(),
         ]);
+    }
+    public function actionEditableDemo()
+    {
+        $model = new Usuarios(); // your model can be loaded here
+
+        // Check if there is an Editable ajax request
+        if (isset($_POST['hasEditable'])) {
+            // use Yii's response format to encode output as JSON
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            // read your posted model attributes
+            if ($model->load($_POST)) {
+                // read or convert your posted information
+                $value = $model->estado;
+
+                // return JSON encoded output in the below format
+                return ['output' => $value, 'message' => ''];
+
+                // alternatively you can return a validation error
+                // return ['output'=>'', 'message'=>'Validation error'];
+            }
+            // else if nothing to do always return an empty JSON encoded output
+            else {
+                return ['output' => '', 'message' => ''];
+            }
+        }
+
+        // Else return to rendering a normal view
+        return $this->render('view', ['model' => $model]);
     }
     public function actionValorar()
     {
@@ -272,7 +301,7 @@ class UsuariosController extends Controller
 
         //Si no existen las variables de sesión requeridas lo expulsamos a la página de inicio
         if (empty($session['recover']) || empty($session['id_recover'])) {
-            var_dump('hola');
+
 
             return $this->redirect(['index']);
         } else {
@@ -288,7 +317,7 @@ class UsuariosController extends Controller
         //Si el formulario es enviado para resetear el password
 
         if ($model->load(Yii::$app->request->post())) {
-            var_dump(Yii::$app->request->post());
+
 
             if ($model->validate()) {
                 //Si el valor de la variable de sesión recover es correcta
@@ -318,9 +347,13 @@ class UsuariosController extends Controller
                         $model->verification_code = null;
 
                         Yii::$app->session->setFlash('success', 'La contraseña se ha modificado correctamente ');
+                        var_dump(Yii::$app->request->post());
+
                         return $this->goHome();
                     } else {
                         Yii::$app->session->setFlash('error', 'Se ha producido un error. Intentelo de nuevo más tarde.');
+                        var_dump(Yii::$app->request->post());
+
                         return $this->goHome();
                     }
                 }
