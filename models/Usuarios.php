@@ -59,6 +59,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre'], 'unique'],
             [['nombre', 'auth_key', 'direccion'], 'string', 'max' => 255],
             [['contrasena'], 'string', 'max' => 60],
+            [['estado'],'safe'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             // [['password'], 'compare'],
             [['password_repeat'], 'compare', 'compareAttribute' => 'contrasena'],

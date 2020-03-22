@@ -50,7 +50,7 @@ class UsuariosController extends Controller
 
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
 
         // $puntuacion = Ranking::find()->where(['usuariosid' => '1'])->one();
         return $this->render('index', [
@@ -63,8 +63,13 @@ class UsuariosController extends Controller
     public function actionValorar()
     {
         $model = new EcoValora();
+        $puntuacion2 = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+        //si el usuario ya tine puntuacion asignada, impido que acceda a la acción
+        if ($puntuacion2['puntuacion'] > 0) {
+            return $this->goHome();
+        }
         // $puntuacion2 = Ranking::findOne('4')->puntuacion;
-        $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
+        // $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -78,7 +83,7 @@ class UsuariosController extends Controller
 
         return $this->render('valoracioneco', [
             'model' => $model,
-            'punto' => $puntuacion2
+            //  'punto' => $puntuacion2
         ]);
     }
 

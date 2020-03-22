@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
-            <h5>Estado: "<?= $estado['estado'] ?>"
+            <h5>Estado: "<?= $datos['estado'] ?>"
             </h5>
 
             <h4> ECOpuntuación <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>

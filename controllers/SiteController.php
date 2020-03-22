@@ -103,7 +103,7 @@ class SiteController extends Controller
         $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->all();
         return $this->render('index', [
 
-            'estado' => Usuarios::findOne(1),
+            'datos' => Usuarios::findOne(Yii::$app->user->identity->id),
             'puntos' => $puntuacion,
             'retos' => $retos,
             'feeds' => $feed,
