@@ -50,6 +50,7 @@ $config = [
             ],
 
         ],
+      
         'log' => $log,
         'db' => $db,
         'formatter' => [

@@ -9,10 +9,16 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap\Html;
 use kartik\widgets\Spinner;
 use yii\helpers\Url;
+use kartik\editable\Editable;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
+?>
 
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+</head>
+<?php
 
 // $js = <<<EOT
 // $.ajax({
@@ -34,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container-fluid">
 
 
-    <div class="row">
+    <div class="row ">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
@@ -42,11 +48,28 @@ $this->params['breadcrumbs'][] = $this->title;
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
-            <h5>Estado: "<?= $estado['estado'] ?>"
+            <h5>Estado: "<?= $datos['estado'] ?>"
             </h5>
 
             <h4> ECOpuntuación <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
 
+
+            <?php
+            //    echo Editable::widget([
+            //     'name' => 'notes',
+            //     'asPopover' => true,
+            //     'displayValue' => 'more...',
+            //     'inputType' => Editable::INPUT_TEXTAREA,
+            //     'value' => "Raw denim you...",
+            //     'header' => 'Notes',
+            //     'submitOnEnter' => false,
+            //     'size' => 'lg',
+            //     'options' => ['class' => 'form-control', 'rows' => 5, 'placeholder' => 'Enter notes...']
+            // ]);
+
+            ?>
+            </p>
+            </h2>
             <h5>Retos Propuestos</h5>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
@@ -82,26 +105,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
-                 
-                                                         
-                                <?=
-                                    Html::beginForm(['/feeds/create'], 'post')
-                                        .  Html::textarea(
-                                            'contenido',
-                                            '',
-                                            ['placeholder' => 'Publicar #ecofeed',
-                                            'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'],
-                                            ['class' => 'form-control']
-                                        )
-                                        . Html::submitButton(
-                                            'Publicar',
 
-                                            ['class' => 'btn btn-success m- float-right'],
-                                        )
-                                        . Html::endForm()
-                                ?>
-                
-                      
+
+                        <?=
+                            Html::beginForm(['/feeds/create'], 'post')
+                                .  Html::textarea(
+                                    'contenido',
+                                    '',
+                                    [
+                                        'placeholder' => 'Publicar #ecofeed',
+                                        'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'
+                                    ],
+                                    ['class' => 'form-control']
+                                )
+                                . Html::fileInput(['imagen'])
+                                . Html::submitButton(
+                                    'Publicar',
+
+                                    ['class' => 'btn btn-success m- float-right'],
+                                )
+                                . Html::endForm()
+
+                        ?>
+
                     </div>
                     <div class="divider"></div>
                     <br>
@@ -124,22 +150,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . Yii::$app->user->identity->id . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= Yii::$app->user->identity->nombre ?></h4>
                         <p class="card-text"><?= $feeds[$i]->contenido ?></p>
-                        <p class="card-text"><small class="text-muted"><?= $feeds[$i]->contenido ?></small></p>
+                        <p class="card-text"><small class="text-muted">Publicado: <?= $feeds[$i]->created_at  ?></small></p>
                     </div>
                     <img class="card-img-bottom" src="http://www.climbingvenezuela.com/sites/default/files/styles/bigwig_940x460/public/bigwig/ascenso_pico_naiguata_02_0.jpg?itok=mAq5kzme" alt="Card image cap">
 
                     <div class="card-footer text-muted">
                         <div class="row">
-                            <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Me Gusta <small class="text-muted">12</small></a></div>
+
+                            <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
                             <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentar <small class="text-muted">2</small></a>
                             </div>
                             <div class="col dropup">
                                 <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Compartir Publico</a>
                                     <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
+                                    <a class="dropdown-item" href="#">Compartir Publico</a>
+                                    <div class="dropdown-divider"></div>
                                 </div>
                             </div>
                         </div>
@@ -210,8 +237,32 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card card-inverse">
                 <div class="card-block">
                     <h3 class="card-title">Encuentra a mas usuarios</h3>
-                    <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.</p>
-                    <a href="#" class="btn btn-primary">Buscar</a>
+                    <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
+                        <div class="list-group col-12 ">
+
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '20px', 'height' => '20px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+
+                            <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
+                                // echo '<p>' . $usuarios[$i]->id;
+                                echo '<a href="usuarios/View" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                            } ?>
+                        </div>
+                    </p>
+                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+                </div>
+            </div>
+            <br>
+
+            <div class="card card-inverse">
+                <div class="card-block">
+                    <h3 class="card-title">Novedades en grupos</h3>
+                    <p class="card-text">.
+                        <div class="list-group col-12 ">
+
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
+                        </div>
+                    </p>
+                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
 
