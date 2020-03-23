@@ -34,29 +34,23 @@ $this->params['breadcrumbs'][] = $this->title;
             <h5>Estado: "<?= $datos['estado'] ?>"
             </h5>
 
-            <h4> ECOpuntuación <span id='puntos' class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
+            <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
 
             <?php
-
-
-
-
             $script = <<<JS
             $(function(){
             var puntuacion = $("#puntos"); 
-
-            console.log(puntuacion[0].innerHTML);
-            if (puntuacion[0].innerHTML<10) {
-                puntuacion.removeClass("badge-success").addClass("badge-danger");
-            }else if(puntuacion[0].innerHTML>10){
-                puntuacion.removeClass("badge-success").addClass("badge-warning");
+            if (puntuacion[0].innerHTML<20) {
+                puntuacion.addClass("badge-danger");
+            }else if(puntuacion[0].innerHTML>20){
+                puntuacion.addClass("badge-warning");
             }
-            else if(puntuacion[0].innerHTML>20){
-                puntuacion.removeClass("badge-success").addClass("badge-success");
+            else if(puntuacion[0].innerHTML>60){
+                puntuacion.addClass("badge-success");
             }
             
             });
-JS;
+            JS;
 
             $this->registerJs($script);
 
@@ -106,13 +100,12 @@ JS;
             <div class="card">
                 <div class="card-header">
 
-                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><i class="fa fa-commenting" aria-hidden="true"></i></a>
-
+                    
+               <b>Comparte lo que quieras</b> 
                 </div>
 
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
-
 
                         <?=
                             Html::beginForm(['/feeds/create'], 'post')
@@ -128,7 +121,6 @@ JS;
                                 . Html::fileInput(['imagen'])
                                 . Html::submitButton(
                                     'Publicar',
-
                                     ['class' => 'btn btn-success m- float-right'],
                                 )
                                 . Html::endForm()
@@ -246,13 +238,11 @@ JS;
                     <h3 class="card-title">Encuentra a mas usuarios</h3>
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
-                            <!-- <?= Html::a('Prueba', ['seguidores/create'], ['class' => 'btn btn-success']) ?> -->
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '0px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '80px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
 
                             <?php
-
-                            // echo   Html::img('/img/' . $usuarios[0]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[2]->nombre . '</button>' . '<br>';
 
                             for ($i = 0; $i < sizeof($usuarios); $i++) {
                                 echo Html::beginForm(['seguidores/create'], 'post');
@@ -284,8 +274,16 @@ JS;
                             <?php
                             $optionsBarraUsuarios = ['style' => ['width' => '80px']];
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-
+                                echo Html::beginForm(['seguidores/delete'], 'post');
                                 echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
+                                echo   Html::hiddenInput('id', $seguidores[$i]->id);
+                                echo Html::submitButton(
+                                    'Dejar de seguir',
+                                    ['class' => 'btn btn-danger btn-sm float-center'],
+                                    ['style' => ['margin' => '100px']],
+                                );
+                                echo    Html::endForm();
+                                echo '<p>';
                             }
                             ?>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
