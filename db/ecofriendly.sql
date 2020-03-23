@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS seguidores CASCADE;
 CREATE TABLE seguidores (
     id bigserial PRIMARY KEY,
     usuario_id bigint NOT NULL REFERENCES usuarios(id),
-    seguidor_id bigint NOT NULL
+    seguidor_id bigint NOT NULL NOT NULL REFERENCES usuarios(id)
 );
 
 DROP TABLE IF EXISTS notificaciones CASCADE;
@@ -134,6 +134,37 @@ VALUES
     );
 
 INSERT INTO
-    tipo_eco_retos (tipo)
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion,
+        estado
+    )
+VALUES
+    (
+        'demo1',
+        'demo1',
+        'demo1',
+        'alfredo.barragan@iesdonana.org',
+        crypt('demo1', gen_salt('bf', 10)),
+        'c/ Munilla II 1º ',
+        'estoy motivado'
+    );
+
+INSERT INTO
+    tipos_eco_retos (tipo)
 VALUES
     ('deporte');
+
+INSERT INTO
+    tipos_eco_retos (tipo)
+VALUES
+    ('estilo de vida');
+
+INSERT INTO
+    tipos_eco_retos (tipo)
+VALUES
+    ('naturaleza');
