@@ -145,6 +145,26 @@ INSERT INTO
     )
 VALUES
     (
+        'demo2',
+        'demo2',
+        'demo2',
+        'alfredo.barra2gan@iesdonana.org',
+        crypt('demo2', gen_salt('bf', 10)),
+        'c/ Munilla II 1º ',
+        'estoy cansadito'
+    );
+    INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion,
+        estado
+    )
+VALUES
+    (
         'demo1',
         'demo1',
         'demo1',

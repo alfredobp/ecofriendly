@@ -18,24 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 </head>
-<?php
 
-// $js = <<<EOT
-// $.ajax({
-//     url: 'http://newsapi.org/v2/everything?q=bitcoin&from=2020-02-19&sortBy=publishedAt&apiKey=bb2a4ed14b7246f0ac7710f24858de30',
-
-// 	success: function(respuesta) {
-//         console.log(respuesta.articles[0].title);
-//         $('#feed').append('<li>'+respuesta.articles[0].title);
-// 	},
-// 	error: function() {
-//         console.log("No se ha podido obtener la información");
-//     }
-// });
-
-// EOT;
-// $this->registerJs($js);
-?>
 
 <div class="container-fluid">
 
@@ -51,9 +34,33 @@ $this->params['breadcrumbs'][] = $this->title;
             <h5>Estado: "<?= $datos['estado'] ?>"
             </h5>
 
-            <h4> ECOpuntuación <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
+            <h4> ECOpuntuación <span id='puntos' class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
+
+            <?php
 
 
+
+
+            $script = <<<JS
+            $(function(){
+            var puntuacion = $("#puntos"); 
+
+            console.log(puntuacion[0].innerHTML);
+            if (puntuacion[0].innerHTML<10) {
+                puntuacion.removeClass("badge-success").addClass("badge-danger");
+            }else if(puntuacion[0].innerHTML>10){
+                puntuacion.removeClass("badge-success").addClass("badge-warning");
+            }
+            else if(puntuacion[0].innerHTML>20){
+                puntuacion.removeClass("badge-success").addClass("badge-success");
+            }
+            
+            });
+JS;
+
+            $this->registerJs($script);
+
+            ?>
             <?php
             //    echo Editable::widget([
             //     'name' => 'notes',
@@ -240,16 +247,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
                             <!-- <?= Html::a('Prueba', ['seguidores/create'], ['class' => 'btn btn-success']) ?> -->
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '20px', 'height' => '20px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-
-                            <!-- <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '0px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
 
-                                        echo '<a href="/seguidores/create" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
-
-                                        echo Html::a("Seguir", ['seguidores/create'], ['class' => 'btn btn-info']);
-                                        echo '<br>';
-                                    } ?> -->
                             <?php
 
                             // echo   Html::img('/img/' . $usuarios[0]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[2]->nombre . '</button>' . '<br>';
@@ -285,10 +285,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             $optionsBarraUsuarios = ['style' => ['width' => '80px']];
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
 
-                                echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i+1]->nombre . '</button>' . '<br>';
+                                echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
                             }
                             ?>
-                            <br>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
                         </div>
                     </p>

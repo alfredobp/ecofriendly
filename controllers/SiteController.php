@@ -100,7 +100,15 @@ class SiteController extends Controller
         $model2 = Usuarios::findOne(Yii::$app->user->identity->id);
 
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->all();
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id']) ->where(['!=', 'id', Yii::$app->user->identity->id])
+        ->all();
+
+
+
+
+
+
+
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
         }
@@ -143,8 +151,10 @@ class SiteController extends Controller
             'model' => $model,
             'usuarios' => $listaUsuarios,
             'model2' => Usuarios::findOne(Yii::$app->user->identity->id),
-            'seguidores' => Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all(),
-
+            'seguidores' => Seguidores::find()
+                ->where(['usuario_id' => Yii::$app->user->identity->id])
+                ->andWhere(['!=', 'seguidor_id', Yii::$app->user->identity->id])
+                ->all(),
 
         ]);
     }
