@@ -239,13 +239,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h3 class="card-title">Encuentra a mas usuarios</h3>
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
-
+                            <!-- <?= Html::a('Prueba', ['seguidores/create'], ['class' => 'btn btn-success']) ?> -->
                             <?php $optionsBarraUsuarios = ['style' => ['width' => '20px', 'height' => '20px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-                            <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
-                                // echo '<p>' . $usuarios[$i]->id;
-                                echo '<a href="usuarios/View" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
-                            } ?>
+                            <!-- <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
+
+
+                                        echo '<a href="/seguidores/create" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+
+                                        echo Html::a("Seguir", ['seguidores/create'], ['class' => 'btn btn-info']);
+                                        echo '<br>';
+                                    } ?> -->
+                            <?php
+
+                            // echo   Html::img('/img/' . $usuarios[0]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[2]->nombre . '</button>' . '<br>';
+
+                            for ($i = 0; $i < sizeof($usuarios); $i++) {
+                                echo Html::beginForm(['seguidores/create'], 'post');
+                                echo   Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                                echo   Html::hiddenInput('id', $usuarios[$i]->id);
+                                echo Html::submitButton(
+                                    'Seguir',
+                                    ['class' => 'btn btn-success m- float-right'],
+                                );
+                                echo    Html::endForm();
+                            }
+
+
+                            ?>
+
+
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
@@ -255,10 +278,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="card card-inverse">
                 <div class="card-block">
-                    <h3 class="card-title">Novedades en grupos</h3>
-                    <p class="card-text">.
+                    <h3 class="card-title">Tu red de amigos:</h3>
+                    <p class="card-text">
                         <div class="list-group col-12 ">
+                            <?php
+                            $optionsBarraUsuarios = ['style' => ['width' => '80px']];
+                            for ($i = 0; $i < sizeof($seguidores); $i++) {
 
+                                echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i+1]->nombre . '</button>' . '<br>';
+                            }
+                            ?>
+                            <br>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
                         </div>
                     </p>
