@@ -80,7 +80,7 @@ AppAsset::register($this);
                     Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
                     ['label' => 'Inicio', 'url' => ['/site/index']],
                     ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
-                    ['label' => 'Mensajes', 'url' => ['/usuarios/update']],
+                    ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
                     ['label' => 'Notificaciones', 'url' => ['/taller']],
                     Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                         . Html::beginForm(['/site/logout'], 'post')

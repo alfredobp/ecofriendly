@@ -39,17 +39,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $script = <<<JS
             $(function(){
-            var puntuacion = $("#puntos"); 
-            if (puntuacion[0].innerHTML<20) {
-                puntuacion.addClass("badge-danger");
-            }else if(puntuacion[0].innerHTML>20&&puntuacion[0].innerHTML<60){
-                puntuacion.addClass("badge-warning");
-            }
-            else if(puntuacion[0].innerHTML>60){
-                puntuacion.addClass("badge-success");
-            }
-            
+            sliderPuntuacion();
+
             });
+            function sliderPuntuacion() {
+            var puntuacion = $("#puntos")[0].innerHTML; 
+                
+                if (puntuacion[0].innerHTML<20) {
+                    $('#puntos').addClass("badge-danger");
+                    $('.progress-bar').css("width",puntuacion+'%').addClass("bg-danger");
+                }else if(puntuacion[0].innerHTML>20&&puntuacion<60){
+                    $('#puntos').addClass("badge-warning");
+                    $('.progress-bar').css("width",puntuacion+'%').addClass("bg-warning");
+                }
+                else if(puntuacion>60){
+                    $('#puntos').addClass("badge-success");
+                    $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
+                }
+                
+            }
             JS;
 
             $this->registerJs($script);
@@ -85,10 +93,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <h5>Tu progreso:</h5>
             <p id='feed'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, suscipit velit. Maxime reprehenderit nisi repellendus asperiores nesciunt? Vel quos, eos itaque ad est iste rem deserunt saepe explicabo vero praesentium.</p>
-
             <div class="progress">
-                <div class="progress-bar"></div>
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+            <!-- <div class="progress">
+                <div class="progress-bar"></div>
+            </div> -->
             <br>
             <br>
             <h5>Comparte contenido en otras redes:</h5>
