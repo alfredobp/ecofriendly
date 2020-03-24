@@ -24,4 +24,17 @@ class FormResetPass extends Model
             ['password_repeat', 'compare', 'compareAttribute' => 'contrasena', 'message' => 'Los passwords no coinciden'],
         ];
     }
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+
+            'contrasena' => 'Contraseña',
+            'password_repeat' => 'Repetir contraseña',
+            'verification_code' => 'Código de verificación',
+
+        ];
+    }
 }
