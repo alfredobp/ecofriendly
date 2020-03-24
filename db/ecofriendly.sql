@@ -177,7 +177,7 @@ VALUES
 INSERT INTO
     tipos_eco_retos (tipo)
 VALUES
-    ('deporte', 'estilo de vida', 'naturaleza');
+    ('deporte');
 
 INSERT INTO
     tipos_eco_retos (tipo)
