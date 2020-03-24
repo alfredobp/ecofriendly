@@ -100,46 +100,54 @@ class SiteController extends Controller
         $model2 = Usuarios::findOne(Yii::$app->user->identity->id);
 
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id']) ->where(['!=', 'id', Yii::$app->user->identity->id])
-        ->all();
-
-
-
-
-
-
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->where(['!=', 'id', Yii::$app->user->identity->id])
+            ->all();
+        $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
 
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
+        } else {
+            if (sizeof($retos) == 0) {
+                if ($puntuacion['puntuacion'] < 30) {
+                    $reto = new EcoRetos();
+                    $reto->usuario_id = '1';
+                    $reto->descripcion = 'Caminar más km al día';
+                    $reto->puntaje = '30';
+                    $reto->categoria_id = '1';
+                    $reto->save();
+                    $reto = new EcoRetos();
+                    $reto->usuario_id = '1';
+                    $reto->descripcion = 'Hacer compras más sostenibles';
+                    $reto->puntaje = '10';
+                    $reto->categoria_id = '1';
+                    $reto->save();
+                    $reto = new EcoRetos();
+                    $reto->usuario_id = '1';
+                    $reto->descripcion = 'Compartir coche con otros compañeros';
+                    $reto->puntaje = '15';
+                    $reto->categoria_id = '1';
+                    $reto->save();
+                }
+                if ($puntuacion['puntuacion'] > 30 && $puntuacion['puntuacion'] < 60) {
+                    $reto = new EcoRetos();
+                    $reto->usuario_id = '1';
+                    $reto->descripcion = 'Comprar más alimentos Eco';
+                    $reto->puntaje = '3';
+                    $reto->categoria_id = '1';
+                    $reto->save();
+                }
+                if ($puntuacion['puntuacion'] > 60) {
+                    $reto = new EcoRetos();
+                    $reto->usuario_id = '1';
+                    $reto->descripcion = 'Consumir menos carne';
+                    $reto->puntaje = '3';
+                    $reto->categoria_id = '1';
+                    $reto->save();
+                }
+                return $this->goHome();
+            }
         }
-        $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
 
-        if (sizeof($retos) == 0) {
-            if ($puntuacion['puntuacion'] < 10) {
-                $reto = new EcoRetos();
-                $reto->usuario_id = '1';
-                $reto->descripcion = 'Caminar más km al día';
-                $reto->puntaje = '3';
-                $reto->categoria_id = '1';
-                $reto->save();
-            }
-            if ($puntuacion['puntuacion'] > 10) {
-                $reto = new EcoRetos();
-                $reto->usuario_id = '1';
-                $reto->descripcion = 'Coger el coche menos';
-                $reto->puntaje = '3';
-                $reto->categoria_id = '1';
-                $reto->save();
-            }
-            if ($puntuacion['puntuacion'] > 20) {
-                $reto = new EcoRetos();
-                $reto->usuario_id = '1';
-                $reto->descripcion = 'Comprar en el super';
-                $reto->puntaje = '3';
-                $reto->categoria_id = '1';
-                $reto->save();
-            }
-        }
 
         $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->all();
         return $this->render('index', [

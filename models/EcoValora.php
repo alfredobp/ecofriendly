@@ -85,27 +85,31 @@ class EcoValora extends Model
 
         ];
     }
-
+/**
+ * Función que valora mediante un cuestionario previo la huella ecológica de un usuario.
+ *
+ * @return void
+ */
     public function calculo()
 
     {
         $this->sumatorio1 = $this->desplazamiento2 + $this->desplazamiento3 + $this->desplazamiento4 + $this->desplazamiento5;
 
         if (($this->desplazamiento2 / $this->sumatorio1) > 0.8) {
-            $this->valorBloque1 = 0;
+            $this->valorBloque1 = 5+ $this->desplazamiento1;
         } elseif (($this->desplazamiento3 / $this->sumatorio1) > 0.40) {
-            $this->valorBloque1 = 2;
+            $this->valorBloque1 = 18 +$this->desplazamiento1;
         } elseif (($this->desplazamiento4 / $this->sumatorio1) > 0.40) {
-            $this->valorBloque1 = 1;
+            $this->valorBloque1 = 20+$this->desplazamiento1;
         } elseif (($this->desplazamiento5 / $this->sumatorio1) > 0.40) {
-            $this->valorBloque1 = 0;
+            $this->valorBloque1 = 0+$this->desplazamiento1;
         }
         $this->valorBloque2 = $this->compra1 + $this->compra2 + $this->compra3;
 
         $this->valorBloque3 = $this->estilo1 + $this->estilo2 + $this->estilo3;
 
         $this->puntuacion = $this->valorBloque1 + $this->valorBloque2 + $this->valorBloque3;
-        // static $puntuacion2 = ($this->puntuacion);
+    
         $mi_static = $this->puntuacion;
         return $mi_static;
     }

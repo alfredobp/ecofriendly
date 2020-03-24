@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var puntuacion = $("#puntos"); 
             if (puntuacion[0].innerHTML<20) {
                 puntuacion.addClass("badge-danger");
-            }else if(puntuacion[0].innerHTML>20){
+            }else if(puntuacion[0].innerHTML>20&&puntuacion[0].innerHTML<60){
                 puntuacion.addClass("badge-warning");
             }
             else if(puntuacion[0].innerHTML>60){
@@ -100,8 +100,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
 
-                    
-               <b>Comparte lo que quieras</b> 
+
+                    <b>Comparte lo que quieras</b>
                 </div>
 
                 <div class="card-block">
@@ -142,6 +142,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <br>
+            <div class="card">
+
+                <div class="card-block">
+                    <h4 class="card-title"> #ecofriendly</h4>
+                    <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+
+                        ¿Por donde empezar?
+
+
+                        <div id="list-example" class="col-10 ml-center list-group p-3">
+                            <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha ototrogado y acepta el desafio.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>
+                </div>
+            </div>
+            <br>
+
             <?php for ($i = 0; $i <  sizeof($feeds); $i++) {
             ?>
                 <div class="card">
@@ -239,20 +260,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
 
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '80px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']]; ?>
 
 
                             <?php
 
                             for ($i = 0; $i < sizeof($usuarios); $i++) {
-                                echo Html::beginForm(['seguidores/create'], 'post');
-                                echo   Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                                echo Html::beginForm(['seguidores/create'], 'post')
+                                    . '<div>' .  Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
                                 echo   Html::hiddenInput('id', $usuarios[$i]->id);
                                 echo Html::submitButton(
                                     'Seguir',
-                                    ['class' => 'btn btn-success m- float-right'],
+                                    ['class' => 'btn btn-success btn-sm'],
                                 );
-                                echo    Html::endForm();
+                                echo  '</div>' . Html::endForm();
                             }
 
 
@@ -273,8 +294,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="list-group col-12 ">
                             <?php
                             $optionsBarraUsuarios = ['style' => ['width' => '80px']];
+                            echo Html::beginForm(['seguidores/delete'], 'post');
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-                                echo Html::beginForm(['seguidores/delete'], 'post');
                                 echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
                                 echo   Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
