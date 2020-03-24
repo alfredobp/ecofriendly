@@ -107,10 +107,18 @@ AppAsset::register($this);
         </div>
 
         <footer class="footer">
-            <div class="container">
-                <p class="float-left">&copy; Ecofriendly.es <?= date('Y') ?></p>
+            <div class="container" itemscope itemtype="http://schema.org/Organization">
+
+                <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                <br>
+                <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                <br>
+                <span itemprop="email"> ecofriendlyrrss@gmail.com </span>
+
 
                 <p class="float-right"><?= Yii::powered() ?></p>
+
+
             </div>
         </footer>
 
@@ -118,17 +126,25 @@ AppAsset::register($this);
     <?php  } else {
 
     ?> <div class="container-fluid">
-        
-        <?= Alert::widget() ?>
-        <?= $content ?>
+
+            <?= Alert::widget() ?>
+            <?= $content ?>
         </div>
         </div>
 
         <footer class="footer">
-            <div class="container">
-                <p class="float-left">&copy; Ecofriendly.es <?= date('Y') ?></p>
+            <div class="container float-left" itemscope itemtype="http://schema.org/Organization">
+
+                <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                <br>
+                <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                <br>
+                <span itemprop="email"> ecofriendlyrrss@gmail.com </span>
+
 
                 <p class="float-right"><?= Yii::powered() ?></p>
+
+
             </div>
         </footer>
 
