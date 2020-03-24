@@ -5,9 +5,11 @@
 </p>
 
 
-**Ecofriendly**: en búsqueda de la sostebinilidad.
+**Ecofriendly**: en búsqueda de la sostenibilidad.
 Proyecto Integrado del Ciclo Formativo Desarrollo de Aplicaciones WEB del IES DOÑANA.
 
 Api del proyecto: https://alfredobp.github.io/ecofriendly/
 
-Despliegue en Heroku: https://ecofriendlyrrss.herokuapp.com/
+Despliegue en Heroku: https://ecofriendlysocial.herokuapp.com/
+
+Alumno: Alfredo Barragán Pedrote

@@ -18,24 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 </head>
-<?php
 
-// $js = <<<EOT
-// $.ajax({
-//     url: 'http://newsapi.org/v2/everything?q=bitcoin&from=2020-02-19&sortBy=publishedAt&apiKey=bb2a4ed14b7246f0ac7710f24858de30',
-
-// 	success: function(respuesta) {
-//         console.log(respuesta.articles[0].title);
-//         $('#feed').append('<li>'+respuesta.articles[0].title);
-// 	},
-// 	error: function() {
-//         console.log("No se ha podido obtener la información");
-//     }
-// });
-
-// EOT;
-// $this->registerJs($js);
-?>
 
 <div class="container-fluid">
 
@@ -51,9 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
             <h5>Estado: "<?= $datos['estado'] ?>"
             </h5>
 
-            <h4> ECOpuntuación <span class="badge badge-success"><?= $puntos['puntuacion'] ?></span> </h4>
+            <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
 
+            <?php
+            $script = <<<JS
+            $(function(){
+            var puntuacion = $("#puntos"); 
+            if (puntuacion[0].innerHTML<20) {
+                puntuacion.addClass("badge-danger");
+            }else if(puntuacion[0].innerHTML>20){
+                puntuacion.addClass("badge-warning");
+            }
+            else if(puntuacion[0].innerHTML>60){
+                puntuacion.addClass("badge-success");
+            }
+            
+            });
+            JS;
 
+            $this->registerJs($script);
+
+            ?>
             <?php
             //    echo Editable::widget([
             //     'name' => 'notes',
@@ -99,13 +100,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
 
-                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><i class="fa fa-commenting" aria-hidden="true"></i></a>
-
+                    
+               <b>Comparte lo que quieras</b> 
                 </div>
 
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
-
 
                         <?=
                             Html::beginForm(['/feeds/create'], 'post')
@@ -121,7 +121,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 . Html::fileInput(['imagen'])
                                 . Html::submitButton(
                                     'Publicar',
-
                                     ['class' => 'btn btn-success m- float-right'],
                                 )
                                 . Html::endForm()
@@ -240,12 +239,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
 
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '20px', 'height' => '20px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '80px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-                            <?php for ($i = 0; $i < sizeof($usuarios); $i++) {
-                                // echo '<p>' . $usuarios[$i]->id;
-                                echo '<a href="usuarios/View" class="list-group-item list-group-item-action">' . Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
-                            } ?>
+
+                            <?php
+
+                            for ($i = 0; $i < sizeof($usuarios); $i++) {
+                                echo Html::beginForm(['seguidores/create'], 'post');
+                                echo   Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                                echo   Html::hiddenInput('id', $usuarios[$i]->id);
+                                echo Html::submitButton(
+                                    'Seguir',
+                                    ['class' => 'btn btn-success m- float-right'],
+                                );
+                                echo    Html::endForm();
+                            }
+
+
+                            ?>
+
+
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
@@ -255,10 +268,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="card card-inverse">
                 <div class="card-block">
-                    <h3 class="card-title">Novedades en grupos</h3>
-                    <p class="card-text">.
+                    <h3 class="card-title">Tu red de amigos:</h3>
+                    <p class="card-text">
                         <div class="list-group col-12 ">
-
+                            <?php
+                            $optionsBarraUsuarios = ['style' => ['width' => '80px']];
+                            for ($i = 0; $i < sizeof($seguidores); $i++) {
+                                echo Html::beginForm(['seguidores/delete'], 'post');
+                                echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
+                                echo   Html::hiddenInput('id', $seguidores[$i]->id);
+                                echo Html::submitButton(
+                                    'Dejar de seguir',
+                                    ['class' => 'btn btn-danger btn-sm float-center'],
+                                    ['style' => ['margin' => '100px']],
+                                );
+                                echo    Html::endForm();
+                                echo '<p>';
+                            }
+                            ?>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
                         </div>
                     </p>

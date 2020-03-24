@@ -89,6 +89,13 @@ class UsuariosController extends Controller
         // Else return to rendering a normal view
         return $this->render('view', ['model' => $model]);
     }
+    /**
+     * Valoración de la huella ecológica de un usuario.
+     * Solo se puede configurar si el usuario no tiene previamente una puntuación asignada
+     * asignada por el usuario
+     *
+     * @return void
+     */
     public function actionValorar()
     {
         $model = new EcoValora();
@@ -97,8 +104,7 @@ class UsuariosController extends Controller
         if ($puntuacion2['puntuacion'] > 0) {
             return $this->goHome();
         }
-        // $puntuacion2 = Ranking::findOne('4')->puntuacion;
-        // $puntuacion2 = Ranking::find()->where(['usuariosid' => '12'])->one();
+
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -139,6 +145,11 @@ class UsuariosController extends Controller
             'model' => $this->findModel(Yii::$app->user->id)
         ]);
     }
+    /**
+     * Permite el registro de usuarios en función del modelo de datos
+     *
+     * @return void
+     */
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
@@ -171,6 +182,12 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Función que valida el correo del usuario
+     *
+     * @param [type] $token_acti
+     * @return void
+     */
     public function actionValidarCorreo($token_acti)
     {
         if (($usuario = Usuarios::findOne(['token_acti' => $token_acti])) !== null) {
@@ -214,13 +231,17 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Recuperar la contraseña para aquel usuario que no la recuerde.
+     *
+     * @return void
+     */
     public function actionRecoverpass()
     {
         //Instancia para validar el formulario
         $model = new FormRecoverPass;
 
         //Mensaje que será mostrado al usuario en la vista
-        $msg = null;
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -284,7 +305,7 @@ class UsuariosController extends Controller
                 $model->getErrors();
             }
         }
-        return $this->render('recoverpass', ['model' => $model, 'msg' => $msg]);
+        return $this->render('recoverpass', ['model' => $model]);
     }
 
     public function actionResetpass()

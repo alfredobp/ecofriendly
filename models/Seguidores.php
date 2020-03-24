@@ -15,6 +15,7 @@ use Yii;
  */
 class Seguidores extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
