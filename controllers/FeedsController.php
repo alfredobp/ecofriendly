@@ -6,6 +6,7 @@ use Yii;
 use app\models\Feeds;
 use app\models\FeedsSearch;
 use app\models\ImagenForm;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -31,9 +32,19 @@ class FeedsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['update', 'view', 'index', 'create'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+
+                ],
+            ]
         ];
     }
-
     /**
      * Lists all Feeds models.
      * @return mixed

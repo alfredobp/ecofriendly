@@ -113,7 +113,7 @@ AppAsset::register($this);
                 <br>
                 <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
                 <br>
-                <span itemprop="email"> ecofriendlyrrss@gmail.com </span>
+                <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
 
                 <p class="float-right"><?= Yii::powered() ?></p>
@@ -132,15 +132,15 @@ AppAsset::register($this);
         </div>
         </div>
 
-        <footer class="footer">
-            <div class="container float-left" itemscope itemtype="http://schema.org/Organization">
+         <footer class="footer">
+            <div class="container" itemscope itemtype="http://schema.org/Organization">
 
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
-                <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
-                <br>
-                <span itemprop="email"> ecofriendlyrrss@gmail.com </span>
-
+                <small itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </small>
+           
+                <small itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </small>
+ 
 
                 <p class="float-right"><?= Yii::powered() ?></p>
 

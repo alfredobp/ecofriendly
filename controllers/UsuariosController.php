@@ -27,12 +27,12 @@ class UsuariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['registrar'],
+                'only' => ['update','view','index','valorar'],
                 'rules' => [
                     // allow authenticated users
                     [
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                     // everything else is denied by default
                 ],
@@ -99,7 +99,7 @@ class UsuariosController extends Controller
     public function actionValorar()
     {
         $model = new EcoValora();
-        $puntuacion2 = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+        $puntuacion2 = Ranking::find()->where(['usuariosid' => Yii::$app->user->id])->one();
         //si el usuario ya tine puntuacion asignada, impido que acceda a la acción
         if ($puntuacion2['puntuacion'] > 0) {
             return $this->goHome();
@@ -324,7 +324,7 @@ class UsuariosController extends Controller
         if (empty($session['recover']) || empty($session['id_recover'])) {
 
 
-            return $this->redirect(['index']);
+            return $this->goHome();
         } else {
             $recover = $session['recover'];
             //El valor de esta variable de sesión la cargamos en el campo recover del formulario
