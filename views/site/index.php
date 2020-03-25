@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
 
-                        <?= $form->field($model, 'imagen')->fileInput() ?>
+                        <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
 
 
                         <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="divider"></div>
                     <br>
-                    <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+                   
 
 
                 </div>

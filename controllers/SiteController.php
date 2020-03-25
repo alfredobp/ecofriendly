@@ -147,7 +147,7 @@ class SiteController extends Controller
                 $reto->categoria_id = '1';
                 $reto->save();
             }
-            return $this->goHome();
+            
         }
 
 
