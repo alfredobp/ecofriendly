@@ -1,4 +1,6 @@
 <?php
+
+use kartik\widgets\FileInput;
 use yii\widgets\ActiveForm;
 ?>
 
@@ -7,9 +9,11 @@ use yii\widgets\ActiveForm;
 <br>
 <br>
 <br>
-    <?= $form->field($model, 'imagen')->fileInput() ?>
-
-
-    <button>Enviar</button>
+<?php
+echo $form->field($model, 'imagen')->widget(FileInput::classname(), [
+    'options' => ['accept' => 'image/*'],
+]);
+?>
+<button>Enviar</button>
 
 <?php ActiveForm::end() ?>

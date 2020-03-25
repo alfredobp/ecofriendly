@@ -128,7 +128,7 @@ VALUES
         'demo',
         'demo',
         'alfredobape@gmail.com',
-        crypt('demo', gen_salt('bf', 10)),
+        crypt('demodemo', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
         'estoy cansado'
     );
@@ -149,7 +149,7 @@ VALUES
         'demo2',
         'demo2',
         'alfredo.barra2gan@iesdonana.org',
-        crypt('demo2', gen_salt('bf', 10)),
+        crypt('demo2demo2', gen_salt('bf', 10)),
         'c/ Munilla II 1º ',
         'estoy cansadito'
     );
@@ -169,7 +169,7 @@ VALUES
         'demo1',
         'demo1',
         'alfredo.barragan@iesdonana.org',
-        crypt('demo1', gen_salt('bf', 10)),
+        crypt('demo1demo1', gen_salt('bf', 10)),
         'c/ Munilla II 1º ',
         'estoy motivado'
     );

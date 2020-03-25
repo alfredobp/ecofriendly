@@ -124,21 +124,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         $form = ActiveForm::begin([
                             'action' => ['feeds/create'],
-                            'method' =>'post',
+                            'method' => 'post',
                             'options' =>   ['enctype' => 'multipart/form-data'],
-                            
+
 
                         ]); ?>
 
 
-                      
+
                         <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
-                      
+
                         <?= $form->field($model, 'imagen')->fileInput() ?>
-                   
-               
-                            <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-               
+
+
+                        <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+
 
                         <?php ActiveForm::end(); ?>
 
@@ -158,26 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <br>
-            <div class="card">
 
-                <div class="card-block">
-                    <h4 class="card-title"> #ecofriendly</h4>
-                    <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
-
-                        ¿Por donde empezar?
-
-
-                        <div id="list-example" class="col-10 ml-center list-group p-3">
-                            <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
-                            <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
-                            <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
-                            <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
-                        </div>
-                    </p>
-                    <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>
-                </div>
-            </div>
-            <br>
 
             <?php for ($i = 0; $i <  sizeof($feeds); $i++) {
             ?>
@@ -188,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="card-text"><?= $feeds[$i]->contenido ?></p>
                         <p class="card-text"><small class="text-muted">Publicado: <?= $feeds[$i]->created_at  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <img src=<?='/img/' . $feeds[$i]->id . 'feed' . '.jpg' ?> width="400px">  <alt="Card image cap">
+                    <img class="card-img-bottom"> <img src=<?= '/img/'  . $feeds[$i]->id  . 'feed' .  '.jpg' ?> width="400px">
 
                     <div class="card-footer text-muted">
                         <div class="row">
@@ -265,9 +246,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <br>
-            <?php } ?>
-        </div>
+                <br>
+            <?php } ?> <div class="card">
 
+                <div class="card-block">
+                    <h4 class="card-title"> #ecofriendly</h4>
+                    <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+
+                        ¿Por donde empezar?
+
+
+                        <div id="list-example" class="col-10 ml-center list-group p-3">
+                            <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
+                        </div>
+                    </p>
+                    <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>
+                </div>
+            </div>
+            <br>
+            <br>
+
+        </div>
 
         <div class="col-3">
             <div class="card card-inverse">

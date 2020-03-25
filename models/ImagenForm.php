@@ -35,4 +35,17 @@ class ImagenForm extends Model
             return false;
         }
     }
+    public function upload2($id)
+    {
+        if ($this->validate()) {
+            $filename = $id . '.' . $this->imagen->extension;
+            $origen = Yii::getAlias('@uploads/' . $filename);
+            $destino = Yii::getAlias('@img/' . $filename);
+            $this->imagen->saveAs($origen);
+            rename($origen, $destino);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

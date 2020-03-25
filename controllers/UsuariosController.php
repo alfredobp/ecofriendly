@@ -27,7 +27,7 @@ class UsuariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update','view','index','valorar'],
+                'only' => ['update', 'view', 'index', 'valorar'],
                 'rules' => [
                     // allow authenticated users
                     [
@@ -221,11 +221,13 @@ class UsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente ' . Yii::$app->user->identity->nombre);
+         
             return $this->goHome();
         }
-
-        $model->contrasena = '';
-        $model->password_repeat = '';
+       
+       
+        // $model->contrasena = '';
+        // $model->password_repeat = '';
 
         return $this->render('update', [
             'model' => $model,
@@ -397,7 +399,7 @@ class UsuariosController extends Controller
 
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->upload($id)) {
+            if ($model->upload2($id)) {
                 return $this->redirect('index');
             }
         }
