@@ -17,6 +17,7 @@ use app\models\Ranking;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -147,11 +148,22 @@ class SiteController extends Controller
                 $reto->categoria_id = '1';
                 $reto->save();
             }
-            
         }
 
+        $query = Feeds::find();
 
-        $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])->orderBy(['id' => SORT_DESC])->all();
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+        $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])
+            ->orderBy(['id' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+
+
         return $this->render('index', [
 
             'datos' => Usuarios::findOne(Yii::$app->user->identity->id),
@@ -159,6 +171,7 @@ class SiteController extends Controller
             'retos' => $retos,
             'feeds' => $feed,
             'model' => $model,
+            'pagination' => $pagination,
             'usuarios' => $listaUsuarios,
             'model2' => Usuarios::findOne(Yii::$app->user->identity->id),
             'model3' => $model3,

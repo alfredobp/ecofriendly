@@ -12,6 +12,8 @@ use kartik\widgets\Spinner;
 use yii\helpers\Url;
 use kartik\editable\Editable;
 use kartik\file\FileInput;
+use yii\bootstrap4\LinkPager;
+use yii\data\Pagination;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Ecofriendly';
@@ -146,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="divider"></div>
                     <br>
-                   
+
 
 
                 </div>
@@ -160,16 +162,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
 
 
-            <?php for ($i = 0; $i <  sizeof($feeds); $i++) {
+            <?php foreach ($feeds as $feeds) :
             ?>
                 <div class="card">
 
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . Yii::$app->user->identity->id . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= Yii::$app->user->identity->nombre ?></h4>
-                        <p class="card-text"><?= $feeds[$i]->contenido ?></p>
-                        <p class="card-text"><small class="text-muted">Publicado: <?= $feeds[$i]->created_at  ?></small></p>
+                        <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
+                        <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <img src=<?= '/img/'  . $feeds[$i]->id  . 'feed' .  '.jpg' ?> width="400px">
+                    <img class="card-img-bottom"> <img src=<?= '/img/'  . $feeds->id  . 'feed' .  '.jpg' ?> width="400px">
 
                     <div class="card-footer text-muted">
                         <div class="row">
@@ -247,7 +249,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <br>
                 <br>
-            <?php } ?> <div class="card">
+                <?= LinkPager::widget(['pagination'=>$pagination])?>
+            <?php endforeach; ?> <div class="card">
+                
 
                 <div class="card-block">
                     <h4 class="card-title"> #ecofriendly</h4>
