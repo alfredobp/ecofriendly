@@ -15,6 +15,8 @@ use kartik\file\FileInput;
 use yii\bootstrap4\LinkPager;
 use yii\data\Pagination;
 use yii\widgets\ActiveForm;
+use kartik\dialog\DialogAsset;
+use kartik\widgets\DepDrop;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -44,9 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $script = <<<JS
             $(function(){
+                $("#btn-confirm").on("click", function() {
+                    krajeeDialog.confirm("Are you sure you want to proceed?", function (result) {
+                        if (result) {
+                            alert('Great! You accepted!');
+                        } else {
+                            alert('Oops! You declined!');
+                        }
+                    });
+                });
                 sliderPuntuacion();
                 eliminarIntro();
-                });
+                              });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
                     
@@ -79,21 +90,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ?>
             <?php
-            //    echo Editable::widget([
-            //     'name' => 'notes',
-            //     'asPopover' => true,
-            //     'displayValue' => 'more...',
-            //     'inputType' => Editable::INPUT_TEXTAREA,
-            //     'value' => "Raw denim you...",
-            //     'header' => 'Notes',
-            //     'submitOnEnter' => false,
-            //     'size' => 'lg',
-            //     'options' => ['class' => 'form-control', 'rows' => 5, 'placeholder' => 'Enter notes...']
-            // ]);
+
+            $editable = Editable::begin([
+                'model' => $model2,
+                'attribute' => 'estado',
+                'size' => 'md',
+                'format' => 'button',
+                'data'=> 'json',
+                'editableValueOptions' => ['class' => 'card p-3'],
+              
+            ]);
+            Editable::end();
+
+            $js = <<< JS
+            $("#btn-alert").on("click", function() {
+                krajeeDialog.alert("This is a Krajee Dialog Alert!")
+            });
+            $("#btn-confirm").on("click", function() {
+                krajeeDialog.confirm("Are you sure you want to proceed?", function (result) {
+                    if (result) {
+                        alert('Great! You accepted!');
+                    } else {
+                        alert('Oops! You declined!');
+                    }
+                });
+            });
+            JS;
+            $this->registerJs($js);
+
 
             ?>
             </p>
             </h2>
+
             <h5>Retos Propuestos</h5>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
@@ -105,15 +134,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </ul>
             <br>
+            <button type="button" id="btn-alert" class="btn btn-secondary">Dialog</button>
             <br>
             <h5>Tu progreso:</h5>
             <p id='feed'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, suscipit velit. Maxime reprehenderit nisi repellendus asperiores nesciunt? Vel quos, eos itaque ad est iste rem deserunt saepe explicabo vero praesentium.</p>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <!-- <div class="progress">
-                <div class="progress-bar"></div>
-            </div> -->
+            <?php
+            DialogAsset::register($this);
+            $this->registerJs("$('#your-btn-id').on('click', function(){BootstrapDialog.alert('I want banana!');});");
+            ?>
             <br>
             <br>
             <h5>Comparte contenido en otras redes:</h5>
@@ -205,7 +236,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <br>
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="http://www.paraface.org/wp-content/uploads/2014/10/subir-Fotos-para-perfil-de-facebook.jpg" class="img-fluid rounded" alt="Responsive image rounded" style="width:90px;">
+                                    <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:90px;">
                                 </div>
                                 <div class="col-10">
                                     <textarea class="form-control border-0 sinborde2" id="exampleTextarea" rows="3" placeholder="Comentar Foto" style="resize: none;"></textarea>
@@ -217,9 +248,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="text-muted collapse" id="collapseExample3">
                                 <br>
                                 <div class="row">
-                                    <div class="col-2"><a href="#"><img src="https://www.emoji.co.uk/files/emoji-one/smileys-people-emoji-one/1300-face-with-open-mouth-and-cold-sweat.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                    <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                     <div class="col-2">
-                                        <a href="#"><img src="https://emoji-38d7.kxcdn.com/emojione/twitter-facebook-share/1f912.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
+                                        <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                     </div>
 
                                 </div>

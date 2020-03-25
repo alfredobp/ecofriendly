@@ -64,13 +64,14 @@ class SiteController extends Controller
     }
     public function actionEditableDemo()
     {
-        $model = new Feeds(); // your model can be loaded here
-
+        $model = new Usuarios(); // your model can be loaded here
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        var_dump($model);
+        die;
         // Check if there is an Editable ajax request
         if (isset($_POST['hasEditable'])) {
             // use Yii's response format to encode output as JSON
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
+         
             // read your posted model attributes
             if ($model->load($_POST)) {
                 // read or convert your posted information

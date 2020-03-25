@@ -22,8 +22,8 @@ class Feeds extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     private $_imagen = null;
+    public static $id =1;
 
-   
     public static function tableName()
     {
         return 'feeds';
