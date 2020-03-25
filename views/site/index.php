@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use app\models\Feeds;
+use app\models\Seguidores;
 use kartik\rating\StarRating;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
@@ -10,6 +11,8 @@ use yii\bootstrap\Html;
 use kartik\widgets\Spinner;
 use yii\helpers\Url;
 use kartik\editable\Editable;
+use kartik\file\FileInput;
+use yii\widgets\ActiveForm;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -45,10 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
             function sliderPuntuacion() {
             var puntuacion = $("#puntos")[0].innerHTML; 
                 
-                if (puntuacion[0].innerHTML<20) {
+                if (puntuacion<20) {
                     $('#puntos').addClass("badge-danger");
                     $('.progress-bar').css("width",puntuacion+'%').addClass("bg-danger");
-                }else if(puntuacion[0].innerHTML>20&&puntuacion<60){
+                }else if(puntuacion>20&&puntuacion<60){
                     $('#puntos').addClass("badge-warning");
                     $('.progress-bar').css("width",puntuacion+'%').addClass("bg-warning");
                 }
@@ -117,25 +120,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
 
-                        <?=
-                            Html::beginForm(['/feeds/create'], 'post')
-                                .  Html::textarea(
-                                    'contenido',
-                                    '',
-                                    [
-                                        'placeholder' => 'Publicar #ecofeed',
-                                        'style' => 'width: 32.5rem; height: 80px; resize: none; border:0'
-                                    ],
-                                    ['class' => 'form-control']
-                                )
-                                . Html::fileInput(['imagen'])
-                                . Html::submitButton(
-                                    'Publicar',
-                                    ['class' => 'btn btn-success m- float-right'],
-                                )
-                                . Html::endForm()
+                        <?php
 
-                        ?>
+                        $form = ActiveForm::begin([
+                            'action' => ['feeds/create'],
+                            'method' =>'post',
+                            'options' =>   ['enctype' => 'multipart/form-data'],
+                            
+
+                        ]); ?>
+
+
+                      
+                        <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
+                      
+                        <?= $form->field($model, 'imagen')->fileInput() ?>
+                   
+               
+                            <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+               
+
+                        <?php ActiveForm::end(); ?>
+
 
                     </div>
                     <div class="divider"></div>
@@ -163,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <div id="list-example" class="col-10 ml-center list-group p-3">
                             <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
-                            <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha ototrogado y acepta el desafio.</a>
+                            <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
                             <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
                             <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
                         </div>
@@ -182,7 +188,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="card-text"><?= $feeds[$i]->contenido ?></p>
                         <p class="card-text"><small class="text-muted">Publicado: <?= $feeds[$i]->created_at  ?></small></p>
                     </div>
-                    <img class="card-img-bottom" src="http://www.climbingvenezuela.com/sites/default/files/styles/bigwig_940x460/public/bigwig/ascenso_pico_naiguata_02_0.jpg?itok=mAq5kzme" alt="Card image cap">
+                    <img class="card-img-bottom"> <img src=<?='/img/' . $feeds[$i]->id . 'feed' . '.jpg' ?> width="400px">  <alt="Card image cap">
 
                     <div class="card-footer text-muted">
                         <div class="row">
@@ -296,7 +302,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <br>
-
             <div class="card card-inverse">
                 <div class="card-block">
                     <h3 class="card-title">Tu red de amigos:</h3>
@@ -304,10 +309,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="list-group col-12 ">
                             <?php
                             $optionsBarraUsuarios = ['style' => ['width' => '80px']];
-                            echo Html::beginForm(['seguidores/delete'], 'post');
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
+                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
                                 echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
                                 echo   Html::hiddenInput('id', $seguidores[$i]->id);
+
                                 echo Html::submitButton(
                                     'Dejar de seguir',
                                     ['class' => 'btn btn-danger btn-sm float-center'],

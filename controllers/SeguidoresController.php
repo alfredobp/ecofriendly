@@ -32,7 +32,7 @@ class SeguidoresController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create'],
+                'only' => ['update', 'view', 'index', 'create','delete'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -80,11 +80,10 @@ class SeguidoresController extends Controller
     public function actionCreate()
     {
         $model = new Seguidores();
-        // var_dump($_POST);
+
         $id = $_POST['id'];
         $seguidores = Seguidores::find()->where(['seguidor_id' => $id])->one();
-        var_dump($id);
-        var_dump($seguidores);
+ 
 
 
         if ($seguidores == null && $id != Yii::$app->user->identity->id) {
@@ -127,12 +126,11 @@ class SeguidoresController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete()
+    public function actionDelete($id)
     {
-        $id = $_POST['id'];
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->goHome();
     }
 
     /**

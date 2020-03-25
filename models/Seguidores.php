@@ -30,6 +30,7 @@ class Seguidores extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            
             [['usuario_id', 'seguidor_id'], 'required'],
             [['usuario_id', 'seguidor_id'], 'default', 'value' => null],
             [['usuario_id', 'seguidor_id'], 'integer'],

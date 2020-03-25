@@ -82,25 +82,50 @@ class FeedsController extends Controller
     {
         $model = new Feeds();
         $model2 = new ImagenForm();
-        $contenido = $_POST['contenido'];
-        var_dump($_POST);
+        $id = '';
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-        //CAMBIAR
-        if (true) {
-
-            $model2->imagen = UploadedFile::getInstance($model, 'imagen');
-            // if ($model2->upload($model->id)) {
-            //     return $this->redirect('index');
-            // }
-            $feed = new Feeds();
-            $feed->usuariosid = Yii::$app->user->identity->id;
-            $feed->contenido = $contenido;
-            $feed->created_at = date('Y-m-d H:i:s');
-            $feed->save();
-            return $this->redirect(['site/index', 'id' => $model->id]);
+            $model->usuariosid = Yii::$app->user->id;
+            $model->contenido = $model->contenido;
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->save();
+            $id = $model->id;
         }
+
+        if (Yii::$app->request->isPost) {
+
+        
+            $model2->imagen = UploadedFile::getInstance($model2, 'imagen');
+            if ($model2->upload($id)) {
+                return $this->redirect('index');
+            }
+        }
+
+        return $this->render('imagen', [
+            'model' => $model2,
+            'id'=>$id,
+       
+        ]);
+
+        return $this->redirect(['site/index', 'id' => $model->id]);
     }
+    // public function actionImagen()
+    // {
+    //     $model = new ImagenForm();
+    //     $model2 = new Feeds();
+
+    //     if (Yii::$app->request->isPost) {
+    //         $model->imagen = UploadedFile::getInstance($model, 'imagen');
+    //         if ($model->upload('feed')) {
+    //             return $this->redirect('index');
+    //         }
+    //     }
+
+    //     return $this->render('imagen', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Updates an existing Feeds model.
@@ -133,7 +158,7 @@ class FeedsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->goHome();
     }
     /**
      * Finds the Feeds model based on its primary key value.

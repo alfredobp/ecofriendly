@@ -22,6 +22,7 @@ class Feeds extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     private $_imagen = null;
+
    
     public static function tableName()
     {
@@ -35,7 +36,7 @@ class Feeds extends \yii\db\ActiveRecord
     {
         return [
             [['contenido'], 'required'],
-            [['usuariosid'], 'default', 'value' => null],
+            [['usuariosid'], 'default', 'value' => 2],
             [['contenido'], 'safe'],
             [['usuariosid'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],

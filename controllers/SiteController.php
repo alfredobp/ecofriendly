@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\EcoRetos;
 use app\models\EcoValora;
 use app\models\Feeds;
+use app\models\ImagenForm;
 use app\models\Ranking;
 use app\models\Seguidores;
 use app\models\Usuarios;
@@ -98,6 +99,7 @@ class SiteController extends Controller
     {
         $model = new Feeds();
         $model2 = Usuarios::findOne(Yii::$app->user->identity->id);
+        $model3= new ImagenForm();
 
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
         $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->where(['!=', 'id', Yii::$app->user->identity->id])
@@ -159,6 +161,7 @@ class SiteController extends Controller
             'model' => $model,
             'usuarios' => $listaUsuarios,
             'model2' => Usuarios::findOne(Yii::$app->user->identity->id),
+            'model3'=>$model3,
             'seguidores' => Seguidores::find()
                 ->where(['usuario_id' => Yii::$app->user->identity->id])
                 ->andWhere(['!=', 'seguidor_id', Yii::$app->user->identity->id])
