@@ -44,25 +44,35 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $script = <<<JS
             $(function(){
-            sliderPuntuacion();
+                sliderPuntuacion();
+                eliminarIntro();
+                });
+                function sliderPuntuacion() {
+                    var puntuacion = $("#puntos")[0].innerHTML; 
+                    
+                    if (puntuacion<20) {
+                        $('#puntos').addClass("badge-danger");
+                        $('.progress-bar').css("width",puntuacion+'%').addClass("bg-danger");
+                    }else if(puntuacion>20&&puntuacion<60){
+                        $('#puntos').addClass("badge-warning");
+                        $('.progress-bar').css("width",puntuacion+'%').addClass("bg-warning");
+                    }
+                    else if(puntuacion>60){
+                        $('#puntos').addClass("badge-success");
+                        $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
+                    }
+                }
+                    
+                 function eliminarIntro() {
+                        var numeros=$('.feed').toArray().length;
+                        //  console.log($('.feed').toArray().length);
+                        //  console.log(numeros);
+                         if(numeros>0){
+                             $('.intro').empty();
+                                             }
 
-            });
-            function sliderPuntuacion() {
-            var puntuacion = $("#puntos")[0].innerHTML; 
-                
-                if (puntuacion<20) {
-                    $('#puntos').addClass("badge-danger");
-                    $('.progress-bar').css("width",puntuacion+'%').addClass("bg-danger");
-                }else if(puntuacion>20&&puntuacion<60){
-                    $('#puntos').addClass("badge-warning");
-                    $('.progress-bar').css("width",puntuacion+'%').addClass("bg-warning");
+                    
                 }
-                else if(puntuacion>60){
-                    $('#puntos').addClass("badge-success");
-                    $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
-                }
-                
-            }
             JS;
 
             $this->registerJs($script);
@@ -164,7 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php foreach ($feeds as $feeds) :
             ?>
-                <div class="card">
+                <div class="card feed">
 
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . Yii::$app->user->identity->id . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= Yii::$app->user->identity->nombre ?></h4>
@@ -249,11 +259,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <br>
                 <br>
-                <?= LinkPager::widget(['pagination'=>$pagination])?>
-            <?php endforeach; ?> <div class="card">
-                
+            <?php endforeach; ?>
+            <?= LinkPager::widget(['pagination' => $pagination]) ?>
 
-                <div class="card-block">
+            <div class="card">
+
+
+                <div class="card-block intro">
                     <h4 class="card-title"> #ecofriendly</h4>
                     <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
 
