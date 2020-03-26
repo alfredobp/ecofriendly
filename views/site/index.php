@@ -97,37 +97,8 @@ $this->params['breadcrumbs'][] = $this->title;
             $this->registerJs($script);
 
             ?>
-            <?php
-
-            $editable = Editable::begin([
-                'model' => $model2,
-                'attribute' => 'estado',
-                'size' => 'md',
-                'format' => 'button',
-                'data' => 'json',
-                'editableValueOptions' => ['class' => 'card p-3'],
-
-            ]);
-            Editable::end();
-
-            $js = <<< JS
-            $("#btn-alert").on("click", function() {
-                krajeeDialog.alert("This is a Krajee Dialog Alert!")
-            });
-            $("#btn-confirm").on("click", function() {
-                krajeeDialog.confirm("Are you sure you want to proceed?", function (result) {
-                    if (result) {
-                        alert('Great! You accepted!');
-                    } else {
-                        alert('Oops! You declined!');
-                    }
-                });
-            });
-            JS;
-            $this->registerJs($js);
 
 
-            ?>
             </p>
             </h2>
 
@@ -149,10 +120,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <?php
-            DialogAsset::register($this);
-            $this->registerJs("$('#your-btn-id').on('click', function(){BootstrapDialog.alert('I want banana!');});");
-            ?>
             <br>
             <br>
             <h5>Comparte contenido en otras redes:</h5>
@@ -164,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
 
-                   
+
                     <b>Comparte lo que quieras</b>
                 </div>
 
