@@ -33,8 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row ">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+            <?php
 
-            <?= Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) ?>
+            file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
+            ?>
+            <?= Html::img($imagenUsuario, $options) ?>
+            <?php
+
+            ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
@@ -96,9 +103,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'estado',
                 'size' => 'md',
                 'format' => 'button',
-                'data'=> 'json',
+                'data' => 'json',
                 'editableValueOptions' => ['class' => 'card p-3'],
-              
+
             ]);
             Editable::end();
 
@@ -156,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
 
-
+                    <?php Yii::$app->clientScript->registerCoreScript(‘jquery . ui’); ?>
                     <b>Comparte lo que quieras</b>
                 </div>
 
@@ -205,6 +212,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php foreach ($feeds as $feeds) :
             ?>
+                <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds->id . 'feed' . '.jpg') : '';
+                ?>
                 <div class="card feed">
 
                     <div class="card-block">
@@ -212,8 +221,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
                         <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <img src=<?= '/img/'  . $feeds->id  . 'feed' .  '.jpg' ?> width="400px">
-
+                    <img class="card-img-bottom"> <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img src="/img/' . $feeds->id  . 'feed.jpg" width=200px >' :  '' ?>
                     <div class="card-footer text-muted">
                         <div class="row">
 
@@ -325,14 +333,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
 
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '100px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']]; ?>
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']]; ?>
 
 
                             <?php
 
                             for ($i = 0; $i < sizeof($usuarios); $i++) {
+
+                                file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
                                 echo Html::beginForm(['seguidores/create'], 'post')
-                                    . '<div>' .  Html::img('/img/' . $usuarios[$i]->id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                                    . '<div>' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
                                 echo   Html::hiddenInput('id', $usuarios[$i]->id);
                                 echo Html::submitButton(
                                     'Seguir',
@@ -357,10 +368,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">
                         <div class="list-group col-12 ">
                             <?php
-                            $optionsBarraUsuarios = ['style' => ['width' => '80px']];
+
+                            $file =  Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
+                            $exists = file_exists($file);
+                            $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg');
+                            $urlImagenBasica = Url::to('@web/img/basica.jpg');
+
+                            if (!$exists) {
+                                $imagenUsuario = $urlImagenBasica;
+                            }
+
+                            $optionsBarraUsuarios = ['style' => ['width' => '60px']];
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
+
+                                file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
-                                echo   Html::img('/img/' . $seguidores[$i]->seguidor_id . '.jpg', $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
+                                echo   Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
                                 echo   Html::hiddenInput('id', $seguidores[$i]->id);
 
                                 echo Html::submitButton(
