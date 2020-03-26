@@ -15,7 +15,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+
 
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
@@ -81,7 +81,7 @@ AppAsset::register($this);
                     ['label' => 'Inicio', 'url' => ['/site/index']],
                     ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                    ['label' => 'Notificaciones', 'url' => ['/taller']],
+                    ['label' => 'Notificaciones', 'url' => ['/']],
                     Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                         . Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
@@ -132,15 +132,15 @@ AppAsset::register($this);
         </div>
         </div>
 
-         <footer class="footer">
+        <footer class="footer">
             <div class="container" itemscope itemtype="http://schema.org/Organization">
 
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
                 <small itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </small>
-           
+
                 <small itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </small>
- 
+
 
                 <p class="float-right"><?= Yii::powered() ?></p>
 

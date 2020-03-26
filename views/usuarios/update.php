@@ -8,13 +8,57 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Button;
 use yii\bootstrap4\ButtonDropdown;
+use yii\bootstrap4\Tabs;
 use yii\bootstrap\Button as BootstrapButton;
+use yii\bootstrap\Tabs as BootstrapTabs;
 use yii\grid\GridView;
 use yii\helpers\Url;
 
 $this->title = 'Actualizar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+
+echo Tabs::widget([
+    'items' => [
+        [
+            'label' => 'Perfil',
+            'content' => 'lorem akal aldsjñassdf sñdjsñdña',
+            'active' => true
+        ],
+        [
+            'label' => 'Actividad',
+            'content' => 'Anim pariatur cliche...',
+            'headerOptions' => [''],
+            'options' => ['id' => 'myveryownID'],
+            'url' => 'site/index',
+        ],
+        [
+            'label' => 'Cambiar contraseña',
+            'url' => 'http://www.example.com',
+        ],
+        [
+            'label' => 'Seguidores',
+            'items' => [
+                [
+                    'label' => 'DropdownA',
+                    'content' => 'DropdownA, Anim pariatur cliche...',
+                ],
+                [
+                    'label' => 'DropdownB',
+                    'content' => 'DropdownB, Anim pariatur cliche...',
+                ],
+                [
+                    'label' => 'External Link',
+                    'url' => 'http://www.example.com',
+                ],
+            ],
+        ],
+    ],
+]);;
+
+?>
+
 <div class="usuarios-actualizar">
     <h3>Bienvenido a su perfil personal de ecofriendly: <?= Yii::$app->user->identity->username ?></h3>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -29,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $exists = file_exists($file);
             $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
             $urlImagenBasica = Url::to('@web/img/basica.jpg');
-         
+
             if (!$exists) {
                 $imagenUsuario = $urlImagenBasica;
             }
@@ -49,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
-        'method'=>'post',
+        'method' => 'post',
         'layout' => 'horizontal',
         'fieldConfig' => [
             'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],

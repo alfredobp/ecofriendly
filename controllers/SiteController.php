@@ -71,7 +71,7 @@ class SiteController extends Controller
         // Check if there is an Editable ajax request
         if (isset($_POST['hasEditable'])) {
             // use Yii's response format to encode output as JSON
-         
+
             // read your posted model attributes
             if ($model->load($_POST)) {
                 // read or convert your posted information
@@ -112,7 +112,7 @@ class SiteController extends Controller
             return $this->redirect(['usuarios/valorar']);
         }
 
-        if (sizeof($retos) == 0) {
+        if (count($retos) == 0) {
             if ($puntuacion['puntuacion'] < 30) {
                 $reto = new EcoRetos();
                 $reto->usuario_id = '1';
@@ -151,19 +151,17 @@ class SiteController extends Controller
             }
         }
 
-        $query = Feeds::find();
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
-            'totalCount' => $query->count(),
+            'totalCount' => 11,
         ]);
-        $feed = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id])
-            ->orderBy(['id' => SORT_DESC])
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
+
+        $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=1) or usuariosid=1 order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
+
+        $feed = Feeds::findBySql($sql)
+
             ->all();
-
-
 
         return $this->render('index', [
 
