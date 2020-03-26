@@ -17,6 +17,7 @@ use yii\data\Pagination;
 use yii\widgets\ActiveForm;
 use kartik\dialog\DialogAsset;
 use kartik\widgets\DepDrop;
+use yii\bootstrap4\Html as Bootstrap4Html;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
             ?>
-            <?= Html::img($imagenUsuario, $options) ?>
+            <?= Bootstrap4Html::img($imagenUsuario, $options) ?>
             <?php
 
             ?>
@@ -163,7 +164,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
 
-                    <?php Yii::$app->clientScript->registerCoreScript(‘jquery . ui’); ?>
+                   
                     <b>Comparte lo que quieras</b>
                 </div>
 
