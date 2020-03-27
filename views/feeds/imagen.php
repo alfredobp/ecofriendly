@@ -2,7 +2,12 @@
 
 use kartik\widgets\FileInput;
 use yii\widgets\ActiveForm;
+
+$this->title = 'Ecofriendly';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+?>
+
 
 <?php $form = ActiveForm::begin() ?>
 <br>

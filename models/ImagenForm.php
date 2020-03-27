@@ -18,7 +18,6 @@ class ImagenForm extends Model
     }
 
     public function upload($id)
-
     {
      
         if ($this->validate()) {

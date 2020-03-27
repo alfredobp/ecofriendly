@@ -8,6 +8,7 @@ use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html as Bootstrap4Html;
+use yii\helpers\Html as HelpersHtml;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -107,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]); ?>
                         <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
                         <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
-                        <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                         <?php ActiveForm::end(); ?>
                     </div>
                     <div class="divider"></div>
@@ -169,7 +170,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="col-2">
                                         <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                     </div>
-
                                 </div>
                                 <br>
                                 <div class="row">

@@ -85,7 +85,6 @@ class FeedsController extends Controller
         $id = '';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             $model->usuariosid = Yii::$app->user->id;
             $model->contenido = $model->contenido;
             $model->created_at = date('Y-m-d H:i:s');
@@ -94,8 +93,6 @@ class FeedsController extends Controller
         }
 
         if (Yii::$app->request->isPost) {
-
-        
             $model2->imagen = UploadedFile::getInstance($model2, 'imagen');
             if ($model2->upload($id)) {
                 return $this->redirect('index');
@@ -104,8 +101,8 @@ class FeedsController extends Controller
 
         return $this->render('imagen', [
             'model' => $model2,
-            'id'=>$id,
-       
+            'id' => $id,
+
         ]);
 
         return $this->redirect(['site/index', 'id' => $model->id]);
@@ -137,11 +134,9 @@ class FeedsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);

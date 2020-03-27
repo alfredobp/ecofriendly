@@ -121,7 +121,7 @@ class SiteController extends Controller
                 $reto->save();
             }
         }
-        $sql2 = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=1) or usuariosid=1';
+        $sql2 = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id;
         $feedCount = Feeds::findBySql($sql2);
 
         $pagination = new Pagination([
@@ -130,7 +130,7 @@ class SiteController extends Controller
         ]);
 
 
-        $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=1) or usuariosid=1 order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
+        $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
 
         $feed = Feeds::findBySql($sql)
 

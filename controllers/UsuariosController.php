@@ -60,35 +60,7 @@ class UsuariosController extends Controller
             'estado' => $this->estados(),
         ]);
     }
-    public function actionEditableDemo()
-    {
-        $model = new Usuarios(); // your model can be loaded here
 
-        // Check if there is an Editable ajax request
-        if (isset($_POST['hasEditable'])) {
-            // use Yii's response format to encode output as JSON
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-            // read your posted model attributes
-            if ($model->load($_POST)) {
-                // read or convert your posted information
-                $value = $model->estado;
-
-                // return JSON encoded output in the below format
-                return ['output' => $value, 'message' => ''];
-
-                // alternatively you can return a validation error
-                // return ['output'=>'', 'message'=>'Validation error'];
-            }
-            // else if nothing to do always return an empty JSON encoded output
-            else {
-                return ['output' => '', 'message' => ''];
-            }
-        }
-
-        // Else return to rendering a normal view
-        return $this->render('view', ['model' => $model]);
-    }
     /**
      * Valoración de la huella ecológica de un usuario.
      * Solo se puede configurar si el usuario no tiene previamente una puntuación asignada
@@ -104,9 +76,6 @@ class UsuariosController extends Controller
         if ($puntuacion2['puntuacion'] > 0) {
             return $this->goHome();
         }
-
-
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $ranking = new Ranking();
             $ranking->usuariosid = Yii::$app->user->identity->id;
@@ -154,10 +123,7 @@ class UsuariosController extends Controller
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
-
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -167,11 +133,13 @@ class UsuariosController extends Controller
                 ->setFrom(Yii::$app->params['smtpUsername'])
                 ->setTo($model->email)
                 ->setSubject('Validar cuenta ')
-                ->setHtmlBody(Html::a(
-                    'Haz click aquí para confirmar esta dirección de
+                ->setHtmlBody(
+                    Html::a(
+                        'Haz click aquí para confirmar esta dirección de
                                    correo electrónico',
-                    Url::to(['usuarios/validar-correo', 'token_acti' => $model->token_acti], true)
-                ),)
+                        Url::to(['usuarios/validar-correo', 'token_acti' => $model->token_acti], true)
+                    ),
+                )
                 ->send();
 
 
@@ -221,11 +189,11 @@ class UsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente ' . Yii::$app->user->identity->nombre);
-         
+
             return $this->goHome();
         }
-       
-       
+
+
         // $model->contrasena = '';
         // $model->password_repeat = '';
 
@@ -324,8 +292,6 @@ class UsuariosController extends Controller
 
         //Si no existen las variables de sesión requeridas lo expulsamos a la página de inicio
         if (empty($session['recover']) || empty($session['id_recover'])) {
-
-
             return $this->goHome();
         } else {
             $recover = $session['recover'];
@@ -340,13 +306,11 @@ class UsuariosController extends Controller
         //Si el formulario es enviado para resetear el password
 
         if ($model->load(Yii::$app->request->post())) {
-
-
             if ($model->validate()) {
                 //Si el valor de la variable de sesión recover es correcta
 
                 if ($recover == $model->recover) {
-                    //Preparamos la consulta para resetear el password, requerimos el email, el id 
+                    //Preparamos la consulta para resetear el password, requerimos el email, el id
                     //del usuario que fue guardado en una variable de session y el código de verificación
                     //que fue enviado en el correo al usuario y que fue guardado en el registro
                     $table = Usuarios::findOne(['email' => $model->email, 'id' => $id_recover]);
@@ -370,13 +334,9 @@ class UsuariosController extends Controller
                         $model->verification_code = null;
 
                         Yii::$app->session->setFlash('success', 'La contraseña se ha modificado correctamente ');
-                        var_dump(Yii::$app->request->post());
-
                         return $this->goHome();
                     } else {
                         Yii::$app->session->setFlash('error', 'Se ha producido un error. Intentelo de nuevo más tarde.');
-                        var_dump(Yii::$app->request->post());
-
                         return $this->goHome();
                     }
                 }
