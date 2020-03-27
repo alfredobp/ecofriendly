@@ -62,36 +62,7 @@ class SiteController extends Controller
             ],
         ];
     }
-    public function actionEditableDemo()
-    {
-        $model = new Usuarios(); // your model can be loaded here
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        var_dump($model);
-        die;
-        // Check if there is an Editable ajax request
-        if (isset($_POST['hasEditable'])) {
-            // use Yii's response format to encode output as JSON
-
-            // read your posted model attributes
-            if ($model->load($_POST)) {
-                // read or convert your posted information
-                $value = $model->estado;
-
-                // return JSON encoded output in the below format
-                return ['output' => $value, 'message' => ''];
-
-                // alternatively you can return a validation error
-                // return ['output'=>'', 'message'=>'Validation error'];
-            }
-            // else if nothing to do always return an empty JSON encoded output
-            else {
-                return ['output' => '', 'message' => ''];
-            }
-        }
-
-        // Else return to rendering a normal view
-        return $this->render('view', ['model' => $model]);
-    }
+   
     /**
      * Displays homepage.
      *
@@ -150,12 +121,14 @@ class SiteController extends Controller
                 $reto->save();
             }
         }
-
+        $sql2 = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=1) or usuariosid=1';
+        $feedCount = Feeds::findBySql($sql2);
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
-            'totalCount' => 11,
+            'totalCount' => $feedCount->count(),
         ]);
+
 
         $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=1) or usuariosid=1 order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
 

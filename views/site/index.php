@@ -2,55 +2,29 @@
 
 /* @var $this yii\web\View */
 
-use app\models\Feeds;
-use app\models\Seguidores;
-use kartik\rating\StarRating;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+
 use yii\bootstrap\Html;
-use kartik\widgets\Spinner;
 use yii\helpers\Url;
-use kartik\editable\Editable;
-use kartik\file\FileInput;
 use yii\bootstrap4\LinkPager;
-use yii\data\Pagination;
 use yii\widgets\ActiveForm;
-use kartik\dialog\DialogAsset;
-use kartik\widgets\DepDrop;
 use yii\bootstrap4\Html as Bootstrap4Html;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-</head>
-
-
 <div class="container-fluid">
-
-
     <div class="row ">
         <div class="col-3">
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
             <?php
-
             file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-
             ?>
             <?= Bootstrap4Html::img($imagenUsuario, $options) ?>
-            <?php
-
-            ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
-            <h5>Estado: "<?= $datos['estado'] ?>"
-            </h5>
-
+            <h5>Estado: "<?= $datos['estado'] ?>"</h5>
             <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
-
             <?php
             $script = <<<JS
             $(function(){
@@ -84,24 +58,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     
                  function eliminarIntro() {
                         var numeros=$('.feed').toArray().length;
-                        //  console.log($('.feed').toArray().length);
-                        //  console.log(numeros);
-                         if(numeros>0){
+                        if(numeros>0){
                              $('.intro').empty();
-                                             }
-
-                    
+                                             }                   
                 }
             JS;
 
             $this->registerJs($script);
 
             ?>
-
-
-            </p>
-            </h2>
-
             <h5>Retos Propuestos</h5>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
@@ -109,7 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo '<li> <a href="index.php?r=ecoretos/view&id=' . $retos[$i]->id . '">'  . $retos[$i]->descripcion . '</a> ' .  '<span class="badge badge-primary">   ' . $retos[$i]->puntaje  .
                         '</span></h1>' . '</li>';
                 }
-
                 ?>
             </ul>
             <br>
@@ -130,54 +94,31 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-
-
                     <b>Comparte lo que quieras</b>
                 </div>
-
                 <div class="card-block">
                     <div class="tab-pane active" id="home" role="tabpanel">
 
                         <?php
-
                         $form = ActiveForm::begin([
                             'action' => ['feeds/create'],
                             'method' => 'post',
                             'options' =>   ['enctype' => 'multipart/form-data'],
-
-
                         ]); ?>
-
-
-
                         <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
-
                         <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
-
-
                         <?= Html::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-
-
                         <?php ActiveForm::end(); ?>
-
-
                     </div>
                     <div class="divider"></div>
                     <br>
-
-
-
                 </div>
 
                 <div class="card-footer text-muted collapse" id="collapseExample">
-
                     <br>
-
                 </div>
             </div>
             <br>
-
-
             <?php foreach ($feeds as $feeds) :
             ?>
                 <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds->id . 'feed' . '.jpg') : '';
@@ -268,10 +209,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <br>
             <?php endforeach; ?>
             <?= LinkPager::widget(['pagination' => $pagination]) ?>
-
             <div class="card">
-
-
                 <div class="card-block intro">
                     <h4 class="card-title"> #ecofriendly</h4>
                     <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
@@ -291,9 +229,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <br>
             <br>
-
         </div>
-
         <div class="col-3">
             <div class="card card-inverse">
                 <div class="card-block">
@@ -301,13 +237,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
 
-                            <?php $optionsBarraUsuarios = ['style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']]; ?>
-
-
-                            <?php
+                            <?php $optionsBarraUsuarios = ['style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']];
 
                             for ($i = 0; $i < sizeof($usuarios); $i++) {
-
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
                                 echo Html::beginForm(['seguidores/create'], 'post')
@@ -319,11 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 );
                                 echo  '</div>' . Html::endForm();
                             }
-
-
                             ?>
-
-
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
@@ -336,25 +264,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p class="card-text">
                         <div class="list-group col-12 ">
                             <?php
-
                             $file =  Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
                             $exists = file_exists($file);
                             $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg');
                             $urlImagenBasica = Url::to('@web/img/basica.jpg');
-
                             if (!$exists) {
                                 $imagenUsuario = $urlImagenBasica;
                             }
-
                             $optionsBarraUsuarios = ['style' => ['width' => '60px']];
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
-                                echo   Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
-                                echo   Html::hiddenInput('id', $seguidores[$i]->id);
-
+                                echo Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
+                                echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     'Dejar de seguir',
                                     ['class' => 'btn btn-danger btn-sm float-center'],
@@ -370,15 +293,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-
 </div>
-
-
 </body>
 
 </html>
