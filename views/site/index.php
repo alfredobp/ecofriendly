@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php
 
-                
+
                 for ($i = 0; $i <  sizeof($retosListado); $i++) {
 
                     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><span class="badge badge-primary">'  .  $retosListado[$i]->descripcion  .
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
                         <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img src="/img/' . $feeds->id  . 'feed.jpg" width=200px >' :  '' ?>
+                    <img class="card-img-bottom"> <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img src="/img/' . $feeds->id  . 'feed.jpg" width=450px margin=30px >' :  '' ?>
                     <div class="card-footer text-muted">
                         <div class="row">
 
@@ -230,7 +230,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-3">
             <div class="card card-inverse">
                 <div class="card-block">
-                    <h3 class="card-title">Encuentra a mas usuarios</h3>
+                    <h4 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Encuentra a más usuarios</h4>
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12 ">
 
@@ -240,11 +240,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
                                 echo Html::beginForm(['seguidores/create'], 'post')
-                                    . '<div>' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre . '</button>' . '<br>';
+                                    . '<div style= "margin-left:10px">' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . $usuarios[$i]->nombre;
                                 echo   Html::hiddenInput('id', $usuarios[$i]->id);
                                 echo Html::submitButton(
-                                    'Seguir',
-                                    ['class' => 'btn btn-success btn-sm'],
+                                    '<span class="glyphicon glyphicon-plus btn-xs "></span>',
+                                    ['class' => 'btn btn-success btn-sm ml-2'],
                                 );
                                 echo  '</div>' . Html::endForm();
                             }
@@ -257,7 +257,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <div class="card card-inverse">
                 <div class="card-block">
-                    <h3 class="card-title">Tu red de amigos:</h3>
+                    <h4 class="card-title">Tu red de amigos:</h4>
                     <p class="card-text">
                         <div class="list-group col-12 ">
                             <?php
@@ -268,22 +268,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (!$exists) {
                                 $imagenUsuario = $urlImagenBasica;
                             }
-                            $optionsBarraUsuarios = ['style' => ['width' => '60px']];
+                            
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
-                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
-                                echo Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ' . '</button>' . '<br>';
+                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
+                                    . '<div style= "margin-left:10px">' . Html::img($imagenUsuario, $optionsBarraUsuarios) . 'Usuario: ';
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
-                                    'Dejar de seguir',
-                                    ['class' => 'btn btn-danger btn-sm float-center'],
-                                    ['style' => ['margin' => '100px']],
+                                    '<span class="glyphicon glyphicon-minus"></span>',
+                                    ['class' => 'btn btn-danger btn-sm ml-2'],
                                 );
                                 echo    Html::endForm();
-                                echo '<p>';
                             }
                             ?>
+                            <br>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
                         </div>
                     </p>
