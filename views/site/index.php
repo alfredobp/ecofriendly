@@ -62,12 +62,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <h5>Retos Propuestos</h5>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
-                <?php 
-                
-                // for ($i = 0; $i <  sizeof($retos); $i++) {
-                //     echo '<li> <a href="index.php?r=ecoretos/view&id=' . $retos[$i]->id . '">'  . $retos[$i]->descripcion . '</a> ' .  '<span class="badge badge-primary">   ' . $retos[$i]->puntaje  .
-                //         '</span></h1>' . '</li>';
-                // }
+
+
+                <?php
+
+
+                for ($i = 0; $i <  sizeof($retosListado); $i++) {
+
+                    echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><span class="badge badge-primary">'  .  $retosListado[$i]->descripcion  .
+                        '</span><a/></li>';
+                }
+
                 ?>
             </ul>
             <br>
@@ -119,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card feed">
 
                     <div class="card-block">
-                        <h4 class="card-title"><img src=<?= '/img/' . $feeds->usuariosid . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?=  $feeds->usuariosid  ?></h4>
+                        <h4 class="card-title"><img src=<?= '/img/' . $feeds->usuariosid . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= $feeds->usuariosid  ?></h4>
                         <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
                         <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
                     </div>
