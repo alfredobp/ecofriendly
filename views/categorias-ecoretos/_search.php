@@ -4,26 +4,25 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\FeedSearch */
+/* @var $model app\models\CategoriasEcoretosSearch */
 /* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
-<div class="feeds-search">
+<div class="categorias-ecoretos-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'usuariosid') ?>
+    <?= $form->field($model, 'cat_nombre') ?>
 
-    <?= $form->field($model, 'contenido') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?= $form->field($model, 'updated_at') ?>
+    <?= $form->field($model, 'categoria_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

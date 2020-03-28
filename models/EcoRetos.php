@@ -9,11 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property int|null $usuario_id
- * @property string|null $descripcion
+ * @property string $nombrereto
  * @property int|null $categoria_id
- * @property int|null $puntaje
  *
- * @property TiposEcoRetos $categoria
+ * @property CategoriasEcoretos $categoria
  * @property Usuarios $usuario
  */
 class EcoRetos extends \yii\db\ActiveRecord
@@ -32,10 +31,12 @@ class EcoRetos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuario_id', 'categoria_id', 'puntaje'], 'default', 'value' => null],
-            [['usuario_id', 'categoria_id', 'puntaje'], 'integer'],
-            [['descripcion'], 'string', 'max' => 255],
-            [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposEcoRetos::className(), 'targetAttribute' => ['categoria_id' => 'id']],
+            [['usuario_id', 'categoria_id'], 'default', 'value' => null],
+            [['usuario_id', 'categoria_id'], 'integer'],
+            [['nombrereto'], 'required'],
+            [['nombrereto'], 'string', 'max' => 255],
+            [['categoria_id'], 'unique'],
+            [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriasEcoretos::className(), 'targetAttribute' => ['categoria_id' => 'categoria_id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
     }
@@ -48,9 +49,8 @@ class EcoRetos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
-            'descripcion' => 'Descripcion',
+            'nombrereto' => 'Nombrereto',
             'categoria_id' => 'Categoria ID',
-            'puntaje' => 'Puntaje',
         ];
     }
 
@@ -61,7 +61,7 @@ class EcoRetos extends \yii\db\ActiveRecord
      */
     public function getCategoria()
     {
-        return $this->hasOne(TiposEcoRetos::className(), ['id' => 'categoria_id'])->inverseOf('ecoRetos');
+        return $this->hasOne(CategoriasEcoretos::className(), ['categoria_id' => 'categoria_id'])->inverseOf('ecoRetos');
     }
 
     /**
@@ -72,12 +72,5 @@ class EcoRetos extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('ecoRetos');
-    }
-
-    public function otorgarReto()
-    {
-        $puntuacion = Ranking::find()->select('puntuacion')->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-       
-        return $puntuacion;
     }
 }

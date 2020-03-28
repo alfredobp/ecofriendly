@@ -3,14 +3,14 @@
 use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Feeds */
+/* @var $model app\models\AccionesRetos */
 
-$this->title = 'Update Feeds: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Feeds', 'url' => ['index']];
+$this->title = 'Update Acciones Retos: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Acciones Retos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="feeds-update">
+<div class="acciones-retos-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

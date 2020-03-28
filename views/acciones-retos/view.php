@@ -4,14 +4,14 @@ use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\EcoRetos */
+/* @var $model app\models\AccionesRetos */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Eco Retos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Acciones Retos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="eco-retos-view">
+<div class="acciones-retos-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,9 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'usuario_id',
-            'nombrereto',
-            'categoria_id',
+            'titulo',
+            'descripcion',
+            'cat_id',
+            'puntaje',
+            'fecha_aceptacion',
+            'fecha_culminacion',
+            'aceptado:boolean',
+            'culminado:boolean',
         ],
     ]) ?>
 

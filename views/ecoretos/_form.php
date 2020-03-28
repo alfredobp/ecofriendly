@@ -14,11 +14,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'usuario_id')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nombrereto')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'categoria_id')->textInput() ?>
-
-    <?= $form->field($model, 'puntaje')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

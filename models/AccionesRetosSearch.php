@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EcoRetos;
+use app\models\AccionesRetos;
 
 /**
- * EcoRetosSearch represents the model behind the search form of `app\models\EcoRetos`.
+ * AccionesRetosSearch represents the model behind the search form of `app\models\AccionesRetos`.
  */
-class EcoRetosSearch extends EcoRetos
+class AccionesRetosSearch extends AccionesRetos
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class EcoRetosSearch extends EcoRetos
     public function rules()
     {
         return [
-            [['id', 'usuario_id', 'categoria_id'], 'integer'],
-            [['nombrereto'], 'safe'],
+            [['id', 'cat_id', 'puntaje'], 'integer'],
+            [['titulo', 'descripcion', 'fecha_aceptacion', 'fecha_culminacion'], 'safe'],
+            [['aceptado', 'culminado'], 'boolean'],
         ];
     }
 
@@ -40,7 +41,7 @@ class EcoRetosSearch extends EcoRetos
      */
     public function search($params)
     {
-        $query = EcoRetos::find();
+        $query = AccionesRetos::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +60,16 @@ class EcoRetosSearch extends EcoRetos
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'usuario_id' => $this->usuario_id,
-            'categoria_id' => $this->categoria_id,
+            'cat_id' => $this->cat_id,
+            'puntaje' => $this->puntaje,
+            'fecha_aceptacion' => $this->fecha_aceptacion,
+            'fecha_culminacion' => $this->fecha_culminacion,
+            'aceptado' => $this->aceptado,
+            'culminado' => $this->culminado,
         ]);
 
-        $query->andFilterWhere(['ilike', 'nombrereto', $this->nombrereto]);
+        $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
+            ->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

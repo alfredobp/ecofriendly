@@ -56,12 +56,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['nombre', 'username', 'apellidos', 'email', 'contrasena'], 'required'],
-            [['nombre','email'], 'unique'],
+            [['nombre', 'email'], 'unique'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Ejemplo: usuario@gestorcorreo.com'],
-            [['nombre', 'auth_key', 'direccion'], 'string', 'max' => 255],
-            ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres','on' => self::SCENARIO_CREAR],
-            [['estado'],'safe'],
+            [['nombre', 'auth_key','localidad', 'direccion'], 'string', 'max' => 255],
+            ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
+            [['estado'], 'safe'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             // [['password'], 'compare'],
             [['password_repeat'], 'compare', 'compareAttribute' => 'contrasena'],
@@ -89,7 +89,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'password_repeat' => 'Repetir contraseña',
             // 'auth_key' => 'Auth Key',
             'telefono' => 'Teléfono',
-            'poblacion' => 'Población',
+            'Localidad' => 'Localidad',
             'email' => 'Email',
             'direccion' => 'Direccion',
             'estado' => 'Estado',
@@ -156,7 +156,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function setEstado($estado)
     {
-        $this->_estado= $estado;
+        $this->_estado = $estado;
     }
     public function getImagen()
     {
@@ -271,9 +271,9 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRankings()
+    public function getRanking()
     {
-        return $this->hasMa••••••••••••ny(Ranking::className(), ['usuariosid' => 'id'])->inverseOf('usuarios');
+        return $this->hasOne(Ranking::className(), ['usuariosid' => 'id'])->inverseOf('usuarios');
     }
 
     /**
@@ -284,5 +284,15 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function getSeguidores()
     {
         return $this->hasMany(Seguidores::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
+    }
+    
+    /**
+     * Gets query for [[Seguidores0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSeguidores0()
+    {
+        return $this->hasMany(Seguidores::className(), ['seguidor_id' => 'id'])->inverseOf('seguidor');
     }
 }

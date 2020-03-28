@@ -3,13 +3,13 @@
 use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Feeds */
+/* @var $model app\models\CategoriasEcoretos */
 
-$this->title = 'Create Feeds';
-$this->params['breadcrumbs'][] = ['label' => 'Feeds', 'url' => ['index']];
+$this->title = 'Create Categorias Ecoretos';
+$this->params['breadcrumbs'][] = ['label' => 'Categorias Ecoretos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="feeds-create">
+<div class="categorias-ecoretos-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
