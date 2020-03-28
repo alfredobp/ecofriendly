@@ -48,9 +48,9 @@ class EcoRetos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'usuario_id' => 'Usuario ID',
-            'nombrereto' => 'Nombrereto',
-            'categoria_id' => 'Categoria ID',
+            'usuario_id' => 'Usuario id',
+            'nombrereto' => 'Nombre del reto',
+            'categoria_id' => 'Categoria id',
         ];
     }
 
