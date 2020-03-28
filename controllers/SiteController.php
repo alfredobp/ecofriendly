@@ -88,7 +88,11 @@ class SiteController extends Controller
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
         }
-
+        /**
+         * Si el usuario no tiene retos asignados, en función de la puntuación
+         *  calculada se le otorga unas serie de acciones que corresponden a un reto
+         *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
+         */
         if (count($retos) == 0) {
             if ($puntuacion['puntuacion'] < 30) {
                 $ecoreto = new EcoRetos();

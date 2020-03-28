@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php
 
-
+                
                 for ($i = 0; $i <  sizeof($retosListado); $i++) {
 
                     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><span class="badge badge-primary">'  .  $retosListado[$i]->descripcion  .
