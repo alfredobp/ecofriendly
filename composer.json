@@ -29,7 +29,8 @@
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-editable": "*",
         "kartik-v/yii2-dialog": "dev-master",
-        "kartik-v/yii2-export": "*"
+        "kartik-v/yii2-export": "*",
+        "yiisoft/yii2-jui": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
