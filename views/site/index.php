@@ -126,9 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . $feeds->usuariosid . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= $feeds->usuariosid  ?></h4>
                         <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
-                        <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
+                        <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds->created_at))  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img src="/img/' . $feeds->id  . 'feed.jpg" width=450px margin=30px >' :  '' ?>
+
+                    <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $feeds->id  . 'feed.jpg" width=auto padding=20px>' :  '' ?>
                     <div class="card-footer text-muted">
                         <div class="row">
 
@@ -268,7 +269,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (!$exists) {
                                 $imagenUsuario = $urlImagenBasica;
                             }
-                            
+
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 

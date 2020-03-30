@@ -188,7 +188,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
             <fieldset class="col-md-12">
                 <legend>Siguiendo a:</legend>
-
+               
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <p>Siguien content...</p>
