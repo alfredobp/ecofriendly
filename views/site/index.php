@@ -9,6 +9,7 @@ use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Html as HelpersHtml;
+use yii\jui\Dialog;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -60,6 +61,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ?>
             <h5>Retos Propuestos</h5>
+            <?php
+
+            Dialog::begin([
+                'clientOptions' => [
+                    'modal' => true,
+                    'title' => 'Información para nuevos usuarios de #ecofriendly',
+                    'width' => '600px',
+                ],
+            ]);
+            echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+
+            ¿Por donde empezar?
+
+                <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
+            
+        </p>
+        <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
+            Dialog::end();
+            ?>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
 
@@ -268,7 +291,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (!$exists) {
                                 $imagenUsuario = $urlImagenBasica;
                             }
-                            
+
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
