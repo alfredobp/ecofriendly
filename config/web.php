@@ -102,7 +102,7 @@ $config = [
 
             // the global settings for the twitter plugins widget
             'twitter' => [
-                'screenName' => 'TWITTER_SCREEN_NAME'
+                'screenName' => 'elpais'
             ],
         ],
         // your other modules

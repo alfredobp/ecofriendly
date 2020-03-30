@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use kartik\social\FacebookPlugin;
+use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
@@ -66,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <h5>Estado: "<?= $datos['estado'] ?>"</h5>
             <?php
+
             echo GoogleAnalytics::widget([
                 'id' => 'TRACKING_ID',
                 'domain' => 'TRACKING_DOMAIN',
@@ -153,7 +156,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <br>
             <h5>Comparte contenido en otras redes:</h5>
-            <a href="https://twitter.com/intent/tweet?button_hashtag=ecofriendly&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #ecoFriendly</a>
+            <?php echo TwitterPlugin::widget([]); ?>
+            <?php echo FacebookPlugin::widget(['type'=>FacebookPlugin::SHARE, 'settings' => ['size'=>'small', 'layout'=>'button_count', 'mobile_iframe'=>'false']]);?>
+            
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
 
