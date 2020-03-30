@@ -92,37 +92,37 @@ class FeedsController extends Controller
             $id = $model->id;
         }
 
+        // if (Yii::$app->request->isPost) {
+        //     $model2->imagen = UploadedFile::getInstance($model2, 'imagen');
+        //     if ($model2->upload($id)) {
+        //         return $this->redirect('index');
+        //     }
+        // }
+
+        // return $this->render('imagen', [
+        //     'model' => $model2,
+        //     'id' => $id,
+
+        // ]);
+
+        return $this->redirect(['site/index', 'id' => $model->id]);
+    }
+    public function actionImagen()
+    {
+        $model = new ImagenForm();
+       
+
         if (Yii::$app->request->isPost) {
-            $model2->imagen = UploadedFile::getInstance($model2, 'imagen');
-            if ($model2->upload($id)) {
+            $model->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model->upload('feed')) {
                 return $this->redirect('index');
             }
         }
 
         return $this->render('imagen', [
-            'model' => $model2,
-            'id' => $id,
-
+            'model' => $model,
         ]);
-
-        return $this->redirect(['site/index', 'id' => $model->id]);
     }
-    // public function actionImagen()
-    // {
-    //     $model = new ImagenForm();
-    //     $model2 = new Feeds();
-
-    //     if (Yii::$app->request->isPost) {
-    //         $model->imagen = UploadedFile::getInstance($model, 'imagen');
-    //         if ($model->upload('feed')) {
-    //             return $this->redirect('index');
-    //         }
-    //     }
-
-    //     return $this->render('imagen', [
-    //         'model' => $model,
-    //     ]);
-    // }
 
     /**
      * Updates an existing Feeds model.

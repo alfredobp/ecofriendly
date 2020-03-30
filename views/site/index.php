@@ -14,6 +14,45 @@ use yii\jui\Dialog;
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<head>
+    <style>
+        body {
+            padding: 10px;
+
+        }
+
+        #exTab1 .tab-content {
+            color: white;
+            background-color: #428bca;
+            padding: 5px 15px;
+        }
+
+        #exTab2 h3 {
+            color: white;
+            background-color: #428bca;
+            padding: 5px 15px;
+        }
+
+        /* remove border radius for the tab */
+
+        #exTab1 .nav-pills>li>a {
+            border-radius: 0;
+        }
+
+        /* change border radius for the tab , apply corners on top*/
+
+        #exTab3 .nav-pills>li>a {
+            border-radius: 4px 4px 0 0;
+        }
+
+        #exTab3 .tab-content {
+            color: white;
+            background-color: #428bca;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-3">
@@ -113,33 +152,83 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    <b>Comparte lo que quieras</b>
-                </div>
-                <div class="card-block">
-                    <div class="tab-pane active" id="home" role="tabpanel">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> Compartir estado
+                        
+                        <svg class="bi bi-chat-quote" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 01.287.801 10.97 10.97 0 01-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8.06 8.06 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 01-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 00.244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.52.263-1.639.742-3.468 1.105z" clip-rule="evenodd" />
+                            <path d="M7.468 7.667c0 .92-.776 1.666-1.734 1.666S4 8.587 4 7.667C4 6.747 4.776 6 5.734 6s1.734.746 1.734 1.667z" />
+                            <path fill-rule="evenodd" d="M6.157 6.936a.438.438 0 01-.56.293.413.413 0 01-.274-.527c.08-.23.23-.44.477-.546a.891.891 0 01.698.014c.387.16.72.545.923.997.428.948.393 2.377-.942 3.706a.446.446 0 01-.612.01.405.405 0 01-.011-.59c1.093-1.087 1.058-2.158.77-2.794-.152-.336-.354-.514-.47-.563zm-.035-.012h-.001.001z" clip-rule="evenodd" />
+                            <path d="M11.803 7.667c0 .92-.776 1.666-1.734 1.666-.957 0-1.734-.746-1.734-1.666 0-.92.777-1.667 1.734-1.667.958 0 1.734.746 1.734 1.667z" />
+                            <path fill-rule="evenodd" d="M10.492 6.936a.438.438 0 01-.56.293.413.413 0 01-.274-.527c.08-.23.23-.44.477-.546a.891.891 0 01.698.014c.387.16.72.545.924.997.428.948.392 2.377-.942 3.706a.446.446 0 01-.613.01.405.405 0 01-.011-.59c1.093-1.087 1.058-2.158.77-2.794-.152-.336-.354-.514-.469-.563zm-.034-.012h-.002.002z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
 
-                        <?php
-                        $form = ActiveForm::begin([
-                            'action' => ['feeds/create'],
-                            'method' => 'post',
-                            'options' =>   ['enctype' => 'multipart/form-data'],
-                        ]); ?>
-                        <?= $form->field($model, 'contenido')->textarea(['rows' => 4]) ?>
-                        <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
-                        <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                        <?php ActiveForm::end(); ?>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        Compartir imagen
+                        <svg class="bi bi-card-image" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd" />
+                            <path d="M10.648 7.646a.5.5 0 01.577-.093L15.002 9.5V13h-14v-1l2.646-2.354a.5.5 0 01.63-.062l2.66 1.773 3.71-3.71z" />
+                            <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Comparte lo que quieras</b>
+                        </div>
+                        <div class="card-block">
+
+                            <div class="tab-pane active" id="home" role="tabpanel">
+
+                                <?php
+                                $form = ActiveForm::begin([
+                                    'action' => ['feeds/create'],
+                                    'method' => 'post',
+                                    'options' =>   ['enctype' => 'multipart/form-data'],
+                                ]); ?>
+                                <?= $form->field($model, 'contenido')->textarea(['rows' => 4])->label('') ?>
+                                <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
+                                <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                                <?php ActiveForm::end(); ?>
+                            </div>
+
+                            <br>
+                        </div>
+
+                        <div class="card-footer text-muted collapse" id="collapseExample">
+                            <br>
+                        </div>
                     </div>
-                    <div class="divider"></div>
                     <br>
-                </div>
 
-                <div class="card-footer text-muted collapse" id="collapseExample">
-                    <br>
+
                 </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+               
+                <?php
+                                $form = ActiveForm::begin([
+                                    'action' => ['feeds/imagen'],
+                                    'method' => 'post',
+                                    'options' =>   ['enctype' => 'multipart/form-data'],
+                                ]); ?>
+                               <br>
+                                <?= HelpersHtml::submitButton('Subir Imagen', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                                <?php ActiveForm::end(); ?>
+                </div>
+                <br>
             </div>
-            <br>
+            <hr>
+            </hr>
             <?php foreach ($feeds as $feeds) :
             ?>
                 <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds->id . 'feed' . '.jpg') : '';
@@ -149,9 +238,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-block">
                         <h4 class="card-title"><img src=<?= '/img/' . $feeds->usuariosid . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= $feeds->usuariosid  ?></h4>
                         <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
-                        <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode($feeds->created_at)  ?></small></p>
+                        <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds->created_at))  ?></small></p>
                     </div>
-                    <img class="card-img-bottom"> <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img src="/img/' . $feeds->id  . 'feed.jpg" width=450px margin=30px >' :  '' ?>
+
+                    <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $feeds->id  . 'feed.jpg" width=auto padding=20px>' :  '' ?>
                     <div class="card-footer text-muted">
                         <div class="row">
 
