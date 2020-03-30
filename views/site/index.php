@@ -17,6 +17,7 @@ $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
 <head>
     <style>
         body {
@@ -157,8 +158,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <h5>Comparte contenido en otras redes:</h5>
             <?php echo TwitterPlugin::widget([]); ?>
-            <?php echo FacebookPlugin::widget(['type'=>FacebookPlugin::SHARE, 'settings' => ['size'=>'small', 'layout'=>'button_count', 'mobile_iframe'=>'false']]);?>
-            
+            <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
+
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
 
