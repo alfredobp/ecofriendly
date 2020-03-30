@@ -70,6 +70,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Red de contactos</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Preferencias</a>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -78,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
         <?php
         //Comprueba que existe la imagen
-        $file =  Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
+        $file = Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
         $exists = file_exists($file);
         $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
         $urlImagenBasica = Url::to('@web/img/basica.jpg');
@@ -89,7 +92,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= $imagenUsuario ?>" width=250px alt=" avatar"></div>
-
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([
@@ -108,8 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
         <?= $form->field($model, 'estado')->textInput(['type' => 'text']) ?>
         <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
-    <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
-
+<?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
 
 
 
@@ -124,7 +125,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Button::widget([
 
             'label' => 'Eliminar cuenta',
-
 
             'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de borrar tu cuenta de usuario?', 'href' => Url::to(['usuarios/delete', 'id' => $model->id])],
 
@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
     </div>
-    <br>
+
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <fieldset class="col-md-12">
 
@@ -170,7 +170,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $seguidores = Seguidores::find()->all();
             for ($i = 0; $i < sizeof($seguidores); $i++) {
 
-
                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
 
                 echo Html::hiddenInput('id', $seguidores[$i]->id);
@@ -178,17 +177,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<span class="glyphicon glyphicon-minus"></span>',
                     ['class' => 'btn btn-danger btn-sm ml-2'],
                 );
-                echo    Html::endForm();
+                echo Html::endForm();
             }
             ?>
         </fieldset>
+
         <br>
         <br>
         <div class="clearfix"></div>
         <div class="panel-body">
             <fieldset class="col-md-12">
                 <legend>Siguiendo a:</legend>
-               
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <p>Siguien content...</p>
@@ -199,4 +199,119 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+        <br>
+        <br>
+        <h4> En esta sección puede modificar sus preferencias de estilo de aplicación: </h4>
+        <?php
+        $model = new Usuarios();
+        $form = ActiveForm::begin([
+            'action' => ['usuarios/preferencia'],
+            'method' => 'post',
+            'layout' => 'horizontal',
+            'fieldConfig' => [
+                'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
+            ],
+        ]);
+        ?>
+        <p>Color de fondo:</p>
+        <?=
 
+            $form->field($model, 'backgroundColor')->inline()
+                ->radioList(
+                    [0 => 'Blanco', 1 => 'Gris', 2 => 'Verde', 3 => 'Morado'],
+                    ['uncheckValue' => null],
+                    [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $return = '<label class="modal-radio">';
+                            $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= '<i></i>';
+                            $return .= '<span>' . ucwords($label) . '</span>';
+                            $return .= '</label>';
+
+                            return $return;
+                        }
+                    ]
+                )
+                ->label(false);
+        ?>
+        <p> Tamaño del texto:</p>
+        <?=
+            $form->field($model, 'tamañoTexto')->inline()
+                ->radioList(
+                    [0 => '10px', 1 => '20px', 2 => '25 px', 3 => '30px'],
+                    ['uncheckValue' => null],
+                    [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $return = '<label class="modal-radio">';
+                            $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= '<i></i>';
+                            $return .= '<span>' . ucwords($label) . '</span>';
+                            $return .= '</label>';
+                            $return .= "{beginWrapper}\n<div class=\"radio\">\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n</div>\n{error}\n{endWrapper}\n{hint}";
+                            return $return;
+                        }
+                    ]
+                )
+                ->label(false);
+        ?>
+        <p>Color del texto:</p>
+        <?=
+            $form->field($model, 'colorTexto')->label('Tamaño del texto:')->inline()
+                ->radioList(
+                    [0 => 'Negro', 1 => 'Gris', 2 => 'Rojo', 3 => 'Amarillo'],
+                    ['uncheckValue' => null],
+                    [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $return = '<label class="modal-radio">';
+                            $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= '<i></i>';
+                            $return .= '<span>' . ucwords($label) . '</span>';
+                            $return .= '</label>';
+
+                            return $return;
+                        }
+                    ]
+                )
+                ->label(false);
+        ?>
+        <p>Fuente del texto:</p>
+        <?=
+            $form->field($model, 'fuenteTexto')->label('Tamaño del texto:')->inline()
+                ->radioList(
+                    [0 => 'Arial', 1 => 'Times New Roman', 2 => 'Comics Sans', 3 => 'Verdara'],
+                    ['uncheckValue' => null],
+                    [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $return = '<label class="modal-radio">';
+                            $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= '<i></i>';
+                            $return .= '<span>' . ucwords($label) . '</span>';
+                            $return .= '</label>';
+
+                            return $return;
+                        }
+                    ]
+                )
+                ->label(false);
+        ?>
+        <div class="form-group">
+            <?= Html::submitButton('Guardar preferencias', ['class' => 'btn btn-info']) ?>
+        </div>
+
+        <?php
+
+        ActiveForm::end();
+        ?>
+
+        </body>
+
+        </html>
+
+    </div>
+
+</div>
