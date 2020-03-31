@@ -5,6 +5,7 @@
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
+use yii\bootstrap4\Button;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
@@ -84,6 +85,11 @@ $this->params['breadcrumbs'][] = $this->title;
             $(function(){
                 sliderPuntuacion();
                 eliminarIntro();
+
+                $('#prueba').click(function () {
+                    $('dialog').open;
+                    console.log("funciona");
+                })
                               });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
@@ -107,6 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         var numeros=$('.feed').toArray().length;
                         if(numeros>0){
                              $('.intro').empty();
+                             $('#id').show();
                                              }                   
                 }
             JS;
@@ -115,13 +122,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ?>
             <h5>Retos Propuestos</h5>
-            <?php
+            <button id="prueba">
 
+            <?php
+        
             Dialog::begin([
                 'clientOptions' => [
                     'modal' => true,
+                    'autoOpen' => true,
                     'title' => 'Información para nuevos usuarios de #ecofriendly',
                     'width' => '600px',
+                    'id' => 'prueba',
+                    // 'buttons' => [
+
+                    //     ['text' => 'Test', 'onclick' => 'dialog("open")'],
+                    // ],
                 ],
             ]);
             echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
@@ -136,7 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
             Dialog::end();
+            
             ?>
+
+            </button>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
 
