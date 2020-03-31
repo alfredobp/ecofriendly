@@ -10,6 +10,7 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use cybercog\yii\googleanalytics\widgets\GATracking;
 
 AppAsset::register($this);
 ?>
@@ -23,6 +24,9 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode('Ecofriendly.es') ?></title>
+    <?= GATracking::widget([
+        'trackingId' => 'UA-162197120-1',
+    ]) ?>
     <?php $this->head() ?>
 </head>
 

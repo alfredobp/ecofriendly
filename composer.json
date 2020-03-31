@@ -30,7 +30,9 @@
         "kartik-v/yii2-editable": "*",
         "kartik-v/yii2-dialog": "dev-master",
         "kartik-v/yii2-export": "*",
-        "yiisoft/yii2-jui": "^2.0"
+        "yiisoft/yii2-jui": "^2.0",
+        "kartik-v/yii2-social": "dev-master",
+        "cybercog/yii2-google-analytics": "^0.3.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

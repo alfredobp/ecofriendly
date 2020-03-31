@@ -50,20 +50,19 @@ $config = [
             ],
 
         ],
-      
+
         'log' => $log,
         'db' => $db,
         'formatter' => [
             'timeZone' => 'Europe/Madrid',
         ],
-        
+
         'urlManager' => [
             'enablePrettyUrl' => false,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
-        
+
     ],
     'container' => [
         'definitions' => [
@@ -72,6 +71,41 @@ $config = [
             'yii\grid\DataColumn' => 'app\widgets\DataColumn',
             'yii\grid\GridView' => ['filterErrorOptions' => ['class' => 'invalid-feedback']],
         ],
+    ],
+    'modules' => [
+        'social' => [
+            // the module class
+            'class' => 'kartik\social\Module',
+
+            // the global settings for the disqus widget
+            'disqus' => [
+                'settings' => ['shortname' => 'DISQUS_SHORTNAME'] // default settings
+            ],
+
+            // the global settings for the facebook plugins widget
+            'facebook' => [
+                'appId' => 'FACEBOOK_APP_ID',
+                'secret' => 'FACEBOOK_APP_SECRET',
+            ],
+
+            // the global settings for the google plugins widget
+            'google' => [
+                'pageId' => 'UA-162197120-1',
+                'clientId' => '865243706455-moll7c8b0nacm8h6s7o42mgufrff05hj.apps.googleusercontent.com',
+            ],
+
+            // the global settings for the google analytic plugin widget
+            'googleAnalytics' => [
+                'id' => 'TRACKING_ID',
+                'domain' => 'TRACKING_DOMAIN',
+            ],
+
+            // the global settings for the twitter plugins widget
+            'twitter' => [
+                'screenName' => 'elpais'
+            ],
+        ],
+        // your other modules
     ],
     'params' => $params,
 ];
