@@ -33,7 +33,7 @@ class UsuariosController extends Controller
                     // allow authenticated users
                     [
                         'allow' => true,
-                        'actions' => ['update', 'imagen', 'correo', 'create'],
+                        'actions' => ['update', 'imagen', 'valorar','correo', 'create'],
                         'roles' => ['@'],
                     ],
                     [
