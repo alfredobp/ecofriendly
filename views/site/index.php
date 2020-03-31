@@ -5,6 +5,7 @@
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
+use yii\bootstrap4\Button;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
@@ -77,16 +78,26 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
             <?php
+            //Jquery Script que interactura con el DOM dle proyecto: Modificando el color de la barra de progreso
+            // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
+
             $script = <<<JS
             $(function(){
                 sliderPuntuacion();
                 eliminarIntro();
+
+                $('#prueba').click(function () {
+                    $('dialog').open;
+                    console.log("funciona");
+                })
                               });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
                     
                     if (puntuacion<=20) {
                         $('#puntos').addClass("badge-danger");
+                        //si la puntuación crece se aumenta el tamaño en función de la variable puntuación y se añade una
+                        // para darke color según una clase css predefinida.
                         $('.progress-bar').css("width", puntuacion+'%').addClass("bg-danger");
                     }else if(puntuacion>20&&puntuacion<60){
                         $('#puntos').addClass("badge-warning");
@@ -102,6 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         var numeros=$('.feed').toArray().length;
                         if(numeros>0){
                              $('.intro').empty();
+                             $('#id').show();
                                              }                   
                 }
             JS;
@@ -110,16 +122,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ?>
             <h5>Retos Propuestos</h5>
-            <?php
+         
 
-            Dialog::begin([
-                'clientOptions' => [
-                    'modal' => true,
-                    'title' => 'Información para nuevos usuarios de #ecofriendly',
-                    'width' => '600px',
-                ],
-            ]);
-            echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+                <?php
+
+                Dialog::begin([
+                    'clientOptions' => [
+                        'modal' => true,
+                        'autoOpen' => true,
+                        'title' => 'Información para nuevos usuarios de #ecofriendly',
+                        'width' => '600px',
+                        'id' => 'prueba',
+                        // 'buttons' => [
+
+                        //     ['text' => 'Test', 'onclick' => 'dialog("open")'],
+                        // ],
+                    ],
+                ]);
+                echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
 
             ¿Por donde empezar?
 
@@ -130,8 +150,11 @@ $this->params['breadcrumbs'][] = $this->title;
             
         </p>
         <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
-            Dialog::end();
-            ?>
+                Dialog::end();
+
+                ?>
+
+            </button>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
 
