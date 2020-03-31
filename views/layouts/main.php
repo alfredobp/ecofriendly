@@ -35,80 +35,83 @@ AppAsset::register($this);
     if (isset(Yii::$app->user->identity)) {
 
     ?> <div class="wrap">
-            <br>
-            <br>
-            <br>
-            <?php
+            <header>
+                <br>
+                <br>
+                <br>
+                <?php
 
-            NavBar::begin([
-                'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
+                NavBar::begin([
+                    'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
+                    'brandUrl' => Yii::$app->homeUrl,
+                    'options' => [
+                        'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
 
-                ],
-                'collapseOptions' => [
-                    'class' => 'justify-content-end',
-                ],
-            ]);
+                    ],
+                    'collapseOptions' => [
+                        'class' => 'justify-content-end',
+                    ],
+                ]);
 
 
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav-left'],
-                'items' => [
-                    Html::beginForm(['/site/buscar'], 'get')
-                        . Html::textInput(
-                            'cadena',
-                            '',
-                            ['placeholder' => 'Buscar #Ecofriendly'],
-                            ['class' => 'form-control']
-                        )
-                        . Html::submitButton(
-                            '',
-                            ['class' => 'btn btn-dark nav-link ']
-                        )
-                        . Html::endForm()
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav-left'],
+                    'items' => [
+                        Html::beginForm(['/site/buscar'], 'get')
+                            . Html::textInput(
+                                'cadena',
+                                '',
+                                ['placeholder' => 'Buscar #Ecofriendly'],
+                                ['class' => 'form-control']
+                            )
+                            . Html::submitButton(
+                                '',
+                                ['class' => 'btn btn-dark nav-link ']
+                            )
+                            . Html::endForm()
 
-                ],
-            ]);
-            ?>
+                    ],
+                ]);
+                ?>
 
-            <?php
-            $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav'],
-                'items' => [
-                    Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
-                    ['label' => 'Inicio', 'url' => ['/site/index']],
-                    ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
-                    ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                    ['label' => 'Notificaciones', 'url' => ['/']],
-                    Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
-                        . Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->nombre . ')',
-                            ['class' => 'btn btn-dark nav-link logout']
-                        )
-                        . Html::endForm()
-                        . '</li>')
-                ],
-            ]);
+                <?php
+                $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav'],
+                    'items' => [
+                        Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
+                        ['label' => 'Inicio', 'url' => ['/site/index']],
+                        ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
+                        ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
+                        ['label' => 'Notificaciones', 'url' => ['/']],
+                        Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
+                            . Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->nombre . ')',
+                                ['class' => 'btn btn-dark nav-link logout']
+                            )
+                            . Html::endForm()
+                            . '</li>')
+                    ],
+                ]);
 
-            NavBar::end();
-            ?>
-
-            <div class="container">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
-                <?= Alert::widget() ?>
-                <?= $content ?>
-            </div>
+                NavBar::end();
+                ?>
+            </header>
+            <main>
+                
+                <div class="container">
+                    <?= Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]) ?>
+                    <?= Alert::widget() ?>
+                    <?= $content ?>
+                </div>
+            </main>
         </div>
-
         <footer class="footer">
             <div class="container" itemscope itemtype="http://schema.org/Organization">
-
+                <!-- Microdatos en el footer -->
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
                 <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
@@ -124,14 +127,15 @@ AppAsset::register($this);
     <?php } else {
 
     ?>
-        <div class="wrap">
-            <div class="container-fluid">
+        <main>
+            <div class="wrap">
+                <div class="container-fluid">
 
-                <?= Alert::widget() ?>
-                <?= $content ?>
+                    <?= Alert::widget() ?>
+                    <?= $content ?>
+                </div>
             </div>
-        </div>
-
+        </main>
         <footer class="footer">
             <div class="container" itemscope itemtype="http://schema.org/Organization">
 
