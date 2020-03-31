@@ -27,14 +27,29 @@ class UsuariosController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'valorar'],
+                'only' => ['index', 'update', 'view', 'valorar', 'registrar', 'recoverpass'],
+
                 'rules' => [
                     // allow authenticated users
                     [
                         'allow' => true,
+                        'actions' => ['update', 'imagen', 'correo', 'create'],
                         'roles' => ['@'],
                     ],
-                    // everything else is denied by default
+                    [
+                        'allow' => true,
+                        'actions' => ['registrar', 'resetpass', 'recoverpass'],
+                        'roles' => ['?'],
+                    ],
+                    //El usuario admin es el único que puede ver a todos los usuarios que hay registrados en la plataforma  
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'pepe';
+                        },
+                    ],
                 ],
             ],
         ];

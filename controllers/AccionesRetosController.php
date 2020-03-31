@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\AccionesRetos;
 use app\models\AccionesRetosSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,7 +26,24 @@ class AccionesRetosController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['create','update'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'pepe';
+                        },
+                    ],
+                    
+
+                ],
+            ]
         ];
     }
 
