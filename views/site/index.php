@@ -86,10 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 sliderPuntuacion();
                 eliminarIntro();
 
-                $('#prueba').click(function () {
-                    $('dialog').open;
-                    console.log("funciona");
-                })
                               });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
@@ -122,24 +118,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ?>
             <h5>Retos Propuestos</h5>
-         
 
-                <?php
 
-                Dialog::begin([
-                    'clientOptions' => [
-                        'modal' => true,
-                        'autoOpen' => true,
-                        'title' => 'Información para nuevos usuarios de #ecofriendly',
-                        'width' => '600px',
-                        'id' => 'prueba',
-                        // 'buttons' => [
+            <?php
 
-                        //     ['text' => 'Test', 'onclick' => 'dialog("open")'],
-                        // ],
-                    ],
-                ]);
-                echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+            Dialog::begin([
+                'clientOptions' => [
+                    'modal' => true,
+                    'autoOpen' => true,
+                    'title' => 'Información para nuevos usuarios de #ecofriendly',
+                    'width' => '600px',
+                    'id' => 'prueba',
+                    // 'buttons' => [
+
+                    //     ['text' => 'Test', 'onclick' => 'dialog("open")'],
+                    // ],
+                ],
+            ]);
+            echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
 
             ¿Por donde empezar?
 
@@ -150,9 +146,9 @@ $this->params['breadcrumbs'][] = $this->title;
             
         </p>
         <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
-                Dialog::end();
+            Dialog::end();
 
-                ?>
+            ?>
 
             </button>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
