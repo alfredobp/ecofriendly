@@ -77,6 +77,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
             <?php
+            //Jquery Script que interactura con el DOM dle proyecto: Modificando el color de la barra de progreso
+            // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
+
             $script = <<<JS
             $(function(){
                 sliderPuntuacion();
@@ -87,6 +90,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     
                     if (puntuacion<=20) {
                         $('#puntos').addClass("badge-danger");
+                        //si la puntuación crece se aumenta el tamaño en función de la variable puntuación y se añade una
+                        // para darke color según una clase css predefinida.
                         $('.progress-bar').css("width", puntuacion+'%').addClass("bg-danger");
                     }else if(puntuacion>20&&puntuacion<60){
                         $('#puntos').addClass("badge-warning");
