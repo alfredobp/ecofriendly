@@ -29,12 +29,17 @@ class EcoretosController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create'],
+                'only' => ['create'],
                 'rules' => [
                     [
-                        'allow' => true,
+                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
+                        'allow' => false,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'pepe';
+                        },
                     ],
+                    
 
                 ],
             ]

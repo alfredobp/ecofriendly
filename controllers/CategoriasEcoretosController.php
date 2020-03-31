@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\CategoriasEcoretos;
 use app\models\CategoriasEcoretosSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,7 +26,23 @@ class CategoriasEcoretosController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['create'],
+                    'rules' => [
+                        [
+                            //Solo el usuario admin puede crear nuevas categorias de retos desde la plataformas
+                            'allow' => false,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rules, $action) {
+                                return Yii::$app->user->identity->nombre === 'pepe';
+                            },
+                        ],
+                    ],
+
+
+                ],
+            ]
         ];
     }
 
