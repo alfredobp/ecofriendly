@@ -10,7 +10,7 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Restablecer contraseña';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="usuarios-resetpass">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>Introduzca los siguientes datos para resetear su contraseña:</p>
 
@@ -18,25 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'method' => 'post',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
+            'horizontalCssClasses' => ['wrapper' => 'col-sm-5 col-6'],
         ],
     ]);
     ?>
 
-
     <?= $form->field($model, 'email')->input('email') ?>
-
 
     <?= $form->field($model, 'contrasena')->passwordInput() ?>
 
-
     <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-
 
     <?= $form->field($model, 'verification_code')->textInput(['autofocus' => true]) ?>
 
     <?= $form->field($model, 'recover')->input('hidden')->label(false) ?>
-
 
     <?= Html::submitButton('Reestablecer contraseña', ['class' => 'btn btn-primary']) ?>
 

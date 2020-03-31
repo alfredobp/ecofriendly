@@ -17,7 +17,6 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 
-
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +44,7 @@ AppAsset::register($this);
                 'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-dark sticky  bg-dark navbar-expand-md fixed-top',
+                    'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
 
                 ],
                 'collapseOptions' => [
@@ -54,15 +53,14 @@ AppAsset::register($this);
             ]);
 
 
-
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav-left'],
                 'items' => [
                     Html::beginForm(['/site/buscar'], 'get')
-                        .  Html::textInput(
+                        . Html::textInput(
                             'cadena',
                             '',
-                            ['placeholder' => 'Buscar  #Ecofriendly'],
+                            ['placeholder' => 'Buscar #Ecofriendly'],
                             ['class' => 'form-control']
                         )
                         . Html::submitButton(
@@ -70,7 +68,6 @@ AppAsset::register($this);
                             ['class' => 'btn btn-dark nav-link ']
                         )
                         . Html::endForm()
-
 
                 ],
             ]);
@@ -97,7 +94,6 @@ AppAsset::register($this);
                 ],
             ]);
 
-
             NavBar::end();
             ?>
 
@@ -119,21 +115,21 @@ AppAsset::register($this);
                 <br>
                 <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
-
                 <p class="float-right"><?= Yii::powered() ?></p>
-
 
             </div>
         </footer>
 
         <?php $this->endBody() ?>
-    <?php  } else {
+    <?php } else {
 
-    ?> <div class="container-fluid">
+    ?>
+        <div class="wrap">
+            <div class="container-fluid">
 
-            <?= Alert::widget() ?>
-            <?= $content ?>
-        </div>
+                <?= Alert::widget() ?>
+                <?= $content ?>
+            </div>
         </div>
 
         <footer class="footer">
@@ -145,9 +141,7 @@ AppAsset::register($this);
 
                 <small itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </small>
 
-
                 <p class="float-right"><?= Yii::powered() ?></p>
-
 
             </div>
         </footer>
