@@ -39,6 +39,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     private $_imagen = null;
     private $_imagenUrl = null;
     private $_estado;
+    public $backgroundColor;
+    public $colorTexto;
+    public $tamañoTexto;
+    public $fuenteTexto;
+
 
 
     /**
@@ -59,7 +64,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'email'], 'unique'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Ejemplo: usuario@gestorcorreo.com'],
-            [['nombre', 'auth_key','localidad', 'direccion'], 'string', 'max' => 255],
+            [['nombre', 'auth_key', 'localidad', 'direccion'], 'string', 'max' => 255],
             ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
             [['estado'], 'safe'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
@@ -285,7 +290,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Seguidores::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }
-    
+
     /**
      * Gets query for [[Seguidores0]].
      *
