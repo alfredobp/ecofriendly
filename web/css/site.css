@@ -185,13 +185,11 @@ a.desc:after {
 		animation-delay: 9.5s;
 	}
 	
-	
-	.bird-container--four  {
+		.bird-container--four  {
 		animation-duration: 16s;
 		animation-delay: 10.25s;
 	}
 	
-
 
 @keyframes fly-cycle {
 	

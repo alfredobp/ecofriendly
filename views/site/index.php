@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <h5>Estado: "<?= $datos['estado'] ?>"</h5>
             <?php
-
+        
             echo GoogleAnalytics::widget([
                 'id' => 'TRACKING_ID',
                 'domain' => 'TRACKING_DOMAIN',

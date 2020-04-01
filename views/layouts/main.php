@@ -3,15 +3,54 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use yii\helpers\Url;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
-use yii\helpers\Url;
 use cybercog\yii\googleanalytics\widgets\GATracking;
+use kartik\dialog\Dialog;
+use kartik\dialog\DialogAsset;
+use yii\jui\Dialog as JuiDialog;
 
+DialogAsset::register($this);
+
+$urlCookie = Url::toRoute(['site/cookie',  'respuesta' => 'aceptada'], $schema = true);
+
+$js = <<<EOT
+    $( function() {
+        krajeeDialogCust1.confirm("Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.", function (result) {
+          
+            result?window.location="$urlCookie":window.location="https://duckduckgo.com/";
+          
+        });
+    });
+    
+EOT;
+if (!isset($_COOKIE['politicaCookies'])) {
+
+    $this->registerJs($js);
+}
+
+echo Dialog::widget([
+
+    'libName' => 'krajeeDialogCust1',
+    'options' => [
+        'draggable' => false,
+        'closable' => false,
+        'size' => Dialog::SIZE_SMALL,
+        'type' => Dialog::TYPE_WARNING,
+        'title' => 'Politica de cookies de #ecofriendly',
+        'message' => 'Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.',
+        'btnOKClass' => 'btn-primary',
+        'btnOKLabel' =>  'Aceptar',
+        'btnCancelClass' => 'btn-light',
+        'btnCancelLabel' =>  'Cancelar',
+
+    ],
+]);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -99,7 +138,7 @@ AppAsset::register($this);
                 ?>
             </header>
             <main>
-                
+
                 <div class="container">
                     <?= Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

@@ -31,21 +31,21 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','login', 'logout','contact'],
-                
+                'only' => ['index', 'login', 'logout', 'contact'],
+
                 'rules' => [
                     [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                        [
-                            'allow' => true,
-                            'actions' => ['login', 'contact'],
-                            'roles' => ['?'],
-                        ],
+                    [
+                        'allow' => true,
+                        'actions' => ['login', 'contact'],
+                        'roles' => ['?'],
                     ],
-                
+                ],
+
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -229,6 +229,20 @@ class SiteController extends Controller
             'usuarios' => $usuarios,
         ]);
     }
+    /**
+     * Acción que genera una cookie para la gestión de la política de cookies.
+     *
+     * @param string $respuesta
+     * @return void
+     */
+    public function actionCookie($respuesta = 'aceptada')
+    {
+        $valor = $respuesta;
+        setcookie('politicaCookies', $respuesta, time() + 60 * 60 * 24 * 15);
+        return $this->goBack();
+    }
+
+
     /**
      * Displays about page.
      *
