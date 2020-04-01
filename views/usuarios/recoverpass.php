@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 $this->params['breadcrumbs'][] = $this->title;
 $this->title = 'Restablecer contraseña';
 ?>
-<div class="usuarios-recoverpass col-6">
+<div class="recoverpass col-6">
 
     <h1>Recover Password</h1>
     <?php $form = ActiveForm::begin([

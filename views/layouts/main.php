@@ -138,7 +138,6 @@ AppAsset::register($this);
                 ?>
             </header>
             <main>
-
                 <div class="container">
                     <?= Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -166,7 +165,7 @@ AppAsset::register($this);
     <?php } else {
 
     ?>
-        <main>
+        <main class="h-100">
             <div class="wrap">
                 <div class="container-fluid">
 

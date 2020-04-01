@@ -318,3 +318,15 @@ a.desc:after {
 	background-color: #86e01e;
 } 
   
+.login, .registrar, .resetpass, .recoverpass{
+	display: flex;
+	flex-direction: column;
+
+	background-color: #86e01e;
+	padding: 30px;
+
+	background: -webkit-linear-gradient(#000,#fff);
+	background: -moz-linear-gradient(rgb(226, 228, 225),#fff);
+	background: -ms-linear-gradient(#000,#fff);
+	background: -o-linear-gradient(#000,#fff);
+}
