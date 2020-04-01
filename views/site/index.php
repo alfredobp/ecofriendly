@@ -18,8 +18,10 @@ $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
 <div class="container-fluid">
     <div class="row ">
+
         <aside class="col-3">
 
             <?php $options = ['style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
@@ -32,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <h5>Estado: "<?= $datos['estado'] ?>"</h5>
             <?php
-        
+
             echo GoogleAnalytics::widget([
                 'id' => 'TRACKING_ID',
                 'domain' => 'TRACKING_DOMAIN',
@@ -48,10 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 sliderPuntuacion();
                 eliminarIntro();
 
-                $('#prueba').click(function () {
-                    $('dialog').open;
-                    console.log("funciona");
-                })
+        
                               });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
@@ -87,32 +86,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             <?php
+            $urlCookie = Url::toRoute(['site/nuevos',  'respuesta' => 'aceptada'], $schema = true);
+            if (!isset($_COOKIE['intro'])) {
 
-            Dialog::begin([
-                'clientOptions' => [
-                    'modal' => true,
-                    'autoOpen' => true,
-                    'title' => 'Información para nuevos usuarios de #ecofriendly',
-                    'width' => '600px',
-                    'id' => 'prueba',
-                    // 'buttons' => [
+                Dialog::begin([
+                    'clientOptions' => [
+                        'modal' => true,
+                        'autoOpen' => true,
+                        'title' => 'Información para nuevos usuarios de #ecofriendly',
+                        'width' => '600px',
+                        'id' => 'prueba',
+                        'buttons' => [
 
-                    //     ['text' => 'Test', 'onclick' => 'dialog("open")'],
-                    // ],
-                ],
-            ]);
-            echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
-
-            ¿Por donde empezar?
-
-                <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
-            
-        </p>
-        <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
-            Dialog::end();
+                            ['text' => 'Test', 'onclick' => 'window.location="' . $urlCookie . '"'],
+                        ],
+                    ],
+                ]);
+                echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
+    
+                ¿Por donde empezar?
+    
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
+                
+            </p>
+            <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
+                Dialog::end();
+            }
 
             ?>
 

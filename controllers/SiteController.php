@@ -241,7 +241,12 @@ class SiteController extends Controller
         setcookie('politicaCookies', $respuesta, time() + 60 * 60 * 24 * 15);
         return $this->goBack();
     }
-
+    public function actionNuevos($respuesta = 'leida')
+    {
+        $valor = $respuesta;
+        setcookie('intro', $respuesta, time() + 60 * 60 * 24 * 15);
+        return $this->goBack();
+    }
 
     /**
      * Displays about page.
