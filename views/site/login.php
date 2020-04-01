@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use kartik\label\LabelInPlace;
 
 ?>
 
@@ -19,24 +20,32 @@ use yii\bootstrap4\ActiveForm;
             'id' => 'login-form',
             'layout' => 'horizontal',
             'fieldConfig' => [
-                'horizontalCssClasses' => ['wrapper' => 'col-sm-12 col-md-10'],
+                'horizontalCssClasses' => ['wrapper' => 'col-sm-12 col-md-10 col-12'],
             ],
-        ]); ?>
+        ]);
+        $config = ['template' => "{input}\n{error}\n{hint}"];
+        ?>
 
         <h1>EcoFriendly:<p><em> en busca de la sostenibilidad</em></h1>
 
 
-        <div class="d-flex justify-content-center h-100">
-            <div class="card col-6">
+        <div class=" col-12 justify-content-center ">
+            <div class="card ">
                 <div class="card-header">
                     <h3>Inicio de sesión</h3>
 
                 </div>
-                <div class="card-body col-12">
+                <div class="card-body">
 
-                    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                    <?= $form->field($model, 'username', $config)->widget(LabelInPlace::classname(), [
+                        'type' => LabelInPlace::TYPE_HTML5,
+                        'options' => ['type' => 'string', 'class' => 'form-control']
+                    ]); ?>
+                    <?= $form->field($model, 'password', $config)->widget(LabelInPlace::classname(), [
+                        'type' => LabelInPlace::TYPE_HTML5,
+                        'options' => ['type' => 'password', 'class' => 'form-control']
+                    ]); ?>
 
-                    <?= $form->field($model, 'password')->passwordInput() ?>
 
                     <div class="form-group">
                         <div class="offset-sm-2">
