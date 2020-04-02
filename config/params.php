@@ -6,6 +6,7 @@ return [
     'senderName' => 'Example.com mailer',
     'smtpUsername' => 'ecofriendlyrrss@gmail.com',
     'bsVersion' => '4.x',
+    'icon-framework' => 'fa',
     
 
 ];
