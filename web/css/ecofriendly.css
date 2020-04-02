@@ -367,5 +367,30 @@ a.desc:after {
 	height:180px;
 	overflow:hidden;
 	}
+	@media (max-width: 1000px) {
+		body {
+		  font-size: 13px;
+		  font-family:Arial, Helvetica, sans-serif;
+		  letter-spacing: 0.rem;
+		}
+		img{
+			width: 80%;
+		
+			align-items: center;
+		}		
 	
+	@media (max-width: 600px) {
+		body {
+		  font-size: 18px;
+		  font-family:Arial, Helvetica, sans-serif;
+		  letter-spacing: 0.02rem;
+		}
+		img{
+			width: 60%;
+		
+			align-items: center;
+		}		
+		footer{
+			display: none;
+		}
 }
