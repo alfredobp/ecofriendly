@@ -257,7 +257,7 @@ a.desc:after {
   .body{
 	background-color:#E2E4E5;
   }
-
+  /* Animación y transformaciones de la animación de la portada */
 @keyframes fly-right-two {
 	
 	0% {
@@ -293,6 +293,7 @@ a.desc:after {
 	}
 	
 }
+/* animaciones de la barra de progreso del usuario, que se gestiona mediante JQuery */
 #five:checked ~ .progress > .progress-bar {
 	width: 5%;
 	background-color: #f34213;
@@ -330,9 +331,40 @@ a.desc:after {
 
 	background-color: #86e01e;
 	padding: 30px;
-
-	background: -webkit-linear-gradient(#000,#fff);
+/* background gradiente para diferentes navegadores */
+	background: -webkit-linear-gradient(rgb(216, 213, 213),#fff);
 	background: -moz-linear-gradient(rgb(216, 213, 213),#fff);
-	background: -ms-linear-gradient(#000,#fff);
-	background: -o-linear-gradient(#000,#fff);
+	background: -ms-linear-gradient(rgb(216, 213, 213),#fff);
+	background: -o-linear-gradient(rgb(216, 213, 213),#fff);
+}
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=ecf05e4760942d3aa88e5a051180b78969a620bb00df843a&rid=giphy.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+
+.img-contenedor img {
+	-webkit-transition:all .9s ease; /* Safari y Chrome */
+	-moz-transition:all .9s ease; /* Firefox */
+	-o-transition:all .9s ease; /* IE 9 */
+	-ms-transition:all .9s ease; /* Opera */
+	width:100%;
+	}
+	.img-contenedor:hover {
+	-webkit-transform:scale(1.35);
+	-moz-transform:scale(1.35);
+	-ms-transform:scale(1.35);
+	-o-transform:scale(1.35);
+	transform:scale(1.35);
+	}
+	.img-contenedor {/*Ancho y altura son modificables al requerimiento de cada uno*/
+	width:350px;
+	height:180px;
+	overflow:hidden;
+	}
 }
