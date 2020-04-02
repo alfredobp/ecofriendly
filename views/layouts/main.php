@@ -164,7 +164,9 @@ AppAsset::register($this);
         <?php $this->endBody() ?>
     <?php } else {
 
+
     ?>
+
         <main class="h-100">
             <div class="wrap">
                 <div class="container-fluid">
@@ -174,7 +176,7 @@ AppAsset::register($this);
                 </div>
             </div>
         </main>
-        <footer class="footer">
+        <footer class="d-none d-lg-block d-xl-block">
             <div class="container" itemscope itemtype="http://schema.org/Organization">
 
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
@@ -187,6 +189,7 @@ AppAsset::register($this);
 
             </div>
         </footer>
+        </div>
 
     <?php $this->endBody();
     } ?>
