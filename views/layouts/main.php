@@ -94,7 +94,7 @@ AppAsset::register($this);
 
 
                 echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav-left'],
+                    'options' => ['class' => 'navbar-nav-left d-none d-sm-none d-xl-block'],
                     'items' => [
                         Html::beginForm(['/site/buscar'], 'get')
                             . Html::textInput(
@@ -114,13 +114,13 @@ AppAsset::register($this);
                 ?>
 
                 <?php
-                $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+                $options = ['class' => ['img-fluid d-none d-sm-none d-xl-block'], 'style' => ['width' => '5rem', 'height' => '4rem', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav'],
                     'items' => [
                         Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
                         [
-                            'label' => 'Inicio',
+                            'label' => 'Inicio', 'icon' => 'home',
                             'options' => [
                                 'data-toggle' => 'tooltip',
                                 'data-placement' => 'tooltip',
