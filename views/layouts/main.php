@@ -81,7 +81,7 @@ AppAsset::register($this);
                 <?php
 
                 NavBar::begin([
-                    'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</em>',
+                    'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</small>',
                     'brandUrl' => Yii::$app->homeUrl,
                     'options' => [
                         'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
@@ -119,7 +119,18 @@ AppAsset::register($this);
                     'options' => ['class' => 'navbar-nav'],
                     'items' => [
                         Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
-                        ['label' => 'Inicio', 'url' => ['/site/index']],
+                        [
+                            'label' => 'Inicio',
+                            'options' => [
+                                'data-toggle' => 'tooltip',
+                                'data-placement' => 'tooltip',
+                                'title' => 'Inicio de la página',
+                                'class' => 'myTooltipClass'
+                            ],
+                            'url' => ['/site/index'],
+                            'data-toggle' => 'tooltip',
+                            'title' => 'Control Panel',
+                        ],
                         ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
                         ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
                         ['label' => 'Notificaciones', 'url' => ['/']],
