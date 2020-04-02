@@ -13,7 +13,9 @@ use app\assets\AppAsset;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
-use yii\jui\Dialog as JuiDialog;
+use kartik\icons\Icon;
+
+Icon::map($this);
 
 DialogAsset::register($this);
 
@@ -55,6 +57,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
 
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
@@ -69,98 +72,101 @@ AppAsset::register($this);
 </head>
 
 <body>
-    <?php
-    $this->beginBody();
-    if (isset(Yii::$app->user->identity)) {
+    <?php $this->beginBody(); ?>
+    <?php if (isset(Yii::$app->user->identity)) {
 
-    ?> <div class="wrap">
-            <header>
-                <br>
-                <br>
-                <br>
-                <?php
+    ?>
+    <br>
+        <div class="wrap">
 
-                NavBar::begin([
-                    'brandLabel' => 'Ecofriendly <small> en busca de la sostenibilidad</small>',
-                    'brandUrl' => Yii::$app->homeUrl,
-                    'options' => [
-                        'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
+            <?php
 
-                    ],
-                    'collapseOptions' => [
-                        'class' => 'justify-content-end',
-                    ],
-                ]);
+            NavBar::begin([
+                'brandLabel' => '<span class="badge badge-secondary">Ecofriendly </span><h6>En Búsca de la sostenibilidad</h6>',
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-dark sticky bg-dark navbar-expand-md fixed-top',
+
+                ],
+                'collapseOptions' => [
+                    'class' => 'justify-content-end',
+                ],
+            ]);
 
 
-                echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav-left'],
-                    'items' => [
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav-left pr-5 d-sm-none d-xl-block'],
+                'items' => [
+                    '<li>' .
                         Html::beginForm(['/site/buscar'], 'get')
-                            . Html::textInput(
-                                'cadena',
-                                '',
-                                ['placeholder' => 'Buscar #Ecofriendly'],
-                                ['class' => 'form-control']
-                            )
-                            . Html::submitButton(
-                                '',
-                                ['class' => 'btn btn-dark nav-link ']
-                            )
-                            . Html::endForm()
+                        . Html::textInput(
+                            'cadena',
+                            '',
+                            ['placeholder' => 'Buscar #Ecofriendly'],
+                            ['class' => 'form-control']
+                        )
+                        . Html::submitButton(
+                            '',
+                            ['class' => 'btn btn-dark nav-link ']
+                        )
+                        . Html::endForm()
 
-                    ],
-                ]);
-                ?>
+                ],
+            ]);
+            ?>
 
-                <?php
-                $options = ['style' => ['width' => '50px', 'height' => '50px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
-                echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav'],
-                    'items' => [
-                        Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
-                        [
-                            'label' => 'Inicio',
-                            'options' => [
-                                'data-toggle' => 'tooltip',
-                                'data-placement' => 'tooltip',
-                                'title' => 'Inicio de la página',
-                                'class' => 'myTooltipClass'
-                            ],
-                            'url' => ['/site/index'],
+            <?php
+            // $options = ['class' => ['img-fluid d-none d-sm-none d-xl-block'], 'style' => ['width' => '5rem', 'height' => '4rem', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+            $options = ['class' => 'navbar-nav d-none d-xl-block ','style' => ['width' => '4rem', 'border-radius' => '30px']];
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav'],
+                'items' => [
+                    Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
+                    [
+                        'label' => Icon::show('home') . 'Inicio',
+                        'options' => [
                             'data-toggle' => 'tooltip',
-                            'title' => 'Control Panel',
+                            'data-placement' => 'tooltip',
+                            'title' => 'Inicio de la página',
+                            'class' => 'myTooltipClass'
                         ],
-                        ['label' => 'Área de usuario', 'url' => ['/usuarios/update']],
-                        ['label' => 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                        ['label' => 'Notificaciones', 'url' => ['/']],
-                        Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
-                            . Html::beginForm(['/site/logout'], 'post')
-                            . Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->nombre . ')',
-                                ['class' => 'btn btn-dark nav-link logout']
-                            )
-                            . Html::endForm()
-                            . '</li>')
+                        'url' => ['/site/index'],
+                        'data-toggle' => 'tooltip',
+                        'title' => 'Control Panel',
                     ],
-                ]);
+                    ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
+                    ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
+                    ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
+                    Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
+                        . Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Logout (' . Yii::$app->user->identity->nombre . ')',
+                            ['class' => 'btn btn-dark nav-link logout']
+                        )
+                        . Html::endForm()
+                        . '</li>')
+                ],
+                'encodeLabels' => false
 
-                NavBar::end();
-                ?>
-            </header>
-            <main>
-                <div class="container">
-                    <?= Breadcrumbs::widget([
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                    ]) ?>
-                    <?= Alert::widget() ?>
-                    <?= $content ?>
-                </div>
-            </main>
+            ]);
+
+            NavBar::end();
+            ?>
+
+
+            <div class="container">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+                <?= Alert::widget() ?>
+                <?= $content ?>
+            </div>
+
         </div>
         <footer class="footer">
             <div class="container" itemscope itemtype="http://schema.org/Organization">
                 <!-- Microdatos en el footer -->
+
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
                 <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
