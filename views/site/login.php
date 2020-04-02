@@ -19,7 +19,7 @@ use kartik\label\LabelInPlace;
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
                         <h1 class="display-4 text-white mt-5 mb-2"> #Ecofriendly: En Busca de la sostenibilidad</h1>
-                        <p class="lead mb-5 text-white-50">Primera red social que te ayuda a ser más sostenible mediante simples pero efectivos retos.</p>
+                        <p class="lead mb-5 text-gray-50">Primera red social que te ayuda a ser más sostenible mediante simples pero efectivos retos.</p>
                     </div>
                 </div>
             </div>
@@ -35,6 +35,21 @@ use kartik\label\LabelInPlace;
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración prvia de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <b>Gamificación </b> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
                     <a class="btn btn-primary btn-lg" href="index.php?r=usuarios%2Fregistrar">Registro&raquo;</a>
+                </div>
+                <div class="bird-container bird-container--one">
+                    <div class="bird bird--one"></div>
+                </div>
+
+                <div class="bird-container bird-container--two">
+                    <div class="bird bird--two"></div>
+                </div>
+
+                <div class="bird-container bird-container--three">
+                    <div class="bird bird--three"></div>
+                </div>
+
+                <div class="bird-container bird-container--four">
+                    <div class="bird bird--four"></div>
                 </div>
 
                 <div class="col-md-4 mb-5">
@@ -121,16 +136,13 @@ use kartik\label\LabelInPlace;
     </div>
 </div>
 
-</div>
 
 </main>
 
 
 
-
-
-</div>
-
+<br>
+<br>
 <?php
 
     /* @var $this yii\web\View */

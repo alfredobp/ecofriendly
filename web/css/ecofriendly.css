@@ -317,7 +317,13 @@ a.desc:after {
 	width: 100%;
 	background-color: #86e01e;
 } 
-  
+  .login header{
+	  background-image: url('https://pixabay.com/get/55e2d34a4851b108feda8460da2932761038dbe0555175_1920.jpg');
+	  background-blend-mode: soft-light;
+	background-size: cover;
+	background-position: center center;
+	border-radius: 30px;
+  }
 .login, .registrar, .resetpass, .recoverpass{
 	display: flex;
 	flex-direction: column;
@@ -326,7 +332,7 @@ a.desc:after {
 	padding: 30px;
 
 	background: -webkit-linear-gradient(#000,#fff);
-	background: -moz-linear-gradient(rgb(226, 228, 225),#fff);
+	background: -moz-linear-gradient(rgb(216, 213, 213),#fff);
 	background: -ms-linear-gradient(#000,#fff);
 	background: -o-linear-gradient(#000,#fff);
 }
