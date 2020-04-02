@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="container-fluid">
+    <div class="loader"></div>
     <div class="row ">
 
         <aside class="col-3">
@@ -50,7 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 sliderPuntuacion();
                 eliminarIntro();
 
-        
+                $(".loader").fadeOut("slow");
+
                               });
                 function sliderPuntuacion() {
                     var puntuacion = $("#puntos")[0].innerHTML; 
