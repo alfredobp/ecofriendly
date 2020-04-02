@@ -371,7 +371,7 @@ a.desc:after {
 		body {
 		  font-size: 13px;
 		  font-family:Arial, Helvetica, sans-serif;
-		  letter-spacing: 0.rem;
+		  letter-spacing: 0.1rem;
 		}
 		img{
 			width: 80%;
