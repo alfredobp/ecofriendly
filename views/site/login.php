@@ -95,7 +95,7 @@ use kartik\label\LabelInPlace;
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="https://pixabay.com/get/55e2d34a4851b108feda8460da2932761038dbe0555175_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="img/interno/hands-600497_1920.jpg" alt="">
                         <div class="card-body">
                             <h4 class="card-title">Porque nuestro planeta lo necesita</h4>
                             <p class="card-text">Con nuestro actual ritmo de vida, necesitamos 1,7 planetas, acabandose nuestra cuota sobre el mes de agosto.</p>
@@ -107,7 +107,7 @@ use kartik\label\LabelInPlace;
                 </div>
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="https://pixabay.com/get/57e2d4464a55a514f6d1867dda35367b1d3ad9e056557740_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="/img/interno/chess-1215079_1920.jpg" alt="">
                         <div class="card-body">
                             <h4 class="card-title">Aprender jugando</h4>
                             <p class="card-text">Con nuestra estrategia de gamificación a medida que vas avanzando te diviertes, y sobre todo aprendes a ser más sostenible.</p>
@@ -119,7 +119,7 @@ use kartik\label\LabelInPlace;
                 </div>
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="https://pixabay.com/get/5ee2d4454856b108feda8460da2932761038dbe1515371_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="/img/interno/social-media-1795578_1920.jpg" alt="">
                         <div class="card-body">
                             <h4 class="card-title">Comparte con los demás</h4>
                             <p class="card-text">Ecofriendly es mucho más, puedes compartir experiencias con otros usuarios, aprender de otros. Porque la colaboración es clave para salvar nuestro planeta.</p>
