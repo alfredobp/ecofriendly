@@ -142,22 +142,14 @@ $this->params['breadcrumbs'][] = $this->title;
         $dataProvider->setSort([
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
-        $dataProvider->pagination = ['pageSize' => 5];
-        $model = new Feeds();
-        var_dump($model->contenido);
-        echo DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                [
-                    'attribute' => 'contenido',
-                    'value' => function ($model) {
-                        return $model->contenido;
-                    },
-                    'visible' => \Yii::$app->user->can('posts.owner.view'),
-                ],
-            ],
+        $dataProvider->pagination = ['pageSize' => 10];
+        Pjax::begin();
+        echo ListView::widget([
+            'dataProvider' => $dataProvider,
+            'summary' => 'Ultimas publicaciones realizadas:',
+            'itemView' => '_actividadUsuarios',
         ]);
-
+        Pjax::end();
         ?>
     </section>
 
@@ -167,16 +159,22 @@ $this->params['breadcrumbs'][] = $this->title;
             <legend>Seguidores: </legend>
             <?php
             $seguidores = Seguidores::find()->all();
-            for ($i = 0; $i < sizeof($seguidores); $i++) {
+            if (sizeof($seguidores) > 1) {
 
-                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
+                for ($i = 0; $i < sizeof($seguidores); $i++) {
 
-                echo Html::hiddenInput('id', $seguidores[$i]->id);
-                echo Html::submitButton(
-                    '<span class="glyphicon glyphicon-minus"></span>',
-                    ['class' => 'btn btn-danger btn-sm ml-2'],
-                );
-                echo Html::endForm();
+                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
+
+                    echo Html::hiddenInput('id', $seguidores[$i]->id);
+
+                    echo Html::submitButton(
+                        '<span class="glyphicon glyphicon-minus"></span>',
+                        ['class' => 'btn btn-danger btn-sm ml-2'],
+                    );
+                    echo Html::endForm();
+                }
+            } else {
+                echo 'Actualmente no tiene seguidores';
             }
             ?>
         </fieldset>
@@ -199,115 +197,40 @@ $this->params['breadcrumbs'][] = $this->title;
     </section>
 
     <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
-        <br>
-        <br>
+
         <h4> En esta sección puede modificar sus preferencias de estilo de aplicación: </h4>
-        <?php
-        $model = new Usuarios();
-        $form = ActiveForm::begin([
-            'action' => ['usuarios/preferencia'],
-            'method' => 'post',
-            'layout' => 'horizontal',
-            'fieldConfig' => [
-                'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
-            ],
-        ]);
-        ?>
+        <br>
+        <fieldset>
 
-        <p>Color de fondo:</p>
-        <!-- <?=
+            <p>Color de fondo de los feeds:
+                <input type="color" id="pickerColor">
+            </p>
+            <br>
+            <p> Tamaño de texto:
+                <input id="slider" type="range" min="6" max="20" value="15">
+            </p>
 
-                    $form->field($model, 'backgroundColor')->inline()
-                        ->radioList(
-                            [0 => 'Blanco', 1 => 'Gris', 2 => 'Verde', 3 => 'Morado'],
-                            ['uncheckValue' => null],
-                            [
-                                'item' => function ($index, $label, $name, $checked, $value) {
+            <p>
+                Fuente de texto:
+                <select name="colorTexto">
+                    <option value="Times New Roman" selected>Times New Roman</option>
+                    <option value="Arial" selected>Arial</option>
+                    <option value="Comic Sans">Comic Sans</option>
+                </select>
+            </p>
+            <p>Color del texto de los feeds:
+                <input type="color" id="pickerColor2">
+            </p>
+        </fieldset>
+        <br>
+        <button class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
+        <?= Button::widget([
 
-                                    $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                                    $return .= '<i></i>';
-                                    $return .= '<span>' . ucwords($label) . '</span>';
-                                    $return .= '</label>';
+            'label' => ' Restaurar estilos predefinidos',
 
-                                    return $return;
-                                }
-                            ]
-                        )
-                        ->label(false);
-                ?> -->
-        <p> Tamaño del texto:</p>
-        <?=
-            $form->field($model, 'tamañoTexto')->inline()
-                ->radioList(
-                    [0 => '10px', 1 => '20px', 2 => '25 px', 3 => '30px'],
-                    ['uncheckValue' => null],
-                    [
-                        'item' => function ($index, $label, $name, $checked, $value) {
+            'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de aplicar los estilos por defecto?', 'href' => Url::to(['usuarios/borrarestilos'])],
 
-                            $return = '<label class="modal-radio">';
-                            $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                            $return .= '<i></i>';
-                            $return .= '<span>' . ucwords($label) . '</span>';
-                            $return .= '</label>';
-                            $return .= "{beginWrapper}\n<div class=\"radio\">\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n</div>\n{error}\n{endWrapper}\n{hint}";
-                            return $return;
-                        }
-                    ]
-                )
-                ->label(false);
-        ?>
-        <p>Color del texto:</p>
-        <!-- <?=
-                    $form->field($model, 'colorTexto')->label('Tamaño del texto:')->inline()
-                        ->radioList(
-                            [0 => 'Negro', 1 => 'Gris', 2 => 'Rojo', 3 => 'Amarillo'],
-                            ['uncheckValue' => null],
-                            [
-                                'item' => function ($index, $label, $name, $checked, $value) {
-
-                                    $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                                    $return .= '<i></i>';
-                                    $return .= '<span>' . ucwords($label) . '</span>';
-                                    $return .= '</label>';
-
-                                    return $return;
-                                }
-                            ]
-                        )
-                        ->label(false);
-                ?> -->
-        <p>Fuente del texto:</p>
-        <!-- <?=
-                    $form->field($model, 'fuenteTexto')->label('Tamaño del texto:')->inline()
-                        ->radioList(
-                            [0 => 'Arial', 1 => 'Times New Roman', 2 => 'Comics Sans', 3 => 'Verdara'],
-                            ['uncheckValue' => null],
-                            [
-                                'item' => function ($index, $label, $name, $checked, $value) {
-
-                                    $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                                    $return .= '<i></i>';
-                                    $return .= '<span>' . ucwords($label) . '</span>';
-                                    $return .= '</label>';
-
-                                    return $return;
-                                }
-                            ]
-                        )
-                        ->label(false);
-                ?> -->
-        <div class="form-group">
-            <?= Html::submitButton('Guardar preferencias', ['class' => 'btn btn-info']) ?>
-        </div>
-
-        <?php
-
-        ActiveForm::end();
-        ?>
-
+        ]); ?>
         </body>
 
         </html>

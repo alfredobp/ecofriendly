@@ -33,7 +33,7 @@ class UsuariosController extends Controller
                     // allow authenticated users
                     [
                         'allow' => true,
-                        'actions' => ['update', 'imagen', 'valorar','correo', 'create'],
+                        'actions' => ['update', 'imagen', 'valorar', 'correo', 'create'],
                         'roles' => ['@'],
                     ],
                     [
@@ -292,7 +292,7 @@ class UsuariosController extends Controller
         }
         return $this->render('recoverpass', ['model' => $model]);
     }
-
+    
     public function actionResetpass()
     {
         //Instancia para validar el formulario

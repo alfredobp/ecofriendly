@@ -16,11 +16,34 @@ use yii\jui\Dialog;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
+$url5 = Url::to(['usuarios/obtenercookie']);
+$url4 = Url::to(['usuarios/guardacookie']);
+$js = <<<EOT
+$( function() {
+   obtenerCookie();
+});
+
+    function obtenerCookie(){
+        $.ajax({
+            url: '$url5',
+            success: function(data){
+                $(".feed").css('background-color', data);
+            }
+        });
+ 
+  
+        }
+
+
+EOT;
+if (isset($_COOKIE['colorPanel'])) {
+
+    $this->registerJs($js);
+}
+
 ?>
-
-
 <div class="container-fluid">
-    <div class="loader"></div>
+    <!-- <div class="loader"></div> -->
     <div class="row ">
 
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
