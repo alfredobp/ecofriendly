@@ -23,7 +23,7 @@ $urlCookie = Url::toRoute(['site/cookie',  'respuesta' => 'aceptada'], $schema =
 
 $js = <<<EOT
     $( function() {
-        krajeeDialogCust1.confirm("Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.", function (result) {
+        krajeeDialogCust2.confirm("Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.", function (result) {
           
             result?window.location="$urlCookie":window.location="https://duckduckgo.com/";
           
@@ -38,7 +38,7 @@ if (!isset($_COOKIE['politicaCookies'])) {
 
 echo Dialog::widget([
 
-    'libName' => 'krajeeDialogCust1',
+    'libName' => 'krajeeDialogCust2',
     'options' => [
         'draggable' => false,
         'closable' => false,
