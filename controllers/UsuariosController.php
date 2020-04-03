@@ -383,7 +383,31 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
-
+    // public function actionPreferencia($respuesta = 'red')
+    // {
+    //     $valor = $respuesta;
+    //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
+    //     return $respuesta;
+    // }
+    public function actionGuardacookie($color, $tamaño)
+    {
+        //Expira en 7 dias
+        $color = $color;
+        // $tamaño = $tamaño;
+        setcookie('colorPanel', $color, time() + 60 * 60 * 24 * 7);
+        // setcookie('fuente', $fuente, time() + 60 * 60 * 24 * 7);
+        return;
+    }
+    public function actionObtenercookie()
+    {
+        return $_COOKIE['colorPanel'];
+    }
+    public function actionBorrarestilos()
+    {
+        setcookie('colorPanel', '', time() - 3600);
+        unset($_COOKIE['intro']);
+        return $this->goBack();
+    }
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

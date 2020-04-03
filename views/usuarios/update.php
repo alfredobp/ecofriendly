@@ -56,7 +56,47 @@ $this->params['breadcrumbs'][] = $this->title;
     </style>
 
 </head>
+<?php
+$url4 = Url::to(['usuarios/guardacookie']);
+$url5 = Url::to(['usuarios/obtenercookie']);
+$js = <<<EOT
 
+
+function cambiarColorYGuardaCookie(){
+    var color = $("#pickerColor").val();
+    var tamanyo= $('#slider').val();
+    var fuente= $('#fuente').val();
+    console.log(color);
+    
+        $.ajax({
+            url: '$url4',
+            data: { color: color, tamaño: tamanyo, fuente:fuente},
+            success: function(data){
+                console.log(data);
+            }
+        });
+}
+
+
+$(document).ready(function(){
+    
+             $('#pickerColor').change(function(){
+            $("body").hide();
+            cambiarColorYGuardaCookie();
+            console.log('a');
+        });
+        $('#slider').change(function(){
+
+      console.log($('#slider').val());
+  });
+    $("select[name=colorTexto]").change(function(){
+    var color=$('select[name=colorTexto]').val();
+    console.log(color);
+        });
+});
+EOT;
+$this->registerJs($js);
+?>
 <nav>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
