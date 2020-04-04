@@ -56,7 +56,54 @@ $this->params['breadcrumbs'][] = $this->title;
     </style>
 
 </head>
+<?php
+$url4 = Url::to(['usuarios/guardacookie']);
+$url5 = Url::to(['usuarios/obtenercookie']);
+$js = <<<EOT
 
+
+function cambiarColorYGuardaCookie(){
+    var color = $("#pickerColor").val();
+    var tamanyo= $('#slider').val();
+    console.log($('#slider').val());
+    var fuente=$('select[name=colorTexto]').val();
+    var colorTexto=$("#pickerColor2").val();
+    console.log(tamanyo);
+    
+        $.ajax({
+            url: '$url4',
+            data: {
+                color:color, 
+                colorTexto: colorTexto, 
+                tamaño:tamanyo, 
+                fuente:fuente
+            },
+            success: function(data){
+                console.log('ok');
+            }
+        });
+}
+
+
+$(document).ready(function(){
+    
+             $('#pickerColor').change(function(){
+            $("body").hide();
+            cambiarColorYGuardaCookie();
+         
+        });
+        $('#slider').change(function(){
+
+      console.log($('#slider').val());
+  });
+    $("select[name=colorTexto]").change(function(){
+    var color=$('select[name=colorTexto]').val();
+    console.log(color);
+        });
+});
+EOT;
+$this->registerJs($js);
+?>
 <nav>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -223,7 +270,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
         </fieldset>
         <br>
-        <button class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
+        <button id="preferencias" class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
         <?= Button::widget([
 
             'label' => ' Restaurar estilos predefinidos',

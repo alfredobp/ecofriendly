@@ -19,6 +19,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
+use yii\web\Response;
 
 class UsuariosController extends Controller
 {
@@ -292,7 +293,7 @@ class UsuariosController extends Controller
         }
         return $this->render('recoverpass', ['model' => $model]);
     }
-    
+
     public function actionResetpass()
     {
         //Instancia para validar el formulario
@@ -383,7 +384,58 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
+    // public function actionPreferencia($respuesta = 'red')
+    // {
+    //     $valor = $respuesta;
+    //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
+    //     return $respuesta;
+    // }
+    public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
+    {
+        //Expira en 7 dias
+        $color = $color;
+        $tamaño = $tamaño . 'px';
+        $fuente = $fuente;
+        $colorTexto = $colorTexto;
 
+        setcookie('colorPanel', $color, time() + 60 * 60 * 24 * 7);
+        setcookie('tamaño', $tamaño, time() + 60 * 60 * 24 * 7);
+        setcookie('fuente', $fuente, time() + 60 * 60 * 24 * 7);
+        setcookie('colorTexto', $colorTexto, time() + 60 * 60 * 24 * 7);
+
+        return $this->redirect('index');
+    }
+    public function actionObtenercookie($cookie)
+    {
+        $cookies = $_COOKIE[$cookie];
+        // \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $cookies;
+    }
+    public function actionBorrarestilos()
+    {
+        setcookie('colorPanel', '', time() - 3600);
+        setcookie('tamaño', '', time() - 3600);
+        setcookie('fuente', '', time() - 3600);
+        setcookie('colorTexto', '', time() - 3600);
+
+        // unset($_COOKIE['intro']);
+        return $this->goBack();
+    }
+    public function actionEstado($id)
+    {
+        $usuario = Usuarios::find()->where(['id' => $id])->one();
+
+
+        return $usuario->estado;
+    }
+    public function actionPuntos($id)
+    {
+        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->one();
+
+
+
+        return $usuarioPuntos->puntuacion;
+    }
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

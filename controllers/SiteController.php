@@ -80,10 +80,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new Feeds();
-        $model2 = Usuarios::findOne(Yii::$app->user->identity->id);
+       
         $model3 = new ImagenForm();
-
-        $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+        $puntuacion= Ranking::find()->select('ranking.*')->joinWith('usuarios', false) ->groupBy('ranking.id')->one();
+        // $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
         $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->where(['!=', 'id', Yii::$app->user->identity->id])
             ->all();
         $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
