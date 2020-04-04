@@ -65,14 +65,21 @@ $js = <<<EOT
 function cambiarColorYGuardaCookie(){
     var color = $("#pickerColor").val();
     var tamanyo= $('#slider').val();
-    var fuente= $('#fuente').val();
-    console.log(color);
+    console.log($('#slider').val());
+    var fuente=$('select[name=colorTexto]').val();
+    var colorTexto=$("#pickerColor2").val();
+    console.log(tamanyo);
     
         $.ajax({
             url: '$url4',
-            data: { color: color, tamaño: tamanyo, fuente:fuente},
+            data: {
+                color:color, 
+                colorTexto: colorTexto, 
+                tamaño:tamanyo, 
+                fuente:fuente
+            },
             success: function(data){
-                console.log(data);
+                console.log('ok');
             }
         });
 }
@@ -83,7 +90,7 @@ $(document).ready(function(){
              $('#pickerColor').change(function(){
             $("body").hide();
             cambiarColorYGuardaCookie();
-            console.log('a');
+         
         });
         $('#slider').change(function(){
 
@@ -263,7 +270,7 @@ $this->registerJs($js);
             </p>
         </fieldset>
         <br>
-        <button class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
+        <button id="preferencias" class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
         <?= Button::widget([
 
             'label' => ' Restaurar estilos predefinidos',

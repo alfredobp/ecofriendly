@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
@@ -11,39 +12,22 @@ use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html as Bootstrap4Html;
+use yii\helper_propio\Cookies;
+use yii\helper_propio\GestionCookies;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
-$url5 = Url::to(['usuarios/obtenercookie']);
-$url4 = Url::to(['usuarios/guardacookie']);
-$js = <<<EOT
-$( function() {
-   obtenerCookie();
-});
 
-    function obtenerCookie(){
-        $.ajax({
-            url: '$url5',
-            success: function(data){
-                $(".feed").css('background-color', data);
-            }
-        });
- 
-  
-        }
+$this->registerJs(Helper_propioGestionCookies::introduccion());
 
-
-EOT;
-if (isset($_COOKIE['colorPanel'])) {
-
-    $this->registerJs($js);
+if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
+    $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
 }
-
 ?>
 <div class="container-fluid">
-    <!-- <div class="loader"></div> -->
+    <div class="loader"></div>
     <div class="row ">
 
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
@@ -56,7 +40,8 @@ if (isset($_COOKIE['colorPanel'])) {
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
-            <h5>Estado: "<?= $datos['estado'] ?>"</h5>
+            <h5>Estado: "<span id="estado"></span>"</h5>
+
             <?php
 
             echo GoogleAnalytics::widget([
@@ -64,53 +49,12 @@ if (isset($_COOKIE['colorPanel'])) {
                 'domain' => 'TRACKING_DOMAIN',
                 'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
             ]); ?>
-            <h4> ECOpuntuación <span id='puntos' class="badge"><?= $puntos['puntuacion'] ?></span> </h4>
+            <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
             <?php
             //Jquery Script que interactura con el DOM dle proyecto: Modificando el color de la barra de progreso
             // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
 
-            $script = <<<JS
-            $(function(){
-                sliderPuntuacion();
-                eliminarIntro();
 
-                $(".loader").fadeOut("slow");
-
-                              });
-                function sliderPuntuacion() {
-                    var puntuacion = $("#puntos")[0].innerHTML; 
-                    
-                    if (puntuacion<=20) {
-                        $('#puntos').addClass("badge-danger");
-                        //si la puntuación crece se aumenta el tamaño en función de la variable puntuación y se añade una
-                        // para darke color según una clase css predefinida.
-                        $('.progress-bar').css("width", puntuacion+'%').addClass("bg-danger");
-                    }else if(puntuacion>20&&puntuacion<60){
-                        $('#puntos').addClass("badge-warning");
-                        $('.progress-bar').css("width", puntuacion +'%').addClass("bg-warning");
-                    }
-                    else if(puntuacion>60){
-                        $('#puntos').addClass("badge-success");
-                        $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
-                    }
-                }
-                    
-                 function eliminarIntro() {
-                        var numeros=$('.feed').toArray().length;
-                        if(numeros>0){
-                             $('.intro').empty();
-                             $('#id').show();
-                                             }                   
-                }
-            JS;
-
-            $this->registerJs($script);
-
-            ?>
-            <h5>Retos Propuestos</h5>
-
-
-            <?php
             $urlCookie = Url::toRoute(['site/nuevos',  'respuesta' => 'aceptada'], $schema = true);
             if (!isset($_COOKIE['intro'])) {
 
@@ -376,22 +320,25 @@ if (isset($_COOKIE['colorPanel'])) {
                     <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
                         <div class="list-group col-12">
 
+
+
                             <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']];
 
                             for ($i = 0; $i < sizeof($usuarios); $i++) {
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
                                 echo Html::beginForm(['seguidores/create'], 'post')
-                                    . '<div style= "margin:4px">' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . $usuarios[$i]->nombre;
+                                    . '<div class="col-8" style= "margin:4px">' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . $usuarios[$i]->nombre . '</div>';
                                 echo   Html::hiddenInput('id', $usuarios[$i]->id);
-                                echo Html::submitButton(
+                                echo  Html::submitButton(
                                     '<span class="glyphicon glyphicon-plus btn-xs "></span>',
                                     ['class' => 'btn btn-success btn-sm ml-2'],
                                 );
-                                echo  '</div>' . Html::endForm();
+                                echo   Html::endForm() . '>';
                             }
                             ?>
                         </div>
+
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
