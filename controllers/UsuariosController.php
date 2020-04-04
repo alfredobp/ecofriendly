@@ -390,7 +390,7 @@ class UsuariosController extends Controller
     //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
     //     return $respuesta;
     // }
-    public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
+public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
     {
         //Expira en 7 dias
         $color = $color;
