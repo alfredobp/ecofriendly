@@ -22,7 +22,6 @@ DialogAsset::register($this);
 
 
 if (!isset($_COOKIE['politicaCookies'])) {
-
     $this->registerJs(Helper_propioGestionCookies::privacidad());
 }
 
@@ -48,7 +47,6 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody(); ?>
     <?php if (isset(Yii::$app->user->identity)) {
-
     ?>
         <br>
         <div class="wrap">
@@ -153,10 +151,7 @@ AppAsset::register($this);
         </footer>
 
         <?php $this->endBody() ?>
-    <?php } else {
-
-
-    ?>
+    <?php } else {    ?>
 
         <main class="h-100">
             <div class="wrap">

@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
@@ -29,9 +30,20 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 <div class="container-fluid">
     <div class="loader"></div>
     <div class="row ">
-
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
+            <?php
+            echo  Html::button('hola', ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=2'), 'class' => 'btn btn-success', 'id' => 'modalButton']);
+            Modal::begin([
+                // 'header' => '<h1>Hola</h1>',
+                'id' => 'modal',
+                'size' => 'modal-xl',
+            ]);
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+
+            ?>
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
             <?php
             file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
@@ -273,7 +285,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </section>
                     <br>
                     <br>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
                 <!-- <article>

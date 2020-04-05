@@ -31,16 +31,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
-            'contrasena',
-            'auth_key',
+            // 'contrasena',
+            // 'auth_key',
             'nombre',
+            'localidad',
             'apellidos',
             'email:email',
             'direccion',
             'estado',
             'fecha_nac',
-            'token_acti',
-            'codigo_verificacion',
+            // 'token_acti',
+            // 'codigo_verificacion',
         ],
     ]) ?>
 

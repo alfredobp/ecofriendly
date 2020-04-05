@@ -210,13 +210,9 @@ $this->registerJs($js);
             <?php
             $seguidores = Seguidores::find()->all();
             if (sizeof($seguidores) > 1) {
-
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
-
                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
-
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
-
                     echo Html::submitButton(
                         '<span class="glyphicon glyphicon-minus"></span>',
                         ['class' => 'btn btn-danger btn-sm ml-2'],
