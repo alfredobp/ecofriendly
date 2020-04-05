@@ -87,7 +87,7 @@ function cambiarColorYGuardaCookie(){
 
 $(document).ready(function(){
     
-             $('#pickerColor').change(function(){
+             $('#preferencias').click(function(){
             $("body").hide();
             cambiarColorYGuardaCookie();
          
@@ -167,7 +167,7 @@ $this->registerJs($js);
         </div>
 
         <?php ActiveForm::end(); ?>
-
+        <br>
         <?= Button::widget([
 
             'label' => 'Eliminar cuenta',
@@ -178,24 +178,27 @@ $this->registerJs($js);
 
         <?= Html::a('<span class="btn-label">Subir imagen avatar</span>', ['imagen', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </section>
+    <br>
     <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
         <?php
         $dataProvider = new ActiveDataProvider([
             'query' => Feeds::find()
-                ->where(['usuariosid' => 1]),
+                ->where(['usuariosid' => Yii::$app->user->identity->id]),
         ]);
 
         $dataProvider->setSort([
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
         $dataProvider->pagination = ['pageSize' => 10];
+
         Pjax::begin();
         echo ListView::widget([
             'dataProvider' => $dataProvider,
             'summary' => 'Ultimas publicaciones realizadas:',
             'itemView' => '_actividadUsuarios',
         ]);
+
         Pjax::end();
         ?>
     </section>
@@ -241,14 +244,30 @@ $this->registerJs($js);
 
             </fieldset>
         </div>
+
+        <br>
+        <br>
+        <div class="clearfix"></div>
+        <div class="panel-body">
+            <fieldset class="col-md-12">
+                <legend>Usuarios Bloqueados:</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>...</p>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
     </section>
 
     <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
 
-        <h4> En esta sección puede modificar sus preferencias de estilo de aplicación: </h4>
+        <h4> En esta sección puede realizar modificaciones de configuración: </h4>
         <br>
         <fieldset>
-
+            <legend>Modifique los estilos de la aplicación:</legend>
             <p>Color de fondo de los feeds:
                 <input type="color" id="pickerColor">
             </p>
@@ -268,16 +287,16 @@ $this->registerJs($js);
             <p>Color del texto de los feeds:
                 <input type="color" id="pickerColor2">
             </p>
+            <br>
+            <button id="preferencias" class="btn btn-success">Aplicar estilo</button>
+            <?= Button::widget([
+
+                'label' => ' Restaurar estilos predefinidos',
+
+                'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de aplicar los estilos por defecto?', 'href' => Url::to(['usuarios/borrarestilos'])],
+
+            ]); ?>
         </fieldset>
-        <br>
-        <button id="preferencias" class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
-        <?= Button::widget([
-
-            'label' => ' Restaurar estilos predefinidos',
-
-            'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de aplicar los estilos por defecto?', 'href' => Url::to(['usuarios/borrarestilos'])],
-
-        ]); ?>
         </body>
 
         </html>

@@ -5,8 +5,12 @@ use yii\helpers\HtmlPurifier;
 ?>
 <div class="tarea col-6">
     <br>
-    <h2><?= Html::encode($model->contenido) ?>
-    <!-- <h2><?= Html::encode($model->created_at) ?></h2> -->
+    <ul class="list-group">
+        <li class="list-group-item-primary list-unstyled"><?= Html::encode($model->contenido) ?></li>
 
-    <h6>Publicado: <?= HtmlPurifier::process(Html::encode(Yii::$app->formatter->asRelativeTime($model->created_at))) ?>
+        <li class="list-group-item list-group-item-light">
+            <h6>Publicado: <?= HtmlPurifier::process(Html::encode(Yii::$app->formatter->asRelativeTime($model->created_at))) ?>
+        </li>
+
+    </ul>
 </div>
