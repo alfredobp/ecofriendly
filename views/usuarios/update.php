@@ -87,7 +87,7 @@ function cambiarColorYGuardaCookie(){
 
 $(document).ready(function(){
     
-             $('button').click(function(){
+             $('#preferencias').click(function(){
             $("body").hide();
             cambiarColorYGuardaCookie();
          
@@ -167,7 +167,7 @@ $this->registerJs($js);
         </div>
 
         <?php ActiveForm::end(); ?>
-
+        <br>
         <?= Button::widget([
 
             'label' => 'Eliminar cuenta',
@@ -178,6 +178,7 @@ $this->registerJs($js);
 
         <?= Html::a('<span class="btn-label">Subir imagen avatar</span>', ['imagen', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </section>
+    <br>
     <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
         <?php
@@ -190,14 +191,14 @@ $this->registerJs($js);
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
         $dataProvider->pagination = ['pageSize' => 10];
-       
+
         Pjax::begin();
         echo ListView::widget([
             'dataProvider' => $dataProvider,
             'summary' => 'Ultimas publicaciones realizadas:',
             'itemView' => '_actividadUsuarios',
         ]);
-        
+
         Pjax::end();
         ?>
     </section>
@@ -238,6 +239,22 @@ $this->registerJs($js);
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <p>Siguien content...</p>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <br>
+        <br>
+        <div class="clearfix"></div>
+        <div class="panel-body">
+            <fieldset class="col-md-12">
+                <legend>Usuarios Bloqueados:</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>...</p>
                     </div>
                 </div>
 
