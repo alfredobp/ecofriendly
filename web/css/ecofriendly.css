@@ -106,22 +106,7 @@ a.desc:after {
 
     background-color: rgb(235, 235, 235);
 }
-.container2 {
-	z-index: 1;
-	position: relative;
-	overflow: hidden;
-	/* display: flex; */
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh; 
-	height: 35rem;
-	width: 100%;
-	background-image: linear-gradient(to bottom,  rgba(207, 255, 76, 0.6) 0%,rgba(255,123,13,0.6) 100% 100%), url('https://images.unsplash.com/photo-1446824505046-e43605ffb17f');
-	background-blend-mode: soft-light;
-	background-size: cover;
-	background-position: center center;
-	padding: 2rem;
-}
+
 
 .bird {
 	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
@@ -170,7 +155,7 @@ a.desc:after {
 	
 	.bird-container--one {
 		animation-duration: 15s;
-		animation-delay: 0;
+		animation-delay: 0s;
 	}
 	
 	
