@@ -34,7 +34,7 @@ class UsuariosController extends Controller
                     // allow authenticated users
                     [
                         'allow' => true,
-                        'actions' => ['update', 'imagen', 'valorar', 'correo', 'create'],
+                        'actions' => ['update', 'imagen', 'valorar', 'correo', 'create','view'],
                         'roles' => ['@'],
                     ],
                     [
@@ -390,7 +390,7 @@ class UsuariosController extends Controller
     //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
     //     return $respuesta;
     // }
-public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
+    public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
     {
         //Expira en 7 dias
         $color = $color;
@@ -421,11 +421,10 @@ public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
         // unset($_COOKIE['intro']);
         return $this->goBack();
     }
+
     public function actionEstado($id)
     {
         $usuario = Usuarios::find()->where(['id' => $id])->one();
-
-
         return $usuario->estado;
     }
     public function actionPuntos($id)

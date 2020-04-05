@@ -57,7 +57,6 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             $urlCookie = Url::toRoute(['site/nuevos',  'respuesta' => 'aceptada'], $schema = true);
             if (!isset($_COOKIE['intro'])) {
-
                 Dialog::begin([
                     'clientOptions' => [
                         'modal' => true,
@@ -86,21 +85,14 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             }
 
             ?>
-
             </button>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
-
-
                 <?php
-
-
                 for ($i = 0; $i <  sizeof($retosListado); $i++) {
-
                     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
                         '</h6><a/></li>';
                 }
-
                 ?>
             </ul>
             <br>
@@ -115,9 +107,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <h5>Comparte contenido en otras redes:</h5>
             <?php echo TwitterPlugin::widget([]); ?>
             <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
-
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
         </aside>
         <main class=" col-md-9 col-lg-6">
             <article>
@@ -133,7 +123,6 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                 <path fill-rule="evenodd" d="M10.492 6.936a.438.438 0 01-.56.293.413.413 0 01-.274-.527c.08-.23.23-.44.477-.546a.891.891 0 01.698.014c.387.16.72.545.924.997.428.948.392 2.377-.942 3.706a.446.446 0 01-.613.01.405.405 0 01-.011-.59c1.093-1.087 1.058-2.158.77-2.794-.152-.336-.354-.514-.469-.563zm-.034-.012h-.002.002z" clip-rule="evenodd" />
                             </svg>
                         </a>
-
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
@@ -179,10 +168,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </div>
                     <br>
                 </section>
-
-
                 <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
                     <?php
                     $form = ActiveForm::begin([
                         'action' => ['feeds/imagen'],
@@ -200,18 +186,18 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php foreach ($feeds as $feeds) :
             ?>
-                <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds->id . 'feed' . '.jpg') : '';
+                <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds['id'] . 'feed' . '.jpg') : '';
                 ?>
                 <article>
                     <section class="card feed">
 
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= '/img/' . $feeds->usuariosid . '.jpg' ?> class="img-fluid rounded" alt="Responsive image rounded" style="width:80px;"> <?= $feeds->usuariosid  ?></h4>
-                            <p class="card-text"><?= Html::encode($feeds->contenido) ?></p>
-                            <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds->created_at))  ?></small></p>
+                            <h4 class="card-title"><img src=<?= '/img/' . $feeds['id'] . '.jpg' ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
+                            <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
-                        <?= file_exists(Url::to('@app/web/img/' . $feeds->id . 'feed.jpg')) ? '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $feeds->id  . 'feed.jpg" width=auto padding=20px>' :  '' ?>
+                        <?= file_exists(Url::to('@app/web/img/' . $feeds['identificador'] . 'feed.jpg')) ? '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $feeds['identificador']  . 'feed.jpg" width=auto padding=20px>' :  '' ?>
                         <div class="card-footer text-muted">
                             <div class="row">
 
@@ -287,7 +273,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </section>
                     <br>
                     <br>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
                 <!-- <article>
