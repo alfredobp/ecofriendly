@@ -51,7 +51,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
             <?php
-            //Jquery Script que interactura con el DOM dle proyecto: Modificando el color de la barra de progreso
+            //Jquery Script que interactura con el DOM del proyecto: Modificando el color de la barra de progreso
             // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
 
 
@@ -67,7 +67,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         'id' => 'prueba',
                         'buttons' => [
 
-                            ['text' => 'Test', 'onclick' => 'window.location="' . $urlCookie . '"'],
+                            ['text' => 'Aceptar', 'onclick' => 'window.location="' . $urlCookie . '"'],
                         ],
                     ],
                 ]);
@@ -290,7 +290,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 <?php endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
-                <article>
+                <!-- <article>
                     <div class="card">
                         <div class="card-block intro">
                             <h4 class="card-title"> #ecofriendly</h4>
@@ -311,35 +311,36 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </div>
                     <br>
                     <br>
-                </article>
+                </article> -->
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
             <div class="card card-inverse">
                 <div class="card-block">
                     <h4 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Encuentra a más usuarios</h4>
-                    <p class="card-text">Lleva tu pagina a mas personas en nuestra plataforma mediante nuestro servicio de promoción.
-                        <div class="list-group col-12">
+                    <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
+
+                    <div class="col-12">
+
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+
+                        for ($i = 0; $i < sizeof($usuarios); $i++) {
+                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+                            echo   '<ul class="list-group">';
+
+                            echo Html::beginForm(['seguidores/create'], 'post')
+                                . '<li class="list-group-item col-12" style= "margin:4px">' .   Html::img($imagenUsuario, $optionsBarraUsuarios) . '<a href="/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id .  '">' . $usuarios[$i]->nombre . '</a>';
+                            echo   Html::hiddenInput('id', $usuarios[$i]->id);
+                            echo  Html::submitButton(
+                                '<span class="glyphicon glyphicon-plus btn-xs"></span>',
+                                ['class' => 'btn btn-success btn-sm ml-2'],
+                            );
+                            echo '</li></ul>' .   Html::endForm();
+                        }
+                        ?>
 
 
+                    </div>
 
-                            <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px']];
-
-                            for ($i = 0; $i < sizeof($usuarios); $i++) {
-                                file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-
-                                echo Html::beginForm(['seguidores/create'], 'post')
-                                    . '<div class="col-8" style= "margin:4px">' .  Html::img($imagenUsuario, $optionsBarraUsuarios) . $usuarios[$i]->nombre . '</div>';
-                                echo   Html::hiddenInput('id', $usuarios[$i]->id);
-                                echo  Html::submitButton(
-                                    '<span class="glyphicon glyphicon-plus btn-xs "></span>',
-                                    ['class' => 'btn btn-success btn-sm ml-2'],
-                                );
-                                echo   Html::endForm() . '>';
-                            }
-                            ?>
-                        </div>
-
-                    </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
@@ -360,15 +361,15 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-
+                                echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<div style= "margin-left:10px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
+                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
                                     ['class' => 'btn btn-danger btn-sm ml-2'],
                                 );
-                                echo '</div>' . Html::endForm();
+                                echo '</li></ul>' . Html::endForm();
                             }
                             ?>
                             <br>
