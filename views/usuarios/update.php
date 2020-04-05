@@ -87,7 +87,7 @@ function cambiarColorYGuardaCookie(){
 
 $(document).ready(function(){
     
-             $('#pickerColor').change(function(){
+             $('button').click(function(){
             $("body").hide();
             cambiarColorYGuardaCookie();
          
@@ -270,7 +270,7 @@ $this->registerJs($js);
             </p>
         </fieldset>
         <br>
-        <button id="preferencias" class="btn btn-success" onclick="window.location.href='/index'">Aplicar estilo</button>
+        <button id="preferencias" class="btn btn-success">Aplicar estilo</button>
         <?= Button::widget([
 
             'label' => ' Restaurar estilos predefinidos',
