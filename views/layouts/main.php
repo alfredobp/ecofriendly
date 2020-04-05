@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use yii\helpers\Url;
 use app\widgets\Alert;
 use yii\helpers\Html;
@@ -19,40 +20,13 @@ Icon::map($this);
 
 DialogAsset::register($this);
 
-$urlCookie = Url::toRoute(['site/cookie',  'respuesta' => 'aceptada'], $schema = true);
 
-$js = <<<EOT
-    $( function() {
-        krajeeDialogCust2.confirm("Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.", function (result) {
-          
-            result?window.location="$urlCookie":window.location="https://duckduckgo.com/";
-          
-        });
-    });
-    
-EOT;
 if (!isset($_COOKIE['politicaCookies'])) {
 
-    $this->registerJs($js);
+    $this->registerJs(Helper_propioGestionCookies::privacidad());
 }
 
-echo Dialog::widget([
-
-    'libName' => 'krajeeDialogCust2',
-    'options' => [
-        'draggable' => false,
-        'closable' => false,
-        'size' => Dialog::SIZE_SMALL,
-        'type' => Dialog::TYPE_WARNING,
-        'title' => 'Politica de cookies de #ecofriendly',
-        'message' => 'Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.',
-        'btnOKClass' => 'btn-primary',
-        'btnOKLabel' =>  'Aceptar',
-        'btnCancelClass' => 'btn-light',
-        'btnCancelLabel' =>  'Cancelar',
-
-    ],
-]);
+echo Helper_propioGestionCookies::dialogCookies();
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -76,7 +50,7 @@ AppAsset::register($this);
     <?php if (isset(Yii::$app->user->identity)) {
 
     ?>
-    <br>
+        <br>
         <div class="wrap">
 
             <?php
@@ -117,7 +91,7 @@ AppAsset::register($this);
 
             <?php
             // $options = ['class' => ['img-fluid d-none d-sm-none d-xl-block'], 'style' => ['width' => '5rem', 'height' => '4rem', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
-            $options = ['class' => 'navbar-nav d-none d-xl-block ','style' => ['width' => '4rem', 'border-radius' => '30px']];
+            $options = ['class' => 'navbar-nav d-none d-xl-block ', 'style' => ['width' => '4rem', 'border-radius' => '30px']];
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav'],
                 'items' => [

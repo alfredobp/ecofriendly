@@ -3,6 +3,7 @@
 
 namespace app\helper_propio;
 
+use kartik\dialog\Dialog;
 use Yii;
 use yii\helpers\Url;
 
@@ -185,5 +186,44 @@ class GestionCookies
                 
         EOT;
         return $jsEstilo;
+    }
+
+    public static function privacidad()
+    {
+        $urlCookie = Url::toRoute(['site/cookie',  'respuesta' => 'aceptada'], $schema = true);
+
+        $js = <<<EOT
+    $( function() {
+        krajeeDialogCust2.confirm("Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.", function (result) {
+          
+            result?window.location="$urlCookie":window.location="https://duckduckgo.com/";
+          
+        });
+    });
+    
+EOT;
+
+        return $js;
+    }
+
+    public static function dialogCookies()
+    {
+        return  Dialog::widget([
+
+            'libName' => 'krajeeDialogCust2',
+            'options' => [
+                'draggable' => false,
+                'closable' => false,
+                'size' => Dialog::SIZE_SMALL,
+                'type' => Dialog::TYPE_WARNING,
+                'title' => 'Politica de cookies de #ecofriendly',
+                'message' => 'Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.',
+                'btnOKClass' => 'btn-primary',
+                'btnOKLabel' =>  'Aceptar',
+                'btnCancelClass' => 'btn-light',
+                'btnCancelLabel' =>  'Cancelar',
+
+            ],
+        ]);
     }
 }
