@@ -339,9 +339,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             </ul>' . Html::endForm();
                         }
                         Modal::begin([
-                            // 'header' => '<h1>Hola</h1>',
+                            'title' => '<h3>Perfil de usuario</h3>',
                             'id' => 'modal2',
-                            'size' => 'modal-xl',
+                            'size' => 'modal-md',
                         ]);
                         echo '<div id="modalContent2"></div>';
 
