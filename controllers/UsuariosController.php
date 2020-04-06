@@ -34,7 +34,7 @@ class UsuariosController extends Controller
                     // allow authenticated users
                     [
                         'allow' => true,
-                        'actions' => ['update', 'imagen', 'valorar', 'correo', 'create','view'],
+                        'actions' => ['update', 'imagen', 'valorar', 'correo', 'create', 'view'],
                         'roles' => ['@'],
                     ],
                     [
@@ -125,7 +125,7 @@ class UsuariosController extends Controller
      */
     public function actionView($id)
     {
-        //limito la busqueda a solo el mismo.
+        //renderizo la vista mediante consulta ajax en la ventana modal.
         return $this->renderAjax('view', [
             'model' => $this->findModel($id)
         ]);
