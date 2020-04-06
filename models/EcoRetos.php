@@ -50,7 +50,7 @@ class EcoRetos extends \yii\db\ActiveRecord
             'id' => 'ID',
             'usuario_id' => 'Usuario id',
             'nombrereto' => 'Nombre del reto',
-            'categoria_id' => 'Categoria id',
+            'categoria_id' => 'Categoría id',
         ];
     }
 

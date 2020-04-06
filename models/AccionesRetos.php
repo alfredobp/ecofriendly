@@ -34,6 +34,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
         return [
             [['titulo', 'descripcion'], 'required'],
             [['cat_id', 'puntaje'], 'default', 'value' => null],
@@ -51,13 +52,13 @@ class AccionesRetos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'id',
             'titulo' => 'Titulo',
-            'descripcion' => 'Descripcion',
-            'cat_id' => 'Cat ID',
+            'descripcion' => 'Descripción',
+            'cat_id' => 'Categoría id',
             'puntaje' => 'Puntaje',
-            'fecha_aceptacion' => 'Fecha Aceptacion',
-            'fecha_culminacion' => 'Fecha Culminacion',
+            'fecha_aceptacion' => 'Fecha Aceptación',
+            'fecha_culminacion' => 'Fecha Culminación',
             'aceptado' => 'Aceptado',
             'culminado' => 'Culminado',
         ];

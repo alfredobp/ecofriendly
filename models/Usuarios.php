@@ -63,7 +63,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'username', 'apellidos', 'email', 'contrasena'], 'required'],
             [['nombre', 'email'], 'unique'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
-            ['email', 'email', 'message' => 'Formato de email no válido. Ejemplo: usuario@gestorcorreo.com'],
+            ['email', 'email', 'message' => 'Formato de email no válido. Por ejemplo: usuario@gestorcorreo.com'],
             [['nombre', 'auth_key', 'localidad', 'direccion'], 'string', 'max' => 255],
             ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
             [['estado'], 'safe'],
