@@ -32,18 +32,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
     <div class="row ">
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
-            <?php
-            echo  Html::button('hola', ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=2'), 'class' => 'btn btn-success', 'id' => 'modalButton']);
-            Modal::begin([
-                // 'header' => '<h1>Hola</h1>',
-                'id' => 'modal',
-                'size' => 'modal-xl',
-            ]);
-            echo '<div id="modalContent"></div>';
 
-            Modal::end();
-
-            ?>
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
             <?php
             file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
@@ -323,8 +312,6 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
-
-
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
                             echo '<ul class="list-group">';
@@ -338,8 +325,10 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                 ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
                             );
                             echo '</li>
-                            </ul>' . Html::endForm();
+    </ul>' . Html::endForm();
                         }
+
+
                         Modal::begin([
                             'title' => '<h3>Perfil de usuario</h3>',
                             'id' => 'modal2',

@@ -1,6 +1,4 @@
 <?php
-
-
 namespace app\helper_propio;
 
 use kartik\dialog\Dialog;
@@ -128,7 +126,8 @@ class GestionCookies
     }
     /**
      * Cookies Estilo
-     *Retorna las cookies de estilo, si el usuario decida personalizar aspectos de estilos de la aplicación.
+     * Retorna las cookies de estilo, si el usuario decida personalizar aspectos de estilos de la aplicación.
+     * Laconsulta se realiza mediante ajax.
      * @return $jsEstilo
      */
     public static function cookiesEstilo()
@@ -151,7 +150,6 @@ class GestionCookies
                         }
                     });
             }
-
             function obtenerCookieColorTexto(){
                         $.ajax({
                             url: '$url5',
@@ -162,8 +160,7 @@ class GestionCookies
                             }
                         });
                 }
-            
-                function obtenerCookieFuente(){
+            function obtenerCookieFuente(){
                             $.ajax({
                                 url: '$url5',
                                 data:{cookie:'fuente'},
