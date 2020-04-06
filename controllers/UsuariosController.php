@@ -127,7 +127,7 @@ class UsuariosController extends Controller
     {
         //limito la busqueda a solo el mismo.
         return $this->renderAjax('view', [
-            'model' => $this->findModel(Yii::$app->user->id)
+            'model' => $this->findModel($id)
         ]);
     }
     /**

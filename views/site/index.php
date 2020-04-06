@@ -319,21 +319,33 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                     <div class="col-12">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];;
+
+
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
-                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-                            echo   '<ul class="list-group">';
+                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+                            echo '<ul class="list-group">';
 
                             echo Html::beginForm(['seguidores/create'], 'post')
-                                . '<li class="list-group-item col-12" style= "margin:4px">' .   Html::img($imagenUsuario, $optionsBarraUsuarios) . '<a href="/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id .  '">' . $usuarios[$i]->nombre . '</a>';
-                            echo   Html::hiddenInput('id', $usuarios[$i]->id);
-                            echo  Html::submitButton(
+                                . '<li class="list-group-item col-12" style="margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
+                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id . ''), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
+                            echo Html::hiddenInput('id', $usuarios[$i]->id);
+                            echo Html::submitButton(
                                 '<span class="glyphicon glyphicon-plus btn-xs"></span>',
-                                ['class' => 'btn btn-success btn-sm ml-2'],
+                                ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
                             );
-                            echo '</li></ul>' .   Html::endForm();
+                            echo '</li>
+                            </ul>' . Html::endForm();
                         }
+                        Modal::begin([
+                            // 'header' => '<h1>Hola</h1>',
+                            'id' => 'modal2',
+                            'size' => 'modal-xl',
+                        ]);
+                        echo '<div id="modalContent2"></div>';
+
+                        Modal::end();
                         ?>
 
 
