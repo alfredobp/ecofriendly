@@ -199,12 +199,13 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <?php foreach ($feeds as $feeds) :
             ?>
                 <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds['id'] . 'feed' . '.jpg') : '';
+                file_exists(Url::to('@app/web/img/' . $feeds['id'] . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $feeds['id'] . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
                 ?>
                 <article>
                     <section class="card feed">
 
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= '/img/' . $feeds['id'] . '.jpg' ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <h4 class="card-title"><img src=<?= $imagenUsuario ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
