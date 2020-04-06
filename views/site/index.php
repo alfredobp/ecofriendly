@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
@@ -29,9 +30,20 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 <div class="container-fluid">
     <div class="loader"></div>
     <div class="row ">
-
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
+            <?php
+            echo  Html::button('hola', ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=2'), 'class' => 'btn btn-success', 'id' => 'modalButton']);
+            Modal::begin([
+                // 'header' => '<h1>Hola</h1>',
+                'id' => 'modal',
+                'size' => 'modal-xl',
+            ]);
+            echo '<div id="modalContent"></div>';
+
+            Modal::end();
+
+            ?>
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
             <?php
             file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
@@ -187,12 +199,13 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <?php foreach ($feeds as $feeds) :
             ?>
                 <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds['id'] . 'feed' . '.jpg') : '';
+                file_exists(Url::to('@app/web/img/' . $feeds['id'] . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $feeds['id'] . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
                 ?>
                 <article>
                     <section class="card feed">
 
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= '/img/' . $feeds['id'] . '.jpg' ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <h4 class="card-title"><img src=<?= $imagenUsuario ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
@@ -273,7 +286,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </section>
                     <br>
                     <br>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
                 <!-- <article>
@@ -307,21 +320,33 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                     <div class="col-12">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];;
+
+
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
-                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-                            echo   '<ul class="list-group">';
+                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+                            echo '<ul class="list-group">';
 
                             echo Html::beginForm(['seguidores/create'], 'post')
-                                . '<li class="list-group-item col-12" style= "margin:4px">' .   Html::img($imagenUsuario, $optionsBarraUsuarios) . '<a href="/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id .  '">' . $usuarios[$i]->nombre . '</a>';
-                            echo   Html::hiddenInput('id', $usuarios[$i]->id);
-                            echo  Html::submitButton(
+                                . '<li class="list-group-item col-12" style="margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
+                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id . ''), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
+                            echo Html::hiddenInput('id', $usuarios[$i]->id);
+                            echo Html::submitButton(
                                 '<span class="glyphicon glyphicon-plus btn-xs"></span>',
-                                ['class' => 'btn btn-success btn-sm ml-2'],
+                                ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
                             );
-                            echo '</li></ul>' .   Html::endForm();
+                            echo '</li>
+                            </ul>' . Html::endForm();
                         }
+                        Modal::begin([
+                            'title' => '<h3>Perfil de usuario</h3>',
+                            'id' => 'modal2',
+                            'size' => 'modal-md',
+                        ]);
+                        echo '<div id="modalContent2"></div>';
+
+                        Modal::end();
                         ?>
 
 

@@ -42,7 +42,7 @@ class UsuariosController extends Controller
                         'actions' => ['registrar', 'resetpass', 'recoverpass'],
                         'roles' => ['?'],
                     ],
-                    //El usuario admin es el único que puede ver a todos los usuarios que hay registrados en la plataforma  
+                    //El usuario admin es el único que puede ver a todos los usuarios que hay registrados en la plataforma
                     [
                         'allow' => true,
                         'actions' => ['index'],
@@ -126,8 +126,8 @@ class UsuariosController extends Controller
     public function actionView($id)
     {
         //limito la busqueda a solo el mismo.
-        return $this->render('view', [
-            'model' => $this->findModel(Yii::$app->user->id)
+        return $this->renderAjax('view', [
+            'model' => $this->findModel($id)
         ]);
     }
     /**
