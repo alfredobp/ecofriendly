@@ -286,7 +286,8 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     </section>
                     <br>
                     <br>
-                <?php endforeach; ?>
+                <?php
+            endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
                 <!-- <article>
@@ -320,7 +321,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                     <div class="col-12">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];;
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
 
 

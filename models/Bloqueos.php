@@ -44,9 +44,9 @@ class Bloqueos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'usuariosid' => 'Usuariosid',
-            'bloqueadosid' => 'Bloqueadosid',
+            'id' => 'id',
+            'usuariosid' => 'Usuarios id',
+            'bloqueadosid' => 'Bloqueados id',
         ];
     }
 

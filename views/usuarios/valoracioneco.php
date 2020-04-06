@@ -55,7 +55,7 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-     
+
         <hr size="3px">
         <p> Introduzca el número de Km. aproximados que viaja al año en cada modo de transporte:</p>
 
@@ -89,9 +89,9 @@ $this->title = 'EcoFriendly'; ?>
         <?=
             $form->field($model, 'compra1')
                 ->radioList(
-                    [0 => 'Todos los dias', 1 => '6 días a la semana', 8 => '1 dia a la semana', 10 => 'Compro por internet'],
-                    ['uncheckValue' => null],
-                    [
+                        [0 => 'Todos los dias', 1 => '6 días a la semana', 8 => '1 dia a la semana', 10 => 'Compro por internet'],
+                        ['uncheckValue' => null],
+                        [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
                             $return = '<label class="modal-radio">';
@@ -102,8 +102,8 @@ $this->title = 'EcoFriendly'; ?>
 
                             return $return;
                         }
-                    ]
-                )
+                        ]
+                    )
                 ->label(false);
         ?>
 
@@ -115,7 +115,6 @@ $this->title = 'EcoFriendly'; ?>
             $form->field($model, 'compra2')
                 ->radioList(
                     [2 => 'Supermercados', 4 => 'Internet', 6 => 'Comercio local', 10 => 'Proximidad'],
-                    
                     ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
@@ -137,7 +136,6 @@ $this->title = 'EcoFriendly'; ?>
         </p>
         ¿Con qué frecuencia selecciona alimentos certificados como orgánicos o producidos de forma sostenible?
         </p>
-
         <?=
             $form->field($model, 'compra3')
                 ->radioList(

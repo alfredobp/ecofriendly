@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
         fieldset {
             border: 1px solid #ddd !important;
             margin: 0;
-            xmin-width: 0;
             padding: 10px;
             position: relative;
             border-radius: 4px;
