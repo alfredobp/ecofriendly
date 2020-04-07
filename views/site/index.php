@@ -2,21 +2,18 @@
 
 /* @var $this yii\web\View */
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
-use yii\bootstrap4\Button;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\bootstrap4\Html as Bootstrap4Html;
-use yii\helper_propio\Cookies;
-use yii\helper_propio\GestionCookies;
 use yii\helpers\Html as HelpersHtml;
-use yii\jui\Dialog;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,10 +31,8 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
 
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-            <?php
-            file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-            ?>
-            <?= Bootstrap4Html::img($imagenUsuario, $options) ?>
+
+            <?= Bootstrap4Html::img(Auxiliar::obtenerImagen(Yii::$app->user->identity->id), $options) ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
@@ -56,33 +51,8 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
 
 
-            $urlCookie = Url::toRoute(['site/nuevos',  'respuesta' => 'aceptada'], $schema = true);
             if (!isset($_COOKIE['intro'])) {
-                Dialog::begin([
-                    'clientOptions' => [
-                        'modal' => true,
-                        'autoOpen' => true,
-                        'title' => 'Información para nuevos usuarios de #ecofriendly',
-                        'width' => '600px',
-                        'id' => 'prueba',
-                        'buttons' => [
-
-                            ['text' => 'Aceptar', 'onclick' => 'window.location="' . $urlCookie . '"'],
-                        ],
-                    ],
-                ]);
-                echo    '<p> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
-    
-                ¿Por donde empezar?
-    
-                    <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
-                
-            </p>
-            <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>';
-                Dialog::end();
+                Auxiliar::introNovatos();
             }
 
             ?>
@@ -194,12 +164,12 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     <section class="card feed">
 
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= $imagenUsuario ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <h4 class="card-title"><img src=<?= Auxiliar::obtenerImagen($feeds['id']) ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
-                        <?= file_exists(Url::to('@app/web/img/' . $feeds['identificador'] . 'feed.jpg')) ? '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $feeds['identificador']  . 'feed.jpg" width=auto padding=20px>' :  '' ?>
+                        <?= Auxiliar::obtenerImagenFeed($feeds['identificador']) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
 
@@ -241,14 +211,14 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-2"><a href="#"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/2.2.0/2/svg/1f911.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2">
-                                            <a href="#"><img src="https://s.w.org/images/core/emoji/2/svg/1f601.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
+                                            <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                         </div>
-                                        <div class="col-2"><a href="#"><img src="https://s.w.org/images/core/emoji/2.2.1/svg/1f913.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="https://s.w.org/images/core/emoji/2/svg/1f61d.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/2.2.0/2/svg/1f607.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/1f632.svg" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                     </div>
 
                                 </div>
@@ -256,15 +226,15 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                 <div class="divider"></div>
                                 <br>
                                 <div class="media">
-                                    <img class="d-flex mr-3" src="http://www.paraface.org/wp-content/uploads/2014/10/subir-Fotos-para-perfil-de-facebook.jpg" alt="Generic placeholder image" style="width:50px;">
+                                    <img class="d-flex mr-3" src="" alt="Generic placeholder image" style="width:50px;">
                                     <div class="media-body">
-                                        <h5 class="mt-0">Joi</h5>
-                                        Perfect <img src="https://www.emoji.co.uk/files/emoji-one/smileys-people-emoji-one/1268-kissing-face-with-closed-eyes.png" class="img-fluid rounded" alt="Responsive image rounded" style="width:30px;">
+                                        <h5 class="mt-0">usuario</h5>
+                                        Comentario de ejemplo <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:30px;">
 
                                         <div class="media mt-3">
-                                            <img src="http://institutomedios.com/wp-content/uploads/2015/01/perfil_de_ana_beatriz_barros_wallpaper-35255.jpg" class="d-flex mr-3" alt="Responsive image rounded" style="width:50px;">
+                                            <img src="" class="d-flex mr-3" alt="Responsive image rounded" style="width:50px;">
                                             <div class="media-body">
-                                                <h5 class="mt-0">Sara Miles</h5>
+                                                <h5 class="mt-0">usuario 2</h5>
                                                 Gracias
                                             </div>
                                         </div>
@@ -279,28 +249,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
-                <!-- <article>
-                    <div class="card">
-                        <div class="card-block intro">
-                            <h4 class="card-title"> #ecofriendly</h4>
-                            <p class="card-text"> Bienvenido a la red social de ecofriendly, donde prodrás mejorar tu huella de carbono y ayudar a cuidar el planeta.
 
-                                ¿Por donde empezar?
-
-
-                                <div id="list-example" class="col-10 ml-center list-group p-3">
-                                    <a class="list-group-item list-group-item-action" href="#list-item-1"> 1. Agrega nuevos seguidores a tu red, para ver el contenido.</a>
-                                    <a class="list-group-item list-group-item-action" href="#list-item-2"> 2. Observa los ecoretos que se te ha otorgado y acepta el desafio.</a>
-                                    <a class="list-group-item list-group-item-action" href="#list-item-3"> 3. Comparte cualquier tema relacionado con la sostenibilidad y el planeta.</a>
-                                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Recuerda que puedes ver tu progreso en cualquier momento desde el sidebar.</a>
-                                </div>
-                            </p>
-                            <p class="card-text"><small class="text-muted"> El equipo de #Ecofriendly </small></p>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                </article> -->
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
             <div class="card card-inverse">
@@ -315,17 +264,16 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
                             echo '<ul class="list-group">';
-
                             echo Html::beginForm(['seguidores/create'], 'post')
                                 . '<li class="list-group-item col-12" style="margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
-                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('http://localhost:8080/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id . ''), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
+                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('id', $usuarios[$i]->id);
                             echo Html::submitButton(
                                 '<span class="glyphicon glyphicon-plus btn-xs"></span>',
                                 ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
                             );
-                            echo '</li>
-    </ul>' . Html::endForm();
+                            echo '</li> </ul>'
+                                . Html::endForm();
                         }
 
 
@@ -352,19 +300,13 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     <p class="card-text">
                         <div class="list-group col-12 ">
                             <?php
-                            $file =  Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
-                            $exists = file_exists($file);
-                            $imagenUsuario = Url::to('@web/img/' . Yii::$app->user->identity->id . '.jpg');
-                            $urlImagenBasica = Url::to('@web/img/basica.jpg');
-                            if (!$exists) {
-                                $imagenUsuario = $urlImagenBasica;
-                            }
+
 
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-                                file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
+                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Html::img(Auxiliar::obtenerImagen($seguidores[$i]->seguidor_id), $optionsBarraUsuarios);
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
