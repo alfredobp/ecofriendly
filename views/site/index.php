@@ -3,17 +3,18 @@
 /* @var $this yii\web\View */
 
 use app\helper_propio\Auxiliar;
+use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
-use yii\bootstrap\Html;
+use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
-use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Html as HelpersHtml;
+use yii\jui\Dialog;
 
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -46,7 +47,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
-           
+
             <?php
             //Jquery Script que interactura con el DOM del proyecto: Modificando el color de la barra de progreso
             // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
