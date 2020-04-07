@@ -128,41 +128,38 @@ class SiteController extends Controller
         $sql2 = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id;
         $feedCount = Feeds::findBySql($sql2);
 
-        // var_dump($feedCount);
+
         $pagination = new Pagination([
             'defaultPageSize' => 5,
             'totalCount' => $feedCount->count(),
         ]);
 
-        // :find()
-        // ->select(['generos.*', 'COUNT(l.id) AS total'])
-        // ->joinWith('libros l', false)
-        // ->groupBy('generos.id');
 
         $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
-        $sql2 = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios LEFT JOIN feeds f ON usuarios.id = f.usuariosid GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  . 'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ')order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
+        $sql2 = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  . 'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
 
         // $feed = Feeds::findBySql($sql)
         // $feed = Usuarios::find()->joinWith(['feeds'])->select(['usuarios.id', 'feeds.contenido'])->all();
-        // $feed = Usuarios::find()->select('f.contenido')->joinWith('feeds f', false, 'FULL OUTER JOIN')->groupBy(['f.id', 'usuarios.id'])->ALL();
+        $feed2 = Feeds::find()->select(['feeds.*'])->joinWith('usuarios u', false)->where(['usuariosid' => 2])->ALL();
+
+        // var_dump($sql2);
+        // die;
+
         $feed = Yii::$app->db->createCommand($sql2)->queryAll();
         // var_dump($feed);
 
         //   $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->one();
-        // var_dump($feed);
+        //  var_dump($feed);
         // die;
 
         return $this->render('index', [
 
             'datos' => Usuarios::findOne(Yii::$app->user->identity->id),
-            'puntos' => $puntuacion,
-            'retos' => $retos,
             'retosListado' => $retosListado,
             'feeds' => $feed,
             'model' => $model,
             'pagination' => $pagination,
             'usuarios' => $listaUsuarios,
-            'model2' => Usuarios::findOne(Yii::$app->user->identity->id),
             'model3' => $model3,
             'seguidores' => Seguidores::find()
                 ->where(['usuario_id' => Yii::$app->user->identity->id])

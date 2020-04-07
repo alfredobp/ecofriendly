@@ -46,10 +46,10 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
+           
             <?php
             //Jquery Script que interactura con el DOM del proyecto: Modificando el color de la barra de progreso
             // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
-
 
             if (!isset($_COOKIE['intro'])) {
                 Auxiliar::introNovatos();
