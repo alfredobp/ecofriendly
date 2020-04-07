@@ -142,7 +142,7 @@ AppAsset::register($this);
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
                 <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
-                <br>
+               
                 <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
                 <p class="float-right"><?= Yii::powered() ?></p>

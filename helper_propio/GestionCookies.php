@@ -19,7 +19,7 @@ class GestionCookies
         $url4 = Url::to(['usuarios/guardacookie']);
         $url1 = Url::to(['usuarios/estado']);
         $url2 = Url::to(['usuarios/puntos']);
-        $id = Yii::$app->user->id;
+        $id = Yii::$app->user->identity->id;
         $js = <<<EOT
             $( function() {
             $(".loader").fadeOut("slow");
