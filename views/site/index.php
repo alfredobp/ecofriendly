@@ -9,6 +9,7 @@ use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
+use Symfony\Component\OptionsResolver\Options;
 use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
@@ -33,7 +34,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-            <?= Bootstrap4Html::img(Auxiliar::obtenerImagen(Yii::$app->user->identity->id), $options) ?>
+            <?= Auxiliar::obtenerImagenFeed(Yii::$app->user->identity->url_avatar, $options) ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
@@ -170,8 +171,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
-
-                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen']) ?>
+                       
+                        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
 

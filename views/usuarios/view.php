@@ -59,6 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
         ]) ?>
     </div>
-    <!-- <?= Html::a('Prueba', ['seguidores/create'], ['id' => $model->id], ['class' => 'btn btn-success']) ?> -->
+    <?= Html::a('Prueba', ['seguidores/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     <?= Html::button('Añadir como amigo', ['value' => Url::to('http://localhost:8080/index.php?r=seguidores%2Fcreate&id=' . $model->id), 'method' => 'post', 'class' => 'submit btn-success modalButton2']); ?>
 </div>

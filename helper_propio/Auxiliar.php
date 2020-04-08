@@ -52,9 +52,9 @@ class Auxiliar
         file_exists(Url::to('@app/web/img/' . $id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
         return $imagenUsuario;
     }
-    public static function obtenerImagenFeed($id)
+    public static function obtenerImagenFeed($id, $options)
     {
         $imagen = $id;
-        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, ['class' => '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1"'], ['style' => 'width=30px padding=2px>']);
+        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, $options);
     }
 }

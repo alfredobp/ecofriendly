@@ -136,9 +136,10 @@ $this->registerJs($js);
             $imagenUsuario = $urlImagenBasica;
         }
         ?>
-        <?=Auxiliar::obtenerImagenFeed($model->url_avatar)?>
+        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+        <?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>
 
-        <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?=Auxiliar::obtenerImagenFeed($model->url_avatar)?>" width=250px alt=" avatar"></div>
+        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>" width=250px alt=" avatar"></div> -->
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([
