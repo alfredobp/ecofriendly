@@ -126,7 +126,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                     'options' =>   ['enctype' => 'multipart/form-data'],
                                 ]); ?>
                                 <?= $form->field($model, 'contenido')->textarea(['rows' => 4])->label('') ?>
-                                <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
+                                <?= $form->field($model, 'imagen')->fileInput() ?>
                                 <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                                 <?php ActiveForm::end(); ?>
                             </div>
@@ -143,10 +143,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <?php
                     $form = ActiveForm::begin([
-                        'action' => ['feeds/imagen'],
+                        'action' => ['feeds/imagen2'],
                         'method' => 'post',
                         'options' =>   ['enctype' => 'multipart/form-data'],
                     ]); ?>
+                    <?= $form->field($model, 'imagen')->fileInput() ?>
                     <br>
                     <?= HelpersHtml::submitButton('Subir Imagen', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                     <?php ActiveForm::end(); ?>
@@ -170,7 +171,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
-                        <?= Auxiliar::obtenerImagenFeed($feeds['identificador']) ?>
+                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen']) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
 

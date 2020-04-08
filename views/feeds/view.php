@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'contenido',
             'created_at',
             'updated_at',
+            'imagen',
         ],
     ]) ?>
-
+    <?= Html::img(Yii::getAlias('@uploads') . '/' . $model->imagen) ?>
 </div>

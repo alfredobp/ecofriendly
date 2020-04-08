@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+require '../helper_propio/AdministradorAWS3c.php';
 /**
  * FeedsController implements the CRUD actions for Feeds model.
  */
@@ -78,39 +79,69 @@ class FeedsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    // public function actionCreate()
+    // {
+    //     $model = new Feeds();
+    //     $model2 = new ImagenForm();
+    //     $id = '';
+
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         $model->usuariosid = Yii::$app->user->id;
+    //         $model->contenido = $model->contenido;
+    //         $model->created_at = date('Y-m-d H:i:s');
+    //         $model->save();
+    //         $id = $model->id;
+    //     }
     public function actionCreate()
     {
         $model = new Feeds();
-        $model2 = new ImagenForm();
-        $id = '';
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->usuariosid = Yii::$app->user->id;
-            $model->contenido = $model->contenido;
-            $model->created_at = date('Y-m-d H:i:s');
+        $model->usuariosid = Yii::$app->user->id;
+        $model->created_at = date('Y-m-d H:i:s');
+      
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!empty($_FILES)) {
+                $model->imagen = $_FILES['Feeds']['name']['imagen'];
+            }
             $model->save();
-            $id = $model->id;
+            if (!empty($_FILES['Feeds']['name']['imagen'])) {
+                uploadImagenFeed($model);
+            }
+            return $this->goHome();
         }
 
-        // if (Yii::$app->request->isPost) {
-        //     $model2->imagen = UploadedFile::getInstance($model2, 'imagen');
-        //     if ($model2->upload($id)) {
-        //         return $this->redirect('index');
-        //     }
-        // }
 
-        // return $this->render('imagen', [
-        //     'model' => $model2,
-        //     'id' => $id,
+        return $this->goHome();
+    }
+    public function actionCreate2()
+    {
+        $model = new Feeds();
+        $model->usuariosid = Yii::$app->user->id;
+        $model->created_at = date('Y-m-d H:i:s');
+        //ESCANERIO SI SE QUIERE MANDAR SOLO UNA IMAGEN
+        $model->contenido = '::';
+        
+      
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!empty($_FILES)) {
+                $model->imagen = $_FILES['Feeds']['name']['imagen'];
+            }
+            $model->save();
+            if (!empty($_FILES['Feeds']['name']['imagen'])) {
+                uploadImagenFeed($model);
+            }
+            return;
+        }
 
-        // ]);
 
-        return $this->redirect(['site/index', 'id' => $model->id]);
+        return $this->render('create', [
+            'model' => $model,
+   
+        ]);
     }
     public function actionImagen()
     {
         $model = new ImagenForm();
-       
+
 
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
@@ -131,14 +162,37 @@ class FeedsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    // public function actionUpdate($id)
+    // {
+    //     $model = $this->findModel($id);
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
+    //     return $this->render('update', [
+    //         'model' => $model,
+    //     ]);
+    // }
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->updated_at=date('Y-m-d H:i:s');
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty($_FILES['Feeds']['name']['imagen'])) {
+                // var_dump($_FILES);
+                // die;
+                uploadImagenFeed($model);
+
+                $model->imagen = $_FILES['Feeds']['name']['imagen'];
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
         return $this->render('update', [
             'model' => $model,
+            // 'listaGeneros' => $this->listaGeneros(),
+            // 'listaAutores' => $this->listaAutores(),
         ]);
     }
 

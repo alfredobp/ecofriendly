@@ -3,6 +3,7 @@
 namespace app\helper_propio;
 
 use Yii;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\Dialog;
 
@@ -53,8 +54,7 @@ class Auxiliar
     }
     public static function obtenerImagenFeed($id)
     {
-
-
-        return file_exists(Url::to('@app/web/img/' . $id . 'feed.jpg')) ?   '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1" src="/img/' . $id  . 'feed.jpg" width=auto padding=20px>' :  '';
+        $imagen = $id;
+        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, ['class' => '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1"'], ['style' => 'width=auto padding=20px>']);
     }
 }
