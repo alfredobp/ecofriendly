@@ -21,6 +21,8 @@ use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
 use yii\web\Response;
 
+require '../helper_propio/AdministradorAWS3c.php';
+
 class UsuariosController extends Controller
 {
     public function behaviors()
@@ -368,16 +370,23 @@ class UsuariosController extends Controller
         Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
         return $this->goHome();
     }
-
+    //
     public function actionImagen($id)
     {
-        $model = new ImagenForm();
 
-        if (Yii::$app->request->isPost) {
-            $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->upload2($id)) {
-                return $this->redirect('index');
+        $model = Usuarios::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if (!empty($_FILES)) {
+
+                $model->url_avatar = $_FILES['Usuarios']['name']['url_avatar'];
             }
+            $model->save();
+            if (!empty($_FILES['Usuarios']['name']['url_avatar'])) {
+                uploadImagenUsuarios($model);
+            }
+            return $this->goHome();
         }
 
         return $this->render('imagen', [
@@ -429,7 +438,7 @@ class UsuariosController extends Controller
     }
     public function actionPuntos($id)
     {
-        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid'=>$id])->one();
+        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
 
 
 

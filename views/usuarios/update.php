@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use app\helper_propio\Auxiliar;
 use app\models\Feeds;
 use app\models\Seguidores;
 use app\models\Usuarios;
@@ -135,8 +136,9 @@ $this->registerJs($js);
             $imagenUsuario = $urlImagenBasica;
         }
         ?>
+        <?=Auxiliar::obtenerImagenFeed($model->url_avatar)?>
 
-        <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= $imagenUsuario ?>" width=250px alt=" avatar"></div>
+        <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?=Auxiliar::obtenerImagenFeed($model->url_avatar)?>" width=250px alt=" avatar"></div>
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([

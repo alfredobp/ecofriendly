@@ -31,7 +31,7 @@ use Exception;
  * @return void|S3Exception void si todo va bien, o una excepcion si falla algo.
  * @param object $model Modelo para ver si ya tenia foto subida o no.
  */
-function uploadImagen($model)
+function uploadImagenUsuarios($model)
 {
     // AWS Info
     $bucketName = 'ecofriendly';
@@ -41,6 +41,7 @@ function uploadImagen($model)
     //Comprueba si tiene foto antigua para eliminarla
     if (!empty($model->getOldAttribute('url_avatar'))) {
         $keyName = basename($model->getOldAttribute('url_avatar'));
+
         var_dump($model->getOldAttributes());
 
         $s3 = S3Client::factory(
@@ -84,11 +85,12 @@ function uploadImagen($model)
     // For this, I would generate a unqiue random string for the key name. But you can do whatever.
 
     $keyName = basename($_FILES['Usuarios']['name']['url_avatar']);
-    $pathInS3 = 'https://s3.eu-west-2.amazonaws.com/' . $bucketName . '/' . $keyName;
+    $pathInS3 = 'https://s3.eu-west-3.amazonaws.com/' . $bucketName . '/' . $keyName;
     // Add it to S3
     try {
         // Uploaded:
         $file = $_FILES['Usuarios']['tmp_name']['url_avatar'];
+
         $s3->putObject(
             [
                 'Bucket' => $bucketName,

@@ -55,6 +55,6 @@ class Auxiliar
     public static function obtenerImagenFeed($id)
     {
         $imagen = $id;
-        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, ['class' => '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1"'], ['style' => 'width=auto padding=20px>']);
+        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, ['class' => '<img  class=" img-fluid mr-md-3 mb-3 ml-3 mt-1"'], ['style' => 'width=30px padding=2px>']);
     }
 }
