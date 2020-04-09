@@ -267,19 +267,15 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
 
-                            echo '<ul class="list-group">';
-                            echo Html::beginForm(['seguidores/create'], 'post')
+                            echo '<ul class="list-group">'
+                         
                                 . '<li class="list-group-item col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
                             echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
-                            echo Html::hiddenInput('id', $usuarios[$i]->id);
-                            echo Html::submitButton(
-                                '<span class="glyphicon glyphicon-plus btn-xs"></span>',
-                                ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
-                            );
-                            echo '</li> </ul>'
-                                . Html::endForm();
+                            echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
+                            
+                            echo '</li> </ul>';
+                           
                         }
-
 
                         Modal::begin([
                             'title' => '<h3>Perfil de usuario</h3>',
@@ -290,6 +286,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         Modal::end();
                         ?>
+
 
 
                     </div>

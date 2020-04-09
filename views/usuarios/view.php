@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '160px', 'height' => '160px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
-        $id = $model->id;
+        $seguidor_id = $model->id;
 
 
 
@@ -60,6 +60,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
         ]) ?>
     </div>
-    <?= Html::a('Prueba', ['seguidores/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-    <?= Html::button('Añadir como amigo', ['value' => Url::to('http://localhost:8080/index.php?r=seguidores%2Fcreate&id=' . $model->id), 'method' => 'post', 'class' => 'submit btn-success modalButton2']); ?>
+    <?= Html::a('Añadir como amigo', ['seguidores/create', 'seguidor_id' => $seguidor_id], ['class' => 'btn btn-success',  'action' => 'post']) ?>
+    <?php echo Html::a(
+
+        'My Link with POST submit',
+
+        ['site/index'],
+
+        [
+            'onclick' => "$.ajax({
+
+                        url: '" . Url::to(['seguidores/create']) . "',
+
+                        type: 'POST',
+
+                         data: 'seguidor_id=$model->id',
+
+                         })",
+        ]
+    );
+    ?>
+    <!-- <?= Html::button('Añadir como amigo', ['value' => ['seguidores/create'  . $model->id], 'method' => 'post', 'class' => 'submit btn-success modalButton2']); ?> -->
 </div>
