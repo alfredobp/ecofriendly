@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 <br>
 <br>
 <br>
-    <?= $form->field($model, 'imagen')->fileInput() ?>
+    <?= $form->field($model, 'url_avatar')->fileInput() ?>
 
 
     <button>Enviar</button>

@@ -18,7 +18,7 @@ class FeedsSearch extends Feeds
     {
         return [
             [['id', 'usuariosid'], 'integer'],
-            [['contenido', 'created_at', 'updated_at'], 'safe'],
+            [['contenido','imagen', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 

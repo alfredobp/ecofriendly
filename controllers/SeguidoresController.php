@@ -32,7 +32,7 @@ class SeguidoresController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create','delete'],
+                'only' => ['update', 'view', 'index', 'create', 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -79,17 +79,14 @@ class SeguidoresController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Seguidores();
+        $seguidor = new Seguidores();
+        $seguidor->usuario_id = Yii::$app->user->identity->id;
+        var_dump($_POST);
+        $id = $_POST['seguidor_id'];
+        $seguidor->seguidor_id = $id;
+        $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
 
-        $id = $_POST['id'];
-        $seguidores = Seguidores::find()->where(['seguidor_id' => $id])->one();
- 
-
-
-        if ($seguidores == null && $id != Yii::$app->user->identity->id) {
-            $seguidor = new Seguidores();
-            $seguidor->usuario_id = Yii::$app->user->identity->id;
-            $seguidor->seguidor_id = $_POST['id'];
+        if ($seguidor->validate() && $esSeguidor == null) {
             $seguidor->save();
             Yii::$app->session->setFlash('success', 'Ahora eres amigo');
             return $this->goBack();

@@ -11,6 +11,7 @@ CREATE TABLE usuarios (
     nombre varchar(255) NOT NULL,
     apellidos varchar(255) NOT NULL,
     email varchar(50) NOT NULL UNIQUE,
+    url_avatar varchar(255),
     direccion varchar(255),
     localidad varchar(255),
     estado varchar(255),
@@ -42,6 +43,7 @@ CREATE TABLE feeds (
     id bigserial PRIMARY KEY,
     usuariosid bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     contenido varchar(255) NOT NULL,
+    imagen varchar(255),
     created_at timestamp,
     updated_at timestamp
 );
@@ -223,7 +225,7 @@ VALUES
 INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
-    (   
+    (
         'Promover una producción más sostenible y respetuosa con el medio ambiente',
         'Consumir alimentos respetuosos con el medio ambiente, etiqueta eco, productos resposables,...',
         1,
@@ -241,7 +243,7 @@ VALUES
     );
 
 INSERT into
-    acciones_retos (titulo,descripcion, cat_id, puntaje)
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
         'Intentar vivir sin plásticos',
@@ -271,7 +273,7 @@ VALUES
     );
 
 INSERT into
-    acciones_retos (titulo,descripcion, cat_id, puntaje)
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
         'Hacer un uso eficiente de la energía consumida por mi hogar',
@@ -281,7 +283,7 @@ VALUES
     );
 
 INSERT into
-    acciones_retos (titulo,descripcion, cat_id, puntaje)
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
         'Reducir la huella hidrica de tu hogar',

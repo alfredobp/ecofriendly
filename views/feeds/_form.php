@@ -1,5 +1,6 @@
 <?php
 
+use Codeception\Step\Skip;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -20,6 +21,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'updated_at')->textInput() ?>
 
+    <?= $form->field($model, 'imagen')->fileInput() ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

@@ -12,7 +12,7 @@ use Yii;
  * @property string $contenido
  * @property string|null $created_at
  * @property string|null $updated_at
- *
+ * @property string|null $imagen
  * @property Comentarios[] $comentarios
  * @property Usuarios $usuarios
  */
@@ -22,7 +22,7 @@ class Feeds extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     private $_imagen = null;
-    public static $id =1;
+    public static $id = 1;
 
     public static function tableName()
     {
@@ -40,7 +40,7 @@ class Feeds extends \yii\db\ActiveRecord
             [['contenido'], 'safe'],
             [['usuariosid'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['contenido'], 'string', 'max' => 255],
+            [['contenido', 'imagen'], 'string', 'max' => 255],
             [['usuariosid'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuariosid' => 'id']],
         ];
     }
@@ -55,6 +55,7 @@ class Feeds extends \yii\db\ActiveRecord
             'usuariosid' => 'Usuariosid',
             'contenido' => 'Contenido',
             'created_at' => 'Fecha de creación',
+            // 'imagen' => 'Imagen',
             'updated_at' => 'Updated At',
         ];
     }

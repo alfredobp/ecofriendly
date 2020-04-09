@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -19,11 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '160px', 'height' => '160px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
-        $id = $model->id;
-        file_exists(Url::to('@app/web/img/' . $id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+        $seguidor_id = $model->id;
 
 
-        echo Html::img($imagenUsuario, $optionsBarraUsuarios) . '<h3>' . $model->username . '</h3>';
+
+        echo Auxiliar::obtenerImagenUsuario($model->url_avatar, $optionsBarraUsuarios);
 
         ?>
 
@@ -59,6 +60,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
         ]) ?>
     </div>
-    <!-- <?= Html::a('Prueba', ['seguidores/create'], ['id' => $model->id], ['class' => 'btn btn-success']) ?> -->
-    <?= Html::button('Añadir como amigo', ['value' => Url::to('http://localhost:8080/index.php?r=seguidores%2Fcreate&id=' . $model->id), 'method' => 'post', 'class' => 'submit btn-success modalButton2']); ?>
+  
+    <?php echo Html::a(
+
+        'Añadir como amigo',
+        ['site/index'],
+        [
+            'onclick' => "$.ajax({
+
+                        url: '" . Url::to(['seguidores/create']) . "',
+                        type: 'POST',
+                        data: 'seguidor_id=$model->id',
+                         })",
+                         'class' => 'btn btn-success'
+        ],
+        ['class' => 'btn btn-success'],
+    );
+    ?>
+  
 </div>

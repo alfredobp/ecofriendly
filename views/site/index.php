@@ -9,6 +9,7 @@ use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
+use Symfony\Component\OptionsResolver\Options;
 use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
@@ -33,7 +34,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-            <?= Bootstrap4Html::img(Auxiliar::obtenerImagen(Yii::$app->user->identity->id), $options) ?>
+            <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options); ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
@@ -126,7 +127,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                                     'options' =>   ['enctype' => 'multipart/form-data'],
                                 ]); ?>
                                 <?= $form->field($model, 'contenido')->textarea(['rows' => 4])->label('') ?>
-                                <!-- <?= $form->field($model, 'imagen')->fileInput() ?> -->
+                                <?= $form->field($model, 'imagen')->fileInput() ?>
                                 <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                                 <?php ActiveForm::end(); ?>
                             </div>
@@ -143,10 +144,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <?php
                     $form = ActiveForm::begin([
-                        'action' => ['feeds/imagen'],
+                        'action' => ['feeds/imagen2'],
                         'method' => 'post',
                         'options' =>   ['enctype' => 'multipart/form-data'],
                     ]); ?>
+                    <?= $form->field($model, 'imagen')->fileInput() ?>
                     <br>
                     <?= HelpersHtml::submitButton('Subir Imagen', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                     <?php ActiveForm::end(); ?>
@@ -158,19 +160,20 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php foreach ($feeds as $feeds) :
             ?>
-                <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds['id'] . 'feed' . '.jpg') : '';
-                file_exists(Url::to('@app/web/img/' . $feeds['id'] . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $feeds['id'] . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-                ?>
                 <article>
                     <section class="card feed">
 
+
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= Auxiliar::obtenerImagen($feeds['id']) ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
+                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= $feeds['nombre']  ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
+
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
-                        <?= Auxiliar::obtenerImagenFeed($feeds['identificador']) ?>
+                        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
+                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
 
@@ -263,20 +266,12 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
-                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-                            echo '<ul class="list-group">';
-                            echo Html::beginForm(['seguidores/create'], 'post')
-                                . '<li class="list-group-item col-12" style="margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
-                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
-                            echo Html::hiddenInput('id', $usuarios[$i]->id);
-                            echo Html::submitButton(
-                                '<span class="glyphicon glyphicon-plus btn-xs"></span>',
-                                ['class' => 'btn btn-success btn-sm ml-2 modalButton2'],
-                            );
-                            echo '</li> </ul>'
-                                . Html::endForm();
+                            echo '<ul class="list-group">'
+                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
+                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                            echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
+                            echo '</li> </ul>';
                         }
-
 
                         Modal::begin([
                             'title' => '<h3>Perfil de usuario</h3>',
@@ -289,6 +284,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         ?>
 
 
+
                     </div>
 
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
@@ -299,15 +295,14 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 <div class="card-block">
                     <h4 class="card-title">Tu red de amigos:</h4>
                     <p class="card-text">
-                        <div class="list-group col-12 ">
+                        <div class="    col-12 ">
                             <?php
 
 
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Html::img(Auxiliar::obtenerImagen($seguidores[$i]->seguidor_id), $optionsBarraUsuarios);
+                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
