@@ -73,31 +73,17 @@ class FeedsController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
-    /**
-     * Creates a new Feeds model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    // public function actionCreate()
-    // {
-    //     $model = new Feeds();
-    //     $model2 = new ImagenForm();
-    //     $id = '';
-
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    //         $model->usuariosid = Yii::$app->user->id;
-    //         $model->contenido = $model->contenido;
-    //         $model->created_at = date('Y-m-d H:i:s');
-    //         $model->save();
-    //         $id = $model->id;
-    //     }
+/**
+ * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
+ *
+ * @return void
+ */
     public function actionCreate()
     {
         $model = new Feeds();
         $model->usuariosid = Yii::$app->user->id;
         $model->created_at = date('Y-m-d H:i:s');
-      
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if (!empty($_FILES)) {
                 $model->imagen = $_FILES['Feeds']['name']['imagen'];
@@ -110,17 +96,22 @@ class FeedsController extends Controller
         }
 
 
-        return $this->goHome();
+        return $this->goBack();
     }
+    /**
+     * Si el usuario solo quiere subir una foto sin comentario alguno
+     *
+     * @return void
+     */
     public function actionCreate2()
     {
         $model = new Feeds();
         $model->usuariosid = Yii::$app->user->id;
         $model->created_at = date('Y-m-d H:i:s');
-        //ESCANERIO SI SE QUIERE MANDAR SOLO UNA IMAGEN
+        //ESCENaRIO SI SE QUIERE MANDAR SOLO UNA IMAGEN
         $model->contenido = '::';
-        
-      
+
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if (!empty($_FILES)) {
                 $model->imagen = $_FILES['Feeds']['name']['imagen'];
@@ -135,7 +126,7 @@ class FeedsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-   
+
         ]);
     }
     public function actionImagen()
@@ -175,7 +166,7 @@ class FeedsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->updated_at=date('Y-m-d H:i:s');
+        $model->updated_at = date('Y-m-d H:i:s');
         if ($model->load(Yii::$app->request->post())) {
             if (!empty($_FILES['Feeds']['name']['imagen'])) {
                 // var_dump($_FILES);

@@ -60,25 +60,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
         ]) ?>
     </div>
-    <?= Html::a('Añadir como amigo', ['seguidores/create', 'seguidor_id' => $seguidor_id], ['class' => 'btn btn-success',  'action' => 'post']) ?>
+  
     <?php echo Html::a(
 
-        'My Link with POST submit',
-
+        'Añadir como amigo',
         ['site/index'],
-
         [
             'onclick' => "$.ajax({
 
                         url: '" . Url::to(['seguidores/create']) . "',
-
                         type: 'POST',
-
-                         data: 'seguidor_id=$model->id',
-
+                        data: 'seguidor_id=$model->id',
                          })",
-        ]
+                         'class' => 'btn btn-success'
+        ],
+        ['class' => 'btn btn-success'],
     );
     ?>
-    <!-- <?= Html::button('Añadir como amigo', ['value' => ['seguidores/create'  . $model->id], 'method' => 'post', 'class' => 'submit btn-success modalButton2']); ?> -->
+  
 </div>

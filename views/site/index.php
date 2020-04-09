@@ -266,15 +266,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
-
                             echo '<ul class="list-group">'
-                         
-                                . '<li class="list-group-item col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
-                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
+                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
+                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
-                            
                             echo '</li> </ul>';
-                           
                         }
 
                         Modal::begin([
@@ -299,12 +295,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 <div class="card-block">
                     <h4 class="card-title">Tu red de amigos:</h4>
                     <p class="card-text">
-                        <div class="list-group col-12 ">
+                        <div class="    col-12 ">
                             <?php
 
 
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);

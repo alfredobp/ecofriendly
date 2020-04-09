@@ -24,21 +24,19 @@ use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use Exception;
 
-// Connect to AWS
-
 /**
- * Función para subir una imagen a Amazon S3.
+ * Función para subir una imagen de avatar a Amazon S3.
  * @return void|S3Exception void si todo va bien, o una excepcion si falla algo.
- * @param object $model Modelo para ver si ya tenia foto subida o no.
+ * @param object $model Modelo para ver si el usuario ya tenia una foto subida o no.
  */
 function uploadImagenUsuarios($model)
 {
-    // AWS Info
+    // AWS Info toma el valor de variables de entorno por seguridad.
     $bucketName = 'ecofriendly';
     $IAM_KEY = getenv('IAM_KEY');
     $IAM_SECRET = getenv('IAM_SECRET');
 
-    //Comprueba si tiene foto antigua para eliminarla
+    //Comprueba si el usuario tiene una foto antigua para eliminarla
     if (!empty($model->getOldAttribute('url_avatar'))) {
         $keyName = basename($model->getOldAttribute('url_avatar'));
 
@@ -108,13 +106,14 @@ function uploadImagenUsuarios($model)
 }
 
 /**
- * Función para subir una imagen a Amazon S3.
+ * Función para subir una imagen asociada a un feed a Amazon S3.
  * @return void|S3Exception void si todo va bien, o una excepcion si falla algo.
- * @param object $model Modelo para ver si ya tenia foto subida o no.
+ * @param object $model Modelo para  observar si el feed ya tenia una foto previa, en
+ * caso afirmativo se sustituye.
  */
 function uploadImagenFeed($model)
 {
-    // AWS Info
+    // AWS Info, se toman desde variables de entorno por seguridad.
     $bucketName = 'ecofriendly';
     $IAM_KEY =  getenv('IAM_KEY');
     $IAM_SECRET =  getenv('IAM_SECRET');
@@ -135,7 +134,7 @@ function uploadImagenFeed($model)
             ]
         );
 
-        //Delete
+        //Borra el objeto
         $s3->deleteObject([
             'Bucket' => $bucketName,
             'Key' => $keyName,
