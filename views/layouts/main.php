@@ -11,10 +11,12 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
+use app\helper_propio\Auxiliar;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
 use kartik\icons\Icon;
+use Mpdf\Tag\Option;
 
 Icon::map($this);
 
@@ -93,7 +95,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav'],
                 'items' => [
-                    Yii::$app->user->isGuest ? '' : file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ? Html::img('/img/' . Yii::$app->user->identity->id . '.jpg', $options) : '',
+                    Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options),
                     [
                         'label' => Icon::show('home') . 'Inicio',
                         'options' => [
@@ -142,7 +144,7 @@ AppAsset::register($this);
                 <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
                 <br>
                 <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
-               
+
                 <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
                 <p class="float-right"><?= Yii::powered() ?></p>

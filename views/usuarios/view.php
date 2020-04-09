@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -20,10 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
         $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '160px', 'height' => '160px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
         $id = $model->id;
-        file_exists(Url::to('@app/web/img/' . $id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
 
 
-        echo Html::img($imagenUsuario, $optionsBarraUsuarios) . '<h3>' . $model->username . '</h3>';
+
+        echo Auxiliar::obtenerImagenUsuario($model->url_avatar, $optionsBarraUsuarios);
 
         ?>
 

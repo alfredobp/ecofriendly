@@ -84,7 +84,7 @@ class SiteController extends Controller
         $model3 = new ImagenForm();
         $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => Yii::$app->user->identity->id])->one();
 
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id'])->where(['!=', 'id', Yii::$app->user->identity->id])
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id','url_avatar'])->where(['!=', 'id', Yii::$app->user->identity->id])
             ->all();
         $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
         $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e  on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . Yii::$app->user->identity->id;

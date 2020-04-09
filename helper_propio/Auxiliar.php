@@ -2,6 +2,7 @@
 
 namespace app\helper_propio;
 
+use app\models\Usuarios;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -47,14 +48,22 @@ class Auxiliar
         return $js;
     }
 
-    public static function obtenerImagen($id)
+    public static function obtenerImagenUsuario($id, $options)
     {
-        file_exists(Url::to('@app/web/img/' . $id . '.jpg')) ?  $imagenUsuario = Url::to('@web/img/' . $id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
+       
+        $id != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        return $imagenUsuario;
+    }
+    public static function obtenerImagenSeguidor($id, $options)
+    {
+        $id1 = Usuarios::findOne($id);
+        $id1->url_avatar != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1->url_avatar, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
     public static function obtenerImagenFeed($id, $options)
     {
-        $imagen = $id;
-        return Html::img(Yii::getAlias('@uploads') . '/' . $imagen, $options);
+        $id != null ? $imagenFeed = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) : $imagenFeed = '';
+        return $imagenFeed;
     }
 }

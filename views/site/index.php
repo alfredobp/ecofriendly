@@ -34,7 +34,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-            <?= Auxiliar::obtenerImagenFeed(Yii::$app->user->identity->url_avatar, $options) ?>
+            <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options); ?>
             <hr>
             <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
             <br>
@@ -160,19 +160,19 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?php foreach ($feeds as $feeds) :
             ?>
-                <?php file_exists(Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg')) ?  $imagenFeed = Url::to('@web/img/' . $feeds['id'] . 'feed' . '.jpg') : '';
-                file_exists(Url::to('@app/web/img/' . $feeds['id'] . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $feeds['id'] . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
-                ?>
                 <article>
                     <section class="card feed">
 
+
                         <div class="card-block">
-                            <h4 class="card-title"><img src=<?= Auxiliar::obtenerImagen($feeds['id']) ?> class="img-fluid rounded" style="width:80px;"> <?= $feeds['nombre']  ?></h4>
+                            <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
+                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= $feeds['nombre']  ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
+
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
-                       
-                        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+
+                        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                         <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
@@ -266,10 +266,10 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
-                            file_exists(Url::to('@app/web/img/' . $usuarios[$i]->id . '.jpg')) ? $imagenUsuario = Url::to('@web/img/' . $usuarios[$i]->id . '.jpg') : $imagenUsuario = Url::to('@web/img/basica.jpg');
+
                             echo '<ul class="list-group">';
                             echo Html::beginForm(['seguidores/create'], 'post')
-                                . '<li class="list-group-item col-12" style="margin:4px">' . Html::img($imagenUsuario, $optionsBarraUsuarios);
+                                . '<li class="list-group-item col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
                             echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('id', $usuarios[$i]->id);
                             echo Html::submitButton(
@@ -310,7 +310,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Html::img(Auxiliar::obtenerImagen($seguidores[$i]->seguidor_id), $optionsBarraUsuarios);
+                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
