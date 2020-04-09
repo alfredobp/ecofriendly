@@ -1,5 +1,8 @@
 <?php
+/*
+Conjunto de herramientas que permiten la reutilización de código.
 
+*/
 namespace app\helper_propio;
 
 use app\models\Usuarios;
