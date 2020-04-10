@@ -182,7 +182,8 @@ $this->registerJs($js);
     </section>
     <br>
     <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+        <h4>En esta área podrá gestionar todos los feeds publicados en la red #ecofriendly:</h4>
+        <br>
         <?php
         $dataProvider = new ActiveDataProvider([
             'query' => Feeds::find()
@@ -218,7 +219,7 @@ $this->registerJs($js);
                     'attribute' => 'updated_at',
                     'format' => ['date'],
                 ],
-              
+
 
                 [
                     'class' => 'yii\grid\ActionColumn',
