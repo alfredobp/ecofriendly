@@ -3,6 +3,7 @@
 Conjunto de herramientas que permiten la reutilización de código.
 
 */
+
 namespace app\helper_propio;
 
 use app\models\Usuarios;
@@ -54,7 +55,7 @@ class Auxiliar
     public static function obtenerImagenUsuario($id, $options)
     {
 
-       
+
         $id != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
@@ -64,7 +65,7 @@ class Auxiliar
         $id1->url_avatar != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1->url_avatar, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
-    public static function obtenerImagenFeed($id, $options)
+    public static function obtenerImagenFeed($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']])
     {
         $id != null ? $imagenFeed = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) : $imagenFeed = '';
         return $imagenFeed;

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
+use yii\grid\GridView;
 ?>
 <div class="tarea col-6">
     <br>
@@ -14,3 +15,18 @@ use yii\helpers\HtmlPurifier;
 
     </ul>
 </div>
+<?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'usuariosid',
+            'contenido',
+            'created_at',
+            'updated_at',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>

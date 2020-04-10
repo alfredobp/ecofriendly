@@ -137,9 +137,9 @@ $this->registerJs($js);
         }
         ?>
         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-        <?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>
+        <?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>
 
-        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>" width=250px alt=" avatar"></div> -->
+        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>" width=250px alt=" avatar"></div> -->
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([
@@ -193,12 +193,26 @@ $this->registerJs($js);
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
         $dataProvider->pagination = ['pageSize' => 10];
-
+        $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
         Pjax::begin();
-        echo ListView::widget([
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'summary' => 'Ultimas publicaciones realizadas:',
-            'itemView' => '_actividadUsuarios',
+            'options' => ['class' => 'table-borderless mb-6'],
+            'columns' => [
+                [
+                    'header' => 'Fecha de <br> publicación',
+                    'attribute' => 'created_at',
+                    'format' => ['date'],
+                ],
+               
+              
+
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'controller' => 'feeds',
+                ],
+            ],
+
         ]);
 
         Pjax::end();
