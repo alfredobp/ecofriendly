@@ -198,10 +198,11 @@ $this->registerJs($js);
         Pjax::begin();
         echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'table-borderless mb-6'],
+            'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
             'columns' => [
                 [
-                    // 'header' => 'Fecha de <br> publicación',
+
                     'attribute' => 'created_at',
                     'value' => function ($dataProvider) {
                         return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
@@ -216,7 +217,7 @@ $this->registerJs($js);
                     'format' => 'raw',
                 ],
                 'contenido',
-                'created_at',
+
 
                 [
                     // 'header' => 'Fecha de <br> Actualización',
