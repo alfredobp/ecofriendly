@@ -56,7 +56,7 @@ class Feeds extends \yii\db\ActiveRecord
             'contenido' => 'Contenido',
             'created_at' => 'Fecha de creación',
             // 'imagen' => 'Imagen',
-            'updated_at' => 'Updated At',
+            'updated_at' => 'Fecha Actualización',
         ];
     }
     public function getImagen()

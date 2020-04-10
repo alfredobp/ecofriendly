@@ -201,9 +201,12 @@ $this->registerJs($js);
             'options' => ['class' => 'table-borderless mb-6'],
             'columns' => [
                 [
-                    'header' => 'Fecha de <br> publicación',
+                    // 'header' => 'Fecha de <br> publicación',
                     'attribute' => 'created_at',
-                    'format' => ['date'],
+                    'value' => function ($dataProvider) {
+                        return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                    },
+
                 ],
                 [
                     'attribute' => 'imagen',
@@ -213,16 +216,21 @@ $this->registerJs($js);
                     'format' => 'raw',
                 ],
                 'contenido',
+                'created_at',
 
                 [
-                    'header' => 'Fecha de <br> Actualización',
+                    // 'header' => 'Fecha de <br> Actualización',
                     'attribute' => 'updated_at',
-                    'format' => ['date'],
+
+                    'value' => function ($dataProvider) {
+                        return ($dataProvider->updated_at == null) ? '---- ' : Yii::$app->formatter->asRelativeTime($dataProvider->updated_at);
+                    },
                 ],
 
 
                 [
                     'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {update} {delete} {portada}',
                     'controller' => 'feeds',
                 ],
             ],
