@@ -1,7 +1,7 @@
 
 <p align="center">
 
-  <img src="https://raw.githubusercontent.com/alfredobp/ecofriendly/master/guia/images/logo.png" width="350" alt="accessibility text">
+  <img src="https://ecofriendly.s3.eu-west-3.amazonaws.com/logo.png" width="350" alt="accessibility text">
 </p>
 
 
