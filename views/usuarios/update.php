@@ -204,7 +204,20 @@ $this->registerJs($js);
                     'attribute' => 'created_at',
                     'format' => ['date'],
                 ],
-               
+                [
+                    'attribute' => 'imagen',
+                    'value' => function ($dataProvider) {
+                        return Auxiliar::obtenerImagenFeed($dataProvider->imagen);
+                    },
+                    'format' => 'raw',
+                ],
+                'contenido',
+
+                [
+                    'header' => 'Fecha de <br> Actualización',
+                    'attribute' => 'updated_at',
+                    'format' => ['date'],
+                ],
               
 
                 [
