@@ -137,9 +137,9 @@ $this->registerJs($js);
         }
         ?>
         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-        <?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>
+        <?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>
 
-        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?=Auxiliar::obtenerImagenFeed($model->url_avatar, $options)?>" width=250px alt=" avatar"></div> -->
+        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>" width=250px alt=" avatar"></div> -->
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([
@@ -182,7 +182,8 @@ $this->registerJs($js);
     </section>
     <br>
     <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+        <h4>En esta área podrá gestionar todos los feeds publicados en la red #ecofriendly:</h4>
+        <br>
         <?php
         $dataProvider = new ActiveDataProvider([
             'query' => Feeds::find()
@@ -193,12 +194,48 @@ $this->registerJs($js);
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
         $dataProvider->pagination = ['pageSize' => 10];
-
+        $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
         Pjax::begin();
-        echo ListView::widget([
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'summary' => 'Ultimas publicaciones realizadas:',
-            'itemView' => '_actividadUsuarios',
+            'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
+            'columns' => [
+                [
+
+                    'attribute' => 'created_at',
+                    'value' => function ($dataProvider) {
+                        return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                    },
+
+                ],
+                [
+                    'attribute' => 'imagen',
+                    'value' => function ($dataProvider) {
+                        return Auxiliar::obtenerImagenFeed($dataProvider->imagen);
+                    },
+                    'format' => 'raw',
+                ],
+                'contenido',
+
+
+                [
+                    // 'header' => 'Fecha de <br> Actualización',
+                    'attribute' => 'updated_at',
+
+                    'value' => function ($dataProvider) {
+                        return ($dataProvider->updated_at == null) ? '---- ' : Yii::$app->formatter->asRelativeTime($dataProvider->updated_at);
+                    },
+                ],
+
+
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {update} {delete} {portada}',
+                    'controller' => 'feeds',
+                ],
+            ],
+
         ]);
 
         Pjax::end();
