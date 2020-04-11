@@ -122,24 +122,14 @@ $this->registerJs($js);
 </nav>
 <article class="tab-content" id="myTabContent">
     <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h3>Bienvenido a su perfil personal de ecofriendly: <?= Yii::$app->user->identity->username ?></h3>
+        <h3>Bienvenido a su perfil personal de ecofriendly: <?= ucfirst(Yii::$app->user->identity->username) ?></h3>
         <br>
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
-        <?php
-        //Comprueba que existe la imagen
-        $file = Url::to('@app/web/img/' . Yii::$app->user->identity->id . '.jpg');
-        $exists = file_exists($file);
-        $imagenUsuario = Url::to('@web/img/' . $model->id . '.jpg');
-        $urlImagenBasica = Url::to('@web/img/basica.jpg');
 
-        if (!$exists) {
-            $imagenUsuario = $urlImagenBasica;
-        }
-        ?>
+
         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-        <?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>
+        <?= Auxiliar::obtenerImagenUsuario($model->url_avatar, $options) ?>
 
-        <!-- <div class="col-4"><a href='<?= $url ?>'></a> <img class='img-fluid rounded-circle' src="<?= Auxiliar::obtenerImagenFeed($model->url_avatar, $options) ?>" width=250px alt=" avatar"></div> -->
 
         <p>Puede modificar sus datos a continuación:</p>
         <?php $form = ActiveForm::begin([

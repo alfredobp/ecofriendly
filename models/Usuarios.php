@@ -172,7 +172,18 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         $this->setImagen(Yii::getAlias('@img/' . $this->id . '.jpg'));
         return $this->_imagen;
     }
-
+    // public function actionActivar($id, $token)
+    // {
+    //     $usuario = $this->findModel($id);
+    //     if ($usuario->token === $token) {
+    //         $usuario->token = null;
+    //         $usuario->save();
+    //         Yii::$app->session->setFlash('success', 'Usuario validado. Inicie sesión.');
+    //         return $this->redirect(['site/login']);
+    //     }
+    //     Yii::$app->session->setFlash('error', 'La validación no es correcta.');
+    //     return $this->redirect(['site/index']);
+    // }
 
     public function setImagen($imagen)
     {
