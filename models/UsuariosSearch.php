@@ -42,7 +42,7 @@ class UsuariosSearch extends Usuarios
     public function search($params)
     {
         // $query = Usuarios::find()->where(['id'=>Yii::$app->user->id]);
-          $query = Usuarios::find();
+        $query = Usuarios::find();
 
         // add conditions that should always apply here
 
@@ -62,6 +62,8 @@ class UsuariosSearch extends Usuarios
         $query->andFilterWhere([
             'id' => $this->id,
             'fecha_nac' => $this->fecha_nac,
+            'ultima_conexion' => $this->ultima_conexion,
+            'fecha_alta' => $this->fecha_alta,
         ]);
 
         $query->andFilterWhere(['ilike', 'username', $this->username])
@@ -71,6 +73,7 @@ class UsuariosSearch extends Usuarios
             ->andFilterWhere(['ilike', 'apellidos', $this->apellidos])
             ->andFilterWhere(['ilike', 'email', $this->email])
             ->andFilterWhere(['ilike', 'direccion', $this->direccion])
+            ->andFilterWhere(['ilike', 'localidad', $this->localidad]) 
             ->andFilterWhere(['ilike', 'estado', $this->estado])
             ->andFilterWhere(['ilike', 'token_acti', $this->token_acti])
             ->andFilterWhere(['ilike', 'codigo_verificacion', $this->codigo_verificacion]);

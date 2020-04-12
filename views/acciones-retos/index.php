@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -19,25 +20,23 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'titulo',
             'descripcion',
             'cat_id',
-          
             'puntaje',
             'fecha_aceptacion',
             'fecha_culminacion',
             'aceptado:boolean',
             'culminado:boolean',
-
+            // 'categoria_ecoretos.id',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
