@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $usuarios,
                     'columns' => [
                         'nombre',
+                        'localidad',
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'usuarios',
