@@ -30,17 +30,17 @@ class AccionesRetosController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['create','update'],
+                'only' => ['index', 'create', 'update'],
                 'rules' => [
                     [
                         //Solo el usuario admin puede crear nuevos retos desde la plataformas
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->nombre === 'pepe';
+                            return Yii::$app->user->identity->nombre === 'demo1';
                         },
                     ],
-                    
+
 
                 ],
             ]

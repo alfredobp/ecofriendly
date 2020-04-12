@@ -31,11 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'titulo',
             'descripcion',
             'cat_id',
+          
             'puntaje',
-            //'fecha_aceptacion',
-            //'fecha_culminacion',
-            //'aceptado:boolean',
-            //'culminado:boolean',
+            'fecha_aceptacion',
+            'fecha_culminacion',
+            'aceptado:boolean',
+            'culminado:boolean',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

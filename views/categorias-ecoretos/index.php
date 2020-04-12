@@ -30,7 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'cat_nombre',
             'categoria_id',
-
+            'ecoRetos.usuario_id',
+            'ecoRetos.nombrereto',
+            'ecoRetos.categoria_id',
+            'accionesRetos.titulo',
+            'ecoRetos.categoria_id.accionesRetos.titulo',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

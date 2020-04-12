@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\VarDumper\VarDumper;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -23,14 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+      
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'usuario_id',
+           
             'nombrereto',
             'categoria_id',
+            'categoriasEcoretos.id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -1,6 +1,7 @@
 <?php
 
 use app\helper_propio\Auxiliar;
+use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'nombre',
+
             'apellidos',
             'email:email',
             [
@@ -67,10 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            
-            
+            'ecoRetos.categoria_id',
 
-            
+
+
 
             //'token_acti',
             //'codigo_verificacion',
