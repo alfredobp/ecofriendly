@@ -284,24 +284,22 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         Modal::end();
                         ?>
                         <br>
-                        <?php
-                        echo Nav::widget([
-                            'options' => ['class' => 'navbar-nav-left pr-5 d-sm-none d-xl-block'],
-                            'items' => [
-                                '<li>' .
-                                    Html::beginForm(['/usuarios/buscar'], 'get')
-                                    . Html::textInput(
-                                        'cadena',
-                                        '',
-                                        ['placeholder' => 'Buscar amigos'],
-                                        ['class' => 'form-control']
-                                    )
-                                    .  Html::button(ucfirst('Buscar3'), ['value' => Url::to('/index.php?r=usuarios%2Fbuscar&cadena=' . isset($_GET) ? 'demo' : ''), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3'])
-                                    
-                                    . Html::endForm() . '<br>'
+                        <?= Html::beginForm(['/usuarios/buscar'], 'get')
+                            . Html::textInput(
+                                'cadena',
+                                '',
+                                ['placeholder' => 'Buscar #Ecofriendly'],
+                                ['class' => 'form-control']
+                            )
+                            . Html::submitButton(
+                                '',
+                                ['class' => 'btn btn-dark nav-link ']
+                            )
+                            . Html::endForm();
 
-                            ],
-                        ]);
+
+
+
                         Modal::begin([
                             'title' => '<h3>Usuarios encontrados</h3>',
                             'id' => 'modal3',

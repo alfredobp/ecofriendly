@@ -432,7 +432,7 @@ class UsuariosController extends Controller
         // unset($_COOKIE['intro']);
         return $this->goBack();
     }
-    public function actionBuscar()
+    public function actionBuscar($cadena)
     {
         $usuarios = new ActiveDataProvider([
             'query' => Usuarios::find()->where('1=0'),
