@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="body-content">
         <?php if ($usuarios->totalCount > 0) : ?>
-            <h3>Usuarios encontrados:</h3>
+            <h3>Usuarios encontrados: <?=$usuarios->totalCount?></h3>
             <div class="row">
                 <?= GridView::widget([
                     'dataProvider' => $usuarios,
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endif ?>
         <?php if ($feed->totalCount > 0) : ?>
-            <h3>Feeds encontrados:</h3>
+            <h3>Feeds encontrados: <?=$feed->totalCount?></h3>
             <div class="row">
                 <?= GridView::widget([
                     'dataProvider' => $feed,

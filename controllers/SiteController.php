@@ -210,6 +210,11 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Acción Buscar
+     * Permite la busqueda desde un parametro que se le envía como cadena desde un formulario en el index.
+     * @return void
+     */
     public function actionBuscar()
     {
         $usuarios = new ActiveDataProvider([
