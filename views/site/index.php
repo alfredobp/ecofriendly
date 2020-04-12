@@ -288,12 +288,12 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             . Html::textInput(
                                 'cadena',
                                 '',
-                                ['placeholder' => 'Buscar #Ecofriendly'],
+                                ['placeholder' => 'Buscar #Ecofriendly', 'required'=>'true'],
                                 ['class' => 'form-control']
                             )
                             . Html::submitButton(
-                                '',
-                                ['class' => 'btn btn-dark nav-link ']
+                                'Buscar amigos',
+                                ['class' => 'btn btn-success nav-link ']
                             )
                             . Html::endForm();
 
