@@ -121,6 +121,8 @@ AppAsset::register($this);
                                 ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],
                                 ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
                                 ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
+                                ['label' => 'Ranking', 'url' => ['/ranking/index']],
+
 
                             ],
                         ]),
