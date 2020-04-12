@@ -17,7 +17,9 @@ CREATE TABLE usuarios (
     estado varchar(255),
     fecha_nac date,
     token_acti VARCHAR(255),
-    codigo_verificacion VARCHAR(255)
+    codigo_verificacion VARCHAR(255),
+    ultima_conexion timestamp,
+    fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS ranking CASCADE;

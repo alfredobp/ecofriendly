@@ -41,9 +41,19 @@ class FeedsController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'desmeeo';
+                        },
+                    ],
 
                 ],
-            ]
+            ],
+
+
         ];
     }
     /**
@@ -73,11 +83,11 @@ class FeedsController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-/**
- * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
- *
- * @return void
- */
+    /**
+     * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
+     *
+     * @return void
+     */
     public function actionCreate()
     {
         $model = new Feeds();

@@ -108,12 +108,12 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
-                    Yii::$app->user->identity->username == 'demo'  ?  '' : ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
+                    Yii::$app->user->identity->username == 'demo1'  ?  '' : ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
                     ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
 
 
-                    Yii::$app->user->identity->username != 'demo'  ?  ''
+                    Yii::$app->user->identity->username != 'demo1'  ?  ''
 
                         : ([
                             'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',

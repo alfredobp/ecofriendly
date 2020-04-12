@@ -50,7 +50,7 @@ class UsuariosController extends Controller
                         'actions' => ['index'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->nombre === 'pepe';
+                            return Yii::$app->user->identity->nombre === 'demo1';
                         },
                     ],
                 ],
