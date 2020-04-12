@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'usuarios.nombre',
+            'usuarios.ultima_conexion',
             'puntuacion',
 
 

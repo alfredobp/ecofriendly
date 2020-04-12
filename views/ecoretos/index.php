@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
            
             'nombrereto',
             'categoria_id',
-            'categoriasEcoretos.id',
+            // 'categoriasEcoretos.id',
+            'usuarios.nombre',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
