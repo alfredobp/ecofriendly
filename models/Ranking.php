@@ -45,6 +45,7 @@ class Ranking extends \yii\db\ActiveRecord
             'id' => 'ID',
             'puntuacion' => 'Puntuacion',
             'usuariosid' => 'Usuariosid',
+            
         ];
     }
 

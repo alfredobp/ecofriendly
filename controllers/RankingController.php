@@ -29,7 +29,7 @@ class RankingController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index', 'create', 'update'],
+                'only' => ['create', 'update'],
                 'rules' => [
                     [
                         //Solo el usuario admin puede crear nuevos retos desde la plataformas
@@ -39,9 +39,9 @@ class RankingController extends Controller
                             return Yii::$app->user->identity->nombre === 'demo1';
                         },
                     ],
-
-
                 ],
+
+            ],
         ];
     }
 
