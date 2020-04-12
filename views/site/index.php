@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\Options;
 use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
+use yii\bootstrap4\Nav;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
@@ -282,12 +283,39 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         Modal::end();
                         ?>
+                        <br>
+                        <?php
+                        echo Nav::widget([
+                            'options' => ['class' => 'navbar-nav-left pr-5 d-sm-none d-xl-block'],
+                            'items' => [
+                                '<li>' .
+                                    Html::beginForm(['/usuarios/buscar'], 'get')
+                                    . Html::textInput(
+                                        'cadena',
+                                        '',
+                                        ['placeholder' => 'Buscar amigos'],
+                                        ['class' => 'form-control']
+                                    )
+                                    .  Html::button(ucfirst('Buscar3'), ['value' => Url::to('/index.php?r=usuarios%2Fbuscar&cadena=' . isset($_GET) ? 'demo' : ''), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3'])
+                                    
+                                    . Html::endForm() . '<br>'
 
+                            ],
+                        ]);
+                        Modal::begin([
+                            'title' => '<h3>Usuarios encontrados</h3>',
+                            'id' => 'modal3',
+                            'size' => 'modal-md',
+                        ]);
+                        echo '<div id="modalContent3"></div>';
 
+                        Modal::end();
+                        ?>
 
                     </div>
+                    <div class="divider"></div>
 
-                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+
                 </div>
             </div>
             <br>

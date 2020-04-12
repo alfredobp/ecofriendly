@@ -20,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Response;
 
 require '../helper_propio/AdministradorAWS3c.php';
@@ -431,7 +432,22 @@ class UsuariosController extends Controller
         // unset($_COOKIE['intro']);
         return $this->goBack();
     }
+    public function actionBuscar()
+    {
+        $usuarios = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
+        ]);
+      
 
+        if (($cadena = Yii::$app->request->get('cadena', ''))) {
+            $usuarios->query->where(['ilike', 'nombre', $cadena]);
+            $usuarios->query->where(['ilike', 'localidad', $cadena]);
+        }
+        return $this->render('buscar', [
+            
+            'usuarios' => $usuarios,
+        ]);
+    }
     public function actionEstado($id)
     {
         $usuario = Usuarios::find()->where(['id' => $id])->one();
