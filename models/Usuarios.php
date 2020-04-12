@@ -17,6 +17,8 @@ use yii\web\IdentityInterface;
  * @property string|null $direccion
  * @property string|null $estado
  * @property string|null $fecha_nac
+ * @property string|null $ultima_conexion
+ * @property string $created_at
  * @property string|null $token_acti
  * @property string|null $codigo_verificacion
  * @property Bloqueos[] $bloqueos
@@ -67,6 +69,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'auth_key', 'localidad', 'direccion'], 'string', 'max' => 255],
             ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
             [['estado'], 'safe'],
+            [['fecha_nac', 'ultima_conexion', 'fecha_alta'], 'safe'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             // [['password'], 'compare'],
             [['password_repeat'], 'compare', 'compareAttribute' => 'contrasena'],
@@ -99,6 +102,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'direccion' => 'Direccion',
             'estado' => 'Estado',
             'fecha_nac' => 'Fecha Nac',
+            'ultima_conexion' => 'Última Conexión',
+            'fecha_alta' => 'Fecha creación',
         ];
     }
 
@@ -154,10 +159,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return true;
     }
 
-    public function getEstado()
-    {
-        return Yii::getAlias('@imgUrl/' . 1 . '.jpg');
-    }
+
 
     public function setEstado($estado)
     {
@@ -172,7 +174,18 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         $this->setImagen(Yii::getAlias('@img/' . $this->id . '.jpg'));
         return $this->_imagen;
     }
-
+    // public function actionActivar($id, $token)
+    // {
+    //     $usuario = $this->findModel($id);
+    //     if ($usuario->token === $token) {
+    //         $usuario->token = null;
+    //         $usuario->save();
+    //         Yii::$app->session->setFlash('success', 'Usuario validado. Inicie sesión.');
+    //         return $this->redirect(['site/login']);
+    //     }
+    //     Yii::$app->session->setFlash('error', 'La validación no es correcta.');
+    //     return $this->redirect(['site/index']);
+    // }
 
     public function setImagen($imagen)
     {

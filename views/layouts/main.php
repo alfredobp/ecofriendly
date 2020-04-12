@@ -12,6 +12,7 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use app\helper_propio\Auxiliar;
+use app\helper_propio\MenuLateral;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
@@ -67,7 +68,6 @@ AppAsset::register($this);
                 ],
             ]);
 
-
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav-left pr-5 d-sm-none d-xl-block'],
                 'items' => [
@@ -108,9 +108,24 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
-                    ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
+                    Yii::$app->user->identity->username == 'demo1'  ?  '' : ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update'] .  ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                    ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
+          
+
+
+                    Yii::$app->user->identity->username != 'demo1'  ?  ''
+
+                        : ([
+                            'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',
+                            'items' => [
+                                ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],
+                                ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
+                                ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
+                                ['label' => 'Ranking', 'url' => ['/ranking/index']],
+
+
+                            ],
+                        ]),
                     Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                         . Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
@@ -119,12 +134,23 @@ AppAsset::register($this);
                         )
                         . Html::endForm()
                         . '</li>')
+
                 ],
+
+
+
+
                 'encodeLabels' => false
 
             ]);
 
             NavBar::end();
+
+            // if (Yii::$app->user->id==1) {
+
+            //     echo MenuLateral::menuLateral();
+            // }
+            // 
             ?>
 
 

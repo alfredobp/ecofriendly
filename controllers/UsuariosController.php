@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AccionesRetos;
 use app\models\EcoRetos;
 use app\models\EcoValora;
 use yii\web\Session;
@@ -50,7 +51,7 @@ class UsuariosController extends Controller
                         'actions' => ['index'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->nombre === 'pepe';
+                            return Yii::$app->user->identity->nombre === 'demo1';
                         },
                     ],
                 ],
@@ -447,6 +448,14 @@ class UsuariosController extends Controller
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function findModelByAcciones($id)
+    {
+        if (($model = AccionesRetos::findOne($id)) !== null) {
             return $model;
         }
 

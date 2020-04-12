@@ -45,6 +45,7 @@ class Ranking extends \yii\db\ActiveRecord
             'id' => 'ID',
             'puntuacion' => 'Puntuacion',
             'usuariosid' => 'Usuariosid',
+            
         ];
     }
 
@@ -55,6 +56,6 @@ class Ranking extends \yii\db\ActiveRecord
      */
     public function getUsuarios()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'usuariosid'])->inverseOf('rankings');
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuariosid'])->inverseOf('ranking');
     }
 }

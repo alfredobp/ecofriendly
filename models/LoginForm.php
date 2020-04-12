@@ -60,6 +60,10 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            $usuarios= Usuarios::find()->where(['username'=>$this->getUser()])->one();
+            $usuarios->ultima_conexion= date('Y-m-d H:i:s');
+            $usuarios->save();
+
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;

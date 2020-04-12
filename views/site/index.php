@@ -36,7 +36,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options); ?>
             <hr>
-            <h2> <?= Yii::$app->user->identity->nombre ?> </h2>
+            <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
             <br>
             <h5>Estado: "<span id="estado"></span>"</h5>
 
@@ -166,7 +166,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
-                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= $feeds['nombre']  ?></h4>
+                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= ucfirst($feeds['nombre']) ?></h4>
                             <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
 
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
@@ -268,7 +268,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
                                 . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
-                            echo Html::button($usuarios[$i]->nombre, ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }

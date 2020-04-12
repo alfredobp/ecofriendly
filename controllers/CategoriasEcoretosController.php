@@ -24,25 +24,26 @@ class CategoriasEcoretosController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
-                ],
-                'access' => [
-                    'class' => AccessControl::class,
-                    'only' => ['create'],
-                    'rules' => [
-                        [
-                            //Solo el usuario admin puede crear nuevas categorias de retos desde la plataformas
-                            'allow' => false,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rules, $action) {
-                                return Yii::$app->user->identity->nombre === 'pepe';
-                            },
-                        ],
+                    'delete' => ['POST']
+                ]
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['create', 'index'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede crear nuevas categorias de retos desde la plataformas
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'demo1';
+                        },
                     ],
-
-
                 ],
-            ]
+
+
+            ],
+
         ];
     }
 

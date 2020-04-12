@@ -1,5 +1,7 @@
 <?php
 
+use app\helper_propio\Auxiliar;
+use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
@@ -25,20 +27,53 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
-            'contrasena',
-            'auth_key',
+            // 'contrasena',
+
+            [
+                // 'header' => 'Fecha de <br> Actualización',
+                'attribute' => 'Validación e-mail',
+
+                'value' => function ($dataProvider) {
+                    return ($dataProvider->auth_key == null) ? 'Cuenta validada ' : 'Sin validar';
+                },
+            ],
+
             'nombre',
-            //'apellidos',
-            //'email:email',
-            //'url_avatar:url',
-            //'direccion',
-            //'localidad',
-            //'estado',
-            //'fecha_nac',
+
+            'apellidos',
+            'email:email',
+            [
+                'attribute' => 'imagen',
+                'value' => function ($dataProvider) {
+                    return Auxiliar::obtenerImagenUsuario($dataProvider->url_avatar);
+                },
+                'format' => 'raw',
+            ],
+            'direccion',
+            'localidad',
+            'fecha_nac',
+            'estado',
+            [
+                'attribute' => 'Última Conexión',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->ultima_conexion);
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'Fecha de alta',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->fecha_alta);
+                },
+                'format' => 'raw',
+            ],
+           
+
+
+
+
             //'token_acti',
             //'codigo_verificacion',
 

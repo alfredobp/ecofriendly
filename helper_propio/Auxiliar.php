@@ -52,7 +52,7 @@ class Auxiliar
         return $js;
     }
 
-    public static function obtenerImagenUsuario($id, $options)
+    public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height'=>'65px', 'margin-right' => '12px', 'margin-left' => '12px']])
     {
 
 

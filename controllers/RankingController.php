@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\AccionesRetos;
-use app\models\AccionesRetosSearch;
+use app\models\Ranking;
+use app\models\RankingSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AccionesRetosController implements the CRUD actions for AccionesRetos model.
+ * RankingController implements the CRUD actions for Ranking model.
  */
-class AccionesRetosController extends Controller
+class RankingController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -26,11 +26,10 @@ class AccionesRetosController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index', 'create', 'update'],
+                'only' => ['create', 'update'],
                 'rules' => [
                     [
                         //Solo el usuario admin puede crear nuevos retos desde la plataformas
@@ -40,20 +39,19 @@ class AccionesRetosController extends Controller
                             return Yii::$app->user->identity->nombre === 'demo1';
                         },
                     ],
-
-
                 ],
-            ]
+
+            ],
         ];
     }
 
     /**
-     * Lists all AccionesRetos models.
+     * Lists all Ranking models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AccionesRetosSearch();
+        $searchModel = new RankingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -63,7 +61,7 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Displays a single AccionesRetos model.
+     * Displays a single Ranking model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -76,13 +74,13 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Creates a new AccionesRetos model.
+     * Creates a new Ranking model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AccionesRetos();
+        $model = new Ranking();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -94,7 +92,7 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Updates an existing AccionesRetos model.
+     * Updates an existing Ranking model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -114,7 +112,7 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Deletes an existing AccionesRetos model.
+     * Deletes an existing Ranking model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,15 +126,15 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Finds the AccionesRetos model based on its primary key value.
+     * Finds the Ranking model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AccionesRetos the loaded model
+     * @return Ranking the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AccionesRetos::findOne($id)) !== null) {
+        if (($model = Ranking::findOne($id)) !== null) {
             return $model;
         }
 

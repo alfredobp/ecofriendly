@@ -17,7 +17,9 @@ CREATE TABLE usuarios (
     estado varchar(255),
     fecha_nac date,
     token_acti VARCHAR(255),
-    codigo_verificacion VARCHAR(255)
+    codigo_verificacion VARCHAR(255),
+    ultima_conexion timestamp,
+    fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS ranking CASCADE;
@@ -44,7 +46,7 @@ CREATE TABLE feeds (
     usuariosid bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     contenido varchar(255) NOT NULL,
     imagen varchar(255),
-    created_at timestamp,
+    created_at timestamp(0) NOT NULL DEFAULT current_timestamp,
     updated_at timestamp
 );
 
