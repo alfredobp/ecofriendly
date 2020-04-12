@@ -440,7 +440,9 @@ class UsuariosController extends Controller
       
 
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
-            $usuarios->query->where(['ilike', 'nombre', $cadena])->where(['ilike', 'localidad', $cadena]);
+            $usuarios->query->where(['ilike', 'nombre', $cadena])
+            ->where(['ilike', 'username', $cadena])
+            ->where(['ilike', 'localidad', $cadena]);
             // $usuarios->query->where(['ilike', 'localidad', $cadena]);
         }
         
