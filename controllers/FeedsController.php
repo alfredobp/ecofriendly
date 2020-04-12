@@ -92,7 +92,7 @@ class FeedsController extends Controller
     {
         $model = new Feeds();
         $model->usuariosid = Yii::$app->user->id;
-        $model->created_at = date('Y-m-d H:i:s');
+        // $model->created_at = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if (!empty($_FILES)) {
@@ -117,7 +117,7 @@ class FeedsController extends Controller
     {
         $model = new Feeds();
         $model->usuariosid = Yii::$app->user->id;
-        $model->created_at = date('Y-m-d H:i:s');
+        // $model->created_at = date('Y-m-d H:i:s');
         //ESCENaRIO SI SE QUIERE MANDAR SOLO UNA IMAGEN
         $model->contenido = '::';
 

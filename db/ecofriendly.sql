@@ -46,7 +46,7 @@ CREATE TABLE feeds (
     usuariosid bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     contenido varchar(255) NOT NULL,
     imagen varchar(255),
-    created_at timestamp,
+    created_at timestamp(0) NOT NULL DEFAULT current_timestamp,
     updated_at timestamp
 );
 
