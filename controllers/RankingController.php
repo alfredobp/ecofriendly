@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Ranking;
 use app\models\RankingSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,21 @@ class RankingController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'demo1';
+                        },
+                    ],
+
+
+                ],
         ];
     }
 
