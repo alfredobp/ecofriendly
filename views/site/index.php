@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\Options;
 use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
+use yii\bootstrap4\Nav;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
@@ -282,12 +283,37 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         Modal::end();
                         ?>
+                        <br>
+                        <?= Html::beginForm(['/usuarios/buscar'], 'get')
+                            . Html::textInput(
+                                'cadena',
+                                '',
+                                ['placeholder' => 'Buscar #Ecofriendly', 'required'=>'true'],
+                                ['class' => 'form-control']
+                            )
+                            . Html::submitButton(
+                                'Buscar amigos',
+                                ['class' => 'btn btn-success nav-link ']
+                            )
+                            . Html::endForm();
 
 
+
+
+                        Modal::begin([
+                            'title' => '<h3>Usuarios encontrados</h3>',
+                            'id' => 'modal3',
+                            'size' => 'modal-md',
+                        ]);
+                        echo '<div id="modalContent3"></div>';
+
+                        Modal::end();
+                        ?>
 
                     </div>
+                    <div class="divider"></div>
 
-                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+
                 </div>
             </div>
             <br>
