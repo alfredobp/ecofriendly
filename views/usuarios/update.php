@@ -183,6 +183,7 @@ $this->registerJs($js);
         $dataProvider->setSort([
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
+
         $dataProvider->pagination = ['pageSize' => 10];
         $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
         Pjax::begin();

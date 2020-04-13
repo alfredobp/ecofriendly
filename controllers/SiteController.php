@@ -84,11 +84,10 @@ class SiteController extends Controller
         $model3 = new ImagenForm();
         $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => Yii::$app->user->identity->id])->one();
 
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id','url_avatar'])->where(['!=', 'id', Yii::$app->user->identity->id])
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', Yii::$app->user->identity->id])
             ->all();
         $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
         $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e  on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . Yii::$app->user->identity->id;
-        // $sql = 'select  a.descripcion  from acciones_retos a inner join categorias_ecoretos c on c.categoria_id=a.cat_id group by a.descripcion order by a.descripcion';
 
         $retosListado = AccionesRetos::findBySql($sql)->all();
 
@@ -129,13 +128,13 @@ class SiteController extends Controller
         $feedCount = Feeds::findBySql($sql);
 
 
+        //paginacion de 20 feeds, ordenados cronologicamente
         $pagination = new Pagination([
-            'defaultPageSize' => 5,
+            'defaultPageSize' => 10,
             'totalCount' => $feedCount->count(),
         ]);
 
 
-        // $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
         $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  . 'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
 
 
