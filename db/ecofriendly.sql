@@ -18,7 +18,7 @@ CREATE TABLE usuarios (
     fecha_nac date,
     token_acti VARCHAR(255),
     codigo_verificacion VARCHAR(255),
-    ultima_conexion timestamp,
+    ultima_conexion timestamp(y-m-d),
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
