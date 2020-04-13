@@ -19,7 +19,6 @@ use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 use kartik\icons\Icon;
 
-
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
@@ -42,8 +41,22 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
             <br>
-            <h5>Estado: "<span id="estado"></span>" <?= Html::a(Icon::show('edit'), Url::to(['usuarios/update2', 'id' => $model->id], true)) ?></h5>
+            <h5>Estado: "<span id="estado"></span>" 
+            <?php
 
+            echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdate2'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
+            ?>
+            </h5>
+            <?php
+            Modal::begin([
+                'title' => '<h3>Modifique su estado</h3>',
+                'id' => 'modal3',
+                'size' => 'modal-xs',
+            ]);
+            echo '<div id="modalContent3"></div>';
+
+            Modal::end();
+            ?>
             <?php
 
             echo GoogleAnalytics::widget([

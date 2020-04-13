@@ -6,8 +6,11 @@ $(function () {
             .load($(this).attr('value'));
     });
     $('.modalButton3').click(function () {
+    
         $('#modal3').modal('show')
             .find('#modalContent3')
             .load($(this).attr('value'));
+            console.log('ad')
+            
     })
 })

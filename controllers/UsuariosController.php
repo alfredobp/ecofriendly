@@ -250,11 +250,7 @@ class UsuariosController extends Controller
             return $this->goHome();
         }
 
-
-        // $model->contrasena = '';
-        // $model->password_repeat = '';
-
-        return $this->render('_update', [
+        return $this->renderAjax('_update', [
             'model' => $model,
         ]);
     }
