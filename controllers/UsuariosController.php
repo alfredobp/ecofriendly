@@ -192,6 +192,14 @@ class UsuariosController extends Controller
 
         return $this->redirect(['index/login']);
     }
+    /**
+     * Acción update
+     * Permite al usuarios modificar ciertos datos de su perfil, ajustar un estado y modificar su foto de perfil.
+     * Permite conocer la actividad del usuario y sus amigos en la red
+     * Permite personalizar aspectos de estilo de la aplicación
+     * @param [type] $id
+     * @return void
+     */
     public function actionUpdate($id = null)
     {
         if ($id === null) {
@@ -218,6 +226,37 @@ class UsuariosController extends Controller
         // $model->password_repeat = '';
 
         return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Update Estado
+     * Función que permite actualizar solo el estado personal del usuario.
+     * @param [type] $id
+     * @return void
+     */
+    public function actionUpdateestado($id = null)
+    {
+        if ($id === null) {
+            if (Yii::$app->user->isGuest) {
+                Yii::$app->session->setFlash('error', 'Debe estar logueado.');
+                return $this->goHome();
+            } else {
+                $model = Yii::$app->user->identity;
+            }
+        } else {
+            $model = Usuarios::findOne($id);
+        }
+
+        $model->scenario = Usuarios::SCENARIO_MODIFICAR;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha modificado correctamente ' . Yii::$app->user->identity->nombre);
+
+            return $this->goHome();
+        }
+
+        return $this->renderAjax('_updateEstado', [
             'model' => $model,
         ]);
     }
@@ -441,8 +480,8 @@ class UsuariosController extends Controller
 
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena])
-            ->where(['ilike', 'username', $cadena])
-            ->where(['ilike', 'localidad', $cadena]);
+            ->orwhere(['ilike', 'username', $cadena])
+            ->orwhere(['ilike', 'localidad', $cadena]);
             // $usuarios->query->where(['ilike', 'localidad', $cadena]);
         }
         
