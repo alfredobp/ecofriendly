@@ -146,9 +146,10 @@ $this->registerJs($js);
         <?= $form->field($model, 'direccion')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'apellidos')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
+        <!-- permite ajustar el estado de un usuario -->
         <?= $form->field($model, 'estado')->textInput(['type' => 'text']) ?>
         <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
-<?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
+        <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
 
 
 

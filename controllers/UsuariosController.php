@@ -192,6 +192,14 @@ class UsuariosController extends Controller
 
         return $this->redirect(['index/login']);
     }
+    /**
+     * Acción update
+     * Permite al usuarios modificar ciertos datos de su perfil, ajustar un estado y modificar su foto de perfil.
+     * Permite conocer la actividad del usuario y sus amigos en la red
+     * Permite personalizar aspectos de estilo de la aplicación
+     * @param [type] $id
+     * @return void
+     */
     public function actionUpdate($id = null)
     {
         if ($id === null) {
@@ -441,8 +449,8 @@ class UsuariosController extends Controller
 
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena])
-            ->where(['ilike', 'username', $cadena])
-            ->where(['ilike', 'localidad', $cadena]);
+            ->orwhere(['ilike', 'username', $cadena])
+            ->orwhere(['ilike', 'localidad', $cadena]);
             // $usuarios->query->where(['ilike', 'localidad', $cadena]);
         }
         
