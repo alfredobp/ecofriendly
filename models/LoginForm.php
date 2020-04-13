@@ -59,12 +59,18 @@ class LoginForm extends Model
      */
     public function login()
     {
+        $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
+
+        if ($usuarios->token_acti != null) {
+            Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
+            return;
+        }
         if ($this->validate()) {
-            $usuarios= Usuarios::find()->where(['username'=>$this->getUser()])->one();
-            $usuarios->ultima_conexion= date('Y-m-d H:i:s');
+            $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
+            $usuarios->ultima_conexion = date('Y-m-d H:i:s');
             $usuarios->save();
 
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
     }
