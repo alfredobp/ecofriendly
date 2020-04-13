@@ -185,9 +185,9 @@ INSERT INTO
     )
 VALUES
     (
-        'admin',
-        'admin',
-        'admin',
+        'demo1',
+        'demo1',
+        'demo1',
         'alfredo.barra2gan@iesdonana.org',
         crypt('adminadmin', gen_salt('bf', 10)),
         'Sanlúcar de barrameda',
