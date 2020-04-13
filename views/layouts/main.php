@@ -90,6 +90,7 @@ AppAsset::register($this);
             ?>
 
             <?php
+            $usuario = Yii::$app->user->identity->username;
             // $options = ['class' => ['img-fluid d-none d-sm-none d-xl-block'], 'style' => ['width' => '5rem', 'height' => '4rem', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
             $options = ['class' => 'navbar-nav d-none d-xl-block ', 'style' => ['width' => '4rem', 'border-radius' => '30px']];
             echo Nav::widget([
@@ -108,24 +109,25 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
-                    Yii::$app->user->identity->username == 'demo1'  ?  '' : ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update'] .  ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],],
+                    $usuario == 'admin'  ?  '' :
+                        ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
+                    ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
-          
 
 
-                    Yii::$app->user->identity->username != 'demo1'  ?  ''
-
-                        : ([
-                            'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',
-                            'items' => [
-                                ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],
-                                ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
-                                ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
-                                ['label' => 'Ranking', 'url' => ['/ranking/index']],
+                    $usuario == 'admin'  ?   ([
+                        'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',
+                        'items' => [
+                            ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],
+                            ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
+                            ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
+                            ['label' => 'Ranking', 'url' => ['/ranking/index']],
 
 
-                            ],
-                        ]),
+                        ],
+                    ])
+
+                        : '',
                     Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                         . Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
@@ -134,25 +136,13 @@ AppAsset::register($this);
                         )
                         . Html::endForm()
                         . '</li>')
-
                 ],
-
-
-
-
                 'encodeLabels' => false
 
             ]);
 
             NavBar::end();
-
-            // if (Yii::$app->user->id==1) {
-
-            //     echo MenuLateral::menuLateral();
-            // }
-            // 
             ?>
-
 
             <div class="container">
                 <?= Breadcrumbs::widget([

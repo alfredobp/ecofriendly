@@ -131,7 +131,26 @@ CREATE TABLE mensajes_privados (
     created_at timestamp,
     visto_dat timestamp
 );
-
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion,
+        estado
+    )
+VALUES
+    (
+        'admin',
+        'admin',
+        'admin',
+        'alfredobsape@gmail.com',
+        crypt('adminadmin', gen_salt('bf', 10)),
+        'c/ Isabel II 1º ',
+        'Soy el Administrador de la plataforma'
+    );
 INSERT INTO
     usuarios (
         username,
@@ -166,11 +185,11 @@ INSERT INTO
     )
 VALUES
     (
-        'demo1',
-        'demo1',
-        'demo1',
+        'admin',
+        'admin',
+        'admin',
         'alfredo.barra2gan@iesdonana.org',
-        crypt('demo1demo1', gen_salt('bf', 10)),
+        crypt('adminadmin', gen_salt('bf', 10)),
         'Sanlúcar de barrameda',
         'Munilla II 1 a ',
         'estoy cansadito'
