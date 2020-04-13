@@ -229,7 +229,13 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionUpdate2($id = null)
+    /**
+     * Update Estado
+     * Función que permite actualizar solo el estado personal del usuario.
+     * @param [type] $id
+     * @return void
+     */
+    public function actionUpdateestado($id = null)
     {
         if ($id === null) {
             if (Yii::$app->user->isGuest) {
@@ -250,7 +256,7 @@ class UsuariosController extends Controller
             return $this->goHome();
         }
 
-        return $this->renderAjax('_update', [
+        return $this->renderAjax('_updateEstado', [
             'model' => $model,
         ]);
     }
