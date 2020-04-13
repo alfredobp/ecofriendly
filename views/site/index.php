@@ -17,7 +17,10 @@ use yii\bootstrap4\Nav;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
+use kartik\icons\Icon;
 
+
+Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -39,7 +42,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
             <br>
-            <h5>Estado: "<span id="estado"></span>"</h5>
+            <h5>Estado: "<span id="estado"></span>" <?= Html::a(Icon::show('edit'), Url::to(['usuarios/update2', 'id' => $model->id], true)) ?></h5>
 
             <?php
 
@@ -288,7 +291,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             . Html::textInput(
                                 'cadena',
                                 '',
-                                ['placeholder' => 'Buscar #Ecofriendly', 'required'=>'true'],
+                                ['placeholder' => 'Buscar #Ecofriendly', 'required' => 'true'],
                                 ['class' => 'form-control']
                             )
                             . Html::submitButton(
