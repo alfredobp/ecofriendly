@@ -242,12 +242,14 @@ $this->registerJs($js);
             $seguidores = Seguidores::find()->all();
             if (sizeof($seguidores) > 1) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
+                    $nombreUsuario = Usuarios::findOne($seguidores[$i]->seguidor_id);
                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
                     echo Html::submitButton(
                         '<span class="glyphicon glyphicon-minus"></span>',
                         ['class' => 'btn btn-danger btn-sm ml-2'],
                     );
+                    echo $nombreUsuario->nombre;
                     echo Html::endForm();
                 }
             } else {
@@ -262,6 +264,24 @@ $this->registerJs($js);
         <div class="panel-body">
             <fieldset class="col-md-12">
                 <legend>Siguiendo a:</legend>
+                <?php
+                $amigos = Seguidores::find()->all();
+                if (sizeof($seguidores) > 1) {
+                    for ($i = 0; $i < sizeof($seguidores); $i++) {
+                        $nombreUsuario = Usuarios::findOne($seguidores[$i]->seguidor_id);
+                        echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
+                        echo Html::hiddenInput('id', $seguidores[$i]->id);
+                        echo Html::submitButton(
+                            '<span class="glyphicon glyphicon-minus"></span>',
+                            ['class' => 'btn btn-danger btn-sm ml-2'],
+                        );
+                        echo $nombreUsuario->nombre;
+                        echo Html::endForm();
+                    }
+                } else {
+                    echo 'Actualmente no tiene seguidores';
+                }
+                ?>
 
                 <div class="panel panel-default">
                     <div class="panel-body">
