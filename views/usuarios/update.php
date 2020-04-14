@@ -246,7 +246,7 @@ $this->registerJs($js);
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></a>';
+                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
 
                     echo Html::endForm();
                 }
