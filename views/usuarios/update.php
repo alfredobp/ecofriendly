@@ -184,9 +184,10 @@ $this->registerJs($js);
         $dataProvider->setSort([
             'defaultOrder' => ['created_at' => SORT_DESC],
         ]);
-
+        //paginacion de 10 feeds por página
         $dataProvider->pagination = ['pageSize' => 10];
         $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+
         Pjax::begin();
         echo GridView::widget([
             'dataProvider' => $dataProvider,
@@ -245,7 +246,7 @@ $this->registerJs($js);
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></a>';
+                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
 
                     echo Html::endForm();
                 }
@@ -268,7 +269,7 @@ $this->registerJs($js);
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
                         echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
                         echo Html::hiddenInput('id', $amigos[$i]->id);
-                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-minus"></span>',
                             ['class' => 'btn btn-danger btn-sm ml-2'],

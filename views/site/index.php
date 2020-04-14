@@ -183,8 +183,19 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
-                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= ucfirst($feeds['nombre']) ?></h4>
-                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?></p>
+                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
+                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['id'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['identificador']])) : '' ?>
+                                <?= $feeds['id'] == Yii::$app->user->identity->id ? '' . Html::a(
+                                    ' ' . Icon::show('trash-alt'),
+                                    Url::to(['/feeds/delete', 'id' => $feeds['identificador']]),
+                                    [
+
+                                        'data' => [
+                                            'confirm' => '¿Esta seguro de querer borrar este feed?',
+                                            'method' => 'post',
+                                        ],
+                                    ]
+                                ) : '' ?></p>
 
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
