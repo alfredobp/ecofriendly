@@ -7,18 +7,18 @@
 
 use yii\helpers\Html;
 
-
+$this->title = 'FAQs';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faqs">
 
     <div class="container">
-        <br />
-        <br />
-        <br />
+    <h1><?= Html::encode($this->title) ?></h1>
+     
 
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            Esta secciión contiene preguntas e información relacionadas con <strong>#Ecofriendly</strong> y su utilziación. Si no encuentras respuesta a tu pregunta no dudes
+            Esta sección contiene preguntas e información relacionadas con <strong>#Ecofriendly</strong> y su utilziación. Si no encuentras respuesta a tu pregunta no dudes
             en ponerte en contacto con nosotros.
         </div>
 
