@@ -113,6 +113,9 @@ AppAsset::register($this);
                         ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
+                    $usuario == 'admin'  ?  '' :
+                    ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
+                   
 
 
                     $usuario == 'admin'  ?   ([
