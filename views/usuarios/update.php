@@ -246,7 +246,7 @@ $this->registerJs($js);
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></a>';
+                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></a>';
 
                     echo Html::endForm();
                 }
@@ -269,7 +269,7 @@ $this->registerJs($js);
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
                         echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
                         echo Html::hiddenInput('id', $amigos[$i]->id);
-                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-minus"></span>',
                             ['class' => 'btn btn-danger btn-sm ml-2'],
