@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use kartik\label\LabelInPlace;
+use yii\helpers\Url;
 
 ?>
 
@@ -35,6 +36,12 @@ use kartik\label\LabelInPlace;
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración prvia de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <b>Gamificación </b> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
                     <a class="btn btn-primary btn-lg" href="index.php?r=usuarios%2Fregistrar">Registro&raquo;</a>
+                    <br>
+                    <br>
+                    <div class="alert alert-info alert-info" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="/index.php?r=site/faqs" > Área de FAQs</a> y resuelve tus dudas.
+                    </div>
                 </div>
                 <div class="bird-container bird-container--one">
                     <div class="bird bird--one"></div>
