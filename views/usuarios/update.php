@@ -239,17 +239,14 @@ $this->registerJs($js);
 
             <legend>Seguidores: </legend>
             <?php
-            $seguidores = Seguidores::find()->all();
-            if (sizeof($seguidores) > 1) {
+            $seguidores =  Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
+            if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
-                    $nombreUsuario = Usuarios::findOne($seguidores[$i]->seguidor_id);
-                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
+                    $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
+                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
                     echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo Html::submitButton(
-                        '<span class="glyphicon glyphicon-minus"></span>',
-                        ['class' => 'btn btn-danger btn-sm ml-2'],
-                    );
-                    echo $nombreUsuario->nombre;
+                    echo '<h3> <a href=' . Url::to(['usuarios/view', 'id' => $seguidores[$i]->usuario_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></a>';
+
                     echo Html::endForm();
                 }
             } else {
@@ -265,27 +262,27 @@ $this->registerJs($js);
             <fieldset class="col-md-12">
                 <legend>Siguiendo a:</legend>
                 <?php
-                $amigos = Seguidores::find()->all();
-                if (sizeof($seguidores) > 1) {
-                    for ($i = 0; $i < sizeof($seguidores); $i++) {
-                        $nombreUsuario = Usuarios::findOne($seguidores[$i]->seguidor_id);
-                        echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post') . '<br>';
-                        echo Html::hiddenInput('id', $seguidores[$i]->id);
+                $amigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
+                if (sizeof($amigos) > 0) {
+                    for ($i = 0; $i < sizeof($amigos); $i++) {
+                        $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
+                        echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
+                        echo Html::hiddenInput('id', $amigos[$i]->id);
+                        echo '<h3> <a href=' . Url::to(['usuarios/view', 'id' => $amigos[$i]->seguidor_id]) . '><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-minus"></span>',
                             ['class' => 'btn btn-danger btn-sm ml-2'],
                         );
-                        echo $nombreUsuario->nombre;
                         echo Html::endForm();
                     }
                 } else {
-                    echo 'Actualmente no tiene seguidores';
+                    echo 'Actualmente no sigues a ningún usuario de la red #Ecofriendly';
                 }
                 ?>
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p>Siguien content...</p>
+
                     </div>
                 </div>
 
