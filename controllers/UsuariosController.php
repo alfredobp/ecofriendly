@@ -134,6 +134,13 @@ class UsuariosController extends Controller
             'model' => $this->findModel($id)
         ]);
     }
+    public function actionViewnoajax($id)
+    {
+        //renderizo la vista mediante consulta ajax en la ventana modal.
+        return $this->render('view', [
+            'model' => $this->findModel($id)
+        ]);
+    }
     /**
      * Permite el registro de usuarios en función del modelo de datos
      *

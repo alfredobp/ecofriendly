@@ -16,6 +16,7 @@ $config = [
         '@uploads' => 'https://s3.eu-west-3.amazonaws.com/ecofriendly/',
         '@img' => '@app/web/img',
         '@imgUrl' => '/img',
+        '@perfil'=>'index.php?r=usuarios/%2Fview&id='
     ],
     'language' => 'es-ES',
     'components' => [
