@@ -41,11 +41,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
             <br>
-            <h5>Estado: "<span id="estado"></span>" 
-            <?php
+            <h5>Estado: "<span id="estado"></span>"
+                <?php
 
-            echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
-            ?>
+                echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
+                ?>
             </h5>
             <?php
             Modal::begin([
@@ -328,8 +328,6 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
                     </div>
                     <div class="divider"></div>
-
-
                 </div>
             </div>
             <br>
@@ -339,8 +337,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     <p class="card-text">
                         <div class="    col-12 ">
                             <?php
-
-
+                            //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
