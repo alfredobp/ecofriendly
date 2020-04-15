@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string|null $fecha_nac
  * @property string|null $ultima_conexion
  * @property string $created_at
+ * @property string $rol
  * @property string|null $token_acti
  * @property string|null $codigo_verificacion
  * @property Bloqueos[] $bloqueos
@@ -69,6 +70,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'auth_key', 'localidad', 'direccion'], 'string', 'max' => 255],
             ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
             [['estado'], 'safe'],
+            [['rol'], 'string', 'max' => 30],
             [['fecha_nac', 'ultima_conexion', 'fecha_alta'], 'safe'],
             [['password_repeat'], 'required', 'on' => self::SCENARIO_CREAR],
             // [['password'], 'compare'],
@@ -99,6 +101,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'telefono' => 'Teléfono',
             'Localidad' => 'Localidad',
             'email' => 'Email',
+            'rol' => 'Rol',
             'direccion' => 'Direccion',
             'estado' => 'Estado',
             'fecha_nac' => 'Fecha Nac',
