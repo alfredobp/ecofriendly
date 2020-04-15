@@ -17,6 +17,7 @@ CREATE TABLE usuarios (
     estado varchar(255),
     fecha_nac date,
     token_acti VARCHAR(255),
+    rol VARCHAR(30) NOT NULL DEFAULT 'usuario',
     codigo_verificacion VARCHAR(255),
     ultima_conexion timestamp,
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp
@@ -139,7 +140,8 @@ INSERT INTO
         email,
         contrasena,
         direccion,
-        estado
+        estado, 
+        rol,
     )
 VALUES
     (
@@ -149,7 +151,8 @@ VALUES
         'alfredobsape@gmail.com',
         crypt('adminadmin', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
-        'Soy el Administrador de la plataforma'
+        'Soy el Administrador de la plataforma', 
+        'superadministrador'
     );
 INSERT INTO
     usuarios (

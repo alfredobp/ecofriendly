@@ -39,6 +39,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode('Ecofriendly.es') ?></title>
     <?= GATracking::widget([
@@ -114,8 +115,8 @@ AppAsset::register($this);
                     ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
                     $usuario == 'admin'  ?  '' :
-                    ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
-                   
+                        ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
+
 
 
                     $usuario == 'admin'  ?   ([
