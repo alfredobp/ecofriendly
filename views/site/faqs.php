@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            Esta sección contiene preguntas e información relacionadas con <strong>#Ecofriendly</strong> y su utilziación. Si no encuentras respuesta a tu pregunta no dudes
+            Esta sección contiene preguntas e información relacionadas con <strong>#Ecofriendly</strong> y su utilización. Si no encuentras respuesta a tu pregunta no dudes
             en ponerte en contacto con nosotros.
         </div>
 
@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         Sí, el registro es obligatorio para participar en y <strong>Ecofriendly</strong>. El proceso es muy simple y no te llevará más
                         de 5 minutos. Recuerda, que tras el registro, te llegará un emial de confrimación a la cuenta de correo.
                         Hasta que no hagas la validación tu cuenta no estará activa.
+                        <p>Pasos a seguir:</p>
                         <ul>
                             <li>Registrate en la plataforma</li>
                             <li>Activa tu cuenta </li>
@@ -67,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div id="collapseEleven" class="panel-collapse collapse">
                     <div class="card-block">
-                        Las acciones son planteadas por expertos en la materia, se trata de pqueños gestos que ayuda a cambiar nuestros hábitos de vida.
+                        Las acciones son planteadas por expertos en la materia, se trata de pequeños gestos que ayuda a cambiar nuestros hábitos de vida.
                     </div>
                 </div>
             </div>
