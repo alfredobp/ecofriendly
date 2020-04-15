@@ -15,6 +15,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
+    //por defecto, se recuerda el recordatorio de acceso 
     public $rememberMe = true;
 
     private $_user = false;
@@ -69,7 +70,7 @@ class LoginForm extends Model
             $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
             $usuarios->ultima_conexion = date('Y-m-d H:i:s');
             $usuarios->save();
-
+            //se recuerda la sesión del usuario durante un mes.
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
