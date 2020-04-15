@@ -141,7 +141,7 @@ INSERT INTO
         contrasena,
         direccion,
         estado, 
-        rol,
+        rol
     )
 VALUES
     (
