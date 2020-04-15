@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+            'rol',
             'direccion',
             'localidad',
             'fecha_nac',

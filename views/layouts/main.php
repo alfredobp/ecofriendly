@@ -39,6 +39,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode('Ecofriendly.es') ?></title>
     <?= GATracking::widget([
@@ -90,7 +91,7 @@ AppAsset::register($this);
             ?>
 
             <?php
-            $usuario = Yii::$app->user->identity->username;
+            $usuario = Yii::$app->user->identity->rol;
             // $options = ['class' => ['img-fluid d-none d-sm-none d-xl-block'], 'style' => ['width' => '5rem', 'height' => '4rem', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
             $options = ['class' => 'navbar-nav d-none d-xl-block ', 'style' => ['width' => '4rem', 'border-radius' => '30px']];
             echo Nav::widget([
@@ -109,16 +110,16 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
-                    $usuario == 'admin'  ?  '' :
+                    $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                    $usuario == 'admin'  ?  '' :
-                    ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
-                   
+                    $usuario == 'superadministrador'  ?  '' :
+                        ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 
-                    $usuario == 'admin'  ?   ([
+
+                    $usuario == 'superadministrador'  ?   ([
                         'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',
                         'items' => [
                             ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],

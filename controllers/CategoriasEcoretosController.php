@@ -36,7 +36,7 @@ class CategoriasEcoretosController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->nombre === 'admin';
+                            return Yii::$app->user->identity->rol === 'superadministrador';
                         },
                     ],
                 ],
