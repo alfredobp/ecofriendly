@@ -149,8 +149,10 @@ class UsuariosController extends Controller
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
-
+       
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            var_dump($_POST);
+            die;
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -483,17 +485,17 @@ class UsuariosController extends Controller
         $usuarios = new ActiveDataProvider([
             'query' => Usuarios::find()->where('1=0'),
         ]);
-      
+
 
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena])
-            ->orwhere(['ilike', 'username', $cadena])
-            ->orwhere(['ilike', 'localidad', $cadena]);
+                ->orwhere(['ilike', 'username', $cadena])
+                ->orwhere(['ilike', 'localidad', $cadena]);
             // $usuarios->query->where(['ilike', 'localidad', $cadena]);
         }
-        
+
         return $this->render('buscar', [
-            
+
             'usuarios' => $usuarios,
         ]);
     }
