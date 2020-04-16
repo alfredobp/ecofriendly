@@ -123,29 +123,23 @@ class SiteController extends Controller
             }
         }
 
-
-        $sql = 'select * from feeds where usuariosid IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id  . ') or usuariosid=' . Yii::$app->user->identity->id;
+        $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
+        GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  .
+           'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id
+           . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . Yii::$app->user->identity->id . ' limit 1)';
         $feedCount = Feeds::findBySql($sql);
+       
 
 
-        //paginacion de 20 feeds, ordenados cronologicamente
+        //paginacion de 10 feeds, ordenados cronologicamente
         $pagination = new Pagination([
             'defaultPageSize' => 10,
             'totalCount' => $feedCount->count(),
         ]);
 
 
-        $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-         GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  .
-            'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id
-            . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . Yii::$app->user->identity->id . ' limit 1) order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
-        // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-        //     GROUP BY f.id, usuarios.id having  \'' . date('Y-m-d H:i:s') . '\'> f.created_at' ;
-
-        // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-        //     GROUP BY f.id, usuarios.id having usuarios.id=1 or created_at > cast(' . date('Y-m-d') . ' as date)';
-
-        //    select * from feeds where cast(created_At as date) > cast('2020-02-03' as date);
+        $sql = $sql . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
+        
 
         $feed = Yii::$app->db->createCommand($sql)->queryAll();
 
