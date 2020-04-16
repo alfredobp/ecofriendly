@@ -102,7 +102,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </div>
             <br>
             <br>
-            <p class="h5"><strong>TOP de mejores participantes #ecofriendly</strong> </p>
+            <p class="h5 text-success"><strong>TOP de mejores participantes #ecofriendly</strong> </p>
 
 
             <?php
@@ -114,12 +114,21 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
                 'columns' => [
-
+                    ['class' => 'yii\grid\SerialColumn'],
                     'usuarios.nombre',
-                    'puntuacion',
+
+                    [
+                        'attribute' => 'puntuacion',
+                        'value' => function ($dataProvider) {
+
+                            return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
+                        },
+                        'format' => 'raw',
+
+                    ],
                 ],
 
             ]);
@@ -127,11 +136,12 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
 
             ?>
-
+            <br>
             <h5>Comparte contenido en otras redes:</h5>
             <?php echo TwitterPlugin::widget([]); ?>
             <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <br>
         </aside>
         <main class=" col-md-9 col-lg-6">
             <article>
