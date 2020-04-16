@@ -7,14 +7,18 @@
 use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\web\View;
 
 $this->title = 'Registrar usuario';
 $this->params['breadcrumbs'][] = $this->title;
+//pluguin con lista despegable provincias/municipios
+$this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselect.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 <div class="register-form">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Introduzca los siguientes datos para registrarse:</p>
+
 
     <?php $form = ActiveForm::begin([
         'id' => 'register-form',
@@ -30,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'contrasena')->passwordInput() ?>
     <?= $form->field($model, 'password_repeat')->passwordInput() ?>
     <?= $form->field($model, 'direccion')->textInput() ?>
-    <?= $form->field($model, 'localidad')->textInput() ?>
+
+    <?= $form->field($model, 'provincia')->dropDownList(['class' => '']) ?>
+    <?= $form->field($model, 'localidad')->dropDownList(['class' => '']) ?>
     <?= $form->field($model, 'fecha_nac')->label('Fecha de nacimiento')->widget(DatePicker::classname(), [
         'options' => ['placeholder' => 'Introduzca su fecha de nacimiento...', 'class' => 'col-6'],
         'pluginOptions' => [

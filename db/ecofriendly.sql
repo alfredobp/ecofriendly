@@ -13,6 +13,7 @@ CREATE TABLE usuarios (
     email varchar(50) NOT NULL UNIQUE,
     url_avatar varchar(255),
     direccion varchar(255),
+    provincia varchar(255),
     localidad varchar(255),
     estado varchar(255),
     fecha_nac date,
@@ -182,6 +183,7 @@ INSERT INTO
         apellidos,
         email,
         contrasena,
+        provincia,
         localidad,
         direccion,
         estado
@@ -193,6 +195,7 @@ VALUES
         'demo1',
         'alfredo.barra2gan@iesdonana.org',
         crypt('adminadmin', gen_salt('bf', 10)),
+        'Cádiz',
         'Sanlúcar de barrameda',
         'Munilla II 1 a ',
         'estoy cansadito'
