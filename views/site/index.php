@@ -6,6 +6,11 @@ use app\helper_propio\Auxiliar;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
+use app\helper_propio\Gridpropio;
+use app\models\Feeds;
+use app\models\Ranking;
+use kartik\grid\GridView as GridGridView;
+use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
@@ -18,6 +23,9 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 use kartik\icons\Icon;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 
 Icon::map($this);
 $this->title = 'Ecofriendly';
@@ -94,10 +102,46 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </div>
             <br>
             <br>
+            <p class="h5 text-success"><strong>TOP de mejores participantes #ecofriendly</strong> </p>
+
+
+            <?php
+
+            $arrModels = Ranking::find()->limit(10)->all();
+            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                'attributes' => ['puntuacion'],
+            ],]);
+
+            echo Gridpropio::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'usuarios.nombre',
+
+                    [
+                        'attribute' => 'puntuacion',
+                        'value' => function ($dataProvider) {
+
+                            return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
+                        },
+                        'format' => 'raw',
+
+                    ],
+                ],
+
+            ]);
+
+
+
+            ?>
+            <br>
             <h5>Comparte contenido en otras redes:</h5>
             <?php echo TwitterPlugin::widget([]); ?>
             <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <br>
         </aside>
         <main class=" col-md-9 col-lg-6">
             <article>
