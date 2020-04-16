@@ -68,6 +68,7 @@ CREATE TABLE seguidores (
     id bigserial PRIMARY KEY,
     usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     seguidor_id bigint NOT NULL NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE
+    fecha_seguimiento timestamp,
 );
 
 DROP TABLE IF EXISTS tipos_notificaciones CASCADE;

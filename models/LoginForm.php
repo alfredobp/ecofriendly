@@ -61,10 +61,10 @@ class LoginForm extends Model
     {
         $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
 
-        if ($usuarios->token_acti != null) {
-            Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
-            return;
-        }
+        // if ($usuarios->token_acti == null) {
+        //     Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
+        //     return;
+        // }
         if ($this->validate()) {
             $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
             $usuarios->ultima_conexion = date('Y-m-d H:i:s');
