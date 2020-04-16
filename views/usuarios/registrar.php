@@ -43,7 +43,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
     <?= $form->field($model, 'direccion')->textInput() ?>
 
     <?= $form->field($model, 'localidad')->dropDownList(['id' => 'ps-prov']) ?>
-    <?= $form->field($model, 'localidad')->dropDownList(['id' => 'ps-mun']) ?>
+    <?= $form->field($model, 'provincia')->dropDownList(['id' => 'ps-mun']) ?>
     <?= $form->field($model, 'fecha_nac')->label('Fecha de nacimiento')->widget(DatePicker::classname(), [
         'options' => ['placeholder' => 'Introduzca su fecha de nacimiento...', 'class' => 'col-6'],
         'pluginOptions' => [

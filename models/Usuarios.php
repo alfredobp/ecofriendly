@@ -14,11 +14,13 @@ use yii\web\IdentityInterface;
  * @property string|null$auth_key
  * @property string $apellidos
  * @property string $email
+ * @property string|null $provincia
+ * @property string|null $localidad
  * @property string|null $direccion
  * @property string|null $estado
  * @property string|null $fecha_nac
  * @property string|null $ultima_conexion
- * @property string $created_at
+ * @property string $fecha_alta
  * @property string $rol
  * @property string|null $token_acti
  * @property string|null $codigo_verificacion
@@ -67,7 +69,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'email'], 'unique'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Por ejemplo: usuario@gestorcorreo.com'],
-            [['nombre', 'auth_key', 'localidad', 'direccion'], 'string', 'max' => 255],
+            [['nombre', 'auth_key', 'provincia', 'localidad', 'direccion'], 'string', 'max' => 255],
             ['contrasena', 'match', 'pattern' => '/^.{6,16}$/', 'message' => 'Mínimo 6 y máximo 16 caracteres', 'on' => self::SCENARIO_CREAR],
             [['estado'], 'safe'],
             [['rol'], 'string', 'max' => 30],
@@ -99,7 +101,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'password_repeat' => 'Repetir contraseña',
             // 'auth_key' => 'Auth Key',
             'telefono' => 'Teléfono',
-            'Localidad' => 'Localidad',
+            'provincia' => 'Provincia',
+            'localidad' => 'Localidad',
             'email' => 'Email',
             'rol' => 'Rol',
             'direccion' => 'Direccion',

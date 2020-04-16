@@ -13,4 +13,8 @@ $(function () {
             console.log('ad')
             
     })
+    var prov = document.getElementById('usuarios-provincia');
+    console.log("hola");
+		var mun = document.getElementById('usuarios-localidad');
+		new Pselect().create(prov, mun);
 })
