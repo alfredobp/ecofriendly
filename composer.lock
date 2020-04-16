@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad41d5df9ed74a4c81ed2694e6d635aa",
+    "content-hash": "7f5e928293b699754075cb34bc5b9c97",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1215,7 +1215,7 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.3.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
@@ -9339,6 +9339,7 @@
         "kartik-v/yii2-social": 20,
         "kartik-v/yii2-label-inplace": 20,
         "kartik-v/yii2-icons": 20,
+        "kartik-v/yii2-grid": 20,
         "yiisoft/yii2-apidoc": 20,
         "codeception/verify": 20
     },

@@ -35,7 +35,8 @@
         "cybercog/yii2-google-analytics": "^0.3.2",
         "kartik-v/yii2-label-inplace": "dev-master",
         "kartik-v/yii2-icons": "@dev",
-        "aws/aws-sdk-php": "^3.134"
+        "aws/aws-sdk-php": "^3.134",
+        "kartik-v/yii2-grid": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

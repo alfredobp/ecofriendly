@@ -6,6 +6,10 @@ use app\helper_propio\Auxiliar;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
+use app\models\Feeds;
+use app\models\Ranking;
+use kartik\grid\GridView as GridGridView;
+use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
@@ -18,6 +22,8 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 use kartik\icons\Icon;
+use yii\data\ActiveDataProvider;
+use yii\grid\GridView;
 
 Icon::map($this);
 $this->title = 'Ecofriendly';
@@ -94,6 +100,68 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </div>
             <br>
             <br>
+           <strong>TOP de mejores participantes</strong> 
+            <?php
+            $dataProvider = new ActiveDataProvider([
+                'query' => Ranking::find()->limit(1),
+
+            ]);
+
+            $dataProvider->setSort([
+                'defaultOrder' => ['puntuacion' => SORT_ASC],
+            ]);
+
+            $dataProvider->pagination = ['pageSize' => 1];
+            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+            $dataProvider->pagination = ['pageSize' => 10];
+            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+            
+
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
+                'columns' => [
+
+                    'usuarios.nombre',
+                    'puntuacion',
+                ],
+
+            ]);
+
+
+
+            ?>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
             <h5>Comparte contenido en otras redes:</h5>
             <?php echo TwitterPlugin::widget([]); ?>
             <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>

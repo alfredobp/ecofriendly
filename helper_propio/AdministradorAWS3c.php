@@ -22,7 +22,6 @@ require '../vendor/autoload.php';
 
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
-use Exception;
 
 /**
  * Función para subir una imagen de avatar a Amazon S3.
