@@ -135,12 +135,12 @@ class SiteController extends Controller
         ]);
 
 
-        // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-        //  GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  .
-        //     'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id
-        //     . ') order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
         $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-            GROUP BY f.id, usuarios.id having  \'' . date('Y-m-d H:i:s') . '\'> f.created_at' ;
+         GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  .
+            'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id
+            . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . Yii::$app->user->identity->id . ' limit 1) order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
+        // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
+        //     GROUP BY f.id, usuarios.id having  \'' . date('Y-m-d H:i:s') . '\'> f.created_at' ;
 
         // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
         //     GROUP BY f.id, usuarios.id having usuarios.id=1 or created_at > cast(' . date('Y-m-d') . ' as date)';
