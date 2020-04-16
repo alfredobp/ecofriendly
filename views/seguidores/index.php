@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'usuario_id',
             'seguidor_id',
+            'fecha_seguimiento',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
