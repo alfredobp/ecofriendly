@@ -79,15 +79,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $id = Yii::$app->user->identity->id;
         $model = new Feeds();
 
         $model3 = new ImagenForm();
-        $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => Yii::$app->user->identity->id])->one();
+        $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
 
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', Yii::$app->user->identity->id])
+        $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', $id])
             ->all();
-        $retos = EcoRetos::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
-        $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e  on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . Yii::$app->user->identity->id;
+        $retos = EcoRetos::find()->where(['usuario_id' => $id])->all();
+        $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e ';
+        $sql = $sql . 'on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . $id;
 
         $retosListado = AccionesRetos::findBySql($sql)->all();
 
@@ -102,33 +104,33 @@ class SiteController extends Controller
         if (count($retos) == 0) {
             if ($puntuacion['puntuacion'] < 30) {
                 $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = Yii::$app->user->identity->id;
-                $ecoreto->nombrereto = 'reto' . Yii::$app->user->identity->id;
+                $ecoreto->usuario_id = $id;
+                $ecoreto->nombrereto = 'reto' . $id;
                 $ecoreto->categoria_id = 1;
                 $ecoreto->save();
             }
             if ($puntuacion['puntuacion'] > 30 && $puntuacion['puntuacion'] < 60) {
                 $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = Yii::$app->user->identity->id;
-                $ecoreto->nombrereto = 'reto' . Yii::$app->user->identity->id;
+                $ecoreto->usuario_id = $id;
+                $ecoreto->nombrereto = 'reto' . $id;
                 $ecoreto->categoria_id = 2;
                 $ecoreto->save();
             }
             if ($puntuacion['puntuacion'] > 60) {
                 $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = Yii::$app->user->identity->id;
-                $ecoreto->nombrereto = 'reto' . Yii::$app->user->identity->id;
+                $ecoreto->usuario_id = $id;
+                $ecoreto->nombrereto = 'reto' . $id;
                 $ecoreto->categoria_id = 3;
                 $ecoreto->save();
             }
         }
 
         $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-        GROUP BY f.id, usuarios.id having usuarios.id=' . Yii::$app->user->identity->id  .
-           'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . Yii::$app->user->identity->id
-           . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . Yii::$app->user->identity->id . ' limit 1)';
+        GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
+            'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
+            . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
         $feedCount = Feeds::findBySql($sql);
-       
+
 
 
         //paginacion de 10 feeds, ordenados cronologicamente
@@ -139,13 +141,13 @@ class SiteController extends Controller
 
 
         $sql = $sql . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
-        
+
 
         $feed = Yii::$app->db->createCommand($sql)->queryAll();
 
         return $this->render('index', [
 
-            'datos' => Usuarios::findOne(Yii::$app->user->identity->id),
+            'datos' => Usuarios::findOne($id),
             'retosListado' => $retosListado,
             'feeds' => $feed,
             'model' => $model,
@@ -153,8 +155,8 @@ class SiteController extends Controller
             'usuarios' => $listaUsuarios,
             'model3' => $model3,
             'seguidores' => Seguidores::find()
-                ->where(['usuario_id' => Yii::$app->user->identity->id])
-                ->andWhere(['!=', 'seguidor_id', Yii::$app->user->identity->id])
+                ->where(['usuario_id' => $id])
+                ->andWhere(['!=', 'seguidor_id', $id])
                 ->all(),
 
         ]);
