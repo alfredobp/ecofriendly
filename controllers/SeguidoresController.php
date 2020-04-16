@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Seguidores;
-use app\modelsSeguidoresSearch;
+use app\models\SeguidoresSearch;
 use yii\base\Model;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -50,7 +50,7 @@ class SeguidoresController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new modelsSeguidoresSearch();
+        $searchModel = new SeguidoresSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
