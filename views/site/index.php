@@ -106,20 +106,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
 
             <?php
-            $sql = 'select * from ranking limit 3';
-            $arrModels = Ranking::find()->limit(1)->all();
-            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels]);
 
-
-            // $dataProvider->setSort([
-            //     'defaultOrder' => ['puntuacion' => SORT_ASC],
-            // ]);
-
-            $dataProvider->pagination = ['pageSize' => 1];
-            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
-            $dataProvider->pagination = ['pageSize' => 10];
-            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
-
+            $arrModels = Ranking::find()->limit(10)->all();
+            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                'attributes' => ['puntuacion'],
+            ],]);
 
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
