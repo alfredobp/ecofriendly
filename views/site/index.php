@@ -110,7 +110,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         'attribute' => 'titulo',
                         'value' => function ($dataProvider) {
 
-                            return  '<h5> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '"> ver reto </a>' . $dataProvider->id ;
+                            return  '<h6> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '"> Ver reto </a>' . $dataProvider->id ;
                         },
                         'format' => 'html',
 
