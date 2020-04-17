@@ -3,15 +3,15 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\EcoRetos;
-use app\models\EcoRetosSearch;
+use app\models\Ecoretos;
+use app\models\EcoretosSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EcoretosController implements the CRUD actions for EcoRetos model.
+ * EcoretosController implements the CRUD actions for Ecoretos model.
  */
 class EcoretosController extends Controller
 {
@@ -39,7 +39,7 @@ class EcoretosController extends Controller
                             return Yii::$app->user->identity->rol === 'superadministrador';
                         },
                     ],
-                    
+
 
                 ],
             ]
@@ -47,12 +47,12 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Lists all EcoRetos models.
+     * Lists all Ecoretos models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EcoRetosSearch();
+        $searchModel = new EcoretosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +62,7 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Displays a single EcoRetos model.
+     * Displays a single Ecoretos model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -75,16 +75,16 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Creates a new EcoRetos model.
+     * Creates a new Ecoretos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new EcoRetos();
+        $model = new Ecoretos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->categoria_id]);
         }
 
         return $this->render('create', [
@@ -93,7 +93,7 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Updates an existing EcoRetos model.
+     * Updates an existing Ecoretos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -104,7 +104,7 @@ class EcoretosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->categoria_id]);
         }
 
         return $this->render('update', [
@@ -113,7 +113,7 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Deletes an existing EcoRetos model.
+     * Deletes an existing Ecoretos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -127,15 +127,15 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Finds the EcoRetos model based on its primary key value.
+     * Finds the Ecoretos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EcoRetos the loaded model
+     * @return Ecoretos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EcoRetos::findOne($id)) !== null) {
+        if (($model = Ecoretos::findOne($id)) !== null) {
             return $model;
         }
 

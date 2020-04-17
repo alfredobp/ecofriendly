@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CategoriasEcoretos;
+use app\models\Ecoretos;
 
 /**
- * CategoriasEcoretosSearch represents the model behind the search form of `app\models\CategoriasEcoretos`.
+ * EcoretosSearch represents the model behind the search form of `app\models\Ecoretos`.
  */
-class CategoriasEcoretosSearch extends CategoriasEcoretos
+class EcoretosSearch extends Ecoretos
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class CategoriasEcoretosSearch extends CategoriasEcoretos
     public function rules()
     {
         return [
-            [['id', 'categoria_id'], 'integer'],
+            [['categoria_id', 'id'], 'integer'],
             [['cat_nombre'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class CategoriasEcoretosSearch extends CategoriasEcoretos
      */
     public function search($params)
     {
-        $query = CategoriasEcoretos::find();
+        $query = Ecoretos::find();
 
         // add conditions that should always apply here
 
@@ -58,8 +58,8 @@ class CategoriasEcoretosSearch extends CategoriasEcoretos
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'categoria_id' => $this->categoria_id,
+            'id' => $this->id,
         ]);
 
         $query->andFilterWhere(['ilike', 'cat_nombre', $this->cat_nombre]);

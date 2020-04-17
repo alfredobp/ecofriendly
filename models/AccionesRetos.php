@@ -17,7 +17,7 @@ use Yii;
  * @property bool|null $aceptado
  * @property bool|null $culminado
  *
- * @property CategoriasEcoretos $cat
+ * @property Ecoretos $cat
  */
 class AccionesRetos extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,6 @@ class AccionesRetos extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-
         return [
             [['titulo', 'descripcion'], 'required'],
             [['cat_id', 'puntaje'], 'default', 'value' => null],
@@ -42,7 +41,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
             [['fecha_aceptacion', 'fecha_culminacion'], 'safe'],
             [['aceptado', 'culminado'], 'boolean'],
             [['titulo', 'descripcion'], 'string', 'max' => 255],
-            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriasEcoretos::className(), 'targetAttribute' => ['cat_id' => 'categoria_id']],
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ecoretos::className(), 'targetAttribute' => ['cat_id' => 'categoria_id']],
         ];
     }
 
@@ -52,13 +51,13 @@ class AccionesRetos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id',
+            'id' => 'ID',
             'titulo' => 'Titulo',
-            'descripcion' => 'Descripción',
-            'cat_id' => 'Categoría id',
+            'descripcion' => 'Descripcion',
+            'cat_id' => 'Cat ID',
             'puntaje' => 'Puntaje',
-            'fecha_aceptacion' => 'Fecha Aceptación',
-            'fecha_culminacion' => 'Fecha Culminación',
+            'fecha_aceptacion' => 'Fecha Aceptacion',
+            'fecha_culminacion' => 'Fecha Culminacion',
             'aceptado' => 'Aceptado',
             'culminado' => 'Culminado',
         ];
@@ -71,6 +70,6 @@ class AccionesRetos extends \yii\db\ActiveRecord
      */
     public function getCat()
     {
-        return $this->hasOne(CategoriasEcoretos::className(), ['categoria_id' => 'cat_id'])->inverseOf('accionesRetos');
+        return $this->hasOne(Ecoretos::className(), ['categoria_id' => 'cat_id'])->inverseOf('accionesRetos');
     }
 }

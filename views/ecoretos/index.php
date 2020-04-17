@@ -1,22 +1,21 @@
 <?php
 
-use Symfony\Component\VarDumper\VarDumper;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\EcoRetosSearch */
+/* @var $searchModel app\models\EcoretosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Eco Retos';
+$this->title = 'Ecoretos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="eco-retos-index">
+<div class="ecoretos-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Eco Retos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Ecoretos', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -24,17 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-      
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-           
-            'nombrereto',
             'categoria_id',
-            // 'categoriasEcoretos.id',
-            'usuarios.nombre',
+            'id',
+            'cat_nombre',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

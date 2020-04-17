@@ -24,6 +24,7 @@ use yii\web\IdentityInterface;
  * @property string $rol
  * @property string|null $token_acti
  * @property string|null $codigo_verificacion
+ * @property int|null $categoria_id
  * @property Bloqueos[] $bloqueos
  * @property Bloqueos[] $bloqueos0
  * @property Comentarios[] $comentarios
@@ -84,6 +85,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => true,
                 'on' => [self::SCENARIO_MODIFICAR],
             ],
+            [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ecoretos::className(), 'targetAttribute' => ['categoria_id' => 'categoria_id']],
         ];
     }
 
@@ -110,6 +112,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'fecha_nac' => 'Fecha Nac',
             'ultima_conexion' => 'Última Conexión',
             'fecha_alta' => 'Fecha creación',
+            'categoria_id' => 'Categoria ID',
         ];
     }
 
@@ -291,7 +294,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Gets query for [[Rankings]].
+     * Gets query for [[Ranking]].
      *
      * @return \yii\db\ActiveQuery
      */
@@ -318,5 +321,13 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function getSeguidores0()
     {
         return $this->hasMany(Seguidores::className(), ['seguidor_id' => 'id'])->inverseOf('seguidor');
+    }
+    /**
+     * Gets query for [[Categoria]].
+     * @return \yii\db\ActiveQuery
+     *      */
+    public function getCategoria()
+    {
+        return $this->hasOne(Ecoretos::className(), ['categoria_id' => 'categoria_id'])->inverseOf('usuarios');
     }
 }
