@@ -7,6 +7,8 @@ use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use app\helper_propio\Gridpropio;
+use app\models\AccionesRetos;
+use app\models\Ecoretos;
 use app\models\Feeds;
 use app\models\Ranking;
 use kartik\grid\GridView as GridGridView;
@@ -85,14 +87,39 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             ?>
             </button>
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
-            <ul>
-                <?php
-                // for ($i = 0; $i <  sizeof($retosListado); $i++) {
-                //     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
-                //         '</h6><a/></li>';
-                // }
-                ?>
-            </ul>
+
+            <?php
+            // for ($i = 0; $i <  sizeof($retosListado); $i++) {
+            //     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
+            //         '</h6><a/></li>';
+            // }
+            $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
+            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                'attributes' => ['id'],
+            ],]);
+
+            echo Gridpropio::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+
+                'columns' => [
+                    // ['class' => 'yii\grid\SerialColumn'],
+                    'titulo',
+
+                    [
+                        'attribute' => 'titulo',
+                        'value' => function ($dataProvider) {
+
+                            return  '<h5> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '"> ver reto </a>' . $dataProvider->id ;
+                        },
+                        'format' => 'html',
+
+                    ],
+                ],
+
+            ]);
+            ?>
+
             <br>
             <br>
             <h5>Tu progreso:</h5>
