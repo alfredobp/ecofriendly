@@ -87,10 +87,10 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
             <ul>
                 <?php
-                for ($i = 0; $i <  sizeof($retosListado); $i++) {
-                    echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
-                        '</h6><a/></li>';
-                }
+                // for ($i = 0; $i <  sizeof($retosListado); $i++) {
+                //     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
+                //         '</h6><a/></li>';
+                // }
                 ?>
             </ul>
             <br>
