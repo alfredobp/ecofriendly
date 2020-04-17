@@ -1,6 +1,26 @@
 ------------------------------
 -- Archivo de base de datos --
 ------------------------------
+DROP TABLE IF EXISTS ecoretos CASCADE;
+
+CREATE TABLE ecoretos (
+    categoria_id integer UNIQUE PRIMARY KEY,
+    id bigserial,
+    cat_nombre varchar(255)
+);
+DROP TABLE IF EXISTS acciones_retos CASCADE;
+
+CREATE TABLE acciones_retos (
+    id bigserial PRIMARY KEY,
+    titulo varchar(255) NOT NULL,
+    descripcion varchar(255) NOT NULL,
+    cat_id integer REFERENCES categorias_ecoretos(categoria_id),
+    puntaje integer,
+    fecha_aceptacion timestamp,
+    fecha_culminacion timestamp,
+    aceptado boolean default false,
+    culminado boolean default false
+);
 DROP TABLE IF EXISTS usuarios CASCADE;
 
 CREATE TABLE usuarios (
@@ -21,7 +41,8 @@ CREATE TABLE usuarios (
     rol VARCHAR(30) NOT NULL DEFAULT 'usuario',
     codigo_verificacion VARCHAR(255),
     ultima_conexion timestamp,
-    fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp
+    fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp,
+    categoria_id integer REFERENCES categorias_ecoretos(categoria_id) 
 );
 
 DROP TABLE IF EXISTS ranking CASCADE;
@@ -91,36 +112,7 @@ CREATE TABLE notificaciones (
     created_at timestamp
 );
 
-DROP TABLE IF EXISTS categorias_ecoretos CASCADE;
 
-CREATE TABLE categorias_ecoretos (
-    id bigserial,
-    cat_nombre varchar(255),
-    categoria_id integer UNIQUE PRIMARY KEY
-);
-
-DROP TABLE IF EXISTS eco_retos CASCADE;
-
-CREATE TABLE eco_retos (
-    id bigserial PRIMARY KEY,
-    usuario_id integer REFERENCES usuarios(id),
-    nombreReto varchar(255) NOT NULL,
-    categoria_id integer UNIQUE REFERENCES categorias_ecoretos(categoria_id)
-);
-
-DROP TABLE IF EXISTS acciones_retos CASCADE;
-
-CREATE TABLE acciones_retos (
-    id bigserial PRIMARY KEY,
-    titulo varchar(255) NOT NULL,
-    descripcion varchar(255) NOT NULL,
-    cat_id integer REFERENCES categorias_ecoretos(categoria_id),
-    puntaje integer,
-    fecha_aceptacion timestamp,
-    fecha_culminacion timestamp,
-    aceptado boolean default false,
-    culminado boolean default false
-);
 
 DROP TABLE IF EXISTS mensajes_privados CASCADE;
 
@@ -134,96 +126,6 @@ CREATE TABLE mensajes_privados (
     created_at timestamp,
     visto_dat timestamp
 );
-INSERT INTO
-    usuarios (
-        username,
-        nombre,
-        apellidos,
-        email,
-        contrasena,
-        direccion,
-        estado, 
-        rol
-    )
-VALUES
-    (
-        'admin',
-        'admin',
-        'admin',
-        'alfredobsape@gmail.com',
-        crypt('adminadmin', gen_salt('bf', 10)),
-        'c/ Isabel II 1º ',
-        'Soy el Administrador de la plataforma', 
-        'superadministrador'
-    );
-INSERT INTO
-    usuarios (
-        username,
-        nombre,
-        apellidos,
-        email,
-        contrasena,
-        direccion,
-        estado
-    )
-VALUES
-    (
-        'demo',
-        'demo',
-        'demo',
-        'alfredobape@gmail.com',
-        crypt('demodemo', gen_salt('bf', 10)),
-        'c/ Isabel II 1º ',
-        'estoy cansado'
-    );
-
-INSERT INTO
-    usuarios (
-        username,
-        nombre,
-        apellidos,
-        email,
-        contrasena,
-        provincia,
-        localidad,
-        direccion,
-        estado
-    )
-VALUES
-    (
-        'demo1',
-        'demo1',
-        'demo1',
-        'alfredo.barra2gan@iesdonana.org',
-        crypt('adminadmin', gen_salt('bf', 10)),
-        'Cádiz',
-        'Sanlúcar de barrameda',
-        'Munilla II 1 a ',
-        'estoy cansadito'
-    );
-
-INSERT INTO
-    usuarios (
-        username,
-        nombre,
-        apellidos,
-        email,
-        contrasena,
-        localidad,
-        direccion,
-        estado
-    )
-VALUES
-    (
-        'demo2',
-        'demo2',
-        'demo2',
-        'alfredo.barragan@iesdonana.org',
-        crypt('demo2demo2', gen_salt('bf', 10)),
-        'rota',
-        'Munilla II 1 a ',
-        'estoy cansadito'
-    );
 
 INSERT into
     categorias_ecoretos(cat_nombre, categoria_id)
@@ -329,3 +231,96 @@ VALUES
         3,
         12
     );
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion,
+        estado, 
+        rol,
+        categoria_id
+    )
+VALUES
+    (
+        'admin',
+        'admin',
+        'admin',
+        'alfredobsape@gmail.com',
+        crypt('adminadmin', gen_salt('bf', 10)),
+        'c/ Isabel II 1º ',
+        'Soy el Administrador de la plataforma', 
+        'superadministrador',
+        '1'
+    );
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        direccion,
+        estado
+    )
+VALUES
+    (
+        'demo',
+        'demo',
+        'demo',
+        'alfredobape@gmail.com',
+        crypt('demodemo', gen_salt('bf', 10)),
+        'c/ Isabel II 1º ',
+        'estoy cansado'
+    );
+
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        provincia,
+        localidad,
+        direccion,
+        estado
+    )
+VALUES
+    (
+        'demo1',
+        'demo1',
+        'demo1',
+        'alfredo.barra2gan@iesdonana.org',
+        crypt('adminadmin', gen_salt('bf', 10)),
+        'Cádiz',
+        'Sanlúcar de barrameda',
+        'Munilla II 1 a ',
+        'estoy cansadito'
+    );
+
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        localidad,
+        direccion,
+        estado
+    )
+VALUES
+    (
+        'demo2',
+        'demo2',
+        'demo2',
+        'alfredo.barragan@iesdonana.org',
+        crypt('demo2demo2', gen_salt('bf', 10)),
+        'rota',
+        'Munilla II 1 a ',
+        'estoy cansadito'
+    );
+
