@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo  Html::a('Declinar Reto', ['declinar', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => '¿Estas seguro de aceptar este reto?',
+                    'confirm' => '¿Estas seguro de rechazar este reto?',
                     'method' => 'post',
                 ],
             ]);
@@ -48,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcion',
             'puntaje',
 
-            'aceptado:boolean',
-            'culminado:boolean',
+            // 'aceptado:boolean',
+            // 'culminado:boolean',
         ],
     ]) ?>
 
