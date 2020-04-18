@@ -134,6 +134,23 @@ class AccionesRetosController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDeclinar($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->save()) {
+            
+            $model->aceptado = false;
+            $model->fecha_aceptacion = null;
+            $model->save();
+     
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Deletes an existing AccionesRetos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
