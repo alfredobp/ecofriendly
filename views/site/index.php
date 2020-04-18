@@ -109,9 +109,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         'attribute' => 'Reto',
                         'value' => function ($dataProvider) {
 
-                            return  '<span> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '">' . $dataProvider->titulo . '</a></span>';
+                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton3 btn-xs active', 'id' => 'modalButton4']);
                         },
-                        'format' => 'html',
+                        'format' => 'raw',
 
                     ],
 
@@ -122,20 +122,27 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             $response = '';
                             $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
                             ') : $response = icon::show('check');
+                            // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
                             return  $response;
                         },
                         'format' => 'raw',
 
                     ],
-
-
-
-
-
                 ],
 
             ]);
             ?>
+            <?php
+            Modal::begin([
+                'title' => '<h3>Sus retos:</h3>',
+                'id' => 'modal4',
+                'size' => 'modal-xs',
+            ]);
+            echo '<div id="modalContent4"></div>';
+
+            Modal::end();
+            ?>
+
 
             <br>
             <br>

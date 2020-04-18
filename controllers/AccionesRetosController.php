@@ -70,7 +70,7 @@ class AccionesRetosController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('_view', [
+        return $this->renderAjax('_view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -122,11 +122,11 @@ class AccionesRetosController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->save()) {
-            
+
             $model->aceptado = true;
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
             $model->save();
-     
+            Yii::$app->session->setFlash('success', 'El reto propuesto ha sido aceptado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
 
@@ -139,11 +139,11 @@ class AccionesRetosController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->save()) {
-            
+
             $model->aceptado = false;
             $model->fecha_aceptacion = null;
             $model->save();
-     
+            Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
 
