@@ -8,6 +8,7 @@ namespace app\helper_propio;
 
 use app\models\Usuarios;
 use Yii;
+use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\Dialog;
@@ -52,7 +53,7 @@ class Auxiliar
         return $js;
     }
 
-    public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height'=>'65px', 'margin-right' => '12px', 'margin-left' => '12px']])
+    public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '65px', 'margin-right' => '12px', 'margin-left' => '12px']])
     {
 
 
@@ -69,5 +70,21 @@ class Auxiliar
     {
         $id != null ? $imagenFeed = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) : $imagenFeed = '';
         return $imagenFeed;
+    }
+
+
+    public static function ventanaModal()
+    {
+        $ventana =
+            Modal::begin([
+                'title' => '<h3>Sus retos:</h3>',
+                'id' => 'modal4',
+                'size' => 'modal-xs',
+            ]);
+        echo '<div id="modalContent4"></div>';
+
+        Modal::end();
+
+        return $ventana;
     }
 }

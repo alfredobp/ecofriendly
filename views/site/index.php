@@ -109,7 +109,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         'attribute' => 'Reto',
                         'value' => function ($dataProvider) {
 
-                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton3 btn-xs active', 'id' => 'modalButton4']);
+                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton4 btn-xs active', 'id' => 'modalButton4']);
                         },
                         'format' => 'raw',
 
