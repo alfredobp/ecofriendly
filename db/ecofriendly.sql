@@ -264,7 +264,8 @@ INSERT INTO
         email,
         contrasena,
         direccion,
-        estado
+        estado,
+        categoria_id
     )
 VALUES
     (
@@ -274,7 +275,8 @@ VALUES
         'alfredobape@gmail.com',
         crypt('demodemo', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
-        'estoy cansado'
+        'estoy cansado',
+        '1'
     );
 
 INSERT INTO

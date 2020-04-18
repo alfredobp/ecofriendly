@@ -26,5 +26,5 @@ $(function () {
     var prov = document.getElementById('usuarios-provincia');
 
     var mun = document.getElementById('usuarios-localidad');
-    // new Pselect().create(prov, mun);
+    new Pselect().create(prov, mun);
 })
