@@ -70,7 +70,7 @@ class AccionesRetosController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->render('_view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -112,7 +112,22 @@ class AccionesRetosController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionAceptar($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->save()) {
+            
+            $model->aceptado = true;
+            $model->fecha_aceptacion = date('Y-m-d H:i:s');
+            $model->save();
+     
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        }
 
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Deletes an existing AccionesRetos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
