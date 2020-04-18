@@ -58,14 +58,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 ?>
             </h5>
             <?php
-            Modal::begin([
-                'title' => '<h3>Modifique su estado</h3>',
-                'id' => 'modal3',
-                'size' => 'modal-xs',
-            ]);
-            echo '<div id="modalContent3"></div>';
-
-            Modal::end();
+            Auxiliar::ventanaModal('Modifique su estado', 3);
             ?>
             <?php
 
@@ -109,9 +102,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         'attribute' => 'Reto',
                         'value' => function ($dataProvider) {
 
-                            return  '<span> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '">' . $dataProvider->titulo . '</a></span>';
+                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton4 btn-xs active', 'id' => 'modalButton4']);
                         },
-                        'format' => 'html',
+                        'format' => 'raw',
 
                     ],
 
@@ -122,20 +115,18 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             $response = '';
                             $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
                             ') : $response = icon::show('check');
+                            // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
                             return  $response;
                         },
                         'format' => 'raw',
 
                     ],
-
-
-
-
-
                 ],
 
             ]);
+            Auxiliar::ventanaModal('Sus retos', 4);
             ?>
+
 
             <br>
             <br>
@@ -388,15 +379,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }
+                        Auxiliar::ventanaModal('Perfil de usuario', 2);
 
-                        Modal::begin([
-                            'title' => '<h3>Perfil de usuario</h3>',
-                            'id' => 'modal2',
-                            'size' => 'modal-md',
-                        ]);
-                        echo '<div id="modalContent2"></div>';
 
-                        Modal::end();
                         ?>
                         <br>
                         <?= Html::beginForm(['/usuarios/buscar'], 'get')
