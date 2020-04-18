@@ -112,6 +112,12 @@ class AccionesRetosController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Aceptar
+     * Permite al usuario aceptar un reto propuesto por el sistema
+     * @param [type] $id
+     * @return void
+     */
     public function actionAceptar($id)
     {
         $model = $this->findModel($id);
