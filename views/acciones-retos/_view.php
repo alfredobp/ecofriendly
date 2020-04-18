@@ -17,23 +17,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <!-- <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?> -->
-        <?= Html::a('Aceptar Reto', ['aceptar', 'id' => $model->id], [
-            'class' => 'btn btn-success',
-            'data' => [
-                'confirm' => '¿Estas seguro de aceptar este reto?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php
+        if ($model->aceptado == true) {
+            echo  Html::a('Declinar Reto', ['declinar', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => '¿Estas seguro de aceptar este reto?',
+                    'method' => 'post',
+                ],
+            ]);
+        } else {
+            echo Html::a('Aceptar Reto', ['aceptar', 'id' => $model->id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => '¿Estas seguro de aceptar este reto?',
+                    'method' => 'post',
+                ],
+            ]);
+        }
+
+        ?>
+
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-           
+
             'titulo',
             'descripcion',
             'puntaje',
-          
+
             'aceptado:boolean',
             'culminado:boolean',
         ],
