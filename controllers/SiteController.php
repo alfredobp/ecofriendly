@@ -11,7 +11,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\EcoRetos;
+use app\models\Ecoretos;
 use app\models\EcoValora;
 use app\models\Feeds;
 use app\models\ImagenForm;
@@ -87,11 +87,11 @@ class SiteController extends Controller
 
         $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', $id])
             ->all();
-        $retos = EcoRetos::find()->where(['usuario_id' => $id])->all();
+        // $retos = Ecoretos::find()->where(['usuario_id' => $id])->all();
         $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e ';
         $sql = $sql . 'on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . $id;
 
-        $retosListado = AccionesRetos::findBySql($sql)->all();
+        // $retosListado = AccionesRetos::findBySql($sql)->all();
 
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
@@ -101,27 +101,25 @@ class SiteController extends Controller
          *  calculada se le otorga unas serie de acciones que corresponden a un reto
          *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
          */
-        if (count($retos) == 0) {
+        $user=Usuarios::findOne($id);
+        // var_dump($user->categoria_id);
+        // var_dump($id);
+        // die;
+        if ($user->categoria_id==null) {
             if ($puntuacion['puntuacion'] < 30) {
-                $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = $id;
-                $ecoreto->nombrereto = 'reto' . $id;
-                $ecoreto->categoria_id = 1;
-                $ecoreto->save();
+                $usuarios = Usuarios::find()->where(['id' => $id])->one();
+                $usuarios->categoria_id = 1;
+                $usuarios->save();
             }
             if ($puntuacion['puntuacion'] > 30 && $puntuacion['puntuacion'] < 60) {
-                $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = $id;
-                $ecoreto->nombrereto = 'reto' . $id;
-                $ecoreto->categoria_id = 2;
-                $ecoreto->save();
+                $usuarios = Usuarios::find()->where(['id' => $id])->one();
+                $usuarios->categoria_id = 2;
+                $usuarios->save();
             }
             if ($puntuacion['puntuacion'] > 60) {
-                $ecoreto = new EcoRetos();
-                $ecoreto->usuario_id = $id;
-                $ecoreto->nombrereto = 'reto' . $id;
-                $ecoreto->categoria_id = 3;
-                $ecoreto->save();
+                $usuarios = Usuarios::find()->where(['id' => $id])->one();
+                $usuarios->categoria_id = 3;
+                $usuarios->save();
             }
         }
 
@@ -148,7 +146,7 @@ class SiteController extends Controller
         return $this->render('index', [
 
             'datos' => Usuarios::findOne($id),
-            'retosListado' => $retosListado,
+            // 'retosListado' => $retosListado,
             'feeds' => $feed,
             'model' => $model,
             'pagination' => $pagination,
