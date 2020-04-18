@@ -100,21 +100,38 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+                'options' => ['class' => 'table-hover hourglass-start
+                ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
                 'columns' => [
                     // ['class' => 'yii\grid\SerialColumn'],
-                    'titulo',
-
                     [
-                        'attribute' => 'titulo',
+                        'attribute' => 'Reto',
                         'value' => function ($dataProvider) {
 
-                            return  '<h6> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '"> Ver reto </a>' . $dataProvider->id ;
+                            return  '<span> <a href="index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id    . '">' . $dataProvider->titulo . '</a></span>';
                         },
                         'format' => 'html',
 
                     ],
+
+                    // ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'Aceptado',
+                        'value' => function ($dataProvider) {
+                            $response = '';
+                            $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
+                            ') : $response = icon::show('check');
+                            return  $response;
+                        },
+                        'format' => 'raw',
+
+                    ],
+
+
+
+
+
                 ],
 
             ]);
