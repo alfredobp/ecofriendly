@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\AccionesRetos;
 use app\models\AccionesRetosSearch;
+use app\models\Ranking;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -144,6 +145,31 @@ class AccionesRetosController extends Controller
             $model->fecha_aceptacion = null;
             $model->save();
             Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionFinalizar($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->save() && $model->culminado == false) {
+
+            $model->culminado = true;
+            $model->fecha_culminacion = date('Y-m-d H:i:s');
+            $model->save();
+            $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+            $puntuacion->puntuacion = $puntuacion->puntuacion + $model->puntaje;
+            $puntuacion->save();
+
+            Yii::$app->session->setFlash('success', 'Su puntuación ha mejorado.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        }
+        else {
+            Yii::$app->session->setFlash('error', 'El reto ya ha sido terminado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
 

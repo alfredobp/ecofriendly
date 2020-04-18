@@ -20,12 +20,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         if ($model->aceptado == true) {
             echo  Html::a('Declinar Reto', ['declinar', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
+                'class' => 'btn btn-danger mr-3',
                 'data' => [
                     'confirm' => '¿Estas seguro de rechazar este reto?',
                     'method' => 'post',
                 ],
-            ]);
+            ])
+           
+                .  Html::a('Anotar Reto como Terminado', ['finalizar', 'id' => $model->id], [
+                    'class' => 'btn btn-info',
+
+                ]);
         } else {
             echo Html::a('Aceptar Reto', ['aceptar', 'id' => $model->id], [
                 'class' => 'btn btn-success',
