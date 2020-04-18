@@ -58,14 +58,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 ?>
             </h5>
             <?php
-            Modal::begin([
-                'title' => '<h3>Modifique su estado</h3>',
-                'id' => 'modal3',
-                'size' => 'modal-xs',
-            ]);
-            echo '<div id="modalContent3"></div>';
-
-            Modal::end();
+            Auxiliar::ventanaModal('Modifique su estado', 3);
             ?>
             <?php
 
@@ -131,16 +124,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 ],
 
             ]);
-            ?>
-            <?php
-            Modal::begin([
-                'title' => '<h3>Sus retos:</h3>',
-                'id' => 'modal4',
-                'size' => 'modal-xs',
-            ]);
-            echo '<div id="modalContent4"></div>';
-
-            Modal::end();
+            Auxiliar::ventanaModal('Sus retos', 4);
             ?>
 
 
@@ -395,15 +379,9 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }
+                        Auxiliar::ventanaModal('Perfil de usuario', 2);
 
-                        Modal::begin([
-                            'title' => '<h3>Perfil de usuario</h3>',
-                            'id' => 'modal2',
-                            'size' => 'modal-md',
-                        ]);
-                        echo '<div id="modalContent2"></div>';
 
-                        Modal::end();
                         ?>
                         <br>
                         <?= Html::beginForm(['/usuarios/buscar'], 'get')
