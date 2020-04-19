@@ -126,6 +126,7 @@ class AccionesRetosController extends Controller
 
             $model->aceptado = true;
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
+            $model->usuario_id=Yii::$app->user->identity->id;
             $model->save();
             Yii::$app->session->setFlash('success', 'El reto propuesto ha sido aceptado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
@@ -143,6 +144,7 @@ class AccionesRetosController extends Controller
 
             $model->aceptado = false;
             $model->fecha_aceptacion = null;
+            
             $model->save();
             Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
             return $this->redirect(['site/index', 'id' => $model->id]);

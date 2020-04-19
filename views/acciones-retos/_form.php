@@ -20,14 +20,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'puntaje')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_aceptacion')->textInput() ?>
-
-    <?= $form->field($model, 'fecha_culminacion')->textInput() ?>
-
-    <?= $form->field($model, 'aceptado')->checkbox() ?>
-
-    <?= $form->field($model, 'culminado')->checkbox() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

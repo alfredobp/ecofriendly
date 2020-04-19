@@ -18,8 +18,7 @@ class AccionesRetosSearch extends AccionesRetos
     {
         return [
             [['id', 'cat_id', 'puntaje'], 'integer'],
-            [['titulo', 'descripcion', 'fecha_aceptacion', 'fecha_culminacion'], 'safe'],
-            [['aceptado', 'culminado'], 'boolean'],
+            [['titulo', 'descripcion'], 'safe'],
         ];
     }
 
@@ -62,10 +61,6 @@ class AccionesRetosSearch extends AccionesRetos
             'id' => $this->id,
             'cat_id' => $this->cat_id,
             'puntaje' => $this->puntaje,
-            'fecha_aceptacion' => $this->fecha_aceptacion,
-            'fecha_culminacion' => $this->fecha_culminacion,
-            'aceptado' => $this->aceptado,
-            'culminado' => $this->culminado,
         ]);
 
         $query->andFilterWhere(['ilike', 'titulo', $this->titulo])

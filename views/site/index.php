@@ -91,39 +91,39 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                 'attributes' => ['id'],
             ],]);
 
-            echo Gridpropio::widget([
-                'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table-hover hourglass-start
-                ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+            // echo Gridpropio::widget([
+            //     'dataProvider' => $dataProvider,
+            //     'options' => ['class' => 'table-hover hourglass-start
+            //     ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-                'columns' => [
-                    // ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'Reto',
-                        'value' => function ($dataProvider) {
+            //     'columns' => [
+            //         // ['class' => 'yii\grid\SerialColumn'],
+            //         [
+            //             'attribute' => 'Reto',
+            //             'value' => function ($dataProvider) {
 
-                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton4 btn-xs active', 'id' => 'modalButton4']);
-                        },
-                        'format' => 'raw',
+            //                 return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton4 btn-xs active', 'id' => 'modalButton4']);
+            //             },
+            //             'format' => 'raw',
 
-                    ],
+            //         ],
 
-                    // ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'Aceptado',
-                        'value' => function ($dataProvider) {
-                            $response = '';
-                            $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
-                            ') : $response = icon::show('check');
-                            // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
-                            return  $response;
-                        },
-                        'format' => 'raw',
+            //         // ['class' => 'yii\grid\SerialColumn'],
+            //         [
+            //             'attribute' => 'Aceptado',
+            //             'value' => function ($dataProvider) {
+            //                 $response = '';
+            //                 $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
+            //                 ') : $response = icon::show('check');
+            //                 // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
+            //                 return  $response;
+            //             },
+            //             'format' => 'raw',
 
-                    ],
-                ],
+            //         ],
+            //     ],
 
-            ]);
+            // ]);
             Auxiliar::ventanaModal('Sus retos', 4);
             ?>
 

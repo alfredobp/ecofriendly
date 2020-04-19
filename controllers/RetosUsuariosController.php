@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Ecoretos;
-use app\models\EcoretosSearch;
-use yii\filters\AccessControl;
+use app\models\RetosUsuarios;
+use app\models\RetosUsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EcoretosController implements the CRUD actions for Ecoretos model.
+ * RetosUsuariosController implements the CRUD actions for RetosUsuarios model.
  */
-class EcoretosController extends Controller
+class RetosUsuariosController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,32 +26,16 @@ class EcoretosController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['create'],
-                'rules' => [
-                    [
-                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
-                        'allow' => false,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->rol === 'superadministrador';
-                        },
-                    ],
-
-
-                ],
-            ]
         ];
     }
 
     /**
-     * Lists all Ecoretos models.
+     * Lists all RetosUsuarios models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EcoretosSearch();
+        $searchModel = new RetosUsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,29 +45,30 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Displays a single Ecoretos model.
-     * @param integer $id
+     * Displays a single RetosUsuarios model.
+     * @param integer $idreto
+     * @param integer $usuario_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($idreto, $usuario_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($idreto, $usuario_id),
         ]);
     }
 
     /**
-     * Creates a new Ecoretos model.
+     * Creates a new RetosUsuarios model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ecoretos();
+        $model = new RetosUsuarios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id]);
         }
 
         return $this->render('create', [
@@ -93,18 +77,19 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Updates an existing Ecoretos model.
+     * Updates an existing RetosUsuarios model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $idreto
+     * @param integer $usuario_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($idreto, $usuario_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($idreto, $usuario_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id]);
         }
 
         return $this->render('update', [
@@ -113,29 +98,31 @@ class EcoretosController extends Controller
     }
 
     /**
-     * Deletes an existing Ecoretos model.
+     * Deletes an existing RetosUsuarios model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $idreto
+     * @param integer $usuario_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($idreto, $usuario_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($idreto, $usuario_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Ecoretos model based on its primary key value.
+     * Finds the RetosUsuarios model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Ecoretos the loaded model
+     * @param integer $idreto
+     * @param integer $usuario_id
+     * @return RetosUsuarios the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($idreto, $usuario_id)
     {
-        if (($model = Ecoretos::findOne($id)) !== null) {
+        if (($model = RetosUsuarios::findOne(['idreto' => $idreto, 'usuario_id' => $usuario_id])) !== null) {
             return $model;
         }
 

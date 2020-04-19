@@ -4,18 +4,18 @@ use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AccionesRetosSearch */
+/* @var $searchModel app\models\RetosUsuariosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Acciones Retos';
+$this->title = 'Retos Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="acciones-retos-index">
+<div class="retos-usuarios-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Acciones Retos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Retos Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,10 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'titulo',
-            'descripcion',
-            'cat_id',
-            'puntaje',
+            'idreto',
+            'usuario_id',
+            'fecha_aceptacion',
+            'fecha_culminacion',
+            //'culminado:boolean',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

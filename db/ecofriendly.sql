@@ -1,27 +1,14 @@
 ------------------------------
 -- Archivo de base de datos --
 ------------------------------
-DROP TABLE IF EXISTS categorias_ecoretos CASCADE;
 DROP TABLE IF EXISTS ecoretos CASCADE;
 
 CREATE TABLE ecoretos (
-    categoria_id integer UNIQUE PRIMARY KEY,
-    id bigserial,
+    id bigserial PRIMARY KEY,
+    categoria_id integer NOT NULL UNIQUE,
     cat_nombre varchar(255)
 );
-DROP TABLE IF EXISTS acciones_retos CASCADE;
 
-CREATE TABLE acciones_retos (
-    id bigserial PRIMARY KEY,
-    titulo varchar(255) NOT NULL,
-    descripcion varchar(255) NOT NULL,
-    cat_id integer REFERENCES ecoretos(categoria_id),
-    puntaje integer,
-    fecha_aceptacion timestamp,
-    fecha_culminacion timestamp,
-    aceptado boolean default false,
-    culminado boolean default false
-);
 DROP TABLE IF EXISTS usuarios CASCADE;
 
 CREATE TABLE usuarios (
@@ -43,7 +30,29 @@ CREATE TABLE usuarios (
     codigo_verificacion VARCHAR(255),
     ultima_conexion timestamp,
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp,
-    categoria_id integer REFERENCES ecoretos(categoria_id) 
+    categoria_id integer REFERENCES ecoretos(categoria_id)
+);
+
+DROP TABLE IF EXISTS acciones_retos CASCADE;
+
+CREATE TABLE acciones_retos (
+    id bigserial PRIMARY KEY,
+    titulo varchar(255) NOT NULL,
+    descripcion varchar(255) NOT NULL,
+    cat_id integer REFERENCES ecoretos(categoria_id),
+    puntaje integer
+);
+
+DROP TABLE IF EXISTS retos_usuarios CASCADE;
+
+CREATE TABLE retos_usuarios (
+    id bigserial NOT NULL,
+    idReto integer REFERENCES acciones_retos(id),
+    usuario_id integer REFERENCES usuarios(id),
+    fecha_aceptacion timestamp NOT NULL DEFAULT current_timestamp,
+    fecha_culminacion timestamp,
+    culminado boolean default false,
+    CONSTRAINT retoId PRIMARY KEY (usuario_id, idReto)
 );
 
 DROP TABLE IF EXISTS ranking CASCADE;
@@ -112,8 +121,6 @@ CREATE TABLE notificaciones (
     tipo_notificacion_id integer NOT NULL REFERENCES tipos_notificaciones(id) ON DELETE CASCADE ON UPDATE CASCADE,
     created_at timestamp
 );
-
-
 
 DROP TABLE IF EXISTS mensajes_privados CASCADE;
 
@@ -232,6 +239,7 @@ VALUES
         3,
         12
     );
+
 INSERT INTO
     usuarios (
         username,
@@ -240,7 +248,7 @@ INSERT INTO
         email,
         contrasena,
         direccion,
-        estado, 
+        estado,
         rol,
         categoria_id
     )
@@ -252,10 +260,11 @@ VALUES
         'alfredobsape@gmail.com',
         crypt('adminadmin', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
-        'Soy el Administrador de la plataforma', 
+        'Soy el Administrador de la plataforma',
         'superadministrador',
         '1'
     );
+
 INSERT INTO
     usuarios (
         username,
@@ -264,8 +273,7 @@ INSERT INTO
         email,
         contrasena,
         direccion,
-        estado,
-        categoria_id
+        estado
     )
 VALUES
     (
@@ -275,8 +283,7 @@ VALUES
         'alfredobape@gmail.com',
         crypt('demodemo', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
-        'estoy cansado',
-        '1'
+        'estoy cansado'
     );
 
 INSERT INTO
@@ -326,4 +333,3 @@ VALUES
         'Munilla II 1 a ',
         'estoy cansadito'
     );
-
