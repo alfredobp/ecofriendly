@@ -1,4 +1,5 @@
-
+https://img.shields.io/github/issues/alfredobp/ecofriendly https://img.shields.io/github/issues/alfredobp/ecofriendly
+https://img.shields.io/github/v/release/alfredobp/ecofriendly
 <p align="center">
 
   <img src="https://ecofriendly.s3.eu-west-3.amazonaws.com/logo.png" width="350" alt="accessibility text">
