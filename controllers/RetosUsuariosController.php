@@ -150,6 +150,8 @@ class RetosUsuariosController extends Controller
                     $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
 
                     $puntuacion->save();
+                    $usuarios->categoria_id = 2;
+                    $usuarios->save();
                     Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
                     return $this->redirect(['site/index', 'id' => $model->id]);
                 } else {

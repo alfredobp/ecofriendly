@@ -114,7 +114,7 @@ class SiteController extends Controller
                 $usuarios->categoria_id = 2;
                 $usuarios->save();
             }
-            if ($puntuacion['puntuacion'] > 60) {
+            if ($puntuacion['puntuacion']  >= 60) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 3;
                 $usuarios->save();
