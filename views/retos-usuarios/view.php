@@ -60,6 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'method' => 'post',
         ],
     ]) ?>
+    <?= Html::a('Declinar reto', ['declinar', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id], [
+        'class' => 'btn btn-danger',
+        'data' => [
+            'confirm' => '¿Estas seguro de declinar este reto?',
+            'method' => 'post',
+        ],
+    ]) ?>
     <p>Este reto consiste en:</p>
     <?php $model = AccionesRetos::find()->where(['id' => $model->idreto])->one() ?>
     <?= DetailView::widget([

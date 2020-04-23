@@ -103,7 +103,12 @@ class RetosUsuariosController extends Controller
             'model' => $model,
         ]);
     }
-
+    public function actionDeclinar($idreto, $usuario_id)
+    {
+        $this->findModel($idreto, $usuario_id)->delete();
+        Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
+        return $this->redirect(['site/index']);
+    }
     public function actionFinalizar($idreto, $usuario_id)
     {
         $model = $this->findModel($idreto, $usuario_id);
@@ -117,14 +122,12 @@ class RetosUsuariosController extends Controller
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
             $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-            if ($puntuacion->puntuacion + $puntaje->puntaje>100) {
+            if ($puntuacion->puntuacion + $puntaje->puntaje > 100) {
                 $puntuacion->puntuacion = 100;
                 $puntuacion->save();
                 Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente Ecofriendly.');
                 return $this->redirect(['site/index', 'id' => $model->id]);
-                
-            }
-            else{
+            } else {
                 $puntuacion->puntuacion + $puntaje->puntaje;
                 $puntuacion->save();
                 Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado.');

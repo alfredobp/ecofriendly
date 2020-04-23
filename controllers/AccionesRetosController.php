@@ -137,23 +137,7 @@ class AccionesRetosController extends Controller
         ]);
     }
 
-    public function actionDeclinar($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->save()) {
-
-            $model->aceptado = false;
-            $model->fecha_aceptacion = null;
-            
-            $model->save();
-            Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
-            return $this->redirect(['site/index', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+  
 
   
     /**
