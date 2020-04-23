@@ -109,11 +109,20 @@ class RetosUsuariosController extends Controller
         Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
         return $this->redirect(['site/index']);
     }
+    /**
+     * Función que se inicia si un usuario da por reto como cumplido,
+     * de forma que se anota como reto cumplido y se aumentan las puntuaciones de ese usuario.
+     * Como la puntuación máxima es 100, se controla mediante este método, impidiendo que lance una excepción al
+     * integrar grabar el valor en la base de datos.
+     * @param [type] $idreto
+     * @param [type] $usuario_id
+     * @return void
+     */
     public function actionFinalizar($idreto, $usuario_id)
     {
         $model = $this->findModel($idreto, $usuario_id);
-        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => 1])->one();
-        var_dump($puntaje->puntaje);
+        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $usuario_id])->one();
+ 
 
 
         if ($model->save() && $model->culminado == false) {
@@ -125,17 +134,15 @@ class RetosUsuariosController extends Controller
             if ($puntuacion->puntuacion + $puntaje->puntaje > 100) {
                 $puntuacion->puntuacion = 100;
                 $puntuacion->save();
-                Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente Ecofriendly.');
+                Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
                 return $this->redirect(['site/index', 'id' => $model->id]);
             } else {
-                $puntuacion->puntuacion + $puntaje->puntaje;
+                $puntuacion->puntuacion=$puntuacion->puntuacion + $puntaje->puntaje;
+               
                 $puntuacion->save();
-                Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado.');
+                Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado, sigue así para subir en el ranking.');
                 return $this->redirect(['site/index', 'id' => $model->id]);
             }
-
-            Yii::$app->session->setFlash('success', 'Su puntuación ha mejorado.');
-            return $this->redirect(['site/index', 'id' => $model->id]);
         } else {
             Yii::$app->session->setFlash('error', 'El reto ya ha sido terminado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
