@@ -46,19 +46,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'culminado:boolean',
         ],
     ]) ?>
-    <?= Html::a('Anotar este reto como superado', ['finalizar', 'idreto' => $model->idreto, 'usuario_id' =>$model->usuario_id], [
+
+    <?php
+
+    $puntos = AccionesRetos::find()->where(['id' => $model->idreto])->one();
+
+
+    ?>
+    <?= Html::a('Anotar este reto como superado', ['finalizar', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id], [
         'class' => 'btn btn-success',
         'data' => [
-            'confirm' => '¿Confirmas que que has superado este reto? Recibiras un total de ' . 12 . ' puntos #Ecofriendly' ,
+            'confirm' => '¿Confirmas que que has superado este reto? Recibiras un total de <strong> ' . $puntos['puntaje'] . '</strong> puntos #Ecofriendly',
             'method' => 'post',
         ],
-    ]) ?> 
+    ]) ?>
     <p>Este reto consiste en:</p>
     <?php $model = AccionesRetos::find()->where(['id' => $model->idreto])->one() ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-        
+
             'titulo',
             // 'fecha_culminacion',
             'descripcion',

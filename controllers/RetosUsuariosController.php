@@ -109,7 +109,7 @@ class RetosUsuariosController extends Controller
         $model = $this->findModel($idreto, $usuario_id);
         $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => 1])->one();
         var_dump($puntaje->puntaje);
-     
+
 
         if ($model->save() && $model->culminado == false) {
 
@@ -117,8 +117,19 @@ class RetosUsuariosController extends Controller
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
             $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-            $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
-            $puntuacion->save();
+            if ($puntuacion->puntuacion + $puntaje->puntaje>100) {
+                $puntuacion->puntuacion = 100;
+                $puntuacion->save();
+                Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente Ecofriendly.');
+                return $this->redirect(['site/index', 'id' => $model->id]);
+                
+            }
+            else{
+                $puntuacion->puntuacion + $puntaje->puntaje;
+                $puntuacion->save();
+                Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado.');
+                return $this->redirect(['site/index', 'id' => $model->id]);
+            }
 
             Yii::$app->session->setFlash('success', 'Su puntuación ha mejorado.');
             return $this->redirect(['site/index', 'id' => $model->id]);

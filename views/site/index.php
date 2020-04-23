@@ -302,11 +302,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </article>
             <hr>
             </hr>
-            <?php
-
-            // var_dump($feeds);
-            // die;
-            ?>
+         
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>

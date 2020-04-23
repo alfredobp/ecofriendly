@@ -102,7 +102,7 @@ class SiteController extends Controller
          *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
          */
         $user = Usuarios::findOne($id);
-      
+
         if ($user->categoria_id == null) {
             if ($puntuacion['puntuacion'] < 30) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
@@ -121,11 +121,20 @@ class SiteController extends Controller
             }
         }
 
-       
+        //paginacion de 10 feeds, ordenados cronologicamente
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                ->Where([
+                    'seguidores.usuario_id' => $id
+                ])
+                ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
+                ->orwhere(['feeds.usuariosid' => $id])->count(),
+        ]);
 
-
-
-        $consulta = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+        $feed = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
             ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
             ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
             ->Where([
@@ -137,20 +146,6 @@ class SiteController extends Controller
             ->asArray()->all();
 
 
-
-
-        $feedCount = Feeds::findBySql($sql);
-
-
-
-        //paginacion de 10 feeds, ordenados cronologicamente
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $feedCount->count(),
-        ]);
-
-      
-        $feed = $consulta;
 
         return $this->render('index', [
 
