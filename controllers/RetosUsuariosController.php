@@ -7,6 +7,7 @@ use app\models\Ranking;
 use Yii;
 use app\models\RetosUsuarios;
 use app\models\RetosUsuariosSearch;
+use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -122,7 +123,8 @@ class RetosUsuariosController extends Controller
     {
         $model = $this->findModel($idreto, $usuario_id);
         $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $usuario_id])->one();
- 
+        $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
+
 
 
         if ($model->save() && $model->culminado == false) {
@@ -137,11 +139,25 @@ class RetosUsuariosController extends Controller
                 Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
                 return $this->redirect(['site/index', 'id' => $model->id]);
             } else {
-                $puntuacion->puntuacion=$puntuacion->puntuacion + $puntaje->puntaje;
-               
-                $puntuacion->save();
-                Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado, sigue así para subir en el ranking.');
-                return $this->redirect(['site/index', 'id' => $model->id]);
+                if ($puntuacion->puntuacion + $puntaje->puntaje > 30) {
+                    $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
+                    $puntuacion->save();
+                    $usuarios->categoria_id = 2;
+                    $usuarios->save();
+                    Yii::$app->session->setFlash('success', 'Enhorabuena, ha subido de categoría en #Ecofriendly.');
+                    return $this->redirect(['site/index', 'id' => $model->id]);
+                } elseif ($puntuacion->puntuacion + $puntaje->puntaje > 60) {
+                    $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
+
+                    $puntuacion->save();
+                    Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
+                    return $this->redirect(['site/index', 'id' => $model->id]);
+                } else {
+                    $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
+                    $puntuacion->save();
+                    Yii::$app->session->setFlash('success', 'Su Puntuación ha mejorado, sigue así para subir en el ranking.');
+                    return $this->redirect(['site/index', 'id' => $model->id]);
+                }
             }
         } else {
             Yii::$app->session->setFlash('error', 'El reto ya ha sido terminado.');
