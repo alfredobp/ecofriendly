@@ -12,12 +12,9 @@ use Yii;
  * @property string $descripcion
  * @property int|null $cat_id
  * @property int|null $puntaje
- * @property string|null $fecha_aceptacion
- * @property string|null $fecha_culminacion
- * @property bool|null $aceptado
- * @property bool|null $culminado
- *
  * @property Ecoretos $cat
+ * @property RetosUsuarios[] $retosUsuarios
+ * @property Usuarios[] $usuarios
  */
 class AccionesRetos extends \yii\db\ActiveRecord
 {
@@ -38,8 +35,6 @@ class AccionesRetos extends \yii\db\ActiveRecord
             [['titulo', 'descripcion'], 'required'],
             [['cat_id', 'puntaje'], 'default', 'value' => null],
             [['cat_id', 'puntaje'], 'integer'],
-            [['fecha_aceptacion', 'fecha_culminacion'], 'safe'],
-            [['aceptado', 'culminado'], 'boolean'],
             [['titulo', 'descripcion'], 'string', 'max' => 255],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ecoretos::className(), 'targetAttribute' => ['cat_id' => 'categoria_id']],
         ];
@@ -56,10 +51,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
             'descripcion' => 'Descripcion',
             'cat_id' => 'Cat ID',
             'puntaje' => 'Puntaje',
-            'fecha_aceptacion' => 'Fecha Aceptacion',
-            'fecha_culminacion' => 'Fecha Culminacion',
-            'aceptado' => 'Aceptado',
-            'culminado' => 'Culminado',
+
         ];
     }
 
@@ -71,5 +63,24 @@ class AccionesRetos extends \yii\db\ActiveRecord
     public function getCat()
     {
         return $this->hasOne(Ecoretos::className(), ['categoria_id' => 'cat_id'])->inverseOf('accionesRetos');
+    }
+    /**
+     * Gets query for [[RetosUsuarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRetosUsuarios()
+    {
+        return $this->hasMany(RetosUsuarios::className(), ['idreto' => 'id'])->inverseOf('idreto0');
+    }
+
+    /**
+     * Gets query for [[Usuarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarios()
+    {
+        return $this->hasMany(Usuarios::className(), ['id' => 'usuario_id'])->viaTable('retos_usuarios', ['idreto' => 'id']);
     }
 }

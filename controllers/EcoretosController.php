@@ -84,7 +84,7 @@ class EcoretosController extends Controller
         $model = new Ecoretos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->categoria_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -104,7 +104,7 @@ class EcoretosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->categoria_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

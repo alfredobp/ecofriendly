@@ -34,10 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcion',
             'cat_id',
             'puntaje',
-            'fecha_aceptacion',
-            'fecha_culminacion',
-            'aceptado:boolean',
-            'culminado:boolean',
         ],
     ]) ?>
 

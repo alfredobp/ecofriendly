@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Ecoretos;
+use app\models\RetosUsuarios;
 
 /**
- * EcoretosSearch represents the model behind the search form of `app\models\Ecoretos`.
+ * RetosUsuariosSearch represents the model behind the search form of `app\models\RetosUsuarios`.
  */
-class EcoretosSearch extends Ecoretos
+class RetosUsuariosSearch extends RetosUsuarios
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class EcoretosSearch extends Ecoretos
     public function rules()
     {
         return [
-            [['id', 'categoria_id'], 'integer'],
-            [['cat_nombre'], 'safe'],
+            [['id', 'idreto', 'usuario_id'], 'integer'],
+            [['fecha_aceptacion', 'fecha_culminacion'], 'safe'],
+            [['culminado'], 'boolean'],
         ];
     }
 
@@ -40,7 +41,7 @@ class EcoretosSearch extends Ecoretos
      */
     public function search($params)
     {
-        $query = Ecoretos::find();
+        $query = RetosUsuarios::find();
 
         // add conditions that should always apply here
 
@@ -58,11 +59,13 @@ class EcoretosSearch extends Ecoretos
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'categoria_id' => $this->categoria_id,
             'id' => $this->id,
+            'idreto' => $this->idreto,
+            'usuario_id' => $this->usuario_id,
+            'fecha_aceptacion' => $this->fecha_aceptacion,
+            'fecha_culminacion' => $this->fecha_culminacion,
+            'culminado' => $this->culminado,
         ]);
-
-        $query->andFilterWhere(['ilike', 'cat_nombre', $this->cat_nombre]);
 
         return $dataProvider;
     }

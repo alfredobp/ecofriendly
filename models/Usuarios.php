@@ -312,6 +312,26 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Seguidores::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }
+    /**
+     * Gets query for [[RetosUsuarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getRetosUsuarios()
+    {
+        return $this->hasMany(RetosUsuarios::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
+    }
+
+    /**
+     * Gets query for [[Idretos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdretos()
+    {
+        return $this->hasMany(AccionesRetos::className(), ['id' => 'idreto'])->viaTable('retos_usuarios', ['usuario_id' => 'id']);
+    }
 
     /**
      * Gets query for [[Seguidores0]].

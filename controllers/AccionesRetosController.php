@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\AccionesRetos;
 use app\models\AccionesRetosSearch;
+use app\models\Ranking;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -125,6 +126,7 @@ class AccionesRetosController extends Controller
 
             $model->aceptado = true;
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
+            $model->usuario_id=Yii::$app->user->identity->id;
             $model->save();
             Yii::$app->session->setFlash('success', 'El reto propuesto ha sido aceptado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
@@ -142,6 +144,7 @@ class AccionesRetosController extends Controller
 
             $model->aceptado = false;
             $model->fecha_aceptacion = null;
+            
             $model->save();
             Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
@@ -151,6 +154,8 @@ class AccionesRetosController extends Controller
             'model' => $model,
         ]);
     }
+
+  
     /**
      * Deletes an existing AccionesRetos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
