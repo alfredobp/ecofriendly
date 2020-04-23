@@ -11,6 +11,7 @@ use app\models\AccionesRetos;
 use app\models\Ecoretos;
 use app\models\Feeds;
 use app\models\Ranking;
+use app\models\RetosUsuarios;
 use kartik\grid\GridView as GridGridView;
 use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
@@ -28,6 +29,7 @@ use kartik\icons\Icon;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 
 Icon::map($this);
 $this->title = 'Ecofriendly';
@@ -79,7 +81,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 
             ?>
             </button>
-            <p> En función de su puntuación se le ha otorgado los siguientes retos:</p>
+            <p> En función de su puntuación el sistema le propone los siguientes retos:</p>
 
             <?php
             // for ($i = 0; $i <  sizeof($retosListado); $i++) {
@@ -90,42 +92,89 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['id'],
             ],]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => AccionesRetos::find()
+                    ->where(['cat_id' => Yii::$app->user->identity->categoria_id]),
+            ]);
+            echo Gridpropio::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table-hover hourglass-start
+                ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-            // echo Gridpropio::widget([
-            //     'dataProvider' => $dataProvider,
-            //     'options' => ['class' => 'table-hover hourglass-start
-            //     ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+                'columns' => [
+                    // ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'Reto',
+                        'value' => function ($dataProvider) {
 
-            //     'columns' => [
-            //         // ['class' => 'yii\grid\SerialColumn'],
-            //         [
-            //             'attribute' => 'Reto',
-            //             'value' => function ($dataProvider) {
+                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                        },
+                        'format' => 'raw',
 
-            //                 return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'btn modalButton4 btn-xs active', 'id' => 'modalButton4']);
-            //             },
-            //             'format' => 'raw',
+                    ],
 
-            //         ],
+                    // ['class' => 'yii\grid\SerialColumn'],
+                    // [
+                    //     'attribute' => 'Aceptado',
+                    //     'value' => function ($dataProvider) {
+                    //         $response = '';
+                    //         $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
+                    //         ') : $response = icon::show('check');
+                    //         // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
+                    //         return  $response;
+                    //     },
+                    //     'format' => 'raw',
 
-            //         // ['class' => 'yii\grid\SerialColumn'],
-            //         [
-            //             'attribute' => 'Aceptado',
-            //             'value' => function ($dataProvider) {
-            //                 $response = '';
-            //                 $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
-            //                 ') : $response = icon::show('check');
-            //                 // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
-            //                 return  $response;
-            //             },
-            //             'format' => 'raw',
+                    // ],
+                ],
 
-            //         ],
-            //     ],
+            ]);
 
-            // ]);
             Auxiliar::ventanaModal('Sus retos', 4);
+            // $arrModels = RetosUsuarios::find()->where(['usuario_id' => Yii::$app->user->identity->id])->one();
+            // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
+            // GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
+            //     'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
+            //     . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
+            // $feedCount = Feeds::findBySql($sql);
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id)
+
+            ]);
+            // $dataProvider->setSort([
+            //     'defaultOrder' => ['created_at' => SORT_DESC],
+            // ]);
             ?>
+            <h5> Retos Aceptados </h5>
+            <?php
+            $dataProvider->pagination = ['pageSize' => 5];
+
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+
+                    'titulo',
+
+                    [
+                        'attribute' => 'Más info',
+                        'value' => function ($dataProvider) {
+
+                            return Html::button(Icon::show('link'), ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' . $dataProvider->id . '&usuario_id=' . Yii::$app->user->identity->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                        },
+                        'format' => 'raw',
+
+                    ],
+
+
+
+                ],
+
+            ]);
+
+            ?>
+
+
 
 
             <br>
@@ -253,7 +302,11 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </article>
             <hr>
             </hr>
+            <?php
 
+            // var_dump($feeds);
+            // die;
+            ?>
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>
@@ -263,10 +316,10 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
                             <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
-                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['id'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['identificador']])) : '' ?>
-                                <?= $feeds['id'] == Yii::$app->user->identity->id ? '' . Html::a(
+                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                                <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                     ' ' . Icon::show('trash-alt'),
-                                    Url::to(['/feeds/delete', 'id' => $feeds['identificador']]),
+                                    Url::to(['/feeds/delete', 'id' => $feeds['id']]),
                                     [
 
                                         'data' => [

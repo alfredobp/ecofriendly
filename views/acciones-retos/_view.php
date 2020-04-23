@@ -1,6 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -16,32 +17,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
+
         <!-- <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?> -->
         <?php
-        if ($model->aceptado == true) {
-            echo  Html::a('Declinar Reto', ['declinar', 'id' => $model->id], [
-                'class' => 'btn btn-danger mr-3',
-                'data' => [
-                    'confirm' => '¿Estas seguro de rechazar este reto?',
-                    'method' => 'post',
-                ],
-            ])
-           
-                .  Html::a('Anotar Reto como Terminado', ['finalizar', 'id' => $model->id], [
-                    'class' => 'btn btn-info',
 
-                ]);
-        } else {
-            echo Html::a('Aceptar Reto', ['aceptar', 'id' => $model->id], [
-                'class' => 'btn btn-success',
-                'data' => [
-                    'confirm' => '¿Estas seguro de aceptar este reto?',
-                    'method' => 'post',
-                ],
-            ]);
-        }
+        echo Html::a('Aceptar Reto', ['retos-usuarios/create', 'idreto' => $model->id, 'usuario_id' => Yii::$app->user->identity->id], [
+            'class' => 'btn btn-info',
+            'data' => [
 
+                'method' => 'post'
+            ],
+        ]);
         ?>
+
+
 
     </p>
 
@@ -53,8 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcion',
             'puntaje',
 
-            // 'aceptado:boolean',
-            // 'culminado:boolean',
         ],
     ]) ?>
 

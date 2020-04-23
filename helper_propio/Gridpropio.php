@@ -14,5 +14,5 @@ class Gridpropio extends GridView
 
 
     public $layout = "\n{items}\n{pager}";
-    public $tableOptions = ['class' => 'table table-borderless col-md-6 col-md-offset-1'];
+    public $tableOptions = ['class' => 'table table-borderless col-md-12 col-md-offset-1'];
 }

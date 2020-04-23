@@ -101,11 +101,9 @@ class SiteController extends Controller
          *  calculada se le otorga unas serie de acciones que corresponden a un reto
          *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
          */
-        $user=Usuarios::findOne($id);
-        // var_dump($user->categoria_id);
-        // var_dump($id);
-        // die;
-        if ($user->categoria_id==null) {
+        $user = Usuarios::findOne($id);
+      
+        if ($user->categoria_id == null) {
             if ($puntuacion['puntuacion'] < 30) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 1;
@@ -123,10 +121,24 @@ class SiteController extends Controller
             }
         }
 
-        $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-        GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
-            'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
-            . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
+       
+
+
+
+        $consulta = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+            ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+            ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+            ->Where([
+                'seguidores.usuario_id' => $id
+            ])
+            ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
+            ->orwhere(['feeds.usuariosid' => $id])
+            ->orderBy('feeds.created_at desc')
+            ->asArray()->all();
+
+
+
+
         $feedCount = Feeds::findBySql($sql);
 
 
@@ -137,11 +149,8 @@ class SiteController extends Controller
             'totalCount' => $feedCount->count(),
         ]);
 
-
-        $sql = $sql . 'order by created_at desc offset ' . $pagination->offset .  'limit ' .  $pagination->limit;
-
-
-        $feed = Yii::$app->db->createCommand($sql)->queryAll();
+      
+        $feed = $consulta;
 
         return $this->render('index', [
 

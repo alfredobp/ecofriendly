@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\AccionesRetos;
+use app\models\Ranking;
 use Yii;
 use app\models\RetosUsuarios;
 use app\models\RetosUsuariosSearch;
@@ -63,17 +65,22 @@ class RetosUsuariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($idreto, $usuario_id)
     {
+
         $model = new RetosUsuarios();
+        $model->idreto = $idreto;
+        $model->usuario_id = $usuario_id;
+        $model->fecha_aceptacion = date('Y-m-d H:i:s');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id]);
+
+        if ($model->validate()) {
+            $model->save();
+            return $this->goHome();
+        } else {
+            Yii::$app->session->setFlash('error', 'Ya ha aceptado este reto.');
+            return $this->goBack();
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -90,6 +97,34 @@ class RetosUsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionFinalizar($idreto, $usuario_id)
+    {
+        $model = $this->findModel($idreto, $usuario_id);
+        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => 1])->one();
+        var_dump($puntaje->puntaje);
+     
+
+        if ($model->save() && $model->culminado == false) {
+
+            $model->culminado = true;
+            $model->fecha_culminacion = date('Y-m-d H:i:s');
+            $model->save();
+            $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
+            $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
+            $puntuacion->save();
+
+            Yii::$app->session->setFlash('success', 'Su puntuación ha mejorado.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        } else {
+            Yii::$app->session->setFlash('error', 'El reto ya ha sido terminado.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

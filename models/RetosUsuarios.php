@@ -34,7 +34,7 @@ class RetosUsuarios extends \yii\db\ActiveRecord
     {
         return [
             [['idreto', 'usuario_id'], 'required'],
-            [['idreto', 'usuario_id'], 'default', 'value' => null],
+            // [['idreto', 'usuario_id'], 'default', 'value' => null],
             [['idreto', 'usuario_id'], 'integer'],
             [['fecha_aceptacion', 'fecha_culminacion'], 'safe'],
             [['culminado'], 'boolean'],
