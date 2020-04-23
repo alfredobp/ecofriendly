@@ -249,8 +249,8 @@ INSERT INTO
         contrasena,
         direccion,
         estado,
-        rol,
-        categoria_id
+        rol
+       
     )
 VALUES
     (
@@ -261,8 +261,8 @@ VALUES
         crypt('adminadmin', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
         'Soy el Administrador de la plataforma',
-        'superadministrador',
-        '1'
+        'superadministrador'
+     
     );
 
 INSERT INTO

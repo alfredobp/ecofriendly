@@ -149,7 +149,7 @@ class UsuariosController extends Controller
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
-       
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             var_dump($_POST);
             die;
@@ -421,6 +421,14 @@ class UsuariosController extends Controller
         return $this->goHome();
     }
     //
+    // public static function subirCategoria($categoria)
+
+    // {
+
+    //     $modelo = $this->findModel(Yii::$app->user->identity->id);
+    //     $modelo->categoria_id = $categoria;
+    //     $modelo->save();
+    // }
     public function actionImagen($id)
     {
 
