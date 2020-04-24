@@ -40,7 +40,15 @@ $this->registerJs(Helper_propioGestionCookies::introduccion());
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
     $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
 }
+
+
+if (!isset($_COOKIE['intro'])) {
+    Auxiliar::introNovatos();
+}
+
 ?>
+
+
 <div class="container-fluid">
     <div class="loader"></div>
     <div class="row ">
@@ -71,23 +79,12 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             ]); ?>
             <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
 
-            <?php
-            //Jquery Script que interactura con el DOM del proyecto: Modificando el color de la barra de progreso
-            // y eliminando la entrada de introducción si el usuario ya dispone de feeds y sigue a otros usuarios.
 
-            if (!isset($_COOKIE['intro'])) {
-                Auxiliar::introNovatos();
-            }
-
-            ?>
             </button>
             <p> En función de su puntuación el sistema le propone los siguientes retos:</p>
 
             <?php
-            // for ($i = 0; $i <  sizeof($retosListado); $i++) {
-            //     echo '<li> <a href="index.php?r=acciones-retos%2Fview&id=' . $retosListado[$i]->id . '"><h6">'  .  $retosListado[$i]->descripcion  .
-            //         '</h6><a/></li>';
-            // }
+        
             $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['id'],
@@ -302,7 +299,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
             </article>
             <hr>
             </hr>
-         
+
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>
@@ -493,6 +490,7 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
+
 
         </aside>
     </div>

@@ -82,16 +82,12 @@ class SiteController extends Controller
         $id = Yii::$app->user->identity->id;
         $model = new Feeds();
 
-        $model3 = new ImagenForm();
+
         $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
 
         $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', $id])
             ->all();
-        // $retos = Ecoretos::find()->where(['usuario_id' => $id])->all();
-        $sql = 'select  a.descripcion, a.id, e.usuario_id, e.nombrereto from categorias_ecoretos c inner join eco_retos e ';
-        $sql = $sql . 'on c.categoria_id=e.categoria_id join acciones_retos a  on c.categoria_id=a.cat_id group by  e.usuario_id, e.nombrereto, a.id having e.usuario_id=' . $id;
-
-        // $retosListado = AccionesRetos::findBySql($sql)->all();
+        
 
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
@@ -155,7 +151,6 @@ class SiteController extends Controller
             'model' => $model,
             'pagination' => $pagination,
             'usuarios' => $listaUsuarios,
-            'model3' => $model3,
             'seguidores' => Seguidores::find()
                 ->where(['usuario_id' => $id])
                 ->andWhere(['!=', 'seguidor_id', $id])
