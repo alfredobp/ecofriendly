@@ -112,10 +112,9 @@ AppAsset::register($this);
                     ],
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
-                    ['label' => Icon::show('email') . 'Notificaciones', 'url' => ['/']],
+                    ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
                     ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
-                    $usuario == 'superadministrador'  ?  '' :
-                        ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
+                    $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 
 

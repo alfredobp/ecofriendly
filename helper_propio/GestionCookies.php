@@ -113,7 +113,7 @@ class GestionCookies
                                 $('#puntos').addClass("badge-warning");
                                 $('.progress-bar').css("width", data +'%').addClass("bg-warning");
                             }
-                            else if(puntuacion>60){
+                            else if(puntuacion=>60){
                                 $('#puntos').addClass("badge-success");
                                 $('.progress-bar').css("width", data+'%').addClass("bg-success");
                             }

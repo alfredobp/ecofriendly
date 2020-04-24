@@ -35,7 +35,7 @@ class Feeds extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['contenido'], 'required'],
+            [['contenido'], 'required', 'message' => 'Debes escribir algo en el feed, antes de compartirlo'],
             [['usuariosid'], 'default', 'value' => 2],
             [['contenido'], 'safe'],
             [['usuariosid'], 'integer'],
@@ -52,7 +52,8 @@ class Feeds extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'usuariosid' => 'Usuariosid',
+            // 'usuariosid' => 'Usuariosid',
+
             'contenido' => 'Contenido',
             'created_at' => 'Fecha de creación',
             // 'imagen' => 'Imagen',
