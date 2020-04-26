@@ -12,18 +12,16 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use app\helper_propio\Auxiliar;
-use app\helper_propio\MenuLateral;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
 use kartik\icons\Icon;
-use Mpdf\Tag\Option;
 
 Icon::map($this);
 
 DialogAsset::register($this);
 
-
+$this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselect.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 if (!isset($_COOKIE['politicaCookies'])) {
     $this->registerJs(Helper_propioGestionCookies::privacidad());
 }

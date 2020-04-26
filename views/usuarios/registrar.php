@@ -9,8 +9,15 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\web\View;
 
-$this->title = 'Registrar usuario';
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerJs(
+    "var prov = document.getElementById('usuarios-provincia');
+
+    var mun = document.getElementById('usuarios-localidad');
+    new Pselect().create(prov, mun);",
+    View::POS_READY,
+);
+// $this->title = 'Registrar usuario';
+// $this->params['breadcrumbs'][] = $this->title;
 //pluguin con lista despegable provincias/municipios
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselect.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
@@ -24,10 +31,10 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
         'id' => 'register-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
+            'horizontalCssClasses' => ['wrapper' => 'col-10'],
         ],
     ]); ?>
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true], ['class' => 'col-6']) ?>
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true], ['class' => 'col-12']) ?>
     <?= $form->field($model, 'nombre')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'apellidos')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
@@ -38,7 +45,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
     <?= $form->field($model, 'provincia')->dropDownList(['class' => '']) ?>
     <?= $form->field($model, 'localidad')->dropDownList(['class' => '']) ?>
     <?= $form->field($model, 'fecha_nac')->label('Fecha de nacimiento')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => 'Introduzca su fecha de nacimiento...', 'class' => 'col-6'],
+        'options' => ['placeholder' => 'Introduzca su fecha de nacimiento...', 'class' => 'col-12'],
         'pluginOptions' => [
             'autoclose' => true
         ]

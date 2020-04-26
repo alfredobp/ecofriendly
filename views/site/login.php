@@ -4,13 +4,15 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use app\helper_propio\Auxiliar;
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use kartik\label\LabelInPlace;
 use yii\helpers\Url;
+use yii\web\View;
 
 ?>
-
 <div class="login">
 
     <div class="wrap h-100">
@@ -35,12 +37,17 @@ use yii\helpers\Url;
                     <hr>
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración prvia de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <b>Gamificación </b> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
-                    <a class="btn btn-primary btn-lg" href="index.php?r=usuarios%2Fregistrar">Registro&raquo;</a>
+
+                    <?= Html::button('Registro&raquo;', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => 'btn btn-primary modalButton4 btn-lg ', 'id' => 'modalButton4']); ?>
                     <br>
+
+                    <?php
+                    Auxiliar::ventanaModal('Registro en #ecofriendly', 4, 'md');
+                    ?>
                     <br>
                     <div class="alert alert-info alert-info" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="/index.php?r=site/faqs" > Área de FAQs</a> y resuelve tus dudas.
+                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="/index.php?r=site/faqs"> Área de FAQs</a> y resuelve tus dudas.
                     </div>
                 </div>
                 <div class="bird-container bird-container--one">

@@ -73,13 +73,13 @@ class Auxiliar
     }
 
 
-    public static function ventanaModal($title, $id)
+    public static function ventanaModal($title, $id, $size = 'md')
     {
         $ventana =
             Modal::begin([
                 'title' => '<h3>' . $title . ':</h3>',
                 'id' => 'modal' . $id,
-                'size' => 'modal-xs',
+                'size' => 'modal-' . $size,
             ]);
         echo '<div id="modalContent' . $id . '"></div>';
 

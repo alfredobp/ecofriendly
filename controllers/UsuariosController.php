@@ -151,8 +151,7 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            var_dump($_POST);
-            die;
+
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -175,7 +174,7 @@ class UsuariosController extends Controller
             return $this->redirect(['site/login']);
         }
 
-        return $this->render('registrar', [
+        return $this->renderAjax('registrar', [
             'model' => $model,
         ]);
     }

@@ -29,18 +29,19 @@ use kartik\icons\Icon;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+use yii\web\View as WebView;
 use yii\widgets\ListView;
 
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerJs(Helper_propioGestionCookies::introduccion());
 
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
     $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
 }
 
+$this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READY);
 
 if (!isset($_COOKIE['intro'])) {
     Auxiliar::introNovatos();
@@ -84,7 +85,7 @@ if (!isset($_COOKIE['intro'])) {
             <p> En función de su puntuación el sistema le propone los siguientes retos:</p>
 
             <?php
-        
+
             $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['id'],
