@@ -96,6 +96,7 @@ if (!isset($_COOKIE['intro'])) {
                                     ?> </h5>
                 </p><br>
                 <h5>Te faltan <strong> <?= Auxiliar::puntosRestantes($id, $categoriaId) ?></strong> puntos para el siguiente nivel</h5>
+                <h5>Has conseguido: <?= Auxiliar::puntosConseguidos($id) ?> puntos</h5>
                 <p> En función de su puntuación el sistema le propone los siguientes retos:</p>
 
                 <?php

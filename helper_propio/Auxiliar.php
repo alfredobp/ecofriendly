@@ -6,6 +6,7 @@ Conjunto de herramientas que permiten la reutilización de código.
 
 namespace app\helper_propio;
 
+use app\models\AccionesRetos;
 use app\models\Ranking;
 use app\models\RankingSearch;
 use app\models\Usuarios;
@@ -97,8 +98,16 @@ class Auxiliar
             return 30 - $puntos->puntuacion;
         } elseif ($categoriaId == 2) {
             return 30 - $puntos->puntuacion;
-        } elseif ($categoriaId== 3) {
+        } elseif ($categoriaId == 3) {
             return 100 - $puntos->puntuacion;
         }
+    }
+    public static function puntosConseguidos($id)
+    {
+        // select sum(a.puntaje) from acciones_retos a join  retos_usuarios r on r.idreto=a.id where r.usuario_id=1 and r.culminado=true;
+
+        $puntosConseguidos = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['r.usuario_id' => $id])->andWhere(['r.culminado' => true])->sum('puntaje');
+
+        return $puntosConseguidos;
     }
 }
