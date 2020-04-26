@@ -122,7 +122,7 @@ class RetosUsuariosController extends Controller
     public function actionFinalizar($idreto, $usuario_id)
     {
         $model = $this->findModel($idreto, $usuario_id);
-        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $usuario_id])->one();
+        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $idreto])->one();
         $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
 
 
@@ -133,26 +133,27 @@ class RetosUsuariosController extends Controller
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
             $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-            if ($puntuacion->puntuacion + $puntaje->puntaje > 100) {
+       
+
+            if (($puntuacion->puntuacion + $puntaje->puntaje) > 100) {
                 $puntuacion->puntuacion = 100;
                 $puntuacion->save();
                 Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
                 return $this->redirect(['site/index', 'id' => $model->id]);
             } else {
-                if ($puntuacion->puntuacion + $puntaje->puntaje > 30) {
+                if ($puntuacion->puntuacion < 30 && $puntuacion->puntuacion + $puntaje->puntaje > 30) {
                     $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
                     $puntuacion->save();
                     $usuarios->categoria_id = 2;
                     $usuarios->save();
                     Yii::$app->session->setFlash('success', 'Enhorabuena, ha subido de categoría en #Ecofriendly.');
                     return $this->redirect(['site/index', 'id' => $model->id]);
-                } elseif ($puntuacion->puntuacion + $puntaje->puntaje > 60) {
+                } elseif ($puntuacion->puntuacion < 60 && $puntuacion->puntuacion + $puntaje->puntaje > 60) {
                     $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
-
                     $puntuacion->save();
-                    $usuarios->categoria_id = 2;
+                    $usuarios->categoria_id = 3;
                     $usuarios->save();
-                    Yii::$app->session->setFlash('success', 'Ha conseguido la mayor puntuación posible. Enhorabuena eres totalmente #Ecofriendly.');
+                    Yii::$app->session->setFlash('success', 'Enhorabuena, ha subido de categoría en #Ecofriendly.');
                     return $this->redirect(['site/index', 'id' => $model->id]);
                 } else {
                     $puntuacion->puntuacion = $puntuacion->puntuacion + $puntaje->puntaje;
