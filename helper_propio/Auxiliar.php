@@ -6,6 +6,8 @@ Conjunto de herramientas que permiten la reutilización de código.
 
 namespace app\helper_propio;
 
+use app\models\Ranking;
+use app\models\RankingSearch;
 use app\models\Usuarios;
 use Yii;
 use yii\bootstrap4\Modal;
@@ -86,5 +88,17 @@ class Auxiliar
         Modal::end();
 
         return $ventana;
+    }
+    public static function puntosRestantes($id, $categoriaId)
+    {
+        $puntos = Ranking::find()->where(['usuariosid' => $id])->one();
+
+        if ($categoriaId == 1) {
+            return 30 - $puntos->puntuacion;
+        } elseif ($categoriaId == 2) {
+            return 30 - $puntos->puntuacion;
+        } elseif ($categoriaId== 3) {
+            return 100 - $puntos->puntuacion;
+        }
     }
 }
