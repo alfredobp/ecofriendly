@@ -390,3 +390,11 @@ a.desc:after {
 .table-borderless > thead > tr > th {
     border: none;
 }
+#personal{
+
+text-align: center;
+padding: 2px; 
+border: 6px double #089432;
+border-radius: 40px 0px 0px 40px;
+
+}

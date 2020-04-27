@@ -100,7 +100,7 @@ class SiteController extends Controller
         $user = Usuarios::findOne($id);
 
         if ($user->categoria_id == null) {
-            if ($puntuacion['puntuacion'] < 30) {
+            if ($puntuacion['puntuacion'] <=30) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 1;
                 $usuarios->save();

@@ -97,17 +97,15 @@ class Auxiliar
         if ($categoriaId == 1) {
             return 30 - $puntos->puntuacion;
         } elseif ($categoriaId == 2) {
-            return 30 - $puntos->puntuacion;
+            return 60 - $puntos->puntuacion;
         } elseif ($categoriaId == 3) {
             return 100 - $puntos->puntuacion;
         }
     }
     public static function puntosConseguidos($id)
     {
-        // select sum(a.puntaje) from acciones_retos a join  retos_usuarios r on r.idreto=a.id where r.usuario_id=1 and r.culminado=true;
 
-        $puntosConseguidos = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['r.usuario_id' => $id])->andWhere(['r.culminado' => true])->sum('puntaje');
 
-        return $puntosConseguidos;
+        return AccionesRetos::find()->joinWith('retosUsuarios r')->where(['r.usuario_id' => $id])->andWhere(['r.culminado' => true])->sum('puntaje');
     }
 }
