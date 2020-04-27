@@ -75,7 +75,7 @@
     color: #fff;
     text-transform: uppercase;
     padding: 13px 23px;
-    background: #ff6300;
+    background: hsl(130, 72%, 48%);
     font-size: 18px;
     -webkit-transition: 0.2s all;
     transition: 0.2s all;
