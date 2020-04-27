@@ -16,5 +16,5 @@ class Gridpropio extends GridView
     public $layout = "\n{items}\n{pager}";
     public $tableOptions = ['class' => 'table table-borderless col-md-12 col-md-offset-1'];
     public $emptyTextOptions = ['class' => 'empty'];
-    public $emptyText = 'Ha completado todos los retos';
+    // public $emptyText = 'Ha completado todos los retos';
 }

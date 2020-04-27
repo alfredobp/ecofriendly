@@ -118,7 +118,7 @@ if (!isset($_COOKIE['intro'])) {
                 'query' => AccionesRetos::find()
                 ->joinWith('retosUsuarios r')
                     ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-                    ->where(['r.id' => null]),
+                  
             ]);
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
