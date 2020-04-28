@@ -1,7 +1,8 @@
 
-![GitHub issues](https://img.shields.io/github/issues/alfredobp/ecofriendly)
+# ECOFRIENDLY
+[![Releases][Releases] [![Issues Pendientes][badge_Issues]
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/alfredobp/ecofriendly)
+
 <p align="center">
 
   <img src="https://ecofriendly.s3.eu-west-3.amazonaws.com/logo.png" width="350" alt="accessibility text">
@@ -16,3 +17,6 @@ Api del proyecto: https://alfredobp.github.io/ecofriendly/
 Despliegue en Heroku: https://ecofriendlysocial.herokuapp.com/
 
 Alumno: Alfredo Barragán Pedrote
+
+[badge_releases]: https://img.shields.io/github/v/release/alfredobp/ecofriendly
+[badge_Issues]: https://img.shields.io/github/issues/alfredobp/ecofriendly
