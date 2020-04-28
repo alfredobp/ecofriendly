@@ -8,6 +8,7 @@ use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use app\helper_propio\Gridpropio;
 use app\models\AccionesRetos;
+use app\models\Comentarios;
 use app\models\Ecoretos;
 use app\models\Feeds;
 use app\models\Ranking;
@@ -116,9 +117,9 @@ if (!isset($_COOKIE['intro'])) {
             ],]);
             $dataProvider = new ActiveDataProvider([
                 'query' => AccionesRetos::find()
-                ->joinWith('retosUsuarios r')
+                    ->joinWith('retosUsuarios r')
                     ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-                  
+
             ]);
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
@@ -313,22 +314,27 @@ if (!isset($_COOKIE['intro'])) {
                         </div>
 
                         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
-                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
-
+                                <!-- Gestión de los me gusta -->
                                 <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
-                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentar <small class="text-muted">2</small></a>
+
+                                <?php $comentar = Comentarios::find($id);
+                               
+                                ?>
+
+                                <!-- Gestión de los comentarios -->
+                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentar <small class="text-muted"><?= $comentar->count() ?></small></a>
                                 </div>
-                                <div class="col dropup">
-                                    <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
-                                        <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
-                                        <a class="dropdown-item" href="#">Compartir Publico</a>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
+                                <!-- <div class="col dropup">
+                                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
+                                    <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
+                                    <a class="dropdown-item" href="#">Compartir Publico</a>
+                                    <div class="dropdown-divider"></div>
                                 </div>
+                            </div> -->
                             </div>
                             <div class="collapse" id="collapseExample1">
                                 <br>
@@ -336,54 +342,44 @@ if (!isset($_COOKIE['intro'])) {
                                 <br>
                                 <div class="row">
                                     <div class="col-2">
-                                        <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:90px;">
+                                        <!-- FOTO DEL USUARIO QUE ESCRIBE -->
+                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
+                                        <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
+                                 
                                     </div>
                                     <div class="col-10">
                                         <textarea class="form-control border-0 sinborde2" id="exampleTextarea" rows="3" placeholder="Comentar Foto" style="resize: none;"></textarea>
                                         <br>
-                                        <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a>
+                                        <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
                                         <button type="button" class="btn btn-outline-primary btn-sm float-right">Comentar</button>
                                     </div>
                                 </div>
                                 <div class="text-muted collapse" id="collapseExample3">
                                     <br>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2">
                                             <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <br>
                                     <div class="row">
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2">
+
                                             <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                         </div>
+                                        <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div> -->
                                     </div>
 
                                 </div>
                                 <br>
                                 <div class="divider"></div>
                                 <br>
-                                <div class="media">
-                                    <img class="d-flex mr-3" src="" alt="Generic placeholder image" style="width:50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">usuario</h5>
-                                        Comentario de ejemplo <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:30px;">
 
-                                        <div class="media mt-3">
-                                            <img src="" class="d-flex mr-3" alt="Responsive image rounded" style="width:50px;">
-                                            <div class="media-body">
-                                                <h5 class="mt-0">usuario 2</h5>
-                                                Gracias
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </section>
