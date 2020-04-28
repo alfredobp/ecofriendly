@@ -12,7 +12,7 @@ use yii\grid\GridView;
 $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuarios-index">
+<div class="usuarios-index ">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -22,28 +22,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-
+<div class="overflow-auto"></div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+
         'columns' => [
+
             'id',
             'username',
             // 'contrasena',
-
-            [
-                // 'header' => 'Fecha de <br> Actualización',
-                'attribute' => 'Validación e-mail',
-
-                'value' => function ($dataProvider) {
-                    return ($dataProvider->auth_key == null) ? 'Cuenta validada ' : 'Sin validar';
-                },
-            ],
-
+            
+            
             'nombre',
-
+            
             'apellidos',
             'email:email',
+                [
+                    // 'header' => 'Fecha de <br> Actualización',
+                    'headerOptions' => ['class' => 'col_fix'],
+                    'attribute' => 'Validación e-mail',
+    
+                    'value' => function ($dataProvider) {
+                        return ($dataProvider->auth_key == null) ? 'Cuenta validada ' : 'Sin validar';
+                    },
+                ],
             [
                 'attribute' => 'imagen',
                 'value' => function ($dataProvider) {
@@ -70,7 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-           
+
+
 
 
 
