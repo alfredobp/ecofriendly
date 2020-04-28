@@ -45,12 +45,19 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
     <?= $form->field($model, 'provincia')->dropDownList(['class' => '']) ?>
     <?= $form->field($model, 'localidad')->dropDownList(['class' => '']) ?>
     <?= $form->field($model, 'fecha_nac')->label('Fecha de nacimiento')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => 'Introduzca su fecha de nacimiento...', 'class' => 'col-12'],
+        'options' => ['placeholder' => 'Introduzca su fecha de nacimiento*...', 'class' => 'col-12'],
+
         'pluginOptions' => [
-            'autoclose' => true
+            'autoclose' => true,
+            'format' => 'dd-M-yyyy',
+            'endDate' => '-18Y',
+            'startDate'=>'-100Y',
         ]
     ]); ?>
+   <small>* Recuerda que la edad mínima para registrate en #ecofriendly es de 18 años.</small>
+  
     <div class="form-group">
+    
         <div class="offset-sm-2">
             <?= Html::submitButton('Registrar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>

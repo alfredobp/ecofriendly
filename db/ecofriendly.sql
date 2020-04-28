@@ -24,7 +24,7 @@ CREATE TABLE usuarios (
     provincia varchar(255),
     localidad varchar(255),
     estado varchar(255),
-    fecha_nac date,
+    fecha_nac date NOT NULL,
     token_acti VARCHAR(255),
     rol VARCHAR(30) NOT NULL DEFAULT 'usuario',
     codigo_verificacion VARCHAR(255),
