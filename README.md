@@ -1,6 +1,6 @@
 
 # ECOFRIENDLY
-[![Releases][Releases] [![Issues Pendientes][badge_Issues]
+[![Releases][badge_releases] [![Issues Pendientes][badge_Issues]
 
 
 <p align="center">
