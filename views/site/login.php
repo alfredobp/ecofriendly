@@ -151,12 +151,7 @@ use yii\web\View;
 </div>
 
 
-</main>
 
-
-
-<br>
-<br>
 <?php
 
     /* @var $this yii\web\View */

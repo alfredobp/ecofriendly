@@ -178,21 +178,22 @@ AppAsset::register($this);
 
                     <?= Alert::widget() ?>
                     <?= $content ?>
-                    <footer class="footer">
-    
-                        <!-- Microdatos en el footer -->
-    
-                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                        <br>
-                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
-    
-                        <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
-    
-                        <p class="float-right"><?= Yii::powered() ?></p>
-    
-    
-                    </footer>
+                <footer class="footer">
+
+                    <!-- Microdatos en el footer -->
+
+                    <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                    <br>
+                    <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+
+                    <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+
+                    <p class="float-right"><?= Yii::powered() ?></p>
+
+
+                </footer>
                 </div>
+            </div>
             </div>
         </main>
 
