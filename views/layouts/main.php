@@ -68,7 +68,7 @@ AppAsset::register($this);
             ]);
 
             echo Nav::widget([
-                'options' => ['class' => 'navbar-nav-left pr-5 d-sm-none d-xl-block'],
+                'options' => ['class' => 'navbar-nav-left pr-3 d-sm-none d-xl-block'],
                 'items' => [
                     '<li>' .
                         Html::beginForm(['/site/buscar'], 'get')
@@ -132,7 +132,7 @@ AppAsset::register($this);
                     Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                         . Html::beginForm(['/site/logout'], 'post')
                         . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->nombre . ')',
+                            '<span class="glyphicon glyphicon-off"></span>' . 'Logout (' . Yii::$app->user->identity->nombre . ')',
                             ['class' => 'btn btn-dark nav-link logout']
                         )
                         . Html::endForm()
@@ -178,23 +178,24 @@ AppAsset::register($this);
 
                     <?= Alert::widget() ?>
                     <?= $content ?>
+                    <footer class="footer">
+    
+                        <!-- Microdatos en el footer -->
+    
+                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                        <br>
+                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+    
+                        <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+    
+                        <p class="float-right"><?= Yii::powered() ?></p>
+    
+    
+                    </footer>
                 </div>
             </div>
         </main>
-        <footer class="d-none d-lg-block d-xl-block">
-            <div class="container" itemscope itemtype="http://schema.org/Organization">
 
-                <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                <br>
-                <small itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </small>
-
-                <small itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </small>
-
-                <p class="float-right"><?= Yii::powered() ?></p>
-
-            </div>
-        </footer>
-        </div>
 
     <?php $this->endBody();
     } ?>

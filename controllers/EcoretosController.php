@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * EcoretosController implements the CRUD actions for Ecoretos model.
  */
-class EcoretosController extends Controller
+class EcoretosController extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -141,4 +141,5 @@ class EcoretosController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+ 
 }

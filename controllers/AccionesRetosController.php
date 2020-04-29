@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\AccionesRetos;
 use app\models\AccionesRetosSearch;
+use app\models\Ecoretos;
 use app\models\Ranking;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -56,10 +57,11 @@ class AccionesRetosController extends Controller
     {
         $searchModel = new AccionesRetosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $lectores = 'Hola';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'lectores' => $lectores,
         ]);
     }
 
@@ -91,6 +93,8 @@ class AccionesRetosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'categorias' => Ecoretos::categorias(),
+            
         ]);
     }
 
@@ -111,6 +115,7 @@ class AccionesRetosController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'categorias' => Ecoretos::categorias(),
         ]);
     }
     /**
@@ -126,7 +131,7 @@ class AccionesRetosController extends Controller
 
             $model->aceptado = true;
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
-            $model->usuario_id=Yii::$app->user->identity->id;
+            $model->usuario_id = Yii::$app->user->identity->id;
             $model->save();
             Yii::$app->session->setFlash('success', 'El reto propuesto ha sido aceptado.');
             return $this->redirect(['site/index', 'id' => $model->id]);
@@ -137,9 +142,9 @@ class AccionesRetosController extends Controller
         ]);
     }
 
-  
 
-  
+
+
     /**
      * Deletes an existing AccionesRetos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

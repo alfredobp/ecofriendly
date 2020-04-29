@@ -69,4 +69,12 @@ class Ecoretos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Usuarios::className(), ['categoria_id' => 'categoria_id'])->inverseOf('categoria');
     }
+    public static function categorias()
+    {
+        return static::find()->select('cat_nombre')->indexBy('id')->column();
+    }
+    public static function lista()
+    {
+        return static::find()->select('titulo')->indexBy('id')->column();
+    }
 }

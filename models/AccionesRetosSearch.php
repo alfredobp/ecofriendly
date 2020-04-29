@@ -18,7 +18,7 @@ class AccionesRetosSearch extends AccionesRetos
     {
         return [
             [['id', 'cat_id', 'puntaje'], 'integer'],
-            [['titulo', 'descripcion'], 'safe'],
+            [['titulo', 'e.cat_nombre', 'descripcion'], 'safe'],
         ];
     }
 
@@ -40,14 +40,19 @@ class AccionesRetosSearch extends AccionesRetos
      */
     public function search($params)
     {
-        $query = AccionesRetos::find();
+        $query = AccionesRetos::find()
+            ->joinWith('ecoreto e');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        // add conditions that should always apply here
+        $dataProvider->sort->attributes['ecoreto.cat_nombre'] = [
+            'asc' => ['e.cat_nombre' => SORT_ASC],
+            'desc' => ['e.cat_nombre' => SORT_DESC],
+        ];
         $this->load($params);
 
         if (!$this->validate()) {
@@ -65,6 +70,8 @@ class AccionesRetosSearch extends AccionesRetos
 
         $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
             ->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
+
+        $query->andFilterWhere(['ilike', 'ecoreto.cat_nombre', $this->getAttribute('ecoreto.cat_nombre'),]);
 
         return $dataProvider;
     }

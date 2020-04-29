@@ -18,23 +18,25 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Acciones Retos', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-<div class="overflow-auto">
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
-          
-            'id',
-            'titulo',
-            'descripcion',
-            'cat_id',
-            'puntaje',
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
+    <div class="overflow-auto">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                // ['class' => 'yii\grid\SerialColumn'],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                'id',
+                'titulo',
+                'ecoreto.cat_nombre',
+                'descripcion',
+                // 'cat_id',
+                'puntaje',
 
-</div>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+
+    </div>
 </div>

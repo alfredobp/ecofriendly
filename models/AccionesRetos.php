@@ -35,6 +35,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
             [['titulo', 'descripcion'], 'required'],
             [['cat_id', 'puntaje'], 'default', 'value' => null],
             [['cat_id', 'puntaje'], 'integer'],
+            [['ecoreto.cat_nombre'],'safe'],
             [['titulo', 'descripcion'], 'string', 'max' => 255],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ecoretos::className(), 'targetAttribute' => ['cat_id' => 'categoria_id']],
         ];
@@ -46,11 +47,12 @@ class AccionesRetos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Id Acción',
             'titulo' => 'Titulo',
             'descripcion' => 'Descripcion',
-            'cat_id' => 'Cat ID',
+            'cat_id' => 'Categoría id',
             'puntaje' => 'Puntaje',
+            'ecoreto.cat_nombre'=>'Categoría de usuario'
 
         ];
     }
@@ -60,7 +62,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCat()
+    public function getEcoreto()
     {
         return $this->hasOne(Ecoretos::className(), ['categoria_id' => 'cat_id'])->inverseOf('accionesRetos');
     }

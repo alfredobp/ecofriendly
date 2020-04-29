@@ -93,7 +93,7 @@ use yii\web\View;
 
 
 
-                        <?= Html::submitButton('Entrar', ['class' => 'btn btn-primary w-100', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton(' Entrar', ['class' => 'btn btn-primary w-100  glyphicon glyphicon-hand-right ', 'name' => 'login-button']) ?>
 
                     </div>
 
