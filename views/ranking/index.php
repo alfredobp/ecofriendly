@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -14,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Create Ranking', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p> -->
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -24,11 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'usuarios.nombre',
+            [
+                'attribute' => 'imagen',
+                'value' => function ($dataProvider) {
+                    return Auxiliar::obtenerImagenUsuario($dataProvider->usuariosid, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '65px', 'height' => '65px', 'margin-auto' => '0px']]);
+                },
+                'format' => 'raw',
+            ],
+         
             'usuarios.ultima_conexion',
             'puntuacion',
 

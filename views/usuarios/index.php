@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p> -->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -74,15 +74,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
 
-
-
-
-
-
                 //'token_acti',
                 //'codigo_verificacion',
 
-                ['class' => 'yii\grid\ActionColumn'],
+
+                [
+                    'class' => 'yii\grid\ActionColumn',
+
+                    'template' => '{view}{delete}',
+
+                    'buttons' => [
+
+                        'view' => function ($url, $model) {
+
+                            return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url, [
+
+                                'title' => Yii::t('yii', 'Create'),
+
+                            ]);
+                        }
+
+                    ]
+
+                ],
+
+
             ],
         ]); ?>
 

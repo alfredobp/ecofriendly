@@ -59,8 +59,8 @@ class Auxiliar
     public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '65px', 'margin-right' => '12px', 'margin-left' => '12px']])
     {
 
-
-        $id != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' . $id, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        $id1 = Usuarios::find($id)->one();
+        $id1->url_avatar != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1->url_avatar, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
     public static function obtenerImagenSeguidor($id, $options)

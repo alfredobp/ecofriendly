@@ -19,13 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+<div class="overflow-auto">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            // ['class' => 'yii\grid\SerialColumn'],
+          
             'id',
             'titulo',
             'descripcion',
@@ -36,5 +36,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-
+</div>
 </div>

@@ -29,15 +29,13 @@ class RankingController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['create', 'update'],
+                'only' => ['create', 'update', 'delete'],
                 'rules' => [
                     [
-                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
-                        'allow' => true,
+                        //Ningun usuario admin puede crear un nuevo ranking, modificarlo, ni borrarlo.
+                        'allow' => false,
                         'roles' => ['@'],
-                        'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->rol === 'superadministrador';
-                        },
+                        
                     ],
                 ],
 
