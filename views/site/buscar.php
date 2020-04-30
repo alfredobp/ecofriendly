@@ -2,19 +2,21 @@
 
 /* @var $this yii\web\View */
 
+use kartik\icons\Icon;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 $this->title = 'Resultados de la búsqueda: ' . $_GET['cadena'];
 $this->params['breadcrumbs'][] = $this->title;
+Icon::map($this);
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="body-content">
         <?php if ($usuarios->totalCount > 0) : ?>
-            <h3>Usuarios encontrados: <?=$usuarios->totalCount?></h3>
+            <h3>Usuarios encontrados: <?= $usuarios->totalCount ?></h3>
             <div class="row">
                 <?= GridView::widget([
                     'dataProvider' => $usuarios,
@@ -30,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endif ?>
         <?php if ($feed->totalCount > 0) : ?>
-            <h3>Feeds encontrados: <?=$feed->totalCount?></h3>
+            <h3>Feeds encontrados: <?= $feed->totalCount ?></h3>
             <div class="row">
                 <?= GridView::widget([
                     'dataProvider' => $feed,
@@ -46,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endif ?>
         <?php if ($retos->totalCount > 0) : ?>
-            <h3>Retos encontrados: <?=$retos->totalCount?></h3>
+            <h3>Retos encontrados: <?= $retos->totalCount ?></h3>
             <div class="row">
                 <?= GridView::widget([
                     'dataProvider' => $retos,
@@ -55,13 +57,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'acciones-retos',
-                            'template' => '{view}',
+                            'template' => '{verreto}',
+                            'buttons' => [
+
+                                'verreto' => function ($url, $model) {
+                                    return \yii\helpers\Html::a(
+                                        icon::show('fa fa-binoculars'),
+                                        (new yii\grid\ActionColumn())->createUrl('acciones-retos/verreto', $model, $model['id'], 1),
+                                        [
+                                            'title' => Yii::t('yii', 'verreto'),
+                                            'data-method' => 'post',
+                                            'data-pjax' => '0',
+                                        ]
+                                    );
+                                },
+                            ]
                         ],
                     ],
                 ]) ?>
             </div>
         <?php endif ?>
-        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0)&& ($retos->totalCount === 0)) : ?>
+        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0) && ($retos->totalCount === 0)) : ?>
             <h3>No se han encontrado resultados</h3>
 
         <?php endif ?>
