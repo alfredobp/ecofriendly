@@ -16,6 +16,7 @@ use app\models\EcoValora;
 use app\models\Feeds;
 use app\models\ImagenForm;
 use app\models\Ranking;
+use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;
@@ -87,7 +88,7 @@ class SiteController extends Controller
 
         $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', $id])
             ->all();
-        
+
 
         if ($puntuacion['puntuacion'] < 1) {
             return $this->redirect(['usuarios/valorar']);
@@ -100,7 +101,7 @@ class SiteController extends Controller
         $user = Usuarios::findOne($id);
 
         if ($user->categoria_id == null) {
-            if ($puntuacion['puntuacion'] <=30) {
+            if ($puntuacion['puntuacion'] <= 30) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 1;
                 $usuarios->save();
@@ -217,8 +218,12 @@ class SiteController extends Controller
      */
     public function actionBuscar()
     {
+        $id = Yii::$app->user->identity->id;
         $usuarios = new ActiveDataProvider([
             'query' => Usuarios::find()->where('1=0'),
+        ]);
+        $retos = new ActiveDataProvider([
+            'query' => AccionesRetos::find()->where('1=0'),
         ]);
         $feed = new ActiveDataProvider([
             'query' => Feeds::find()->where('1=0'),
@@ -227,10 +232,12 @@ class SiteController extends Controller
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena]);
             $feed->query->where(['ilike', 'contenido', $cadena]);
+            $retos->query->where(['ilike', 'titulo', $cadena])->andWhere(['cat_id' => $id = Yii::$app->user->identity->categoria_id]);
         }
         return $this->render('buscar', [
             'feed' => $feed,
             'usuarios' => $usuarios,
+            'retos' => $retos
         ]);
     }
     /**

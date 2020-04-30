@@ -45,7 +45,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             </div>
         <?php endif ?>
-        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0)) : ?>
+        <?php if ($retos->totalCount > 0) : ?>
+            <h3>Retos encontrados: <?=$retos->totalCount?></h3>
+            <div class="row">
+                <?= GridView::widget([
+                    'dataProvider' => $retos,
+                    'columns' => [
+                        'titulo',
+                        [
+                            'class' => ActionColumn::class,
+                            'controller' => 'acciones-retos',
+                            'template' => '{view}',
+                        ],
+                    ],
+                ]) ?>
+            </div>
+        <?php endif ?>
+        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0)&& ($retos->totalCount === 0)) : ?>
             <h3>No se han encontrado resultados</h3>
 
         <?php endif ?>
