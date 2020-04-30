@@ -173,8 +173,8 @@ AppAsset::register($this);
     <?php } else {    ?>
 
         <main class="h-100">
-            <div class="wrap">
-                <div class="container-fluid">
+            <div class="wrap h-100">
+                <div class="container-fluid h-100">
 
                     <?= Alert::widget() ?>
                     <?= $content ?>

@@ -314,14 +314,13 @@ a.desc:after {
 .login, .registrar, .resetpass, .recoverpass{
 	display: flex;
 	flex-direction: column;
-
-	background-color: #86e01e;
 	padding: 30px;
 /* background gradiente para diferentes navegadores */
-	background: -webkit-linear-gradient(rgb(216, 213, 213),#fff);
-	background: -moz-linear-gradient(rgb(216, 213, 213),#fff);
-	background: -ms-linear-gradient(rgb(216, 213, 213),#fff);
-	background: -o-linear-gradient(rgb(216, 213, 213),#fff);
+/* opacity:0.7; */
+	background: -webkit-linear-gradient(rgb(216, 213, 213),rgb(186, 241, 179));
+	background: -moz-linear-gradient(rgb(216, 213, 213),rgb(186, 241, 179));
+	background: -ms-linear-gradient(rgb(216, 213, 213),rgb(186, 241, 179));
+	background: -o-linear-gradient(rgb(216, 213, 213),rgb(186, 241, 179));
 }
 .loader {
     position: fixed;

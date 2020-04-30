@@ -93,16 +93,19 @@ use yii\web\View;
 
 
 
-                        <?= Html::submitButton(' Entrar', ['class' => 'btn btn-primary w-100  glyphicon glyphicon-hand-right ', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
 
+                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton4']); ?></em>
 
-                    <em><a href="index.php?r=usuarios%2Fregistrar"> ¿Todavía sin cuenta?</a></em>
+                
                     <br>
+                   
+                    
                     <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
+                  
                     <?php ActiveForm::end(); ?>
-
                 </div>
             </div>
 

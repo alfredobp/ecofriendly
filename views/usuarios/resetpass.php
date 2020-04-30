@@ -7,18 +7,18 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Restablecer contraseña';
+$this->title = 'Reseteo de password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuarios-resetpass">
+<div class="usuarios-resetpass h-100">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>Introduzca los siguientes datos para resetear su contraseña:</p>
+    <p>Introduzca los siguientes datos para resetear su contraseña de acceso:</p>
 
     <?php $form = ActiveForm::begin([
         'method' => 'post',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'horizontalCssClasses' => ['wrapper' => 'col-sm-5 col-6'],
+            'horizontalCssClasses' => ['wrapper' => 'col-6'],
         ],
     ]);
     ?>
