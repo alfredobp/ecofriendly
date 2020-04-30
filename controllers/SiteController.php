@@ -228,16 +228,21 @@ class SiteController extends Controller
         $feed = new ActiveDataProvider([
             'query' => Feeds::find()->where('1=0'),
         ]);
+        $hastag = new ActiveDataProvider([
+            'query' => Feeds::find()->where('1=0'),
+        ]);
 
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena]);
             $feed->query->where(['ilike', 'contenido', $cadena]);
             $retos->query->where(['ilike', 'titulo', $cadena])->andWhere(['cat_id' => $id = Yii::$app->user->identity->categoria_id]);
+            $hastag->query->where(['ilike', 'contenido', $cadena]);
         }
         return $this->render('buscar', [
             'feed' => $feed,
             'usuarios' => $usuarios,
-            'retos' => $retos
+            'retos' => $retos,
+            'hastag' => $hastag
         ]);
     }
     /**

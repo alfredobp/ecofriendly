@@ -77,6 +77,12 @@ class AccionesRetosController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    /**
+     * Función Ver Reto para las búsquedas de los retos asignados por el usuario.
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function actionVerreto($id)
     {
         return $this->render('view', [

@@ -76,6 +76,19 @@ Icon::map($this);
                     ],
                 ]) ?>
             </div>
+
+        <?php endif ?>
+        <?php if ($hastag->totalCount > 0) : ?>
+            <h3>#Hastag encontrados: <?= $retos->totalCount ?></h3>
+            <div class="row">
+                <?= GridView::widget([
+                    'dataProvider' => $hastag,
+                    'columns' => [
+                        'contenido',
+
+                    ],
+                ]) ?>
+            </div>
         <?php endif ?>
         <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0) && ($retos->totalCount === 0)) : ?>
             <h3>No se han encontrado resultados</h3>
