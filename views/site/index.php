@@ -13,6 +13,7 @@ use app\models\Ecoretos;
 use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
+use app\models\Usuarios;
 use kartik\grid\GridView as GridGridView;
 use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
@@ -27,6 +28,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 use kartik\icons\Icon;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -319,7 +321,7 @@ if (!isset($_COOKIE['intro'])) {
                                 <!-- Gestión de los me gusta -->
                                 <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
 
-                                <?php $comentar = Comentarios::find($id);
+                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
 
                                 ?>
 
@@ -340,52 +342,50 @@ if (!isset($_COOKIE['intro'])) {
                                 <br>
                                 <div class="divider"></div>
                                 <br>
-                                <?php $comentarios= Comentarios::findAll($id)?>
-                                <?php foreach ($comentarios as $comentarios) :
-                                ?>
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <!-- FOTO DEL USUARIO QUE ESCRIBE -->
-                                            <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                            <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <!-- FOTO DEL USUARIO QUE ESCRIBE -->
+                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
+                                        <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
 
-                                        </div>
-                                        <div class="col-10">
-                                            <?php
-                                            $model = Comentarios::find()->one();
-                                            $form = ActiveForm::begin([
-                                                'action' => ['comentarios/create'],
-                                                'method' => 'post',
-                                                'options' =>   ['enctype' => 'multipart/form-data'],
-                                            ]); ?>
-                                            <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
-                                            <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('') ?>
-                                            <?= $feeds['id'] ?>
-                                            <?= Html::hiddenInput('id', $feeds['id']); ?>
-                                            <?php ActiveForm::end(); ?>
-
-                                            <?php var_dump($_POST);
-
-                                            ?>
-                                            <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-
-                                        </div>
                                     </div>
-                                    <div class="text-muted collapse" id="collapseExample3">
+                                    <div class="col-10">
+                                        <?php
+                                        // $model = Feeds::find()->one();
+                                        $form = ActiveForm::begin([
+                                            'action' => ['comentarios/create'],
+                                            'method' => 'post',
+                                            'options' =>   ['enctype' => 'multipart/form-data'],
+                                        ]); ?>
+                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
+                                        <?php $model = new Comentarios() ?>
+                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
+
+                                        <?= Html::hiddenInput('comentarios_id', $feeds['id']); ?>
+                                        <?php ActiveForm::end(); ?>
+
+
+                                        <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->all() ?>
+                                        <?php foreach ($comentarios as $comentarios) : ?>
+                                            <p><?= $comentarios['contenido'] ?> Publicado por: <?=Usuarios::find()->where(['id'=>$comentarios['usuario_id']])->one()->nombre?> el: <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                        <?php
+                                        endforeach; ?>
+                                    </div>
+
+                                    <div class=" collapse" id="collapseExample3">
                                         <br>
-                                        <!-- <div class="row">
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2">
-                                            <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
-                                        </div>
-                                    </div> -->
+
                                         <br>
                                         <div class="row">
                                             <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+
                                             <div class="col-2">
-                                                    
-                                                <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
+
+
+
                                             </div>
+
                                             <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
@@ -395,18 +395,17 @@ if (!isset($_COOKIE['intro'])) {
                                     </div>
                                     <br>
                                     <div class="divider"></div>
+
                                     <br>
 
+                                </div>
                             </div>
-                        </div>
                     </section>
                     <br>
                     <br>
                 <?php
-                                endforeach; ?>
-            <?php
             endforeach; ?>
-            <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
 
         </main>
