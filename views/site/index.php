@@ -320,7 +320,7 @@ if (!isset($_COOKIE['intro'])) {
                                 <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
 
                                 <?php $comentar = Comentarios::find($id);
-                               
+
                                 ?>
 
                                 <!-- Gestión de los comentarios -->
@@ -345,13 +345,22 @@ if (!isset($_COOKIE['intro'])) {
                                         <!-- FOTO DEL USUARIO QUE ESCRIBE -->
                                         <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
                                         <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
-                                 
+
                                     </div>
                                     <div class="col-10">
-                                        <textarea class="form-control border-0 sinborde2" id="exampleTextarea" rows="3" placeholder="Comentar Foto" style="resize: none;"></textarea>
-                                        <br>
+                                        <?php
+                                        $form = ActiveForm::begin([
+                                            'action' => ['comentarios/create'],
+                                            'method' => 'post',
+                                            'options' =>   ['enctype' => 'multipart/form-data'],
+                                        ]); ?>
+                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('') ?>
+                                      
+                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
+                                        <?php ActiveForm::end(); ?>
+                                  
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                        <button type="button" class="btn btn-outline-primary btn-sm float-right">Comentar</button>
+                                       
                                     </div>
                                 </div>
                                 <div class="text-muted collapse" id="collapseExample3">
