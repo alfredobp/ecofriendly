@@ -89,6 +89,12 @@ class AccionesRetosController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    // public function actionVerhastag($id)
+    // {
+    //     return $this->render('view', [
+    //         'model' => $this->findModel($id),
+    //     ]);
+    // }
     /**
      * Creates a new AccionesRetos model.
      * If creation is successful, the browser will be redirected to the 'view' page.

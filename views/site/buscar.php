@@ -81,16 +81,35 @@ Icon::map($this);
         <?php if ($hastag->totalCount > 0) : ?>
             <h3>#Hastag encontrados: <?= $retos->totalCount ?></h3>
             <div class="row">
+
                 <?= GridView::widget([
                     'dataProvider' => $hastag,
                     'columns' => [
                         'contenido',
 
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'controller' => 'feeds',
+                            'template' => '{verhastag}',
+                            'buttons' => [
+                                'verhastag' => function ($url, $model, $key) {
+                                    return Html::a(
+                                        icon::show('fa fa-binoculars') . 'Ver #Hastag',
+                                        (new yii\grid\ActionColumn())->createUrl('feeds/verhastag', $model, ['id'=>$model['id'], 'cadena' =>'hola'], 1),
+                                        [
+                                            'class' => 'btn btn-sm btn-light',
+
+                                        ]
+                                    );
+                                }
+                            ],
+                        ],
                     ],
+
                 ]) ?>
             </div>
         <?php endif ?>
-        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0) && ($retos->totalCount === 0)) : ?>
+        <?php if (($feed->totalCount === 0) && ($usuarios->totalCount === 0) && ($retos->totalCount === 0) && ($hastag->totalCount === 0)) : ?>
             <h3>No se han encontrado resultados</h3>
 
         <?php endif ?>

@@ -88,6 +88,14 @@ class FeedsController extends Controller
      *
      * @return void
      */
+
+    public function actionVerhastag($id, $cadena = '')
+    {
+        return $this->render('_viewHastag', [
+            'model' => $this->findModel($id),
+            'cadena' => $cadena
+        ]);
+    }
     public function actionCreate()
     {
         $model = new Feeds();
