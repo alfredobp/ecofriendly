@@ -340,54 +340,62 @@ if (!isset($_COOKIE['intro'])) {
                                 <br>
                                 <div class="divider"></div>
                                 <br>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <!-- FOTO DEL USUARIO QUE ESCRIBE -->
-                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                        <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
+                                <?php $comentarios= Comentarios::findAll($id)?>
+                                <?php foreach ($comentarios as $comentarios) :
+                                ?>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <!-- FOTO DEL USUARIO QUE ESCRIBE -->
+                                            <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
+                                            <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
 
+                                        </div>
+                                        <div class="col-10">
+                                            <?php
+                                            $model = Comentarios::find()->one();
+                                            $form = ActiveForm::begin([
+                                                'action' => ['comentarios/create'],
+                                                'method' => 'post',
+                                                'options' =>   ['enctype' => 'multipart/form-data'],
+                                            ]); ?>
+                                            <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
+                                            <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('') ?>
+                                            <?= $feeds['id'] ?>
+                                            <?= Html::hiddenInput('id', $feeds['id']); ?>
+                                            <?php ActiveForm::end(); ?>
+
+                                            <?php var_dump($_POST);
+
+                                            ?>
+                                            <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+
+                                        </div>
                                     </div>
-                                    <div class="col-10">
-                                        <?php
-                                        $form = ActiveForm::begin([
-                                            'action' => ['comentarios/create'],
-                                            'method' => 'post',
-                                            'options' =>   ['enctype' => 'multipart/form-data'],
-                                        ]); ?>
-                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('') ?>
-                                      
-                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
-                                        <?php ActiveForm::end(); ?>
-                                  
-                                        <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                       
-                                    </div>
-                                </div>
-                                <div class="text-muted collapse" id="collapseExample3">
-                                    <br>
-                                    <!-- <div class="row">
+                                    <div class="text-muted collapse" id="collapseExample3">
+                                        <br>
+                                        <!-- <div class="row">
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2">
                                             <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
                                         </div>
                                     </div> -->
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2">
-
-                                            <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
-                                        </div>
-                                        <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
+                                            <div class="col-2">
+                                                    
+                                                <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
+                                            </div>
+                                            <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div> -->
-                                    </div>
+                                        </div>
 
-                                </div>
-                                <br>
-                                <div class="divider"></div>
-                                <br>
+                                    </div>
+                                    <br>
+                                    <div class="divider"></div>
+                                    <br>
 
                             </div>
                         </div>
@@ -395,8 +403,10 @@ if (!isset($_COOKIE['intro'])) {
                     <br>
                     <br>
                 <?php
+                                endforeach; ?>
+            <?php
             endforeach; ?>
-                <?= LinkPager::widget(['pagination' => $pagination]) ?>
+            <?= LinkPager::widget(['pagination' => $pagination]) ?>
                 </article>
 
         </main>
