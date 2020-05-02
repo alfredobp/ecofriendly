@@ -249,8 +249,8 @@ INSERT INTO
         contrasena,
         direccion,
         estado,
-        rol
-       
+        rol,
+        fecha_nac
     )
 VALUES
     (
@@ -261,8 +261,8 @@ VALUES
         crypt('adminadmin', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
         'Soy el Administrador de la plataforma',
-        'superadministrador'
-     
+        'superadministrador',
+        '01/01/2000'
     );
 
 INSERT INTO
@@ -273,7 +273,8 @@ INSERT INTO
         email,
         contrasena,
         direccion,
-        estado
+        estado,
+        fecha_nac
     )
 VALUES
     (
@@ -283,7 +284,8 @@ VALUES
         'alfredobape@gmail.com',
         crypt('demodemo', gen_salt('bf', 10)),
         'c/ Isabel II 1º ',
-        'estoy cansado'
+        'estoy cansado',
+        '01/02/1980'
     );
 
 INSERT INTO
@@ -296,7 +298,8 @@ INSERT INTO
         provincia,
         localidad,
         direccion,
-        estado
+        estado,
+        fecha_nac
     )
 VALUES
     (
@@ -308,7 +311,8 @@ VALUES
         'Cádiz',
         'Sanlúcar de barrameda',
         'Munilla II 1 a ',
-        'estoy cansadito'
+        'estoy cansadito',
+        '01/04/1985'
     );
 
 INSERT INTO
@@ -320,7 +324,8 @@ INSERT INTO
         contrasena,
         localidad,
         direccion,
-        estado
+        estado,
+        fecha_nac
     )
 VALUES
     (
@@ -331,5 +336,6 @@ VALUES
         crypt('demo2demo2', gen_salt('bf', 10)),
         'rota',
         'Munilla II 1 a ',
-        'estoy cansadito'
+        'estoy cansadito',
+        '05/05/1976'
     );
