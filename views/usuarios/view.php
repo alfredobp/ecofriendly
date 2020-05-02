@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-        echo Auxiliar::obtenerImagenUsuario($model->url_avatar, $optionsBarraUsuarios);
+        echo Auxiliar::obtenerImagenUsuario($model->id, $optionsBarraUsuarios);
 
         ?>
 
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
         ]) ?>
     </div>
-  
+
     <?php echo Html::a(
 
         'Añadir como amigo',
@@ -72,10 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         type: 'POST',
                         data: 'seguidor_id=$model->id',
                          })",
-                         'class' => 'btn btn-success'
+            'class' => 'btn btn-success'
         ],
         ['class' => 'btn btn-success'],
     );
     ?>
-  
+
 </div>

@@ -93,7 +93,7 @@ class UsuariosController extends Controller
         $model = new EcoValora();
         $puntuacion2 = Ranking::find()->where(['usuariosid' => Yii::$app->user->id])->one();
         //si el usuario ya tine puntuacion asignada, impido que acceda a la acción
-        if ($puntuacion2['puntuacion'] > 0) {
+        if ($puntuacion2!==null) {
             return $this->goHome();
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

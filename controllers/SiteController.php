@@ -90,7 +90,7 @@ class SiteController extends Controller
             ->all();
 
 
-        if ($puntuacion['puntuacion'] ==null) {
+        if ($puntuacion==null) {
             return $this->redirect(['usuarios/valorar']);
         }
         /**
