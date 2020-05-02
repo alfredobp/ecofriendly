@@ -326,7 +326,7 @@ if (!isset($_COOKIE['intro'])) {
                                 ?>
 
                                 <!-- Gestión de los comentarios -->
-                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+                                <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
                                 </div>
                                 <!-- <div class="col dropup">
                                 <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
@@ -367,7 +367,7 @@ if (!isset($_COOKIE['intro'])) {
 
 
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->all() ?>
+                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
 
                                         <?php foreach ($comentarios as $comentarios) : ?>
 
@@ -388,26 +388,6 @@ if (!isset($_COOKIE['intro'])) {
                                         endforeach; ?>
                                     </div>
 
-                                    <div class=" collapse" id="collapseExample3">
-                                        <br>
-
-                                        <br>
-                                        <!-- <div class="row">
-                                            <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-
-                                            <div class="col-2">
-
-
-
-                                            </div> -->
-
-                                            <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div> -->
-                                        </div>
-
-                                    </div>
                                     <br>
                                     <div class="divider"></div>
 
