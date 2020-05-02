@@ -289,7 +289,7 @@ if (!isset($_COOKIE['intro'])) {
             </article>
             <hr>
             </hr>
-
+            <?php $i = 0 ?>
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>
@@ -326,7 +326,7 @@ if (!isset($_COOKIE['intro'])) {
                                 ?>
 
                                 <!-- Gestión de los comentarios -->
-                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentar <small class="text-muted"><?= $comentar->count() ?></small></a>
+                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
                                 </div>
                                 <!-- <div class="col dropup">
                                 <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
@@ -338,8 +338,9 @@ if (!isset($_COOKIE['intro'])) {
                                 </div>
                             </div> -->
                             </div>
-                            <div class="collapse" id="collapseExample1">
+                            <div class="collapse" id="collapseExample<?= $i ?>">
                                 <br>
+
                                 <div class="divider"></div>
                                 <br>
                                 <div class="row">
@@ -367,8 +368,22 @@ if (!isset($_COOKIE['intro'])) {
 
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
                                         <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->all() ?>
+
                                         <?php foreach ($comentarios as $comentarios) : ?>
-                                            <p><?= $comentarios['contenido'] ?> Publicado por: <?=Usuarios::find()->where(['id'=>$comentarios['usuario_id']])->one()->nombre?> el: <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+
+
+                                            <div class="col-10 border-bottom">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <p><?= $comentarios['contenido'] ?>
+                                                            <br>
+                                                            Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php
                                         endforeach; ?>
                                     </div>
@@ -377,14 +392,14 @@ if (!isset($_COOKIE['intro'])) {
                                         <br>
 
                                         <br>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
 
                                             <div class="col-2">
 
 
 
-                                            </div>
+                                            </div> -->
 
                                             <!-- <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
                                         <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
@@ -403,6 +418,7 @@ if (!isset($_COOKIE['intro'])) {
                     </section>
                     <br>
                     <br>
+                    <?php $i++ ?>
                 <?php
             endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>
