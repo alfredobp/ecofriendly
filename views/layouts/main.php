@@ -95,7 +95,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav'],
                 'items' => [
-                    Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options),
+                    Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->id, $options),
                     [
                         'label' => Icon::show('home') . 'Inicio',
                         'options' => [

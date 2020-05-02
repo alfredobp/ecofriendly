@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        return Auxiliar::obtenerImagenUsuario($dataProvider->url_avatar);
+                        return Auxiliar::obtenerImagenUsuario($dataProvider->id);
                     },
                     'format' => 'raw',
                 ],

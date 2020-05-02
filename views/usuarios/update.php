@@ -128,7 +128,7 @@ $this->registerJs($js);
 
 
         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-        <?= Auxiliar::obtenerImagenUsuario($model->url_avatar, $options) ?>
+        <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
 
 
         <p>Puede modificar sus datos a continuación:</p>
