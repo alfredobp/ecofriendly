@@ -8,10 +8,12 @@ use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use app\helper_propio\Gridpropio;
 use app\models\AccionesRetos;
+use app\models\Comentarios;
 use app\models\Ecoretos;
 use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
+use app\models\Usuarios;
 use kartik\grid\GridView as GridGridView;
 use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
@@ -26,6 +28,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use yii\jui\Dialog;
 use kartik\icons\Icon;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -116,9 +119,9 @@ if (!isset($_COOKIE['intro'])) {
             ],]);
             $dataProvider = new ActiveDataProvider([
                 'query' => AccionesRetos::find()
-                ->joinWith('retosUsuarios r')
+                    ->joinWith('retosUsuarios r')
                     ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-                  
+
             ]);
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
@@ -286,7 +289,7 @@ if (!isset($_COOKIE['intro'])) {
             </article>
             <hr>
             </hr>
-
+            <?php $i = 0 ?>
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>
@@ -313,82 +316,89 @@ if (!isset($_COOKIE['intro'])) {
                         </div>
 
                         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
-                        <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                         <div class="card-footer text-muted">
                             <div class="row">
-
+                                <!-- Gestión de los me gusta -->
                                 <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
-                                <div class="col"><a style="text-decoration:none;" class="text-muted" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentar <small class="text-muted">2</small></a>
+
+                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
+
+                                ?>
+
+                                <!-- Gestión de los comentarios -->
+                                <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
                                 </div>
-                                <div class="col dropup">
-                                    <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
-                                        <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
-                                        <a class="dropdown-item" href="#">Compartir Publico</a>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
+                                <!-- <div class="col dropup">
+                                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
+                                    <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
+                                    <a class="dropdown-item" href="#">Compartir Publico</a>
+                                    <div class="dropdown-divider"></div>
                                 </div>
+                            </div> -->
                             </div>
-                            <div class="collapse" id="collapseExample1">
+                            <div class="collapse" id="collapseExample<?= $i ?>">
                                 <br>
+
                                 <div class="divider"></div>
                                 <br>
                                 <div class="row">
                                     <div class="col-2">
-                                        <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:90px;">
+                                        <!-- FOTO DEL USUARIO QUE ESCRIBE -->
+                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
+                                        <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
+
                                     </div>
                                     <div class="col-10">
-                                        <textarea class="form-control border-0 sinborde2" id="exampleTextarea" rows="3" placeholder="Comentar Foto" style="resize: none;"></textarea>
-                                        <br>
-                                        <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a>
-                                        <button type="button" class="btn btn-outline-primary btn-sm float-right">Comentar</button>
-                                    </div>
-                                </div>
-                                <div class="text-muted collapse" id="collapseExample3">
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2">
-                                            <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2">
-                                            <a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a>
-                                        </div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                        <div class="col-2"><a href="#"><img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:50px;"></a></div>
-                                    </div>
+                                        <?php
+                                        // $model = Feeds::find()->one();
+                                        $form = ActiveForm::begin([
+                                            'action' => ['comentarios/create'],
+                                            'method' => 'post',
+                                            'options' =>   ['enctype' => 'multipart/form-data'],
+                                        ]); ?>
+                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
+                                        <?php $model = new Comentarios() ?>
+                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
 
-                                </div>
-                                <br>
-                                <div class="divider"></div>
-                                <br>
-                                <div class="media">
-                                    <img class="d-flex mr-3" src="" alt="Generic placeholder image" style="width:50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">usuario</h5>
-                                        Comentario de ejemplo <img src="" class="img-fluid rounded" alt="Responsive image rounded" style="width:30px;">
+                                        <?= Html::hiddenInput('comentarios_id', $feeds['id']); ?>
+                                        <?php ActiveForm::end(); ?>
 
-                                        <div class="media mt-3">
-                                            <img src="" class="d-flex mr-3" alt="Responsive image rounded" style="width:50px;">
-                                            <div class="media-body">
-                                                <h5 class="mt-0">usuario 2</h5>
-                                                Gracias
+
+                                        <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
+
+                                        <?php foreach ($comentarios as $comentarios) : ?>
+
+
+                                            <div class="col-10 border-bottom">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <p><?= $comentarios['contenido'] ?>
+                                                            <br>
+                                                            Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php
+                                        endforeach; ?>
                                     </div>
+
+                                    <br>
+                                    <div class="divider"></div>
+
+                                    <br>
+
                                 </div>
                             </div>
-                        </div>
                     </section>
                     <br>
                     <br>
+                    <?php $i++ ?>
                 <?php
             endforeach; ?>
                 <?= LinkPager::widget(['pagination' => $pagination]) ?>

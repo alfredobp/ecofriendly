@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Comentarios;
 use app\models\ComentariosSearch;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -74,14 +75,38 @@ class ComentariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+    // $model = new Feeds();
+    // $model->usuariosid = Yii::$app->user->id;
+    // // $model->created_at = date('Y-m-d H:i:s');
+
+    // if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+    //     if (!empty($_FILES)) {
+    //         $model->imagen = $_FILES['Feeds']['name']['imagen'];
+    //     }
+    //     $model->save();
+    //     if (!empty($_FILES['Feeds']['name']['imagen'])) {
+    //         uploadImagenFeed($model);
+    //     }
+    //     return $this->goHome();
+    // }
+
+
+
     public function actionCreate()
     {
+
         $model = new Comentarios();
+        $model->usuario_id = Yii::$app->user->id;
+        $model->created_at = date('Y-m-d H:i:s');
+        $model->comentarios_id=$_POST['comentarios_id'];
+        // var_dump($_POST);
+        // die;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->save();
+            return $this->redirect(['site/index', 'id' => $model->id]);
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
