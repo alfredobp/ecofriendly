@@ -38,8 +38,9 @@ use yii\widgets\ListView;
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
-$id = Yii::$app->user->identity->id;
-$categoriaId = Yii::$app->user->identity->categoria_id;
+
+
+// die;
 
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
     $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
@@ -59,10 +60,15 @@ if (!isset($_COOKIE['intro'])) {
     <div class="row ">
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
+            <?php
+            $id = Yii::$app->user->identity->id;
+            $categoriaId = Yii::$app->user->identity->categoria_id;
 
+            ?>
             <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
 
-            <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->url_avatar, $options); ?>
+            <?= Auxiliar::obtenerImagenUsuario($id, $options); ?>
+
             <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
             <br>
@@ -298,8 +304,11 @@ if (!isset($_COOKIE['intro'])) {
 
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
-                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
-                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
+                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['id'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+
+                                <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
+                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                                 <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                     ' ' . Icon::show('trash-alt'),
                                     Url::to(['/feeds/delete', 'id' => $feeds['id']]),
@@ -315,6 +324,7 @@ if (!isset($_COOKIE['intro'])) {
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
+                                
                         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                         <div class="card-footer text-muted">
                             <div class="row">
@@ -347,7 +357,7 @@ if (!isset($_COOKIE['intro'])) {
                                     <div class="col-2">
                                         <!-- FOTO DEL USUARIO QUE ESCRIBE -->
                                         <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                        <?= Auxiliar::obtenerImagenusuario($feeds['url_avatar'], $options) ?>
+                                        <?= Auxiliar::obtenerImagenusuario($id, $options) ?>
 
                                     </div>
                                     <div class="col-10">
@@ -376,6 +386,7 @@ if (!isset($_COOKIE['intro'])) {
                                                 <div class="row">
                                                     <div class="col-2">
                                                         <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+
                                                     </div>
                                                     <div class="col-10">
                                                         <p><?= $comentarios['contenido'] ?>
@@ -452,7 +463,7 @@ if (!isset($_COOKIE['intro'])) {
 
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
-                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->url_avatar, $optionsBarraUsuarios);
+                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
                             echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';

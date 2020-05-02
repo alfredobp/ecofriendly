@@ -59,14 +59,16 @@ class Auxiliar
     public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '25px', 'height' => '35px']])
     {
 
-        $id1 = Usuarios::find($id)->one();
-        $id1->url_avatar != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1->url_avatar, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        $id1 = Usuarios::find()->where(['id' => $id])->one();
+        // var_dump($id1['url_avatar']);
+        // die;
+        $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
     public static function obtenerImagenSeguidor($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '65px', 'margin-right' => '12px', 'margin-left' => '12px']])
     {
-        $id1 = Usuarios::findOne($id);
-        $id1->url_avatar != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1->url_avatar, $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        $id1 = Usuarios::find()->where(['id' => $id])->one();
+        $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
     public static function obtenerImagenFeed($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']])
