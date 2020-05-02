@@ -92,7 +92,7 @@ CREATE TABLE comentarios (
     created_at timestamp,
     updated_at timestamp,
     deleted boolean,
-    comentarios_id bigint REFERENCES feeds(id)
+    comentarios_id bigint REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS seguidores CASCADE;
