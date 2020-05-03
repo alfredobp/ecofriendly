@@ -89,9 +89,9 @@ $this->title = 'EcoFriendly'; ?>
         <?=
             $form->field($model, 'compra1')
                 ->radioList(
-                        [0 => 'Todos los dias', 1 => '6 días a la semana', 8 => '1 dia a la semana', 10 => 'Compro por internet'],
-                        ['uncheckValue' => null],
-                        [
+                    [0 => 'Todos los dias', 1 => '6 días a la semana', 8 => '1 dia a la semana', 10 => 'Compro por internet'],
+                    ['uncheckValue' => null],
+                    [
                         'item' => function ($index, $label, $name, $checked, $value) {
 
                             $return = '<label class="modal-radio">';
@@ -102,8 +102,8 @@ $this->title = 'EcoFriendly'; ?>
 
                             return $return;
                         }
-                        ]
-                    )
+                    ]
+                )
                 ->label(false);
         ?>
 
@@ -224,9 +224,10 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-
+        <div class="divider col-10 border-bottom-3"></div>
+        <br>
         <div class="form-group">
-            <?= Html::submitButton('Ecocalculo', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Ecocalculo', ['class' => 'btn btn-success btn-lg']) ?>
         </div>
 
 

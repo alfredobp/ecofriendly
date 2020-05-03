@@ -324,7 +324,7 @@ if (!isset($_COOKIE['intro'])) {
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
 
-                                
+
                         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                         <div class="card-footer text-muted">
                             <div class="row">
@@ -422,7 +422,7 @@ if (!isset($_COOKIE['intro'])) {
 
             <?php
 
-            $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=','rol','superadministrador'])->limit(10)->all();
+            $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['puntuacion'],
             ],]);
@@ -511,11 +511,16 @@ if (!isset($_COOKIE['intro'])) {
                     <p class="card-text">
                         <div class="    col-12 ">
                             <?php
+                            // var_dump($seguidores);
+                            // die;
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
+                                echo  Html::tag('span', Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['class' => 'username']);
+
+                                // echo Html::tag(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one())->username;
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
@@ -525,10 +530,7 @@ if (!isset($_COOKIE['intro'])) {
                             }
                             ?>
                             <br>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem, eaque amet aperiam ex esse voluptatum fugiat doloribus laboriosam at delectus? Sapiente error hic fuga voluptate cupiditate omnis iure corrupti.
-
-                            </p>
+                      
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
