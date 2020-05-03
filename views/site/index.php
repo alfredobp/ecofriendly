@@ -422,7 +422,7 @@ if (!isset($_COOKIE['intro'])) {
 
             <?php
 
-            $arrModels = Ranking::find()->limit(10)->all();
+            $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=','rol','superadministrador'])->limit(10)->all();
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['puntuacion'],
             ],]);
