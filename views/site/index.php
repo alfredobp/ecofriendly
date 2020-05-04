@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use moonland\tinymce\TinyMCE;
 use app\helper_propio\Auxiliar;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
@@ -255,7 +256,10 @@ if (!isset($_COOKIE['intro'])) {
                             <b>Comparte lo que quieras</b>
                         </div>
                         <div class="card-block">
+                            <?php
 
+
+                            ?>
                             <div class="tab-pane active" id="home" role="tabpanel">
 
                                 <?php
@@ -263,9 +267,28 @@ if (!isset($_COOKIE['intro'])) {
                                     'action' => ['feeds/create'],
                                     'method' => 'post',
                                     'options' =>   ['enctype' => 'multipart/form-data'],
+                                ]);
+
+                                // echo TinyMCE::widget(['name' => 'text-content']);
+
+                                // $form->field($model, 'attribute')->widget(TinyMCE::className());
+
+                                // //toggle to tinyMCE or to textarea
+
+                                // echo TinyMCE::widget(['name' => 'text-content', 'toggle' => ['active' => true]]);
+
+                                // $form->field($model, 'attribute')->widget(TinyMCE::className(), [
+                                //     'toggle' => [
+                                //         'active' => true,
+                                //     ]
+                                // ]); 
+                                ?>
+                                <?= $form->field($model, 'contenido')->label('')->widget(TinyMCE::className(), [
+                                    'toggle' => [
+                                        'active' => true,
+                                    ]
                                 ]); ?>
-                                <?= $form->field($model, 'contenido')->textarea(['rows' => 4])->label('') ?>
-                                <?= $form->field($model, 'imagen')->fileInput() ?>
+                                <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
                                 <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                                 <?php ActiveForm::end(); ?>
                             </div>
@@ -305,7 +328,7 @@ if (!isset($_COOKIE['intro'])) {
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
                             <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
-                            <p class="card-text"><?= Html::encode($feeds['contenido']) ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                            <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
 
                                 <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                                 <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
@@ -530,7 +553,7 @@ if (!isset($_COOKIE['intro'])) {
                             }
                             ?>
                             <br>
-                      
+
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
