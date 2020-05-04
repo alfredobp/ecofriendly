@@ -283,12 +283,12 @@ if (!isset($_COOKIE['intro'])) {
                                 //     ]
                                 // ]); 
                                 ?>
-                                <?= $form->field($model, 'contenido')->widget(TinyMCE::className(), [
+                                <?= $form->field($model, 'contenido')->label('')->widget(TinyMCE::className(), [
                                     'toggle' => [
                                         'active' => true,
                                     ]
                                 ]); ?>
-                                <?= $form->field($model, 'imagen')->fileInput() ?>
+                                <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
                                 <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                                 <?php ActiveForm::end(); ?>
                             </div>
