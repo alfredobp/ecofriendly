@@ -105,16 +105,19 @@ class SiteController extends Controller
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 1;
                 $usuarios->save();
+                return $this->goHome();
             }
             if ($puntuacion['puntuacion'] > 30 && $puntuacion['puntuacion'] < 60) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 2;
                 $usuarios->save();
+                return $this->goHome();
             }
             if ($puntuacion['puntuacion']  >= 60) {
                 $usuarios = Usuarios::find()->where(['id' => $id])->one();
                 $usuarios->categoria_id = 3;
                 $usuarios->save();
+                return $this->goHome();
             }
         }
 
