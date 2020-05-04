@@ -173,8 +173,10 @@ if (!isset($_COOKIE['intro'])) {
             // $feedCount = Feeds::findBySql($sql);
 
             $dataProvider = new ActiveDataProvider([
-                'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
-                    . 'and culminado=false')
+                // 'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
+                //     . 'and culminado=false')
+                'query' => AccionesRetos::find()->joinWith('retosUsuarios')->where(['usuario_id' => $id])->andWhere(['culminado' => false])
+
 
             ]);
             // $dataProvider->setSort([
@@ -329,9 +331,6 @@ if (!isset($_COOKIE['intro'])) {
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
                             <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
                             <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
-
-                                <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
-                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
                                 <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                     ' ' . Icon::show('trash-alt'),
                                     Url::to(['/feeds/delete', 'id' => $feeds['id']]),
@@ -343,6 +342,9 @@ if (!isset($_COOKIE['intro'])) {
                                         ],
                                     ]
                                 ) : '' ?></p>
+
+                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
 
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>

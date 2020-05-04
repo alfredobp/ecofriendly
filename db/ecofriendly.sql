@@ -150,14 +150,15 @@ INSERT into
 VALUES
     ('Avanzado', 3);
 
+-- Retos Categoría 1
 INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
         'Reducir la contaminación del aire',
-        'Usar o compartir el coche al menos 3 veces por semana',
+        'Usar o compartir el coche al menos 3 veces por semana durante al menos un mes.',
         1,
-        9
+        6
     );
 
 INSERT into
@@ -167,7 +168,18 @@ VALUES
         'Promover una producción más sostenible y respetuosa con el medio ambiente',
         'Consumir alimentos respetuosos con el medio ambiente, etiqueta eco, productos resposables,...',
         1,
-        12
+        8
+    );
+
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
+        'Utilizar el transporte público',
+        'En este reto debes intentar utilizar el trsnaporte público o medios más sostenibles para hacer tus 
+        desplazamientos por la ciudad. Utiliza la bicicleta, patinete,... y se más #ecofriendly con el planeta.',
+        1,
+        7
     );
 
 INSERT into
@@ -175,17 +187,31 @@ INSERT into
 VALUES
     (
         'Reducir la cantidad de residuos no biodegradables',
-        'Usar mis propias bolsas para hacer la compra',
+        'Debes usar tus propias bolsas para hacer la compra, reciclar la ropa, o reutilizar antiguos elementos de tu hogar',
         1,
-        12
+        9
     );
 
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
+        'Envases ecofriendly',
+        'Intenta comprar alimentos con el mínimo envase posible. Las marcas empiezan a concienciarse de este problema y buscan cada vez más soluciones.Unilever,
+         a través de Dove, fue una de las primeras compañías en utilizar aerosoles comprimidos, lo que permite introducir más producto en el mismo envase y 
+         reduce la emisión de carbono por envase en un 255%.',
+        1,
+        9
+    );
+
+-- Retos Categoría 2
 INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
         'Intentar vivir sin plásticos',
-        'Reducir los utensilios de plasticos en mi hogar',
+        'Debes reducir los utensilios de plasticos en tu hogar. Existen soluciones viables como sin plástico, que permiten sustituir todos esos productos
+        ofreciendo alternativas más seguras y sostenibles',
         2,
         9
     );
@@ -194,8 +220,9 @@ INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
-        'Reducir el consumo de energía',
-        'Reciclar y reducir los residuos domésticos',
+        'Reducir el consumo de energía de tu hogar',
+        'La producción de electricidad es una de las mayores actividades contaminantes de nuestro planeta, emitiendo miles de toneladas de gases de efecto invernadero a la
+        atmósfera, por ello que este reto trata de nuestro poder como consumidores, reduciendo la cantidad de energía consumida y contratando con compañias más sotenibles',
         2,
         9
     );
@@ -204,8 +231,9 @@ INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
-        'Disminuir el consumo de agua y contaminación',
-        'Controlar los tiempos de ducha y/o reducir el número de baños en casa',
+        'Disminuir el consumo de agua y contaminación hídrica',
+        'El consumo de agua que realizamos esta directemente relacionado con la cotaminación del agua, es por ello, que en este reto deber controlar los tiempos de ducha,
+        reducir el número de baños en casa y sobre todo no tirando papeles, no toallitas al WC que provocan atascos y fallos en los procesos de depuración',
         2,
         6
     );
@@ -214,10 +242,24 @@ INSERT into
     acciones_retos (titulo, descripcion, cat_id, puntaje)
 VALUES
     (
+        'Trabajar 100 % digital',
+        'Ya hay gran cantidad de empresas que han instaurado la dinámica de trabajar al 100% en digital y por tanto evitar la impresión constante e injustificada de papel. 
+        Si no es tu caso, seguramente muchas decisiones las tomarán tus superiores, pero todavía hay muchos gestos que puedes tener para seguir con tu propósito de ser sostenible.
+        En este reto debes de controlar el papel que gastas, por cada 12.000 folios se necesitan un árbol, así piensa en imprimir por las dos caras, utiliza papel reciclado, o simplemente
+        no imprimas nada que no se absolutamente imprescindible',
+        2,
+        6
+    );
+
+-- Retos categoría 3
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
         'Hacer un uso eficiente de la energía consumida por mi hogar',
-        'Reemplazar los electrodomésticos y bombillas por elementos más eficientes.',
+        'En este reto, debes intentar reemplazar los electrodomésticos y bombillas por elementos más eficientes. Desenchufar los dispositivos electrónicos cuando no lo utilicéis',
         3,
-        7
+        4
     );
 
 INSERT into
@@ -225,9 +267,10 @@ INSERT into
 VALUES
     (
         'Reducir la huella hidrica de tu hogar',
-        'Instalar sistema de doble descarga y sistenas de control de caudal: atomizadores, temporizadores, en cuartos de baños y cocinas',
+        'Instalar sistema de doble descarga así como sistemas de control de caudal: atomizadores, temporizadores, en cuartos de baños y cocinas. Por ejemplo: Tomar la decisión de 
+        ducharte en lugar de bañarte supone el ahorro de más de 60 litros. ',
         3,
-        5
+        4
     );
 
 INSERT into
@@ -235,11 +278,44 @@ INSERT into
 VALUES
     (
         'Vivir de forma más respetuosa con el medio ambiente',
-        'Aplicar la norma 20/80 en tu estilo de vida',
+        'Debes Aplicar la norma 20/80 en tu estilo de vida: El 20% de una acción producirá el 80% de los efectos, mientras que el 80% restante tan sólo originará el 20% de dichos efectos.
+        Por tanto, focaliza tu energía hacía aquellas acciones que producen un mayor impacto positivo para el medio ambiente',
         3,
-        12
+        9
     );
 
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
+        'Colabora con acciones sociales',
+        'Con pequeños gestos puedes beneficiar a infinidad de personas. Plántate colaboraciones con entidades que promuevan acciones con un beneficio socio-ambiental',
+        3,
+        9
+    );
+
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
+        'Invita a un familiar o amigo a #Ecofriendly',
+        'Piensa en local, actua globalmente, mucha gente a la vez haciendo pequeñas cosas pueden generar un gran impacto a nivel mundial, por ello, háblales de #Ecofriendly,
+         y conseguiremos un cambio radical en la sociedad',
+        3,
+        6
+    );
+
+INSERT into
+    acciones_retos (titulo, descripcion, cat_id, puntaje)
+VALUES
+    (
+        'Un huerto en el balcón',
+        '¿Tienes un balcón? Hay soluciones originales y ecológicas como los huertos verticales e hidropónicos (sin tierra, con luz y agua) que permiten cultivar plantas aromáticas, frutas y flores.',
+        3,
+        6
+    );
+
+-- inserto usuarios
 INSERT INTO
     usuarios (
         username,
@@ -278,14 +354,14 @@ INSERT INTO
     )
 VALUES
     (
-        'demo',
-        'demo',
-        'demo',
+        'alfredo119',
+        'Alfredo',
+        'Barragán Pedrote',
         'alfredobape@gmail.com',
         crypt('demodemo', gen_salt('bf', 10)),
-        'c/ Isabel II 1º ',
-        'estoy cansado',
-        '01/02/1980'
+        'c/ Isabel II Bloque I, 2º A',
+        'Estoy luchando por cambiar mis hábitos medio ambientales',
+        '01/02/1985'
     );
 
 INSERT INTO
@@ -303,16 +379,16 @@ INSERT INTO
     )
 VALUES
     (
-        'demo1',
-        'demo1',
-        'demo1',
+        'rosarito',
+        'Rosario',
+        'Perez Jiménez',
         'alfredo.barra2gan@iesdonana.org',
-        crypt('adminadmin', gen_salt('bf', 10)),
+        crypt('demodemo', gen_salt('bf', 10)),
         'Cádiz',
-        'Sanlúcar de barrameda',
-        'Munilla II 1 a ',
-        'estoy cansadito',
-        '01/04/1985'
+        'Puerto Real',
+        'C/ Cruz de la Degollada nº 13, 1º b',
+        'Me preocupa la situación del cambio climático',
+        '01/04/1982'
     );
 
 INSERT INTO
@@ -329,13 +405,13 @@ INSERT INTO
     )
 VALUES
     (
-        'demo2',
-        'demo2',
-        'demo2',
-        'alfredo.barragan@iesdonana.org',
-        crypt('demo2demo2', gen_salt('bf', 10)),
-        'rota',
-        'Munilla II 1 a ',
-        'estoy cansadito',
+        'eduardocampeon',
+        'Eduardo',
+        'Eduardo Campeón Llano',
+        'eduardo.campeon@iesdonana.org',
+        crypt('demodemo', gen_salt('bf', 10)),
+        'Rota',
+        'Calle de la Luna llena, 12, 2º A ',
+        'Estoy loco',
         '05/05/1976'
     );
