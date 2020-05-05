@@ -20,8 +20,6 @@ use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
-use Symfony\Component\OptionsResolver\Options;
-use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
 use yii\bootstrap4\Nav;
@@ -39,9 +37,9 @@ use yii\widgets\ListView;
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/indexAdmin.css');
 
 
-// die;
 
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
     $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
