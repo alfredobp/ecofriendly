@@ -66,37 +66,39 @@ if (!isset($_COOKIE['intro'])) {
             $categoriaId = Yii::$app->user->identity->categoria_id;
 
             ?>
-            <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+            <?php $options = ['class' => ['img-contenedor mx-auto d-block'], 'style' => ['width' => '128px', 'height' => '128px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+            <div class="sombra">
 
-            <?= Auxiliar::obtenerImagenUsuario($id, $options); ?>
+                <?= Auxiliar::obtenerImagenUsuario($id, $options); ?>
 
-            <hr>
-            <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
-            <br>
-            <h5>Estado: "<span id="estado"></span>"
+                <hr>
+                <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
+                <br>
+                <h5>Estado: "<span id="estado"></span>"
+                    <?php
+
+                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
+                    ?>
+                </h5>
+                <?php
+                Auxiliar::ventanaModal('Modifique su estado', 3);
+                ?>
                 <?php
 
-                echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
-                ?>
-            </h5>
-            <?php
-            Auxiliar::ventanaModal('Modifique su estado', 3);
-            ?>
-            <?php
+                echo GoogleAnalytics::widget([
+                    'id' => 'TRACKING_ID',
+                    'domain' => 'TRACKING_DOMAIN',
+                    'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
+                ]); ?>
+                <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
 
-            echo GoogleAnalytics::widget([
-                'id' => 'TRACKING_ID',
-                'domain' => 'TRACKING_DOMAIN',
-                'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
-            ]); ?>
-            <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
-
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
             </div>
 
             <br>
-            <div id=personal>
+            <div class="sombra">
 
 
                 <h4>Tu progreso:</h5>
@@ -109,118 +111,125 @@ if (!isset($_COOKIE['intro'])) {
                                         ?> </h5>
                     </p>
                     <h5>Te faltan <strong> <?= Auxiliar::puntosRestantes($id, $categoriaId) ?></strong> puntos para el siguiente nivel</h5>
-                    <h6>Has conseguido: <?= Auxiliar::puntosConseguidos($id) ?> puntos</h6>
+                    <h6>Has conseguido: <?= Auxiliar::puntosConseguidos($id) == null ? '0' : Auxiliar::puntosConseguidos($id) ?> puntos</h6>
             </div>
             <br>
             <br>
 
-            <p> En función de su puntuación el sistema le propone los siguientes retos:</p>
+            <div class="sombra"> En función de su puntuación el sistema le propone los siguientes retos:
 
-            <?php
+                <?php
 
-            // $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
-            $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
+                // $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
+                $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
 
-            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                'attributes' => ['id'],
-            ],]);
-            $dataProvider = new ActiveDataProvider([
-                'query' => AccionesRetos::find()
-                    ->joinWith('retosUsuarios r')
-                    ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
+                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                    'attributes' => ['id'],
+                ],]);
+                $dataProvider = new ActiveDataProvider([
+                    'query' => AccionesRetos::find()
+                        ->joinWith('retosUsuarios r')
+                        ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
 
-            ]);
-            echo Gridpropio::widget([
-                'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table-hover hourglass-start
+                ]);
+                echo Gridpropio::widget([
+                    'dataProvider' => $dataProvider,
+                    'options' => ['class' => 'table-hover hourglass-start  
                 ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-                'columns' => [
-                    // ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'Reto',
-                        'value' => function ($dataProvider) {
+                    'columns' => [
+                        // ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'Reto',
+                            'value' => function ($dataProvider) {
 
-                            return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
-                        },
-                        'format' => 'raw',
+                                return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                            },
+                            'format' => 'raw',
+
+                        ],
+
+                        // ['class' => 'yii\grid\SerialColumn'],
+                        // [
+                        //     'attribute' => 'Aceptado',
+                        //     'value' => function ($dataProvider) {
+                        //         $response = '';
+                        //         $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
+                        //         ') : $response = icon::show('check');
+                        //         // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
+                        //         return  $response;
+                        //     },
+                        //     'format' => 'raw',
+
+                        // ],
+                    ],
+
+                ]);
+
+                Auxiliar::ventanaModal('Sus retos', 4);
+                // $arrModels = RetosUsuarios::find()->where(['usuario_id' => Yii::$app->user->identity->id])->one();
+                // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
+                // GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
+                //     'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
+                //     . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
+                // $feedCount = Feeds::findBySql($sql);
+
+                $dataProvider = new ActiveDataProvider([
+                    // 'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
+                    //     . 'and culminado=false')
+                    'query' => AccionesRetos::find()->joinWith('retosUsuarios')->where(['usuario_id' => $id])->andWhere(['culminado' => false])
+
+
+                ]);
+                // $dataProvider->setSort([
+                //     'defaultOrder' => ['created_at' => SORT_DESC],
+                // ]);
+                ?>
+            </div>
+            <div class="sombra">
+
+
+                <h5> Retos Aceptados </h5>
+                <?php
+                $dataProvider->pagination = ['pageSize' => 5];
+
+                echo GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'columns' => [
+
+                        'titulo',
+
+                        [
+                            'attribute' => 'Más info',
+                            'value' => function ($dataProvider) {
+
+                                return Html::button(Icon::show('link'), ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' . $dataProvider->id . '&usuario_id=' . Yii::$app->user->identity->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                            },
+                            'format' => 'raw',
+
+                        ],
+
+
 
                     ],
 
-                    // ['class' => 'yii\grid\SerialColumn'],
-                    // [
-                    //     'attribute' => 'Aceptado',
-                    //     'value' => function ($dataProvider) {
-                    //         $response = '';
-                    //         $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
-                    //         ') : $response = icon::show('check');
-                    //         // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
-                    //         return  $response;
-                    //     },
-                    //     'format' => 'raw',
+                ]);
 
-                    // ],
-                ],
-
-            ]);
-
-            Auxiliar::ventanaModal('Sus retos', 4);
-            // $arrModels = RetosUsuarios::find()->where(['usuario_id' => Yii::$app->user->identity->id])->one();
-            // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-            // GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
-            //     'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
-            //     . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
-            // $feedCount = Feeds::findBySql($sql);
-
-            $dataProvider = new ActiveDataProvider([
-                // 'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
-                //     . 'and culminado=false')
-                'query' => AccionesRetos::find()->joinWith('retosUsuarios')->where(['usuario_id' => $id])->andWhere(['culminado' => false])
-
-
-            ]);
-            // $dataProvider->setSort([
-            //     'defaultOrder' => ['created_at' => SORT_DESC],
-            // ]);
-            ?>
-            <h5> Retos Aceptados </h5>
-            <?php
-            $dataProvider->pagination = ['pageSize' => 5];
-
-            echo GridView::widget([
-                'dataProvider' => $dataProvider,
-                'columns' => [
-
-                    'titulo',
-
-                    [
-                        'attribute' => 'Más info',
-                        'value' => function ($dataProvider) {
-
-                            return Html::button(Icon::show('link'), ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' . $dataProvider->id . '&usuario_id=' . Yii::$app->user->identity->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
-                        },
-                        'format' => 'raw',
-
-                    ],
-
-
-
-                ],
-
-            ]);
-
-            ?>
+                ?>
 
 
 
 
+            </div>
 
             <br>
+            <div class="sombra">
 
-            <h5>Comparte contenido en otras redes:</h5>
-            <?php echo TwitterPlugin::widget([]); ?>
-            <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <h5>Comparte contenido en otras redes:</h5>
+                <?php echo TwitterPlugin::widget([]); ?>
+                <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
             <br>
         </aside>
         <main class=" col-md-9 col-lg-6">
@@ -442,44 +451,48 @@ if (!isset($_COOKIE['intro'])) {
 
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
-            <p class="h5 text-success"><strong>TOP de mejores participantes #ecofriendly</strong> </p>
+            <div class="sombra">
 
 
-            <?php
+                <p class="h5 text-success text-center"><strong>TOP participantes #ecofriendly</strong> </p>
 
-            $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
-            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                'attributes' => ['puntuacion'],
-            ],]);
 
-            echo Gridpropio::widget([
-                'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+                <?php
 
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'usuarios.nombre',
+                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
+                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                    'attributes' => ['puntuacion'],
+                ],]);
 
-                    [
-                        'attribute' => 'puntuacion',
-                        'value' => function ($dataProvider) {
+                echo Gridpropio::widget([
+                    'dataProvider' => $dataProvider,
+                    'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-                            return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
-                        },
-                        'format' => 'raw',
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'usuarios.nombre',
 
+                        [
+                            'attribute' => 'puntuacion',
+                            'value' => function ($dataProvider) {
+
+                                return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
+                            },
+                            'format' => 'raw',
+
+                        ],
                     ],
-                ],
 
-            ]);
-
+                ]);
 
 
-            ?>
+
+                ?>
+            </div>
             <br>
             <div class="card card-inverse">
-                <div class="card-block">
-                    <h4 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Encuentra a más usuarios</h4>
+                <div class="card-block sombraBis">
+                    <h5 class="card-title h5  text-center"> <span class="glyphicon glyphicon-plus "></span> <strong> Encuentra a más usuarios </strong></h5>
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
 
                     <div class="col-12">
@@ -531,11 +544,11 @@ if (!isset($_COOKIE['intro'])) {
             </div>
             <br>
             <div class="card card-inverse">
-                <div class="card-block">
+                <div class="card-block sombraBis">
 
-                    <h4 class="card-title">Tu red de amigos:</h4>
+                    <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
                     <p class="card-text">
-                        <div class="    col-12 ">
+                        <div class="col-12">
                             <?php
                             // var_dump($seguidores);
                             // die;
@@ -544,13 +557,13 @@ if (!isset($_COOKIE['intro'])) {
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo  Html::tag('span', Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['class' => 'username']);
+                                echo  '<br>' . Html::tag('span', Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['class' => 'username']);
 
                                 // echo Html::tag(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one())->username;
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',
-                                    ['class' => 'btn btn-danger btn-sm ml-2'],
+                                    ['class' => 'btn btn-danger btn-sm ml-3'],
                                 );
                                 echo '</li></ul>' . Html::endForm();
                             }
