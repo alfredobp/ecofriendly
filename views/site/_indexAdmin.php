@@ -89,7 +89,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                 <?php $puntosTotales =  Ranking::find()->sum('puntuacion'); ?>
 
                 <p> Se han conseguido: <?= $puntosTotales ?> puntos #ecofriendly </p>
-                <p>Total de usuarios registrados: <?= Usuarios::find()->count() - 1 ?></p>
+                <p>Total usuarios registrados: <?= Usuarios::find()->count() - 1 ?></p>
 
             </div>
             <br>
@@ -105,9 +105,8 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
             <br>
         </aside>
         <main class=" col-md-9 col-lg-6">
-            <h1 class="text-center">Actividad en la red</h1>
-  
-            <hr>
+            <h1 class="text-center shadow p-3 mb-3 bg-white rounded">Actividad en #ecofriendly </h1>
+            <hr>            
             </hr>
             <?php $i = 0 ?>
             <?php foreach ($feeds as $feeds) :
@@ -273,7 +272,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
             </div>
             <div class="card card-inverse">
                 <div class="card-block sombraBis">
-                    <h5 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Usuarios Registrados</h5>
+                    <h5 class="card-title">  Usuarios Registrados</h5>
 
 
                     <div class="col-12">
