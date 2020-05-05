@@ -183,7 +183,7 @@ if (!isset($_COOKIE['intro'])) {
                 $dataProvider = new ActiveDataProvider([
                     // 'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
                     //     . 'and culminado=false')
-                    'query' => AccionesRetos::find()->joinWith('retosUsuarios')->where(['usuario_id' => $id])->andWhere(['culminado' => false])
+                    'query' => RetosUsuarios::find()->joinWith('idreto0')->where(['usuario_id' => $id])
 
 
                 ]);
@@ -204,17 +204,45 @@ if (!isset($_COOKIE['intro'])) {
                     'dataProvider' => $dataProvider,
                     'columns' => [
 
-                        'titulo',
-
                         [
-                            'attribute' => 'Más info',
+                            'attribute' => 'Titulo',
+                            'contentOptions' => [
+                                'style' => [
+                                    'max-height' => '50px',
+                                    'white-space' => 'normal',
+                                    'align-content' => 'center',
+                                ],
+                            ],
                             'value' => function ($dataProvider) {
 
-                                return Html::button(Icon::show('link'), ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' . $dataProvider->id . '&usuario_id=' . Yii::$app->user->identity->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                                return  Html::button($dataProvider->idreto0['titulo'], ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
+                                 $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
+                                 'class' => 'col-12 btn modalButton4 btn-md active text-h6 text-left', 'id' => 'modalButton4']);
                             },
                             'format' => 'raw',
 
                         ],
+                        
+
+                        [
+                            'attribute' => 'Estado',
+                            'contentOptions' => [
+                                'class'=>'text-center ',
+                                'style' => [
+                                    'max-width' => '20px',
+                                    'white-space' => 'normal',
+                                    
+                                ],
+                            ],
+                            'value' => function ($dataProvider) {
+
+                                return $dataProvider->culminado == true ? Icon::show('check') : Icon::show('clock');
+                            },
+                            'format' => 'raw',
+
+                        ],
+
+
 
 
 
@@ -232,7 +260,8 @@ if (!isset($_COOKIE['intro'])) {
             <br>
             <div class="sombra">
 
-                <h5>Comparte contenido en otras redes:</h5>
+                <h5 class="text-center">Comparte contenido en otras redes:</h5>
+                <br>
                 <?php echo TwitterPlugin::widget([]); ?>
                 <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
