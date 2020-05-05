@@ -90,7 +90,27 @@ class SiteController extends Controller
             ->all();
 
         if (Yii::$app->user->identity->rol == 'superadministrador') {
-            return $this->render('about');
+            $pagination = new Pagination([
+                'defaultPageSize' => 10,
+                'totalCount' => Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                    ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                    ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                    ->count(),
+            ]);
+
+            $feed = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                ->orderBy('feeds.created_at desc')
+                ->asArray()->all();
+
+
+
+            return $this->render('_indexAdmin', [
+                'model' => Feeds::find()->all(),
+                'feeds' => $feed,
+                'pagination' => $pagination,
+            ]);
         } else {
             if ($puntuacion == null) {
                 return $this->redirect(['usuarios/valorar']);
