@@ -343,8 +343,8 @@ if (!isset($_COOKIE['intro'])) {
                                     ]
                                 ) : '' ?></p>
 
-                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
-                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
+                            <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                            <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
 
                             <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
                         </div>
@@ -502,15 +502,15 @@ if (!isset($_COOKIE['intro'])) {
                             . Html::textInput(
                                 'cadena',
                                 '',
-                                ['placeholder' => 'Buscar #Ecofriendly', 'required' => 'true'],
+                                ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
                                 ['class' => 'form-control']
                             )
+                            . '<br>'
                             . Html::submitButton(
                                 'Buscar amigos',
-                                ['class' => 'btn btn-success nav-link ']
+                                ['class' => 'btn btn-success nav-link mt-3 ']
                             )
                             . Html::endForm();
-
 
 
 
@@ -524,6 +524,7 @@ if (!isset($_COOKIE['intro'])) {
                         Modal::end();
                         ?>
 
+                        <br>
                     </div>
                     <div class="divider"></div>
                 </div>
