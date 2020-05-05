@@ -74,10 +74,10 @@ if (!isset($_COOKIE['intro'])) {
                 <hr>
                 <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
                 <br>
-                <h5>Estado: "<span id="estado"></span>"
+                <h5><?= Icon::show('comments') ?>: "<span id="estado"></span>"
                     <?php
 
-                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
+                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']);
                     ?>
                 </h5>
                 <?php
@@ -101,22 +101,28 @@ if (!isset($_COOKIE['intro'])) {
             <div class="sombra">
 
 
-                <h4>Tu progreso:</h5>
-                    <p><strong>Has publicado </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> 'Feeds';
-                        <br>
-                        <strong>Has superado: <?= RetosUsuarios::find()->where(['usuario_id' => $id])->andWhere(['culminado' => true])->count() ?></strong> Retos #ecofriendly
-                        <br>
-                        <h5> Tu nivel: <?php $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])->one();
-                                        echo '<span class="badge badge-info">' . $nivel->cat_nombre .  '</span>';
-                                        ?> </h5>
-                    </p>
-                    <h5>Te faltan <strong> <?= Auxiliar::puntosRestantes($id, $categoriaId) ?></strong> puntos para el siguiente nivel</h5>
-                    <h6>Has conseguido: <?= Auxiliar::puntosConseguidos($id) == null ? '0' : Auxiliar::puntosConseguidos($id) ?> puntos</h6>
+                <h4 class="text-center">Tu progreso:</h4>
+                <br>
+                <h6>Has publicado </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> Feeds</h6>
+                <br>
+                <h6> Has superado: <?= RetosUsuarios::find()->where(['usuario_id' => $id])->andWhere(['culminado' => true])->count() ?> Retos </h6>
+                <br>
+                <h6> Tu nivel: <?php $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])->one();
+                                echo '<span class="badge badge-info">' . $nivel->cat_nombre .  '</span>';
+                                ?> </h6>
+                <br>
+                <h6>Te faltan <strong> <?= Auxiliar::puntosRestantes($id, $categoriaId) ?></strong> puntos para el siguiente nivel</h6>
+                <br>
+                <h6>Has conseguido: <?= Auxiliar::puntosConseguidos($id) == null ? ' 0' : Auxiliar::puntosConseguidos($id) ?> puntos</h6>
             </div>
             <br>
             <br>
 
-            <div class="sombra"> En función de su puntuación el sistema le propone los siguientes retos:
+            <div class="sombra">
+                <h4 class="text-center">Retos propuestos:</h4>
+                <br>
+
+                En función de su puntuación el sistema le propone los siguientes retos:
 
                 <?php
 
@@ -189,7 +195,8 @@ if (!isset($_COOKIE['intro'])) {
             <div class="sombra">
 
 
-                <h5> Retos Aceptados </h5>
+                <h4 class="text-center">Retos aceptados:</h4>
+                <br>
                 <?php
                 $dataProvider->pagination = ['pageSize' => 5];
 
@@ -459,10 +466,10 @@ if (!isset($_COOKIE['intro'])) {
 
                 <?php
 
-                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
-                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                    'attributes' => ['puntuacion'],
-                ],]);
+                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
+                $dataProvider = new ArrayDataProvider([
+                    'allModels' => $arrModels,
+                ]);
 
                 echo Gridpropio::widget([
                     'dataProvider' => $dataProvider,
@@ -470,8 +477,16 @@ if (!isset($_COOKIE['intro'])) {
 
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        'usuarios.nombre',
 
+                        [
+                            'attribute' => 'Usuario',
+                            'value' => function ($dataProvider) {
+
+                                return  ucfirst($dataProvider->usuarios['nombre']);
+                            },
+                            'format' => 'raw',
+
+                        ],
                         [
                             'attribute' => 'puntuacion',
                             'value' => function ($dataProvider) {
