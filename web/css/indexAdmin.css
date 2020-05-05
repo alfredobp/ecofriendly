@@ -1,0 +1,60 @@
+body {
+  font-size: 16px;
+}
+body:after {
+  content: "MODO ADMIN"; 
+  font-size: 7em;  
+  color: rgba(66, 66, 66, 0.4);
+  z-index: 9999;
+  opacity: 0.4;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 90px;
+  right: -1200px;
+  bottom: 0;
+  left: 0;
+  -webkit-transform: rotate(90deg); 
+  -moz-transform: rotate(90deg);
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  -ms-pointer-events: none;
+  -o-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.sombra{
+  position:relative;
+  float:left;
+  
+  padding:1em;
+  margin:1em 5px 3em;
+  background:#fff;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3),0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.sombraBis{
+  position:relative;
+  float:left;
+  
+  padding:1em;
+  margin:0;
+  background:#fff;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3),0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.breadcrumb{
+  background:#fff;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3),0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
