@@ -8,29 +8,27 @@ use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use app\helper_propio\Gridpropio;
-use app\models\AccionesRetos;
+
 use app\models\Comentarios;
-use app\models\Ecoretos;
+
 use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
-use kartik\grid\GridView as GridGridView;
-use kartik\grid\GridViewAsset;
+
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
-use yii\bootstrap4\Nav;
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
-use yii\jui\Dialog;
+
 use kartik\icons\Icon;
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
+
 use yii\data\ArrayDataProvider;
-use yii\grid\GridView;
+
 use yii\web\View as WebView;
 use yii\widgets\ListView;
 
@@ -60,19 +58,9 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
             $categoriaId = Yii::$app->user->identity->categoria_id;
 
             ?>
-            <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+            <!-- <hr>
+            <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2> -->
 
-            <!-- <?= Auxiliar::obtenerImagenUsuario($id, $options); ?> -->
-
-            <hr>
-            <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2>
-            <br>
-            <!-- <h5>Estado: "<span id="estado"></span>"
-                <?php
-
-                echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton3']);
-                ?>
-            </h5> -->
             <?php
             Auxiliar::ventanaModal('Modifique su estado', 3);
             ?>
@@ -85,42 +73,40 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
             ]); ?>
 
             <?php $puntuacionMedia = Ranking::find()->average('puntuacion'); ?>
-            La puntuación media de los usuarios de #ecofriendly es de: <?= Yii::$app->formatter->asInteger($puntuacionMedia) ?> puntos.
 
+            <div class="sombra">
+                <h5 class="text-info text-center"><strong>Datos generales #ecofriendly</strong></h5>
+                <div class="divider mb-3"></div>
+                La puntuación media de los usuarios de #ecofriendly es de: <span class="badge badge-secondary"> <?= Yii::$app->formatter->asInteger($puntuacionMedia) ?> </span> puntos.
+                <br>
+                <br>
+                <p>Se han publicado <strong> <?= $cuentaFeeds = Feeds::find()->count(); ?> </strong> Feeds</p>
+                <br>
+                <p>Se han realizado <?= Comentarios::find()->count() ?> comentarios</p>
+                <br>
+                <p>Los usuarios han superado: <?= RetosUsuarios::find()->count() ?> Retos #ecofriendly</p>
+                <br>
+                <?php $puntosTotales =  Ranking::find()->sum('puntuacion'); ?>
 
-            <br>
-            <br>
-
-            <div id="admin">
-
-                <h5>Datos generales de #ecofriendly:</h5>
-                <p><strong> Se han publicado </strong> <?= $cuentaFeeds = Feeds::find()->count(); ?> 'Feeds';
-                    <p>Se han realizado <?= Comentarios::find()->count() ?> comentarios.</p>
-                    <br>
-                    <strong>Los usuarios han superado: <?= RetosUsuarios::find()->count() ?></strong> Retos #ecofriendly
-                    <br>
-                    <?php $puntosTotales =  Ranking::find()->sum('puntuacion'); ?>
-
-                    <h5> Se han conseguido: <?= $puntosTotales ?></h5> puntos #ecofriendly
-                </p>
+                <p> Se han conseguido: <?= $puntosTotales ?> puntos #ecofriendly </p>
+                <p>Total de usuarios registrados: <?= Usuarios::find()->count() - 1 ?></p>
 
             </div>
             <br>
             <br>
-            <br>
-            <h5>Comparte contenido en otras redes:</h5>
-            <?php echo TwitterPlugin::widget([]); ?>
-            <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div class="sombra">
+
+                <h5>Comparte contenido:</h5>
+                <br>
+                <?php echo TwitterPlugin::widget([]); ?>
+                <?php echo FacebookPlugin::widget(['type' => FacebookPlugin::SHARE, 'settings' => ['size' => 'small', 'layout' => 'button_count', 'mobile_iframe' => 'false']]); ?>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
             <br>
         </aside>
         <main class=" col-md-9 col-lg-6">
-        <h1>Actividad en la red</h1>
-            <article class="tab-content" id="myTabContent">
-              
-
-                <br>
-            </article>
+            <h1 class="text-center">Actividad en la red</h1>
+  
             <hr>
             </hr>
             <?php $i = 0 ?>
@@ -245,54 +231,59 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
 
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
-            <p class="h5 text-success"><strong>TOP de mejores participantes #ecofriendly</strong> </p>
+
+        
+            <div class="sombra">
+
+                <p class="h5 text-success text-center"><strong>TOP mejores #ecofriendly</strong> </p>
 
 
-            <?php
+                <?php
 
-            $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
-            $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                'attributes' => ['puntuacion'],
-            ],]);
+                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
+                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                    'attributes' => ['puntuacion'],
+                ],]);
 
-            echo Gridpropio::widget([
-                'dataProvider' => $dataProvider,
-                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+                echo Gridpropio::widget([
+                    'dataProvider' => $dataProvider,
+                    'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'usuarios.nombre',
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'usuarios.nombre',
 
-                    [
-                        'attribute' => 'puntuacion',
-                        'value' => function ($dataProvider) {
+                        [
+                            'attribute' => 'puntuacion',
+                            'value' => function ($dataProvider) {
 
-                            return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
-                        },
-                        'format' => 'raw',
+                                return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
+                            },
+                            'format' => 'raw',
 
+                        ],
                     ],
-                ],
 
-            ]);
-
+                ]);
 
 
-            ?>
-            <br>
+
+                ?>
+                <br>
+            </div>
             <div class="card card-inverse">
-                <div class="card-block">
-                    <h4 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Usuarios Registrados</h4>
+                <div class="card-block sombraBis">
+                    <h5 class="card-title"> <span class="glyphicon glyphicon-plus "></span> Usuarios Registrados</h5>
 
 
                     <div class="col-12">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px']];
                         $usuarios = Usuarios::find()->all();
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
-                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
-                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                                . '<li class="list-group-item btn-light col-12" style="margin:1px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
+                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-xl active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }
@@ -306,12 +297,12 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                                 'cadena',
                                 '',
                                 ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
-                                ['class' => 'form-control']
+                                ['class' => 'form-control col-10']
                             )
                             . '<br>'
                             . Html::submitButton(
                                 'Buscar amigos',
-                                ['class' => 'btn btn-success nav-link mt-3 ']
+                                ['class' => 'btn btn-success nav-link mt-3 col-10 ']
                             )
                             . Html::endForm();
 
