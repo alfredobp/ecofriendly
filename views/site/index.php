@@ -15,31 +15,22 @@ use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
-use kartik\grid\GridView as GridGridView;
-use kartik\grid\GridViewAsset;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
-use Symfony\Component\OptionsResolver\Options;
-use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Url;
 use yii\bootstrap4\LinkPager;
-use yii\bootstrap4\Nav;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
-use yii\jui\Dialog;
 use kartik\icons\Icon;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\web\View as WebView;
-use yii\widgets\ListView;
 
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
-
 
 // die;
 
@@ -54,7 +45,6 @@ if (!isset($_COOKIE['intro'])) {
 }
 
 ?>
-
 
 <div class="container-fluid">
     <div class="loader"></div>
@@ -164,7 +154,6 @@ if (!isset($_COOKIE['intro'])) {
 
                     'query' => RetosUsuarios::find()->joinWith('idreto0')->where(['usuario_id' => $id])
 
-
                 ]);
 
                 ?>
@@ -184,7 +173,7 @@ if (!isset($_COOKIE['intro'])) {
                                 return  Html::button($dataProvider->idreto0['titulo'], [
                                     'value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
                                         $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
-                                        'class' => 'col-12 btn modalButton5 btn-md active', 'id' => 'modalButton5'
+                                    'class' => 'col-12 btn modalButton5 btn-md active', 'id' => 'modalButton5'
                                 ]);
                             },
                             'format' => 'raw',
@@ -193,7 +182,7 @@ if (!isset($_COOKIE['intro'])) {
 
                         [
                             'attribute' => 'Estado',
-                       
+
                             'value' => function ($dataProvider) {
 
                                 return $dataProvider->culminado == true ? Icon::show('check') : Icon::show('clock');
