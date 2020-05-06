@@ -21,6 +21,7 @@ use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -70,9 +71,24 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallBack' => [$this, 'successCallBack'],
+            ],
         ];
     }
-
+    public function successCallBack($client)
+    {
+        $attributes = $client->getUserAttributes();
+        $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
+        if (!empty($user)) {
+            Yii::$app->usuarios->login($user);
+        } else {
+            $session = Yii::$app->session;
+            $session['attributes'] = $attributes;
+            $this->successURL = Url::to(['login']);
+        }
+    }
     /**
      * Displays homepage.
      *

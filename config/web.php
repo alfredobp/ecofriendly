@@ -110,6 +110,15 @@ $config = [
         // your other modules
     ],
     'authClientCollection'=>[
+        'class'=>'yii\authClient\Collection',
+        'clients'=>[
+            'facebook'=>[
+                'class'=>'yii\authClient\clientsFacebook',
+                'authUrl'=>'https://www.facebook.com/dialog/oauth?display-popup',
+                'clientId'=>'1084329348614527',
+                'clientSecret'=>'5e6d9158d0b287efb6e5267ca81827a0',
+            ]
+        ]
 
     ],
     'params' => $params,
