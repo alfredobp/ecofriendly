@@ -109,6 +109,9 @@ $config = [
         ],
         // your other modules
     ],
+    'authClientCollection'=>[
+
+    ],
     'params' => $params,
 ];
 
