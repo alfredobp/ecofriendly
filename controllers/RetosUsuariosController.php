@@ -118,6 +118,8 @@ class RetosUsuariosController extends Controller
      * de forma que se anota como reto cumplido y se aumentan las puntuaciones de ese usuario.
      * Como la puntuación máxima es 100, se controla mediante este método, impidiendo que lance una excepción al
      * integrar grabar el valor en la base de datos.
+     * Por otro lado, se genera un feed automático cuando el usuario finaliza un reto aceptado, con el mensaje y
+     * el titulo del reto que ha sido superado.
      * @param [type] $idreto
      * @param [type] $usuario_id
      * @return void
