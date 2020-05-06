@@ -127,6 +127,7 @@ class RetosUsuariosController extends Controller
         $model = $this->findModel($idreto, $usuario_id);
         $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $idreto])->one();
         $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
+        $titulo = AccionesRetos::find()->where(['id' => $idreto])->one();
         $feed = new Feeds();
 
 
@@ -136,7 +137,7 @@ class RetosUsuariosController extends Controller
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
             $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-            $feed->contenido = 'Acabo de superar un reto. Ahora soy mas <strong>#ecofriendly</strong>';
+            $feed->contenido = 'Acabo de superar el reto: ' . $titulo->titulo . ' Ahora soy mas <strong>#ecofriendly</strong>';
             $feed->usuariosid = $usuario_id;
             $feed->imagen = 'retosuperado.jpg';
             $feed->created_at = date('Y-m-d H:i:s');
