@@ -7,10 +7,10 @@
         
 <link href="./assets/ffebd7b6/css/bootstrap.css" rel="stylesheet">
 <link href="./assets/ac3e485a/solarized_light.css" rel="stylesheet">
-<link href="./assets/2f2f57f7/style.css" rel="stylesheet">
+<link href="./assets/ef5ce69c/style.css" rel="stylesheet">
 <script src="./assets/a0d54ea4/jquery.js"></script>
 <script src="./assets/ffebd7b6/js/bootstrap.js"></script>
-<script src="./assets/688475e9/jssearch.js"></script>    <title>AccionesRetos, app\models\AccionesRetos - API del proyecto</title>
+<script src="./assets/a8f7c482/jssearch.js"></script>    <title>AccionesRetos, app\models\AccionesRetos - API del proyecto</title>
 </head>
 <body>
 
@@ -40,26 +40,27 @@
 <a class="list-group-item" href="#navigation-183" data-toggle="collapse" data-parent="#navigation">app\components <b class="caret"></b></a><div id="navigation-183" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-components-herokutarget.html">HerokuTarget</a></div>
 <a class="list-group-item" href="#navigation-184" data-toggle="collapse" data-parent="#navigation">app\controllers <b class="caret"></b></a><div id="navigation-184" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-controllers-accionesretoscontroller.html">AccionesRetosController</a>
 <a class="list-group-item" href="./app-controllers-bloqueoscontroller.html">BloqueosController</a>
-<a class="list-group-item" href="./app-controllers-categoriasecoretoscontroller.html">CategoriasEcoretosController</a>
 <a class="list-group-item" href="./app-controllers-comentarioscontroller.html">ComentariosController</a>
 <a class="list-group-item" href="./app-controllers-ecoretoscontroller.html">EcoretosController</a>
 <a class="list-group-item" href="./app-controllers-feedscontroller.html">FeedsController</a>
+<a class="list-group-item" href="./app-controllers-rankingcontroller.html">RankingController</a>
+<a class="list-group-item" href="./app-controllers-retosusuarioscontroller.html">RetosUsuariosController</a>
 <a class="list-group-item" href="./app-controllers-seguidorescontroller.html">SeguidoresController</a>
 <a class="list-group-item" href="./app-controllers-sitecontroller.html">SiteController</a></div>
 <a class="list-group-item" href="#navigation-185" data-toggle="collapse" data-parent="#navigation">app\helper_propio <b class="caret"></b></a><div id="navigation-185" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-helper_propio-auxiliar.html">Auxiliar</a>
-<a class="list-group-item" href="./app-helper_propio-gestioncookies.html">GestionCookies</a></div>
+<a class="list-group-item" href="./app-helper_propio-gestioncookies.html">GestionCookies</a>
+<a class="list-group-item" href="./app-helper_propio-gridpropio.html">Gridpropio</a>
+<a class="list-group-item" href="./app-helper_propio-menulateral.html">MenuLateral</a></div>
 <a class="list-group-item active" href="#navigation-186" data-toggle="collapse" data-parent="#navigation">app\models <b class="caret"></b></a><div id="navigation-186" class="submenu panel-collapse collapse in"><a class="list-group-item active" href="./app-models-accionesretos.html">AccionesRetos</a>
 <a class="list-group-item" href="./app-models-accionesretossearch.html">AccionesRetosSearch</a>
 <a class="list-group-item" href="./app-models-bloqueos.html">Bloqueos</a>
 <a class="list-group-item" href="./app-models-bloqueossearch.html">BloqueosSearch</a>
-<a class="list-group-item" href="./app-models-categoriasecoretos.html">CategoriasEcoretos</a>
-<a class="list-group-item" href="./app-models-categoriasecoretossearch.html">CategoriasEcoretosSearch</a>
 <a class="list-group-item" href="./app-models-comentarios.html">Comentarios</a>
 <a class="list-group-item" href="./app-models-comentariossearch.html">ComentariosSearch</a>
 <a class="list-group-item" href="./app-models-contactform.html">ContactForm</a>
-<a class="list-group-item" href="./app-models-ecoretos.html">EcoRetos</a>
-<a class="list-group-item" href="./app-models-ecoretossearch.html">EcoRetosSearch</a>
 <a class="list-group-item" href="./app-models-ecovalora.html">EcoValora</a>
+<a class="list-group-item" href="./app-models-ecoretos.html">Ecoretos</a>
+<a class="list-group-item" href="./app-models-ecoretossearch.html">EcoretosSearch</a>
 <a class="list-group-item" href="./app-models-feeds.html">Feeds</a>
 <a class="list-group-item" href="./app-models-feedssearch.html">FeedsSearch</a>
 <a class="list-group-item" href="./app-models-formrecoverpass.html">FormRecoverPass</a>
@@ -69,6 +70,9 @@
 <a class="list-group-item" href="./app-models-mensajesprivados.html">MensajesPrivados</a>
 <a class="list-group-item" href="./app-models-notificaciones.html">Notificaciones</a>
 <a class="list-group-item" href="./app-models-ranking.html">Ranking</a>
+<a class="list-group-item" href="./app-models-rankingsearch.html">RankingSearch</a>
+<a class="list-group-item" href="./app-models-retosusuarios.html">RetosUsuarios</a>
+<a class="list-group-item" href="./app-models-retosusuariossearch.html">RetosUsuariosSearch</a>
 <a class="list-group-item" href="./app-models-seguidores.html">Seguidores</a>
 <a class="list-group-item" href="./app-models-user.html">User</a>
 <a class="list-group-item" href="./app-models-usuarios.html">Usuarios</a>
@@ -141,17 +145,17 @@
         <td>List of behaviors attached to this component</td>
         <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
-            <tr id="$cat">
-        <td><a href="app-models-accionesretos.html#$cat-detail">$cat</a></td>
-        <td><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></td>
-        <td></td>
-        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
-    </tr>
             <tr class="inherited" id="$dirtyAttributes">
         <td><a href="yii-db-baseactiverecord.html#$dirtyAttributes-detail">$dirtyAttributes</a></td>
         <td><a href="http://www.php.net/language.types.array">array</a></td>
         <td>The changed attribute values (name-value pairs)</td>
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
+    </tr>
+            <tr id="$ecoreto">
+        <td><a href="app-models-accionesretos.html#$ecoreto-detail">$ecoreto</a></td>
+        <td><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></td>
+        <td></td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
     </tr>
             <tr class="inherited" id="$errors">
         <td><a href="yii-base-model.html#$errors-detail">$errors</a></td>
@@ -201,11 +205,23 @@
         <td>An array of related records indexed by relation names.</td>
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
+            <tr id="$retosUsuarios">
+        <td><a href="app-models-accionesretos.html#$retosUsuarios-detail">$retosUsuarios</a></td>
+        <td><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></td>
+        <td></td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
+    </tr>
             <tr class="inherited" id="$scenario">
         <td><a href="yii-base-model.html#$scenario-detail">$scenario</a></td>
         <td><a href="http://www.php.net/language.types.string">string</a></td>
         <td>The scenario that this model is in.</td>
         <td><a href="yii-base-model.html">yii\base\Model</a></td>
+    </tr>
+            <tr id="$usuarios">
+        <td><a href="app-models-accionesretos.html#$usuarios-detail">$usuarios</a></td>
+        <td><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></td>
+        <td></td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
     </tr>
             <tr class="inherited" id="$validators">
         <td><a href="yii-base-model.html#$validators-detail">$validators</a></td>
@@ -233,9 +249,9 @@
   <th>Method</th><th>Description</th><th>Defined By</th>
 </tr>
         <tr class="inherited" id="__call()">
-        <td><a href="yii-base-baseobject.html#__call()-detail">__call()</a></td>
+        <td><a href="yii-base-component.html#__call()-detail">__call()</a></td>
         <td>Calls the named method which is not a class method.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="__clone()">
         <td><a href="yii-base-component.html#__clone()-detail">__clone()</a></td>
@@ -248,24 +264,24 @@
         <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
     </tr>
             <tr class="inherited" id="__get()">
-        <td><a href="yii-base-baseobject.html#__get()-detail">__get()</a></td>
-        <td>Returns the value of an object property.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html#__get()-detail">__get()</a></td>
+        <td>PHP getter magic method.</td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="__isset()">
-        <td><a href="yii-base-baseobject.html#__isset()-detail">__isset()</a></td>
-        <td>Checks if a property is set, i.e. defined and not null.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html#__isset()-detail">__isset()</a></td>
+        <td>Checks if a property value is null.</td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="__set()">
-        <td><a href="yii-base-baseobject.html#__set()-detail">__set()</a></td>
-        <td>Sets value of an object property.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html#__set()-detail">__set()</a></td>
+        <td>PHP setter magic method.</td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="__unset()">
-        <td><a href="yii-base-baseobject.html#__unset()-detail">__unset()</a></td>
-        <td>Sets an object property to null.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html#__unset()-detail">__unset()</a></td>
+        <td>Sets a component property to be null.</td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="activeAttributes()">
         <td><a href="yii-base-model.html#activeAttributes()-detail">activeAttributes()</a></td>
@@ -328,9 +344,9 @@
         <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
     </tr>
             <tr class="inherited" id="attributes()">
-        <td><a href="yii-base-model.html#attributes()-detail">attributes()</a></td>
-        <td>Returns the list of attribute names.</td>
-        <td><a href="yii-base-model.html">yii\base\Model</a></td>
+        <td><a href="yii-db-activerecordinterface.html#attributes()-detail">attributes()</a></td>
+        <td>Returns the list of all attribute names of the record.</td>
+        <td><a href="yii-db-activerecordinterface.html">yii\db\ActiveRecordInterface</a></td>
     </tr>
             <tr class="inherited" id="beforeDelete()">
         <td><a href="yii-db-baseactiverecord.html#beforeDelete()-detail">beforeDelete()</a></td>
@@ -353,14 +369,14 @@
         <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="canGetProperty()">
-        <td><a href="yii-base-baseobject.html#canGetProperty()-detail">canGetProperty()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#canGetProperty()-detail">canGetProperty()</a></td>
         <td>Returns a value indicating whether a property can be read.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="canSetProperty()">
-        <td><a href="yii-base-baseobject.html#canSetProperty()-detail">canSetProperty()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#canSetProperty()-detail">canSetProperty()</a></td>
         <td>Returns a value indicating whether a property can be set.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="className()">
         <td><a href="yii-base-baseobject.html#className()-detail">className()</a></td>
@@ -378,14 +394,14 @@
         <td><a href="yii-base-model.html">yii\base\Model</a></td>
     </tr>
             <tr class="inherited" id="delete()">
-        <td><a href="yii-db-activerecord.html#delete()-detail">delete()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#delete()-detail">delete()</a></td>
         <td>Deletes the table row corresponding to this active record.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="deleteAll()">
-        <td><a href="yii-db-activerecord.html#deleteAll()-detail">deleteAll()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#deleteAll()-detail">deleteAll()</a></td>
         <td>Deletes rows in the table using the provided conditions.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
                 <tr class="inherited" id="detachBehavior()">
         <td><a href="yii-base-component.html#detachBehavior()-detail">detachBehavior()</a></td>
@@ -403,9 +419,9 @@
         <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="equals()">
-        <td><a href="yii-db-activerecord.html#equals()-detail">equals()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#equals()-detail">equals()</a></td>
         <td>Returns a value indicating whether the given active record is the same as the current one.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="extraFields()">
         <td><a href="yii-base-arrayabletrait.html#extraFields()-detail">extraFields()</a></td>
@@ -418,9 +434,9 @@
         <td><a href="yii-base-arrayabletrait.html">yii\base\ArrayableTrait</a></td>
     </tr>
                         <tr class="inherited" id="find()">
-        <td><a href="yii-db-activerecord.html#find()-detail">find()</a></td>
+        <td><a href="yii-db-activerecordinterface.html#find()-detail">find()</a></td>
         <td>Creates an <a href="yii-db-activequeryinterface.html">yii\db\ActiveQueryInterface</a> instance for query purpose.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-activerecordinterface.html">yii\db\ActiveRecordInterface</a></td>
     </tr>
             <tr class="inherited" id="findAll()">
         <td><a href="yii-db-baseactiverecord.html#findAll()-detail">findAll()</a></td>
@@ -458,14 +474,14 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="getAttributeHint()">
-        <td><a href="yii-base-model.html#getAttributeHint()-detail">getAttributeHint()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#getAttributeHint()-detail">getAttributeHint()</a></td>
         <td>Returns the text hint for the specified attribute.</td>
-        <td><a href="yii-base-model.html">yii\base\Model</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="getAttributeLabel()">
-        <td><a href="yii-base-model.html#getAttributeLabel()-detail">getAttributeLabel()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#getAttributeLabel()-detail">getAttributeLabel()</a></td>
         <td>Returns the text label for the specified attribute.</td>
-        <td><a href="yii-base-model.html">yii\base\Model</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="getAttributes()">
         <td><a href="yii-base-model.html#getAttributes()-detail">getAttributes()</a></td>
@@ -482,20 +498,20 @@
         <td>Returns all behaviors attached to this component.</td>
         <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
-            <tr id="getCat()">
-        <td><a href="app-models-accionesretos.html#getCat()-detail">getCat()</a></td>
-        <td>Gets query for <span class="broken-link">\app\models\Cat</span>.</td>
-        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
-    </tr>
             <tr class="inherited" id="getDb()">
-        <td><a href="yii-db-activerecord.html#getDb()-detail">getDb()</a></td>
-        <td>Returns the database connection used by this AR class.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-activerecordinterface.html#getDb()-detail">getDb()</a></td>
+        <td>Returns the connection used by this AR class.</td>
+        <td><a href="yii-db-activerecordinterface.html">yii\db\ActiveRecordInterface</a></td>
     </tr>
             <tr class="inherited" id="getDirtyAttributes()">
         <td><a href="yii-db-baseactiverecord.html#getDirtyAttributes()-detail">getDirtyAttributes()</a></td>
         <td>Returns the attribute values that have been modified since they are loaded or saved most recently.</td>
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
+    </tr>
+            <tr id="getEcoreto()">
+        <td><a href="app-models-accionesretos.html#getEcoreto()-detail">getEcoreto()</a></td>
+        <td>Gets query for <span class="broken-link">\app\models\Cat</span>.</td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
     </tr>
             <tr class="inherited" id="getErrorSummary()">
         <td><a href="yii-base-model.html#getErrorSummary()-detail">getErrorSummary()</a></td>
@@ -557,6 +573,11 @@
         <td>Returns the relation object with the specified name.</td>
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
+            <tr id="getRetosUsuarios()">
+        <td><a href="app-models-accionesretos.html#getRetosUsuarios()-detail">getRetosUsuarios()</a></td>
+        <td>Gets query for <a href="app-models-retosusuarios.html">app\models\RetosUsuarios</a>.</td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
+    </tr>
             <tr class="inherited" id="getScenario()">
         <td><a href="yii-base-model.html#getScenario()-detail">getScenario()</a></td>
         <td>Returns the scenario that this model is used in.</td>
@@ -566,6 +587,11 @@
         <td><a href="yii-db-activerecord.html#getTableSchema()-detail">getTableSchema()</a></td>
         <td>Returns the schema information of the DB table associated with this AR class.</td>
         <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+    </tr>
+            <tr id="getUsuarios()">
+        <td><a href="app-models-accionesretos.html#getUsuarios()-detail">getUsuarios()</a></td>
+        <td>Gets query for <a href="app-models-usuarios.html">app\models\Usuarios</a>.</td>
+        <td><a href="app-models-accionesretos.html">app\models\AccionesRetos</a></td>
     </tr>
             <tr class="inherited" id="getValidators()">
         <td><a href="yii-base-model.html#getValidators()-detail">getValidators()</a></td>
@@ -593,9 +619,9 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="hasMethod()">
-        <td><a href="yii-base-baseobject.html#hasMethod()-detail">hasMethod()</a></td>
+        <td><a href="yii-base-component.html#hasMethod()-detail">hasMethod()</a></td>
         <td>Returns a value indicating whether a method is defined.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="hasOne()">
         <td><a href="yii-db-baseactiverecord.html#hasOne()-detail">hasOne()</a></td>
@@ -603,19 +629,19 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="hasProperty()">
-        <td><a href="yii-base-baseobject.html#hasProperty()-detail">hasProperty()</a></td>
-        <td>Returns a value indicating whether a property is defined.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-base-component.html#hasProperty()-detail">hasProperty()</a></td>
+        <td>Returns a value indicating whether a property is defined for this component.</td>
+        <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="init()">
-        <td><a href="yii-base-baseobject.html#init()-detail">init()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#init()-detail">init()</a></td>
         <td>Initializes the object.</td>
-        <td><a href="yii-base-baseobject.html">yii\base\BaseObject</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="insert()">
-        <td><a href="yii-db-activerecord.html#insert()-detail">insert()</a></td>
-        <td>Inserts a row into the associated database table using the attribute values of this record.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-activerecordinterface.html#insert()-detail">insert()</a></td>
+        <td>Inserts the record into the database using the attribute values of this record.</td>
+        <td><a href="yii-db-activerecordinterface.html">yii\db\ActiveRecordInterface</a></td>
     </tr>
                 <tr class="inherited" id="instance()">
         <td><a href="yii-base-staticinstancetrait.html#instance()-detail">instance()</a></td>
@@ -693,9 +719,9 @@
         <td><a href="yii-base-component.html">yii\base\Component</a></td>
     </tr>
             <tr class="inherited" id="offsetExists()">
-        <td><a href="yii-base-model.html#offsetExists()-detail">offsetExists()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#offsetExists()-detail">offsetExists()</a></td>
         <td>Returns whether there is an element at the specified offset.</td>
-        <td><a href="yii-base-model.html">yii\base\Model</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="offsetGet()">
         <td><a href="yii-base-model.html#offsetGet()-detail">offsetGet()</a></td>
@@ -708,9 +734,9 @@
         <td><a href="yii-base-model.html">yii\base\Model</a></td>
     </tr>
             <tr class="inherited" id="offsetUnset()">
-        <td><a href="yii-base-model.html#offsetUnset()-detail">offsetUnset()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#offsetUnset()-detail">offsetUnset()</a></td>
         <td>Sets the element value at the specified offset to null.</td>
-        <td><a href="yii-base-model.html">yii\base\Model</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="on()">
         <td><a href="yii-base-component.html#on()-detail">on()</a></td>
@@ -728,9 +754,9 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="populateRecord()">
-        <td><a href="yii-db-activerecord.html#populateRecord()-detail">populateRecord()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#populateRecord()-detail">populateRecord()</a></td>
         <td>Populates an active record object using a row of data from the database/storage.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="populateRelation()">
         <td><a href="yii-db-baseactiverecord.html#populateRelation()-detail">populateRelation()</a></td>
@@ -738,14 +764,14 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="primaryKey()">
-        <td><a href="yii-db-activerecord.html#primaryKey()-detail">primaryKey()</a></td>
-        <td>Returns the primary key name(s) for this AR class.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-activerecordinterface.html#primaryKey()-detail">primaryKey()</a></td>
+        <td>Returns the primary key <strong>name(s)</strong> for this AR class.</td>
+        <td><a href="yii-db-activerecordinterface.html">yii\db\ActiveRecordInterface</a></td>
     </tr>
             <tr class="inherited" id="refresh()">
-        <td><a href="yii-db-activerecord.html#refresh()-detail">refresh()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#refresh()-detail">refresh()</a></td>
         <td>Repopulates this active record with the latest data.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
                     <tr id="rules()">
         <td><a href="app-models-accionesretos.html#rules()-detail">rules()</a></td>
@@ -828,19 +854,19 @@
         <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="update()">
-        <td><a href="yii-db-activerecord.html#update()-detail">update()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#update()-detail">update()</a></td>
         <td>Saves the changes to this active record into the associated database table.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="updateAll()">
-        <td><a href="yii-db-activerecord.html#updateAll()-detail">updateAll()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#updateAll()-detail">updateAll()</a></td>
         <td>Updates the whole table using the provided attribute values and conditions.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="updateAllCounters()">
-        <td><a href="yii-db-activerecord.html#updateAllCounters()-detail">updateAllCounters()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#updateAllCounters()-detail">updateAllCounters()</a></td>
         <td>Updates the whole table using the provided counter changes and conditions.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
             <tr class="inherited" id="updateAttributes()">
         <td><a href="yii-db-baseactiverecord.html#updateAttributes()-detail">updateAttributes()</a></td>
@@ -917,11 +943,11 @@ The previous example would extract "id".</td>
         <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
     </tr>
                     <tr class="inherited" id="findByCondition()">
-        <td><a href="yii-db-activerecord.html#findByCondition()-detail">findByCondition()</a></td>
+        <td><a href="yii-db-baseactiverecord.html#findByCondition()-detail">findByCondition()</a></td>
         <td>Finds ActiveRecord instance(s) by the given condition.</td>
-        <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
+        <td><a href="yii-db-baseactiverecord.html">yii\db\BaseActiveRecord</a></td>
     </tr>
-                                                                                                                                                                    <tr class="inherited" id="insertInternal()">
+                                                                                                                                                                            <tr class="inherited" id="insertInternal()">
         <td><a href="yii-db-activerecord.html#insertInternal()-detail">insertInternal()</a></td>
         <td>Inserts an ActiveRecord into DB without considering transaction.</td>
         <td><a href="yii-db-activerecord.html">yii\db\ActiveRecord</a></td>
@@ -1099,11 +1125,11 @@ This is a shortcut of the expression: OP_INSERT | OP_UPDATE | OP_DELETE.        
 
 <div class="property-doc">
 
-    <div class="detail-header h3" id="$cat-detail">
+    <div class="detail-header h3" id="$ecoreto-detail">
         <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
-        <a class="tool-link hash" href="app-models-accionesretos.html#$cat-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#$ecoreto-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
         
-        $cat        <span class="detail-header-tag small">
+        $ecoreto        <span class="detail-header-tag small">
             public                         <em>read-only</em>                         property
                     </span>
     </div>
@@ -1113,7 +1139,41 @@ This is a shortcut of the expression: OP_INSERT | OP_UPDATE | OP_DELETE.        
         
             </div>
 
-    <div class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getCat()-detail">getCat</a></strong> ( )</div>
+    <div class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getEcoreto()-detail">getEcoreto</a></strong> ( )</div>
+
+
+    <div class="detail-header h3" id="$retosUsuarios-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#$retosUsuarios-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        $retosUsuarios        <span class="detail-header-tag small">
+            public                         <em>read-only</em>                         property
+                    </span>
+    </div>
+
+    
+    <div class="doc-description">
+        
+            </div>
+
+    <div class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getRetosUsuarios()-detail">getRetosUsuarios</a></strong> ( )</div>
+
+
+    <div class="detail-header h3" id="$usuarios-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#$usuarios-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        $usuarios        <span class="detail-header-tag small">
+            public                         <em>read-only</em>                         property
+                    </span>
+    </div>
+
+    
+    <div class="doc-description">
+        
+            </div>
+
+    <div class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getUsuarios()-detail">getUsuarios</a></strong> ( )</div>
 
 </div>
 <h2>Method Details</h2>
@@ -1156,11 +1216,11 @@ merge the parent labels with child labels using functions such as <code>array_me
 
 <!--	-->
 
-    <div class="detail-header h3" id="getCat()-detail">
+    <div class="detail-header h3" id="getEcoreto()-detail">
         <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
-        <a class="tool-link hash" href="app-models-accionesretos.html#getCat()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#getEcoreto()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
         
-        getCat()
+        getEcoreto()
         <span class="detail-header-tag small">
             public                                    method
                     </span>
@@ -1174,7 +1234,53 @@ merge the parent labels with child labels using functions such as <code>array_me
             </div>
 
     <table class="detail-table table table-striped table-bordered table-hover">
-        <tr><td colspan="3" class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getCat()-detail">getCat</a></strong> ( )</td></tr>
+        <tr><td colspan="3" class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getEcoreto()-detail">getEcoreto</a></strong> ( )</td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="getRetosUsuarios()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#getRetosUsuarios()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        getRetosUsuarios()
+        <span class="detail-header-tag small">
+            public                                    method
+                    </span>
+    </div>
+
+    
+    <div class="doc-description">
+        <p><strong>Gets query for <a href="app-models-retosusuarios.html">app\models\RetosUsuarios</a>.</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getRetosUsuarios()-detail">getRetosUsuarios</a></strong> ( )</td></tr>
+            </table>
+
+<!--	-->
+
+    <div class="detail-header h3" id="getUsuarios()-detail">
+        <a href="#" class="tool-link" title="go to top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a class="tool-link hash" href="app-models-accionesretos.html#getUsuarios()-detail" title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+        
+        getUsuarios()
+        <span class="detail-header-tag small">
+            public                                    method
+                    </span>
+    </div>
+
+    
+    <div class="doc-description">
+        <p><strong>Gets query for <a href="app-models-usuarios.html">app\models\Usuarios</a>.</strong></p>
+
+        
+            </div>
+
+    <table class="detail-table table table-striped table-bordered table-hover">
+        <tr><td colspan="3" class="signature"><span class="signature-defs">public</span> <span class="signature-type"><a href="yii-db-activequery.html">yii\db\ActiveQuery</a></span> <strong><a href="app-models-accionesretos.html#getUsuarios()-detail">getUsuarios</a></strong> ( )</td></tr>
             </table>
 
 <!--	-->
@@ -1326,7 +1432,7 @@ if the table is not named after this convention.</p>
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Thu, 09 Apr 2020 15:32:11 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Wed, 06 May 2020 08:01:39 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

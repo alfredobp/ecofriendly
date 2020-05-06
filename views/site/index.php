@@ -103,7 +103,7 @@ if (!isset($_COOKIE['intro'])) {
 
                 <h4 class="text-center">Tu progreso:</h4>
                 <br>
-                <h6>Has publicado </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> Feeds</h6>
+                <h6>Has publicado: </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> Feeds</h6>
                 <br>
                 <h6> Has superado: <?= RetosUsuarios::find()->where(['usuario_id' => $id])->andWhere(['culminado' => true])->count() ?> Retos </h6>
                 <br>

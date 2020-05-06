@@ -106,7 +106,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
         </aside>
         <main class=" col-md-9 col-lg-6">
             <h1 class="text-center shadow p-3 mb-3 bg-white rounded">Actividad en #ecofriendly </h1>
-            <hr>            
+            <hr>
             </hr>
             <?php $i = 0 ?>
             <?php foreach ($feeds as $feeds) :
@@ -117,24 +117,37 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
 
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
-                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
-                            <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
-                                <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
-                                    ' ' . Icon::show('trash-alt'),
-                                    Url::to(['/feeds/delete', 'id' => $feeds['id']]),
-                                    [
+                            <div class="row">
+                                <div class="col-2 ">
 
-                                        'data' => [
-                                            'confirm' => '¿Esta seguro de querer borrar este feed?',
-                                            'method' => 'post',
-                                        ],
-                                    ]
-                                ) : '' ?></p>
+                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
+                                </div>
+                                <div class="col-8">
+                                    <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
+                                    <h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
 
-                            <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
-                            <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-12">
 
-                            <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
+                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                                    <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
+                                        ' ' . Icon::show('trash-alt'),
+                                        Url::to(['/feeds/delete', 'id' => $feeds['id']]),
+                                        [
+
+                                            'data' => [
+                                                'confirm' => '¿Esta seguro de querer borrar este feed?',
+                                                'method' => 'post',
+                                            ],
+                                        ]
+                                    ) : '' ?></p>
+                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
+
+                                <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
+                            </div>
                         </div>
 
 
@@ -231,7 +244,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
 
-        
+
             <div class="sombra">
 
                 <p class="h5 text-success text-center"><strong>TOP mejores #ecofriendly</strong> </p>
@@ -272,7 +285,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
             </div>
             <div class="card card-inverse">
                 <div class="card-block sombraBis">
-                    <h5 class="card-title">  Usuarios Registrados</h5>
+                    <h5 class="card-title"> Usuarios Registrados</h5>
 
 
                     <div class="col-12">

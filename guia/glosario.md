@@ -7,6 +7,7 @@
 | Usuario               | Persona que utiliza la aplicación. Posee una cuenta activa, es decir, está registrado y no ha sido eliminado / baneado / esperando confirmación de validación del correo electrónico. |
 | *User*                | Véase **Usuario**. |
 | Perfil                | Dígase de un usuario. Datos personales de éste, que son modificables y que se muestran en una página individual para cada uno. |
+| Estado                | Comentario personal que puede escribir un usuario para mostrar sentimientos, sensaciones y que aparecen en su estado personal. |
 | Eliminar cuenta        | Esta acción supondría que dicha cuenta de usuario pasaría a ser "eliminada" junto a todos los datos asociados. |
 | Avatar                |  Imagen personal que se visualiza en su perfil, y que este puede modificar. |
 | Feed                   | Son entradas que un usuario escribe, y comparte con su red de seguidores.   |
