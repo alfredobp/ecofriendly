@@ -56,7 +56,7 @@ class RetosUsuariosController extends Controller
      */
     public function actionView($idreto, $usuario_id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($idreto, $usuario_id),
         ]);
     }

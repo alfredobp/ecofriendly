@@ -10,16 +10,22 @@ $(function () {
         $('#modal3').modal('show')
             .find('#modalContent3')
             .load($(this).attr('value'));
-        console.log('ad')
+       
 
     })
     $('.modalButton4').click(function () {
         $('#modal4').modal('show')
             .find('#modalContent4')
             .load($(this).attr('value'));
-        console.log('ad')
+       
 
     })
     
-   
+    $('.modalButton5').click(function () {
+        $('#modal5').modal('show')
+            .find('#modalContent5')
+            .load($(this).attr('value'));
+      
+
+    })
 })

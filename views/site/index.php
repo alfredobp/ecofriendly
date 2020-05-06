@@ -126,7 +126,6 @@ if (!isset($_COOKIE['intro'])) {
 
                 <?php
 
-                // $arrModels = AccionesRetos::find()->where(['cat_id' => Yii::$app->user->identity->categoria_id])->limit(10)->all();
                 $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
 
                 $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
@@ -144,7 +143,6 @@ if (!isset($_COOKIE['intro'])) {
                 ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
                     'columns' => [
-                        // ['class' => 'yii\grid\SerialColumn'],
                         [
                             'attribute' => 'Reto',
                             'value' => function ($dataProvider) {
@@ -155,46 +153,23 @@ if (!isset($_COOKIE['intro'])) {
 
                         ],
 
-                        // ['class' => 'yii\grid\SerialColumn'],
-                        // [
-                        //     'attribute' => 'Aceptado',
-                        //     'value' => function ($dataProvider) {
-                        //         $response = '';
-                        //         $dataProvider->aceptado == '0' ? $response = icon::show('hourglass-start
-                        //         ') : $response = icon::show('check');
-                        //         // echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=1'), 'class' => 'btn modalButton3 btn-lg active', 'id' => 'modalButton4']);
-                        //         return  $response;
-                        //     },
-                        //     'format' => 'raw',
 
-                        // ],
                     ],
 
                 ]);
 
                 Auxiliar::ventanaModal('Sus retos', 4);
-                // $arrModels = RetosUsuarios::find()->where(['usuario_id' => Yii::$app->user->identity->id])->one();
-                // $sql = 'SELECT f.*, f.id as identificador, usuarios.* FROM usuarios INNER JOIN feeds f ON usuarios.id = f.usuariosid
-                // GROUP BY f.id, usuarios.id having usuarios.id=' . $id  .
-                //     'or  usuarios.id IN (select seguidor_id from seguidores where usuario_id=' . $id
-                //     . ') and  f.created_at > (select fecha_seguimiento from seguidores where usuario_id=' . $id . ' limit 1)';
-                // $feedCount = Feeds::findBySql($sql);
 
                 $dataProvider = new ActiveDataProvider([
-                    // 'query' => AccionesRetos::findBySql('select a.*, a.id as identificador from acciones_retos a inner join retos_usuarios r on r.idreto=a.id  where usuario_id=' .   Yii::$app->user->identity->id
-                    //     . 'and culminado=false')
+
                     'query' => RetosUsuarios::find()->joinWith('idreto0')->where(['usuario_id' => $id])
 
 
                 ]);
-                // $dataProvider->setSort([
-                //     'defaultOrder' => ['created_at' => SORT_DESC],
-                // ]);
+
                 ?>
             </div>
             <div class="sombra">
-
-
                 <h4 class="text-center">Retos aceptados:</h4>
                 <br>
                 <?php
@@ -203,39 +178,22 @@ if (!isset($_COOKIE['intro'])) {
                 echo GridView::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => [
-
                         [
                             'attribute' => 'Titulo',
-                            'contentOptions' => [
-                                'style' => [
-                                    'max-height' => '50px',
-                                    'white-space' => 'normal',
-                                    'align-content' => 'center',
-                                ],
-                            ],
                             'value' => function ($dataProvider) {
-
                                 return  Html::button($dataProvider->idreto0['titulo'], [
                                     'value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
                                         $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
-                                    'class' => 'col-12 btn modalButton4 btn-md active text-h6 text-left', 'id' => 'modalButton4'
+                                        'class' => 'col-12 btn modalButton5 btn-md active', 'id' => 'modalButton5'
                                 ]);
                             },
                             'format' => 'raw',
 
                         ],
 
-
                         [
                             'attribute' => 'Estado',
-                            'contentOptions' => [
-                                'class' => 'text-center ',
-                                'style' => [
-                                    'max-width' => '20px',
-                                    'white-space' => 'normal',
-
-                                ],
-                            ],
+                       
                             'value' => function ($dataProvider) {
 
                                 return $dataProvider->culminado == true ? Icon::show('check') : Icon::show('clock');
@@ -244,19 +202,12 @@ if (!isset($_COOKIE['intro'])) {
 
                         ],
 
-
-
-
-
                     ],
 
+
                 ]);
-
+                Auxiliar::ventanaModal('Retos aceptados', 5);
                 ?>
-
-
-
-
             </div>
 
             <br>
@@ -305,10 +256,6 @@ if (!isset($_COOKIE['intro'])) {
                             <b>Comparte lo que quieras</b>
                         </div>
                         <div class="card-block">
-                            <?php
-
-
-                            ?>
                             <div class="tab-pane active" id="home" role="tabpanel">
 
                                 <?php
@@ -387,7 +334,8 @@ if (!isset($_COOKIE['intro'])) {
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
                                 <div class="col-8">
-                                    <h3> <?= ucfirst($feeds['nombre']) ?> </h3><h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
+                                    <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
+                                    <h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
 
                                 </div>
                             </div>
