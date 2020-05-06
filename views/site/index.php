@@ -215,23 +215,25 @@ if (!isset($_COOKIE['intro'])) {
                             ],
                             'value' => function ($dataProvider) {
 
-                                return  Html::button($dataProvider->idreto0['titulo'], ['value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
-                                 $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
-                                 'class' => 'col-12 btn modalButton4 btn-md active text-h6 text-left', 'id' => 'modalButton4']);
+                                return  Html::button($dataProvider->idreto0['titulo'], [
+                                    'value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
+                                        $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
+                                    'class' => 'col-12 btn modalButton4 btn-md active text-h6 text-left', 'id' => 'modalButton4'
+                                ]);
                             },
                             'format' => 'raw',
 
                         ],
-                        
+
 
                         [
                             'attribute' => 'Estado',
                             'contentOptions' => [
-                                'class'=>'text-center ',
+                                'class' => 'text-center ',
                                 'style' => [
                                     'max-width' => '20px',
                                     'white-space' => 'normal',
-                                    
+
                                 ],
                             ],
                             'value' => function ($dataProvider) {
@@ -329,10 +331,15 @@ if (!isset($_COOKIE['intro'])) {
                                 //         'active' => true,
                                 //     ]
                                 // ]); 
+                                // 
                                 ?>
                                 <?= $form->field($model, 'contenido')->label('')->widget(TinyMCE::className(), [
-                                    'toggle' => [
+                                    'toogle' => [
                                         'active' => true,
+                                        'show' => true,
+                                        'toggle' => ['label' => 'Editor Avanzado', 'options' => ['class' => 'btn btn-default']],
+                                        'unToggle' => ['label' => 'Editor Simple', 'options' => ['class' => 'btn btn-default']],
+                                        'tinyStart' => false,
                                     ]
                                 ]); ?>
                                 <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
@@ -374,24 +381,36 @@ if (!isset($_COOKIE['intro'])) {
 
                         <div class="card-block">
                             <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
-                            <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> <?= ucfirst($feeds['nombre']) ?> </h4>
-                            <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
-                                <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
-                                    ' ' . Icon::show('trash-alt'),
-                                    Url::to(['/feeds/delete', 'id' => $feeds['id']]),
-                                    [
+                            <div class="row">
+                                <div class="col-2 ">
 
-                                        'data' => [
-                                            'confirm' => '¿Esta seguro de querer borrar este feed?',
-                                            'method' => 'post',
-                                        ],
-                                    ]
-                                ) : '' ?></p>
+                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
+                                </div>
+                                <div class="col-8">
+                                    <h3> <?= ucfirst($feeds['nombre']) ?> </h3><h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
 
-                            <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
-                            <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-12">
 
-                            <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
+                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                                    <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
+                                        ' ' . Icon::show('trash-alt'),
+                                        Url::to(['/feeds/delete', 'id' => $feeds['id']]),
+                                        [
+
+                                            'data' => [
+                                                'confirm' => '¿Esta seguro de querer borrar este feed?',
+                                                'method' => 'post',
+                                            ],
+                                        ]
+                                    ) : '' ?></p>
+                                <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
+
+                                <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
+                            </div>
                         </div>
 
 

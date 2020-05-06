@@ -434,3 +434,7 @@ html {
 		border-radius: 50%;
 	  
   }
+  #estadoFeed{
+	font-size: 0.9em;
+	color:rgb(116, 114, 114);
+  }
