@@ -3,11 +3,14 @@
 namespace app\controllers;
 
 use app\models\AccionesRetos;
+use app\models\Feeds;
 use app\models\Ranking;
 use Yii;
 use app\models\RetosUsuarios;
 use app\models\RetosUsuariosSearch;
 use app\models\Usuarios;
+use FFI;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -124,7 +127,7 @@ class RetosUsuariosController extends Controller
         $model = $this->findModel($idreto, $usuario_id);
         $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $idreto])->one();
         $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
-
+        $feed = new Feeds();
 
 
         if ($model->save() && $model->culminado == false) {
@@ -133,7 +136,14 @@ class RetosUsuariosController extends Controller
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
             $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();
-       
+            $feed->contenido = 'Acabo de superar un reto. Ahora soy mas <strong>#ecofriendly</strong>';
+            $feed->usuariosid = $usuario_id;
+            $feed->imagen = 'retosuperado.jpg';
+            $feed->created_at = date('Y-m-d H:i:s');
+            if ($feed->validate()) {
+                $feed->save();
+            }
+
 
             if (($puntuacion->puntuacion + $puntaje->puntaje) > 100) {
                 $puntuacion->puntuacion = 100;
