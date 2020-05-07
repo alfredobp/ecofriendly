@@ -32,7 +32,7 @@ Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 
-// die;
+
 
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
     $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
