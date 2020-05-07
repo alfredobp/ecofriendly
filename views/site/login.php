@@ -79,9 +79,7 @@ use yii\web\View;
 
                         ],
                     ]); ?>
-                    <?= AuthChoice::widget([
-                        'baseAuthUrl' => ['site/auth']
-                    ]) ?>
+
                     <div class="form-group">
 
                         <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
@@ -100,14 +98,16 @@ use yii\web\View;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-
                     <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton4']); ?></em>
 
 
                     <br>
 
-
                     <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
+                    <div class="mt-3">
+                        <p>Accede con Facebook: <?= AuthChoice::widget(['baseAuthUrl' => ['site/auth']]) ?></p>
+
+                    </div>
 
                     <?php ActiveForm::end(); ?>
                 </div>
