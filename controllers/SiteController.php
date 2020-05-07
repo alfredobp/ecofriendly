@@ -79,16 +79,19 @@ class SiteController extends Controller
             ],
         ];
     }
+    /**
+     * Función de exito a la llamada a la api de facebook
+     * Si encuentra el email en el perfil de facebook se accede a la aplicaci
+     * @param [type] $client
+     * @return void
+     */
     public function successCallback($client)
     {
         $attributes = $client->getUserAttributes();
-        // var_dump($attributes);
-        // die;
         $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
-        // $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
+
         if (!empty($user)) {
-            // var_dump(Usuarios::findPorEmail($attributes));
-            // die;
+
             Yii::$app->user->login(Usuarios::findPorEmail($attributes));
         } else {
             $session = Yii::$app->session;
@@ -96,14 +99,7 @@ class SiteController extends Controller
             $this->successUrl = Url::to(['login']);
         }
     }
-    public function oAuthSuccess($client)
-    {
-        $userAttributes = $client->getUserAttributes();
-        // (new AuthHandler($client))->handle();
 
-        // echo $userAttributes['name'];
-        // die;
-    }
     /**
      * Displays homepage.
      *

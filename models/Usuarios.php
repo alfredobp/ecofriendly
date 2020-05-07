@@ -145,6 +145,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username]);
     }
+    /**
+     * Método buscar por email, para el acceso a la aplicación mediante el perfil de la red social facebook
+     *
+     * @param [type] $email
+     * @return void
+     */
     public static function findPorEmail($email)
     {
         return static::findOne(['email' => $email]);
