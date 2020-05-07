@@ -65,6 +65,7 @@ $js = <<<EOT
 function cambiarColorYGuardaCookie(){
     var color = $("#pickerColor").val();
     var tamanyo= $('#slider').val();
+    var colorFondo=$('#pickerColor3').val();
     console.log($('#slider').val());
     var fuente=$('select[name=colorTexto]').val();
     var colorTexto=$("#pickerColor2").val();
@@ -76,7 +77,8 @@ function cambiarColorYGuardaCookie(){
                 color:color, 
                 colorTexto: colorTexto, 
                 tamaño:tamanyo, 
-                fuente:fuente
+                fuente:fuente, 
+                colorFondo: colorFondo
             },
             success: function(data){
                 console.log('ok');
@@ -331,6 +333,9 @@ $this->registerJs($js);
             </p>
             <p>Color del texto de los feeds:
                 <input type="color" id="pickerColor2">
+            </p>
+            <p>Color del Fondo de la aplicación:
+                <input type="color" id="pickerColor3">
             </p>
             <br>
             <button id="preferencias" class="btn btn-success">Aplicar estilo</button>

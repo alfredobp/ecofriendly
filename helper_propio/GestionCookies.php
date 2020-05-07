@@ -1,4 +1,5 @@
 <?php
+
 namespace app\helper_propio;
 
 use kartik\dialog\Dialog;
@@ -139,6 +140,7 @@ class GestionCookies
              obtenerCookieColorTexto();
              obtenerCookieFuente();
              obtenerCookieTamañoFuente();
+             obtenerCookieColorFondoBody();
             });
                 function obtenerCookieColorFondo(){
                     $.ajax({
@@ -180,6 +182,16 @@ class GestionCookies
                                     }
                                 });
                                 }
+                                function obtenerCookieColorFondoBody(){
+                                    $.ajax({
+                                        url: '$url5',
+                                        data:{cookie:'colorFondo'},
+                                        success: function(data){
+                                            console.log(data + 'fondo');
+                                                $("html,body").css("background-image", "url()").css('background-color', data);
+                                        }
+                                    });
+                                    }
                 
         EOT;
         return $jsEstilo;

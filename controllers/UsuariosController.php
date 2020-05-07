@@ -93,7 +93,7 @@ class UsuariosController extends Controller
         $model = new EcoValora();
         $puntuacion2 = Ranking::find()->where(['usuariosid' => Yii::$app->user->id])->one();
         //si el usuario ya tine puntuacion asignada, impido que acceda a la acción
-        if ($puntuacion2!==null) {
+        if ($puntuacion2 !== null) {
             return $this->goHome();
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -456,18 +456,20 @@ class UsuariosController extends Controller
     //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
     //     return $respuesta;
     // }
-    public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño)
+    public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño, $colorFondo)
     {
         //Expira en 7 dias
         $color = $color;
         $tamaño = $tamaño . 'px';
         $fuente = $fuente;
         $colorTexto = $colorTexto;
+        $colorFondo = $colorFondo;
 
         setcookie('colorPanel', $color, time() + 60 * 60 * 24 * 7);
         setcookie('tamaño', $tamaño, time() + 60 * 60 * 24 * 7);
         setcookie('fuente', $fuente, time() + 60 * 60 * 24 * 7);
         setcookie('colorTexto', $colorTexto, time() + 60 * 60 * 24 * 7);
+        setcookie('colorFondo', $colorFondo, time() + 60 * 60 * 24 * 7);
 
         return $this->redirect('index');
     }
@@ -483,6 +485,7 @@ class UsuariosController extends Controller
         setcookie('tamaño', '', time() - 3600);
         setcookie('fuente', '', time() - 3600);
         setcookie('colorTexto', '', time() - 3600);
+        setcookie('colorFondo', '', time() - 3600);
 
         // unset($_COOKIE['intro']);
         return $this->goBack();
