@@ -43,8 +43,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public $password_repeat;
     public $verification_code;
     private $_imagen = null;
-    private $_imagenUrl = null;
-    private $_estado;
     public $backgroundColor;
     public $colorTexto;
     public $tamañoTexto;
@@ -144,6 +142,16 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findPorNombre($username)
     {
         return static::findOne(['username' => $username]);
+    }
+    /**
+     * Método buscar por email, para el acceso a la aplicación mediante el perfil de la red social facebook
+     *
+     * @param [type] $email
+     * @return void
+     */
+    public static function findPorEmail($email)
+    {
+        return static::findOne(['email' => $email]);
     }
 
     public function validatePassword($contrasena)

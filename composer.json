@@ -37,7 +37,8 @@
         "kartik-v/yii2-icons": "@dev",
         "aws/aws-sdk-php": "^3.134",
         "kartik-v/yii2-grid": "@dev",
-        "moonlandsoft/yii2-tinymce": "*"
+        "moonlandsoft/yii2-tinymce": "*",
+        "yiisoft/yii2-authclient": "^2.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

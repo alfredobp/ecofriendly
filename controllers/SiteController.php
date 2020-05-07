@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\AccionesRetos;
-use app\models\CategoriasEcoretos;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -11,19 +10,18 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\Ecoretos;
-use app\models\EcoValora;
 use app\models\Feeds;
-use app\models\ImagenForm;
 use app\models\Ranking;
-use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
+
+    public $successUrl = '';
     /**
      * {@inheritdoc}
      */
@@ -42,7 +40,7 @@ class SiteController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['login', 'contact'],
+                        'actions' => ['login', 'contact', 'auth'],
                         'roles' => ['?'],
                     ],
                 ],
@@ -70,7 +68,31 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+            ],
         ];
+    }
+    /**
+     * Función de exito a la llamada a la api de facebook
+     * Si encuentra el email en el perfil de facebook se accede a la aplicaci
+     * @param [type] $client
+     * @return void
+     */
+    public function successCallback($client)
+    {
+        $attributes = $client->getUserAttributes();
+        $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
+
+        if (!empty($user)) {
+
+            Yii::$app->user->login(Usuarios::findPorEmail($attributes));
+        } else {
+            $session = Yii::$app->session;
+            $session['attributes'] = $attributes;
+            $this->successUrl = Url::to(['login']);
+        }
     }
 
     /**
