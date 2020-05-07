@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\AccionesRetos;
-use app\models\CategoriasEcoretos;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -11,12 +10,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\Ecoretos;
-use app\models\EcoValora;
 use app\models\Feeds;
-use app\models\ImagenForm;
 use app\models\Ranking;
-use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\data\ActiveDataProvider;

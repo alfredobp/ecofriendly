@@ -43,8 +43,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public $password_repeat;
     public $verification_code;
     private $_imagen = null;
-    private $_imagenUrl = null;
-    private $_estado;
     public $backgroundColor;
     public $colorTexto;
     public $tamañoTexto;
