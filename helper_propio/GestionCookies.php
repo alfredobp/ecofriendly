@@ -51,6 +51,7 @@ class GestionCookies
                         success: function(data){
                            console.log(data);
                            $(".feed").css('background-color', data);
+                          
                         }
                     });
             }
@@ -149,6 +150,8 @@ class GestionCookies
                         success: function(data){
                             console.log(data);
                                 $(".feed").css('background-color', data);  
+                                 $("#pickerColor2").prop("value","#41FF00");
+                                 $("#pickerColor2").val("#41FF00");
                         }
                     });
             }
@@ -189,6 +192,69 @@ class GestionCookies
                                         success: function(data){
                                             console.log(data + 'fondo');
                                                 $("html,body").css("background-image", "url()").css('background-color', data);
+                                        }
+                                    });
+                                    }
+                
+        EOT;
+        return $jsEstilo;
+    }
+    public static function cookiesEstiloSeleccionado()
+    {
+        $url5 = Url::to(['usuarios/obtenercookie']);
+        $jsEstilo = <<<EOT
+            $( function() {
+             obtenerCookieColorFondo();
+             obtenerCookieColorTexto();
+             obtenerCookieFuente();
+             obtenerCookieTamañoFuente();
+             obtenerCookieColorFondoBody();
+            });
+                function obtenerCookieColorFondo(){
+                    $.ajax({
+                        url: '$url5',
+                        data:{cookie:'colorPanel'},
+                        success: function(data){
+                            $("#pickerColor").val(data);
+                        }
+                    });
+            }
+            function obtenerCookieColorTexto(){
+                        $.ajax({
+                            url: '$url5',
+                            data:{cookie:'colorTexto'},
+                            success: function(data){
+                                
+                                $("#pickerColor2").val(data);
+                            }
+                        });
+                }
+            function obtenerCookieFuente(){
+                            $.ajax({
+                                url: '$url5',
+                                data:{cookie:'fuente'},
+                                success: function(data){
+                                    $("#fuente").val(data);
+                                     
+                                }
+                            });
+                            }
+                function obtenerCookieTamañoFuente(){
+                                $.ajax({
+                                    url: '$url5',
+                                    data:{cookie:'tamaño'},
+                                    success: function(data){
+                                   
+                                        $("#slider").val(data.substring(0,2));
+                                    }
+                                });
+                                }
+                                function obtenerCookieColorFondoBody(){
+                                    $.ajax({
+                                        url: '$url5',
+                                        data:{cookie:'colorFondo'},
+                                        success: function(data){                                              
+                                                $("#pickerColor3").val(data);
                                         }
                                     });
                                     }

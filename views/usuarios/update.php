@@ -5,6 +5,7 @@
 /* @var $model app\models\LoginForm */
 
 use app\helper_propio\Auxiliar;
+use app\helper_propio\GestionCookies;
 use app\models\Feeds;
 use app\models\Seguidores;
 use app\models\Usuarios;
@@ -57,6 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </head>
 <?php
+if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
+    $this->registerJs(GestionCookies::cookiesEstiloSeleccionado());
+}
 $url4 = Url::to(['usuarios/guardacookie']);
 $url5 = Url::to(['usuarios/obtenercookie']);
 $js = <<<EOT
@@ -325,14 +329,14 @@ $this->registerJs($js);
 
             <p>
                 Fuente de texto:
-                <select name="colorTexto">
+                <select name="colorTexto" id="fuente">
                     <option value="Times New Roman" selected>Times New Roman</option>
                     <option value="Arial" selected>Arial</option>
                     <option value="Comic Sans">Comic Sans</option>
                 </select>
             </p>
             <p>Color del texto de los feeds:
-                <input type="color" id="pickerColor2">
+                <input type="color"  id="pickerColor2">
             </p>
             <p>Color del Fondo de la aplicación:
                 <input type="color" id="pickerColor3">
