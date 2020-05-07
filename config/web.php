@@ -20,6 +20,19 @@ $config = [
     ],
     'language' => 'es-ES',
     'components' => [
+        'authClientCollection'=>[
+            'class'=>'yii\authclient\Collection',
+            'clients'=>[
+                'facebook'=>[
+                    'class'=>'yii\authclient\clients\Facebook',
+                    // 'authUrl'=>'https://www.facebook.com/dialog/oauth?display-popup',
+                    'clientId'=>'1084329348614527',
+                    'clientSecret'=>'5e6d9158d0b287efb6e5267ca81827a0',
+                     'attributeNames' => ['email'],
+                ],
+            ],
+    
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '3oC7MNI1jvr_ayRVzGm1ykvnKATTOmTL',
@@ -109,18 +122,7 @@ $config = [
         ],
         // your other modules
     ],
-    'authClientCollection'=>[
-        'class'=>'yii\authClient\Collection',
-        'clients'=>[
-            'facebook'=>[
-                'class'=>'yii\authClient\clientsFacebook',
-                'authUrl'=>'https://www.facebook.com/dialog/oauth?display-popup',
-                'clientId'=>'1084329348614527',
-                'clientSecret'=>'5e6d9158d0b287efb6e5267ca81827a0',
-            ]
-        ]
-
-    ],
+   
     'params' => $params,
 ];
 

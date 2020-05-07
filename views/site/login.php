@@ -9,6 +9,7 @@ use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use kartik\label\LabelInPlace;
+use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Url;
 use yii\web\View;
 
@@ -78,6 +79,9 @@ use yii\web\View;
 
                         ],
                     ]); ?>
+                    <?= AuthChoice::widget([
+                        'baseAuthUrl' => ['site/auth']
+                    ]) ?>
                     <div class="form-group">
 
                         <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
@@ -99,12 +103,12 @@ use yii\web\View;
 
                     <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton4']); ?></em>
 
-                
+
                     <br>
-                   
-                    
+
+
                     <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
-                  
+
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>

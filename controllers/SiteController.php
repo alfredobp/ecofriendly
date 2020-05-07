@@ -25,6 +25,8 @@ use yii\helpers\Url;
 
 class SiteController extends Controller
 {
+
+    public $successUrl = '';
     /**
      * {@inheritdoc}
      */
@@ -43,7 +45,7 @@ class SiteController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['login', 'contact'],
+                        'actions' => ['login', 'contact', 'auth'],
                         'roles' => ['?'],
                     ],
                 ],
@@ -73,21 +75,34 @@ class SiteController extends Controller
             ],
             'auth' => [
                 'class' => 'yii\authclient\AuthAction',
-                'successCallBack' => [$this, 'successCallBack'],
+                'successCallback' => [$this, 'successCallback'],
             ],
         ];
     }
-    public function successCallBack($client)
+    public function successCallback($client)
     {
         $attributes = $client->getUserAttributes();
+        // var_dump($attributes);
+        // die;
         $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
+        // $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
         if (!empty($user)) {
-            Yii::$app->usuarios->login($user);
+            // var_dump(Usuarios::findPorEmail($attributes));
+            // die;
+            Yii::$app->user->login(Usuarios::findPorEmail($attributes));
         } else {
             $session = Yii::$app->session;
             $session['attributes'] = $attributes;
-            $this->successURL = Url::to(['login']);
+            $this->successUrl = Url::to(['login']);
         }
+    }
+    public function oAuthSuccess($client)
+    {
+        $userAttributes = $client->getUserAttributes();
+        // (new AuthHandler($client))->handle();
+
+        // echo $userAttributes['name'];
+        // die;
     }
     /**
      * Displays homepage.
