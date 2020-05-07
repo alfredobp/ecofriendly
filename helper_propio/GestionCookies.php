@@ -199,6 +199,11 @@ class GestionCookies
         EOT;
         return $jsEstilo;
     }
+    /**
+     * Función que permite obtener los valores de personalización mediante consulta ajax a una función
+     * obteniendo el valor de las cookies creadas a tal efecto.
+     * @return void
+     */
     public static function cookiesEstiloSeleccionado()
     {
         $url5 = Url::to(['usuarios/obtenercookie']);
