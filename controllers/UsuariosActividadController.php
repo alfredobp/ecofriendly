@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Usuarios;
 use Yii;
 use app\models\UsuariosActividad;
 use app\models\UsuariosActividadSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,7 +27,24 @@ class UsuariosActividadController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->rol === 'superadministrador';
+                        },
+                    ],
+
+
+                ],
+            ]
         ];
     }
 
@@ -72,6 +91,7 @@ class UsuariosActividadController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'participantes' => Usuarios::Participantes(),
         ]);
     }
 

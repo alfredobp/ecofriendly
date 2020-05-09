@@ -178,7 +178,10 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-
+    public static function participantes()
+    {
+        return static::find()->select('username')->indexBy('id')->column();
+    }
     public function setEstado($estado)
     {
         $this->_estado = $estado;

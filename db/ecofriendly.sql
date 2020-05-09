@@ -40,7 +40,7 @@ CREATE TABLE usuarios_actividad(
     id bigserial PRIMARY KEY,
     usuario_id integer REFERENCES usuarios(id),
     motivo varchar, 
-    fecha_suspenso timestamp NOT NULL DEFAULT current_timestamp
+    fecha_suspenso timestamp(0) NOT NULL  DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS acciones_retos CASCADE;

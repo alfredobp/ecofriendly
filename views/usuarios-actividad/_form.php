@@ -16,7 +16,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'motivo')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_suspenso')->textInput() ?>
+    <!-- <?= $form->field($model, 'fecha_suspenso')->textInput() ?> -->
+    <?= $form->field($model, 'usuario_id')->label('Nombre')->dropDownList($participantes) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

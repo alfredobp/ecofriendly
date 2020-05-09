@@ -57,11 +57,11 @@ class AccionesRetosController extends Controller
     {
         $searchModel = new AccionesRetosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $lectores = 'Hola';
+       
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'lectores' => $lectores,
+            
         ]);
     }
 
