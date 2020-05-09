@@ -21,6 +21,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Response;
 
 require '../helper_propio/AdministradorAWS3c.php';
@@ -418,6 +419,22 @@ class UsuariosController extends Controller
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
         return $this->goHome();
+    }
+    public function actionSeguimiento()
+    {
+        $arrModels = Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
+        $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+            'attributes' => ['puntuacion'],
+        ],]);
+        // $searchModel = new UsuariosSearch();
+        // // $dataProvider =Usuarios::find()->where(['NOT', ['rol'=> 'superadministrador']])->all();
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams)->where(['NOT', ['rol' => 'superadministrador']])->all();
+        return $this->render(
+            'seguimiento',
+            [
+                'dataProvider' => $dataProvider
+            ]
+        );
     }
     //
     // public static function subirCategoria($categoria)
