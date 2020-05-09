@@ -123,6 +123,7 @@ AppAsset::register($this);
                             ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
                             ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
                             ['label' => 'Ranking', 'url' => ['/ranking/index']],
+                            ['label' => 'Suspensiones de cuenta', 'url' => ['/usuarios-actividad/index']],
 
 
                         ],

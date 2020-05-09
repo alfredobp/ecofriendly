@@ -30,7 +30,17 @@ CREATE TABLE usuarios (
     codigo_verificacion VARCHAR(255),
     ultima_conexion timestamp,
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp,
-    categoria_id integer REFERENCES ecoretos(categoria_id)
+    categoria_id integer REFERENCES ecoretos(categoria_id),
+    supendido boolean DEFAULT false
+);
+
+DROP TABLE IF EXISTS usuarios_actividad CASCADE;
+
+CREATE TABLE usuarios_actividad(
+    id bigserial PRIMARY KEY,
+    usuario_id integer REFERENCES usuarios(id),
+    motivo varchar, 
+    fecha_suspenso timestamp(0) NOT NULL  DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS acciones_retos CASCADE;
@@ -38,7 +48,7 @@ DROP TABLE IF EXISTS acciones_retos CASCADE;
 CREATE TABLE acciones_retos (
     id bigserial PRIMARY KEY,
     titulo varchar(255) NOT NULL,
-    descripcion varchar(255) NOT NULL,
+    descripcion varchar NOT NULL,
     cat_id integer REFERENCES ecoretos(categoria_id),
     puntaje integer
 );

@@ -2,20 +2,19 @@
 
 namespace app\controllers;
 
+use app\models\Usuarios;
 use Yii;
-use app\models\AccionesRetos;
-use app\models\AccionesRetosSearch;
-use app\models\Ecoretos;
-use app\models\Ranking;
+use app\models\UsuariosActividad;
+use app\models\UsuariosActividadSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AccionesRetosController implements the CRUD actions for AccionesRetos model.
+ * UsuariosActividadController implements the CRUD actions for UsuariosActividad model.
  */
-class AccionesRetosController extends Controller
+class UsuariosActividadController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -50,59 +49,41 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Lists all AccionesRetos models.
+     * Lists all UsuariosActividad models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AccionesRetosSearch();
+        $searchModel = new UsuariosActividadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-       
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            
         ]);
     }
 
     /**
-     * Displays a single AccionesRetos model.
+     * Displays a single UsuariosActividad model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        return $this->renderAjax('_view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-    /**
-     * Función Ver Reto para las búsquedas de los retos asignados por el usuario.
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function actionVerreto($id)
-    {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-    // public function actionVerhastag($id)
-    // {
-    //     return $this->render('view', [
-    //         'model' => $this->findModel($id),
-    //     ]);
-    // }
+
     /**
-     * Creates a new AccionesRetos model.
+     * Creates a new UsuariosActividad model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AccionesRetos();
+        $model = new UsuariosActividad();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -110,13 +91,12 @@ class AccionesRetosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'categorias' => Ecoretos::categorias(),
-            
+            'participantes' => Usuarios::Participantes(),
         ]);
     }
 
     /**
-     * Updates an existing AccionesRetos model.
+     * Updates an existing UsuariosActividad model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -132,38 +112,11 @@ class AccionesRetosController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'categorias' => Ecoretos::categorias(),
-        ]);
-    }
-    /**
-     * Aceptar
-     * Permite al usuario aceptar un reto propuesto por el sistema
-     * @param [type] $id
-     * @return void
-     */
-    public function actionAceptar($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->save()) {
-
-            $model->aceptado = true;
-            $model->fecha_aceptacion = date('Y-m-d H:i:s');
-            $model->usuario_id = Yii::$app->user->identity->id;
-            $model->save();
-            Yii::$app->session->setFlash('success', 'El reto propuesto ha sido aceptado.');
-            return $this->redirect(['site/index', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
         ]);
     }
 
-
-
-
     /**
-     * Deletes an existing AccionesRetos model.
+     * Deletes an existing UsuariosActividad model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -177,15 +130,15 @@ class AccionesRetosController extends Controller
     }
 
     /**
-     * Finds the AccionesRetos model based on its primary key value.
+     * Finds the UsuariosActividad model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AccionesRetos the loaded model
+     * @return UsuariosActividad the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AccionesRetos::findOne($id)) !== null) {
+        if (($model = UsuariosActividad::findOne($id)) !== null) {
             return $model;
         }
 
