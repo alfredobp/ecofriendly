@@ -12,7 +12,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UsuariosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usuarios';
+$this->title = 'Seguimientos de Usuarios De #ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuarios-seguimientos">
@@ -29,12 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="overflow-auto">
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
-
-
             'columns' => [
-
                 'username',
-
                 [
                     'attribute' => 'Nombre completo',
                     'value' => function ($dataProvider) {
@@ -43,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-
                 [
                     'attribute' => 'Nivel',
                     'value' => function ($dataProvider) {
@@ -89,8 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($dataProvider) {
                         $retos = RetosUsuarios::find()->where(['usuario_id' => $dataProvider->id]);
                         $cuantosSeguidores = $retos;
-
-
                         if ($cuantosSeguidores->count() != 0) {
 
                             return $cuantosSeguidores->count();
