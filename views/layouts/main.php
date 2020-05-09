@@ -120,6 +120,7 @@ AppAsset::register($this);
                         'label' => Icon::show('users-cog') . '<span class="badge badge-secondary">Modo Administrador</span>',
                         'items' => [
                             ['label' => 'Gestión Usuarios', 'url' => ['usuarios/index', 'id' => Yii::$app->user->identity->id]],
+                            ['label' => 'Evolución de los usuarios', 'url' => ['/usuarios/seguimiento']],
                             ['label' => 'Actividad en la red', 'url' => ['/feeds/index']],
                             ['label' => 'Ecoretos', 'url' => ['/acciones-retos/index']],
                             ['label' => 'Ranking', 'url' => ['/ranking/index']],
