@@ -42,6 +42,13 @@ CREATE TABLE usuarios_actividad(
     motivo varchar, 
     fecha_suspenso timestamp(0) NOT NULL  DEFAULT current_timestamp
 );
+DROP TABLE IF EXISTS objetivos_personales CASCADE;
+CREATE TABLE objetivos_personales(
+    id bigserial PRIMARY KEY,
+    usuario_id integer REFERENCES usuarios(id),
+    objetivo varchar, 
+    created_at timestamp(0) NOT NULL  DEFAULT current_timestamp
+);
 
 DROP TABLE IF EXISTS acciones_retos CASCADE;
 
