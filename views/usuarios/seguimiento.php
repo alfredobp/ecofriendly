@@ -61,21 +61,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 'ranking.puntuacion',
-
-                // [
-                //     'attribute' => 'Nº de retos aceptados',
-                //     'value' => function ($dataProvider) {
-                //         return $dataProvider['feeds'];
-                //     },
-                //     'format' => 'raw',
-                // ],
-                // [
-                //     'attribute' => 'Nº de retos cumplidos',
-                //     'value' => function ($dataProvider) {
-                //         return $dataProvider['feeds'];
-                //     },
-                //     'format' => 'raw',
-                // ],
+                [
+                    'attribute' => 'Puntos conseguidos',
+                    'value' => function ($dataProvider) {
+                        return Auxiliar::puntosConseguidos($dataProvider->id);
+                    },
+                    'format' => 'raw',
+                ],
                 [
                     'attribute' => 'Feeds compartidos',
                     'value' => function ($dataProvider) {
@@ -96,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'R. aceptados',
                     'value' => function ($dataProvider) {
                         $retos = RetosUsuarios::find()->where(['usuario_id' => $dataProvider->id]);
-                        // var_dump($feeds);
                         $cuantosSeguidores = $retos;
 
 
@@ -113,10 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'R. superados',
                     'value' => function ($dataProvider) {
                         $retos = RetosUsuarios::find()->select('culminado')->where(['usuario_id' => $dataProvider->id])->andWhere(['culminado' => true]);
-                        // var_dump($feeds);
                         $cuantosSeguidores = $retos;
-
-
                         if ($cuantosSeguidores->count() != 0) {
 
                             return $cuantosSeguidores->count();
@@ -132,9 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $seguidores = Seguidores::find()->where(['seguidor_id' => $dataProvider->id]);
                         // var_dump($feeds);
                         $cuantosSeguidores = $seguidores->count();
-
                         if ($cuantosSeguidores != 0) {
-
                             return $cuantosSeguidores;
                         } else {
                             return '0 ';
@@ -142,16 +128,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-
                 [
                     'attribute' => 'Nº Seguimientos',
                     'value' => function ($dataProvider) {
                         $seguimientos = Seguidores::find()->where(['usuario_id' => $dataProvider->id]);
-                        // var_dump($feeds);
                         $cuantos = $seguimientos->count();
-
                         if ($cuantos != 0) {
-
                             return $cuantos;
                         } else {
                             return '0 ';
@@ -159,10 +141,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-
-
-
-
             ],
         ]); ?>
 
