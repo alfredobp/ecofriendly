@@ -413,22 +413,24 @@ if (!isset($_COOKIE['intro'])) {
                                                 <div class="row">
                                                     <div class="col-2">
                                                         <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
-                                                        <?= Html::a(
-                                                            'Borrar Comentario',
-                                                            Url::to(['/comentarios/delete', 'id' => $comentarios['id']]),
-                                                            [
 
-                                                                'data' => [
-                                                                    'confirm' => '¿Esta seguro de querer borrar este Comentario?',
-                                                                    'method' => 'post',
-                                                                ],
-                                                            ]
-                                                        ) ?>
+
+
                                                     </div>
                                                     <div class="col-10">
                                                         <p><?= $comentarios['contenido'] ?>
                                                             <br>
                                                             Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                                        <?= $feeds['usuariosid'] === Yii::$app->user->identity->id ? Html::a(
+                                                            Icon::show('trash-alt') . 'Borrar Comentario',
+                                                            Url::to(['/comentarios/delete', 'id' => $comentarios['id']]),
+                                                            [
+                                                                'data' => [
+                                                                    'confirm' => '¿Esta seguro de querer borrar este Comentario?',
+                                                                    'method' => 'post',
+                                                                ],
+                                                            ]
+                                                        ) : '' ?>
                                                     </div>
                                                 </div>
                                             </div>
