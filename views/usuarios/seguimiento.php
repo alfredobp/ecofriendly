@@ -34,9 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 'username',
-                // 'contrasena',
-                'nombre',
-                'apellidos',
+
+                [
+                    'attribute' => 'Nombre completo',
+                    'value' => function ($dataProvider) {
+
+                        return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
+                    },
+                    'format' => 'raw',
+                ],
 
                 [
                     'attribute' => 'Nivel',
@@ -86,9 +92,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-                'categoria.cat_nombre',
                 [
-                    'attribute' => 'Retos superados',
+                    'attribute' => 'R. aceptados',
+                    'value' => function ($dataProvider) {
+                        $retos = RetosUsuarios::find()->where(['usuario_id' => $dataProvider->id]);
+                        // var_dump($feeds);
+                        $cuantosSeguidores = $retos;
+
+
+                        if ($cuantosSeguidores->count() != 0) {
+
+                            return $cuantosSeguidores->count();
+                        } else {
+                            return '0';
+                        }
+                    },
+                    'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'R. superados',
                     'value' => function ($dataProvider) {
                         $retos = RetosUsuarios::find()->select('culminado')->where(['usuario_id' => $dataProvider->id])->andWhere(['culminado' => true]);
                         // var_dump($feeds);
@@ -105,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'attribute' => 'Nº de seguidores',
+                    'attribute' => 'Nº seguidores',
                     'value' => function ($dataProvider) {
                         $seguidores = Seguidores::find()->where(['seguidor_id' => $dataProvider->id]);
                         // var_dump($feeds);
@@ -115,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             return $cuantosSeguidores;
                         } else {
-                            return 'No le sigue nadie ';
+                            return '0 ';
                         }
                     },
                     'format' => 'raw',
@@ -132,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             return $cuantos;
                         } else {
-                            return 'No sigue a nadie ';
+                            return '0 ';
                         }
                     },
                     'format' => 'raw',
