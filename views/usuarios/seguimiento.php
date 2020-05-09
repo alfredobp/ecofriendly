@@ -2,6 +2,7 @@
 
 use app\helper_propio\Auxiliar;
 use app\models\Feeds;
+use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\bootstrap4\Html;
@@ -37,7 +38,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'nombre',
                 'apellidos',
 
+                [
+                    'attribute' => 'Nivel',
+                    'value' => function ($dataProvider) {
 
+                        if ($dataProvider->categoria['cat_nombre'] == 'Principiante') {
+                            return '<span class="badge badge-danger"> Principiante</span>';
+                        } elseif ($dataProvider->categoria['cat_nombre'] == 'Intermedio') {
+                            return '<span class="badge badge-warning"> Intermedio</span>';
+                        } elseif ($dataProvider->categoria['cat_nombre'] == 'Avanzado') {
+                            return '<span class="badge badge-succes"> Avanzado</span>';
+                        } else {
+                            return 'Categoría no definida';
+                        }
+                    },
+                    'format' => 'raw',
+                ],
                 'ranking.puntuacion',
 
                 // [
@@ -70,19 +86,47 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-                // [
-                //     'attribute' => 'Nº de seguidores',
-                //     'value' => function ($dataProvider) {
-                //         return $dataProvider['feeds'];
-                //     },
-                //     'format' => 'raw',
-                // ],
+                'categoria.cat_nombre',
+                [
+                    'attribute' => 'Retos superados',
+                    'value' => function ($dataProvider) {
+                        $retos = RetosUsuarios::find()->select('culminado')->where(['usuario_id' => $dataProvider->id])->andWhere(['culminado' => true]);
+                        // var_dump($feeds);
+                        $cuantosSeguidores = $retos;
+
+
+                        if ($cuantosSeguidores->count() != 0) {
+
+                            return $cuantosSeguidores->count();
+                        } else {
+                            return 'No ha superado ningún reto ';
+                        }
+                    },
+                    'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'Nº de seguidores',
+                    'value' => function ($dataProvider) {
+                        $seguidores = Seguidores::find()->where(['seguidor_id' => $dataProvider->id]);
+                        // var_dump($feeds);
+                        $cuantosSeguidores = $seguidores->count();
+
+                        if ($cuantosSeguidores != 0) {
+
+                            return $cuantosSeguidores;
+                        } else {
+                            return 'No le sigue nadie ';
+                        }
+                    },
+                    'format' => 'raw',
+                ],
+
                 [
                     'attribute' => 'Nº Seguimientos',
                     'value' => function ($dataProvider) {
-                        $feeds = Seguidores::find()->where(['usuario_id' => $dataProvider->id]);
+                        $seguimientos = Seguidores::find()->where(['usuario_id' => $dataProvider->id]);
                         // var_dump($feeds);
-                        $cuantos = $feeds->count();
+                        $cuantos = $seguimientos->count();
 
                         if ($cuantos != 0) {
 
@@ -94,25 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
 
-                [
-                    'class' => 'yii\grid\ActionColumn',
 
-                    'template' => '{view}{delete}',
-
-                    'buttons' => [
-
-                        'view' => function ($url, $model) {
-
-                            return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url, [
-
-                                'title' => Yii::t('yii', 'Create'),
-
-                            ]);
-                        }
-
-                    ]
-
-                ],
 
 
             ],
