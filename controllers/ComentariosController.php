@@ -142,7 +142,7 @@ class ComentariosController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        Yii::$app->session->setFlash('success', 'Comentario borrado correctamente.');
         return $this->redirect(['site/index']);
     }
 
