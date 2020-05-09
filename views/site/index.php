@@ -15,6 +15,7 @@ use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
+use Codeception\PHPUnit\ResultPrinter\HTML as ResultPrinterHTML;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
@@ -412,7 +413,17 @@ if (!isset($_COOKIE['intro'])) {
                                                 <div class="row">
                                                     <div class="col-2">
                                                         <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                                        <?= Html::a(
+                                                            'Borrar Comentario',
+                                                            Url::to(['/comentarios/delete', 'id' => $comentarios['id']]),
+                                                            [
 
+                                                                'data' => [
+                                                                    'confirm' => '¿Esta seguro de querer borrar este Comentario?',
+                                                                    'method' => 'post',
+                                                                ],
+                                                            ]
+                                                        ) ?>
                                                     </div>
                                                     <div class="col-10">
                                                         <p><?= $comentarios['contenido'] ?>
