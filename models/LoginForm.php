@@ -38,12 +38,12 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            
+
             'username' => 'Nombre usuario',
-            
+
             'password' => 'Contraseña',
-            
-           
+
+
         ];
     }
 
@@ -59,6 +59,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
+
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Nombre de usuario o contraseña incorrecta.');
             }
@@ -72,7 +73,13 @@ class LoginForm extends Model
     public function login()
     {
         $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
+        $bloqueo = UsuariosActividad::find()->joinWith('usuario u')->where(['username' => $this->getUser()])->one();
 
+        if ($bloqueo != null) {
+            Yii::$app->session->setFlash('error', 'Su cuenta ha sido bloqueada por ' . $bloqueo['motivo'] .
+        ' Por Favor, pongáse en contacto con el administrador de la plataforma (admin@ecofriendly.es)');
+            return;
+        }
         // if ($usuarios->token_acti == null) {
         //     Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
         //     return;
