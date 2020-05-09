@@ -77,7 +77,7 @@ class LoginForm extends Model
 
         if ($bloqueo != null) {
             Yii::$app->session->setFlash('error', 'Su cuenta ha sido bloqueada por ' . $bloqueo['motivo'] .
-        ' Por Favor, pongáse en contacto con el administrador de la plataforma (admin@ecofriendly.es)');
+                ' Por Favor, pongáse en contacto con el administrador de la plataforma (admin@ecofriendly.es)');
             return;
         }
         // if ($usuarios->token_acti == null) {

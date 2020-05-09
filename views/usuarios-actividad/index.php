@@ -22,16 +22,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'usuario.nombre',
-            'usuario_id',
+            // 'usuario_id',
             'motivo',
-            'fecha_suspenso',
-
+            [
+                'attribute' => 'Fecha Suspensión de la cuenta',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->fecha_suspenso);
+                },
+                'format' => 'raw',
+            ],
+  
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

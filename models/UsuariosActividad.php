@@ -45,9 +45,9 @@ class UsuariosActividad extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'usuario_id' => 'Usuario ID',
+            // 'usuario_id' => 'Usuario ID',
             'motivo' => 'Motivo',
-            'fecha_suspenso' => 'Fecha Suspenso',
+            'fecha_suspenso' => 'Fecha Suspensión de la cuenta',
         ];
     }
 
