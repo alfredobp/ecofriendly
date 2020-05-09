@@ -75,15 +75,16 @@ class LoginForm extends Model
         $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
         $bloqueo = UsuariosActividad::find()->joinWith('usuario u')->where(['username' => $this->getUser()])->one();
 
+        // si el usua
         if ($bloqueo != null) {
             Yii::$app->session->setFlash('error', 'Su cuenta ha sido bloqueada por ' . $bloqueo['motivo'] .
                 ' Por Favor, pongáse en contacto con el administrador de la plataforma (admin@ecofriendly.es)');
             return;
         }
-        // if ($usuarios->token_acti == null) {
-        //     Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
-        //     return;
-        // }
+        if ($usuarios['token_acti'] == null) {
+            Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
+            return;
+        }
         if ($this->validate()) {
             $usuarios = Usuarios::find()->where(['username' => $this->getUser()])->one();
             $usuarios->ultima_conexion = date('Y-m-d H:i:s');

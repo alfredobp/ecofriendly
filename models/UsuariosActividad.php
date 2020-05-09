@@ -60,4 +60,8 @@ class UsuariosActividad extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
+    public static function estaBloqueado($id)
+    {
+        return  $bloqueo = UsuariosActividad::find()->joinWith('usuario u')->where(['username' => $id])->one();
+    }
 }
