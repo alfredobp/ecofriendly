@@ -69,9 +69,7 @@ class FeedsFavoritosController extends Controller
         // die;
         $model->feed_id = $_POST['feed_id'];
         if ($model->validate()&&$model->save()) {
-            // var_dump($_POST);
-            // die;
-            // $model->save();
+        
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
 

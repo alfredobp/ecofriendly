@@ -118,7 +118,7 @@ DROP TABLE if EXISTS feeds_favoritos CASCADE;
 
 CREATE TABLE feeds_favoritos (
     id bigserial PRIMARY KEY,
-    usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    usuario_id bigint UNIQUE NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     feed_id integer NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
     created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );

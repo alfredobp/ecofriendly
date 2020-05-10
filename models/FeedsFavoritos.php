@@ -32,6 +32,7 @@ class FeedsFavoritos extends \yii\db\ActiveRecord
     {
         return [
             [['usuario_id', 'feed_id'], 'required'],
+            ['usuario_id', 'unique'],
             [['usuario_id', 'feed_id'], 'default', 'value' => null],
             [['usuario_id', 'feed_id'], 'integer'],
             [['created_at'], 'safe'],
