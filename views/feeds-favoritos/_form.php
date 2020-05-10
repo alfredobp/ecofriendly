@@ -16,7 +16,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'feed_id')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <!-- <?= $form->field($model, 'created_at')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

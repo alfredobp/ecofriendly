@@ -12,6 +12,7 @@ use app\models\AccionesRetos;
 use app\models\Comentarios;
 use app\models\Ecoretos;
 use app\models\Feeds;
+use app\models\FeedsFavoritos;
 use app\models\ObjetivosPersonales;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
@@ -227,7 +228,7 @@ if (!isset($_COOKIE['intro'])) {
                     ?>
                 </div>
                 <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
-                <?php Auxiliar::ventanaModal('Sus Objetivos', 6);?>
+                <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
             </div>
             <br>
             <div class="sombra">
@@ -385,7 +386,22 @@ if (!isset($_COOKIE['intro'])) {
                         <div class="card-footer text-muted">
                             <div class="row">
                                 <!-- Gestión de los me gusta -->
-                                <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
+                                <?php
+
+                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
+                                ?>
+
+                                <div class="col"> <?= Html::a(
+                                                        Icon::show(' fa-thumbs-up') . 'Me gusta',
+                                                        Url::to(['/feeds-favoritos/create', 'feed_id' => $feeds['id']]),
+                                                        [
+                                                            'data' => [
+                                                                'method' => 'post',
+                                                                'params' => ['feed_id' => $feeds['id']], // <- extra level
+                                                            ],
+                                                        ]
+
+                                                    ); ?> <?= $meGusta->count() ?></div>
 
                                 <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
 

@@ -65,9 +65,14 @@ class FeedsFavoritosController extends Controller
     public function actionCreate()
     {
         $model = new FeedsFavoritos();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->usuario_id = Yii::$app->user->identity->id;
+        // die;
+        $model->feed_id = $_POST['feed_id'];
+        if ($model->validate()&&$model->save()) {
+            // var_dump($_POST);
+            // die;
+            // $model->save();
+            return $this->redirect(['site/index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
