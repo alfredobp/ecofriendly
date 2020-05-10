@@ -65,7 +65,7 @@ class ObjetivosPersonalesController extends Controller
     public function actionCreate()
     {
         $model = new ObjetivosPersonales();
-
+        $model->usuario_id = Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
