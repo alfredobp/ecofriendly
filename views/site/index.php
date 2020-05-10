@@ -410,40 +410,27 @@ if (!isset($_COOKIE['intro'])) {
 
                                 <div class="collapse" id="collapseExampleMe<?= $i ?>">
                                     <br>
-
                                     <div class="divider"></div>
-                                   
                                     <div class="row">
-
-                                        <div class="col-10">
+                                        <div class="col-12">
                                             <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
                                             <?php foreach ($meGusta as $meGusta) : ?>
-
-                                                <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']]) ?>
-                                                <?= Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre ?>
-
-
+                                                <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
+                                                    . Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre  . '<br>' ?>
+                                                <br>
+                                                <div class="divider"></div>
                                             <?php
                                             endforeach; ?>
                                         </div>
-
                                         <br>
                                         <div class="divider"></div>
-
-                                        <br>
-
                                     </div>
                                 </div>
 
 
                                 <!-- Fin Me Gusta -->
 
-
-
-
-                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
-
-                                ?>
+                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]); ?>
 
                                 <!-- Gestión de los comentarios -->
                                 <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
@@ -540,13 +527,8 @@ if (!isset($_COOKIE['intro'])) {
         </main>
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
             <div class="sombra">
-
-
                 <p class="h5 text-success text-center"><strong>TOP participantes #ecofriendly</strong> </p>
-
-
                 <?php
-
                 $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
                 $dataProvider = new ArrayDataProvider([
                     'allModels' => $arrModels,
@@ -555,7 +537,6 @@ if (!isset($_COOKIE['intro'])) {
                 echo Gridpropio::widget([
                     'dataProvider' => $dataProvider,
                     'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
-
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
@@ -580,9 +561,6 @@ if (!isset($_COOKIE['intro'])) {
                     ],
 
                 ]);
-
-
-
                 ?>
             </div>
             <br>
@@ -590,11 +568,8 @@ if (!isset($_COOKIE['intro'])) {
                 <div class="card-block sombraBis">
                     <h5 class="card-title h5  text-center"> <span class="glyphicon glyphicon-plus "></span> <strong> Encuentra a más usuarios </strong></h5>
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
-
                     <div class="col-12">
-
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
-
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
                                 . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
@@ -603,8 +578,6 @@ if (!isset($_COOKIE['intro'])) {
                             echo '</li> </ul>';
                         }
                         Auxiliar::ventanaModal('Perfil de usuario', 2);
-
-
                         ?>
                         <br>
                         <?= Html::beginForm(['/usuarios/buscar'], 'get')
@@ -620,8 +593,6 @@ if (!isset($_COOKIE['intro'])) {
                                 ['class' => 'btn btn-success nav-link mt-3 ']
                             )
                             . Html::endForm();
-
-
 
                         Modal::begin([
                             'title' => '<h3>Usuarios encontrados</h3>',
@@ -665,14 +636,11 @@ if (!isset($_COOKIE['intro'])) {
                             }
                             ?>
                             <br>
-
                         </div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>
             </div>
-
-
         </aside>
     </div>
     </body>
