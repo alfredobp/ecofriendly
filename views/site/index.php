@@ -226,7 +226,8 @@ if (!isset($_COOKIE['intro'])) {
                     }
                     ?>
                 </div>
-                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton4 btn-xl', 'id' => 'modalButton3']); ?>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
+                <?php Auxiliar::ventanaModal('Sus Objetivos', 6);?>
             </div>
             <br>
             <div class="sombra">

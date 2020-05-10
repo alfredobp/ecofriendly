@@ -10,22 +10,29 @@ $(function () {
         $('#modal3').modal('show')
             .find('#modalContent3')
             .load($(this).attr('value'));
-       
+
 
     })
     $('.modalButton4').click(function () {
         $('#modal4').modal('show')
             .find('#modalContent4')
             .load($(this).attr('value'));
-       
+
 
     })
-    
+
     $('.modalButton5').click(function () {
         $('#modal5').modal('show')
             .find('#modalContent5')
             .load($(this).attr('value'));
-      
+
+
+    })
+    $('.modalButton6').click(function () {
+        $('#modal6').modal('show')
+            .find('#modalContent6')
+            .load($(this).attr('value'));
+
 
     })
 })
