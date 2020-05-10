@@ -204,7 +204,7 @@ if (!isset($_COOKIE['intro'])) {
                 <h4 class="text-center">Objetivos Personales:</h4>
                 <br>
                 <div class="paper">
-           
+
                     <?php
                     $dataProvider = new ActiveDataProvider([
 
@@ -213,18 +213,20 @@ if (!isset($_COOKIE['intro'])) {
                     ]);
 
                     $dataProvider->pagination = ['pageSize' => 5];
+                    if ($dataProvider->count > 0) {
 
-                    echo Gridpropio::widget([
-                        'dataProvider' => $dataProvider,
-                        'columns' => [
-                            'objetivo',
+                        echo Gridpropio::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
+                                'objetivo',
 
 
-                        ],
-                    ]);
+                            ],
+                        ]);
+                    }
                     ?>
                 </div>
-                    <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton4 btn-xl', 'id' => 'modalButton3']); ?>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton4 btn-xl', 'id' => 'modalButton3']); ?>
             </div>
             <br>
             <div class="sombra">
