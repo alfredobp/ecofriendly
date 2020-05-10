@@ -401,7 +401,45 @@ if (!isset($_COOKIE['intro'])) {
                                                             ],
                                                         ]
 
-                                                    ); ?> <?= $meGusta->count() ?></div>
+                                                    ); ?>
+                                    <a class="text-primary" data-toggle="collapse" href="#collapseExampleMe<?= $i ?>"> <?= $meGusta->count() ?></a></div>
+
+
+                                <!-- Me gusta -->
+
+
+                                <div class="collapse" id="collapseExampleMe<?= $i ?>">
+                                    <br>
+
+                                    <div class="divider"></div>
+                                   
+                                    <div class="row">
+
+                                        <div class="col-10">
+                                            <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
+                                            <?php foreach ($meGusta as $meGusta) : ?>
+
+                                                <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']]) ?>
+                                                <?= Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre ?>
+
+
+                                            <?php
+                                            endforeach; ?>
+                                        </div>
+
+                                        <br>
+                                        <div class="divider"></div>
+
+                                        <br>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Fin Me Gusta -->
+
+
+
 
                                 <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
 
