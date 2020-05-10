@@ -203,25 +203,28 @@ if (!isset($_COOKIE['intro'])) {
             <div class="sombra">
                 <h4 class="text-center">Objetivos Personales:</h4>
                 <br>
-                <?php
-                $dataProvider = new ActiveDataProvider([
+                <div class="paper">
+           
+                    <?php
+                    $dataProvider = new ActiveDataProvider([
 
-                    'query' => ObjetivosPersonales::find()->where(['usuario_id' => $id])
+                        'query' => ObjetivosPersonales::find()->where(['usuario_id' => $id])
 
-                ]);
+                    ]);
 
-                $dataProvider->pagination = ['pageSize' => 5];
+                    $dataProvider->pagination = ['pageSize' => 5];
 
-                echo GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'columns' => [
-                        'objetivo',
+                    echo Gridpropio::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            'objetivo',
 
 
-                    ],
-                ]);
-                ?>
-                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']); ?>
+                        ],
+                    ]);
+                    ?>
+                </div>
+                    <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton4 btn-xl', 'id' => 'modalButton3']); ?>
             </div>
             <br>
             <div class="sombra">
