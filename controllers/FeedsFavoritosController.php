@@ -68,14 +68,16 @@ class FeedsFavoritosController extends Controller
         $model->usuario_id = Yii::$app->user->identity->id;
         // die;
         $model->feed_id = $_POST['feed_id'];
-        if ($model->validate()&&$model->save()) {
-        
+        if ($model->validate() && $model->save()) {
+
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        } else {
+            Yii::$app->session->setFlash('error', 'Ya has hecho me gusta en este feed');
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**
