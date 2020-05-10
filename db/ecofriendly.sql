@@ -39,15 +39,17 @@ DROP TABLE IF EXISTS usuarios_actividad CASCADE;
 CREATE TABLE usuarios_actividad(
     id bigserial PRIMARY KEY,
     usuario_id integer REFERENCES usuarios(id),
-    motivo varchar, 
-    fecha_suspenso timestamp(0) NOT NULL  DEFAULT current_timestamp
+    motivo varchar,
+    fecha_suspenso timestamp(0) NOT NULL DEFAULT current_timestamp
 );
+
 DROP TABLE IF EXISTS objetivos_personales CASCADE;
+
 CREATE TABLE objetivos_personales(
     id bigserial PRIMARY KEY,
     usuario_id integer REFERENCES usuarios(id),
-    objetivo varchar, 
-    created_at timestamp(0) NOT NULL  DEFAULT current_timestamp
+    objetivo varchar,
+    created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS acciones_retos CASCADE;
@@ -110,6 +112,15 @@ CREATE TABLE comentarios (
     updated_at timestamp,
     deleted boolean,
     comentarios_id bigint REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DROP TABLE if EXISTS feeds_favoritos CASCADE;
+
+CREATE TABLE feeds_favoritos (
+    id bigserial PRIMARY KEY,
+    usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    feed_id integer NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS seguidores CASCADE;
