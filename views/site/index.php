@@ -12,6 +12,7 @@ use app\models\AccionesRetos;
 use app\models\Comentarios;
 use app\models\Ecoretos;
 use app\models\Feeds;
+use app\models\ObjetivosPersonales;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
@@ -199,7 +200,35 @@ if (!isset($_COOKIE['intro'])) {
                 Auxiliar::ventanaModal('Retos aceptados', 5);
                 ?>
             </div>
+            <div class="sombra">
+                <h4 class="text-center">Objetivos Personales:</h4>
+                <br>
+                <div class="paper">
 
+                    <?php
+                    $dataProvider = new ActiveDataProvider([
+
+                        'query' => ObjetivosPersonales::find()->where(['usuario_id' => $id])
+
+                    ]);
+
+                    $dataProvider->pagination = ['pageSize' => 5];
+                    if ($dataProvider->count > 0) {
+
+                        echo Gridpropio::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
+                                'objetivo',
+
+
+                            ],
+                        ]);
+                    }
+                    ?>
+                </div>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
+                <?php Auxiliar::ventanaModal('Sus Objetivos', 6);?>
+            </div>
             <br>
             <div class="sombra">
 
