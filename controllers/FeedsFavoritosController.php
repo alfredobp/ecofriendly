@@ -66,7 +66,6 @@ class FeedsFavoritosController extends Controller
     {
         $model = new FeedsFavoritos();
         $model->usuario_id = Yii::$app->user->identity->id;
-        // die;
         $model->feed_id = $_POST['feed_id'];
         if ($model->validate() && $model->save()) {
 

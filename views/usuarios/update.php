@@ -6,6 +6,7 @@
 
 use app\helper_propio\Auxiliar;
 use app\helper_propio\GestionCookies;
+use app\models\Bloqueos;
 use app\models\Feeds;
 use app\models\Seguidores;
 use app\models\Usuarios;
@@ -250,11 +251,29 @@ $this->registerJs($js);
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
-                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
-                    echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
 
-                    echo Html::endForm();
+
+                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                   
+                    echo Html::a(
+                        'Bloquear usuario',
+                        Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
+                        [
+                            'data' => [
+                                'method' => 'post',
+                                'params' => [
+                                    'usuariosid' => Yii::$app->user->identity->id,
+                                    'bloqueadosid' => $seguidores[$i]->usuario_id
+                                ],
+                                // <- extra level
+                            ],
+                        ]
+
+                    );
+                    $bloqueados=Bloqueos::find()->where(['usuariosid'=>Yii::$app->user->identity->id])->andWhere(['seguidoresid'=>$seguidores[$i]->id]);
+                    if (true) {
+                        # code...
+                    }
                 }
             } else {
                 echo 'Actualmente no tiene seguidores';
@@ -336,7 +355,7 @@ $this->registerJs($js);
                 </select>
             </p>
             <p>Color del texto de los feeds:
-                <input type="color"  id="pickerColor2">
+                <input type="color" id="pickerColor2">
             </p>
             <p>Color del Fondo de la aplicación:
                 <input type="color" id="pickerColor3">

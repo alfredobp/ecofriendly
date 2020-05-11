@@ -77,14 +77,15 @@ class BloqueosController extends Controller
     public function actionCreate()
     {
         $model = new Bloqueos();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->usuariosid = Yii::$app->user->identity->id;
+        $model->bloqueadosid = $_POST['bloqueadosid'];
+        if ($model->validate() && $model->save()) {
+            Yii::$app->session->setFlash('Success', 'El usuario ha sido bloqueado');
+            return $this->redirect(['usuarios/update']);
+        } else {
+            Yii::$app->session->setFlash('Error', 'El usuario  ya ha sido bloqueado');
+            return $this->redirect(['usuarios/update']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
