@@ -251,28 +251,27 @@ $this->registerJs($js);
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
+                    $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->andWhere(['bloqueadosid' => $seguidores[$i]->usuario_id]);
+                    if ($bloqueados->count() > 1) {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
+                    } else {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
+                        echo Html::a(
+                            'Bloquear usuario',
+                            Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
+                            [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => [
+                                        'usuariosid' => Yii::$app->user->identity->id,
+                                        'bloqueadosid' => $seguidores[$i]->usuario_id
+                                    ],
 
-
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
-                   
-                    echo Html::a(
-                        'Bloquear usuario',
-                        Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
-                        [
-                            'data' => [
-                                'method' => 'post',
-                                'params' => [
-                                    'usuariosid' => Yii::$app->user->identity->id,
-                                    'bloqueadosid' => $seguidores[$i]->usuario_id
                                 ],
-                                // <- extra level
-                            ],
-                        ]
+                                'class'=>['btn btn-danger btn-xs']
+                            ]
 
-                    );
-                    $bloqueados=Bloqueos::find()->where(['usuariosid'=>Yii::$app->user->identity->id])->andWhere(['seguidoresid'=>$seguidores[$i]->id]);
-                    if (true) {
-                        # code...
+                        );
                     }
                 }
             } else {
