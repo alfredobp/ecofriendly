@@ -323,7 +323,7 @@ $this->registerJs($js);
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <?php $bloqueados = Bloqueos::find()->select('bloqueadosid')->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
+                        <?php $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
                         <?php
                         // var_dump($bloqueados->nombre);
 
@@ -331,7 +331,29 @@ $this->registerJs($js);
                             // var_dump($bloqueados);
                             $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
                             echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
+
+                            echo Html::a(
+                                'Desbloquear usuario',
+                                Url::to([
+                                    '/bloqueos/delete', 'id' => $bloqueadosnombre['id'], 'usuarioid' => Yii::$app->user->identity->id,
+                                    'seguidorid' => $bloqueadosnombre['bloqueadosid']
+                                ]),
+                                [
+                                    'data' => [
+                                        'method' => 'post',
+                                        'params' => [
+                                            'id' => Yii::$app->user->identity->id,
+                                            'usuarioid' => Yii::$app->user->identity->id,
+                                            'seguidorid' => $bloqueadosnombre['bloqueadosid']
+                                        ],
+
+                                    ],
+                                    'class' => ['btn btn-danger btn-xs']
+                                ]
+
+                            );
                         }
+
 
 
                         ?>
