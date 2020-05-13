@@ -80,13 +80,22 @@ class BloqueosController extends Controller
         $model = new Bloqueos();
         $model->usuariosid = Yii::$app->user->identity->id;
         $model->bloqueadosid = $_POST['bloqueadosid'];
-        // $eliminado = Seguidores::find()
-        //     ->where(['usuario_id' => $_POST['bloqueadosid']])
-        //     ->andWhere(['seguidor_id' => Yii::$app->user->identity->id])->one();
+        $estaBloqueado = Bloqueos::find()
+            ->where(['usuariosid' => Yii::$app->user->identity->id])
+            ->andWhere(['bloqueadosid' => $_POST['bloqueadosid']])
+            ->one();
 
+        $eliminado = Seguidores::find()
+            ->where(['usuario_id' => $_POST['bloqueadosid']])
+            ->andWhere(['seguidor_id' => Yii::$app->user->identity->id])->one();
+
+        if ($estaBloqueado!=null) {
+            return $this->goBack();
+        }
         if ($model->validate() && $model->save()) {
 
-            // $eliminado->delete();
+            $eliminado->delete();
+
             Yii::$app->session->setFlash('Success', 'El usuario ha sido bloqueado');
             return $this->goBack();
         } else {

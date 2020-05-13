@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Bloqueos;
 use Yii;
 use app\models\Seguidores;
 use app\models\SeguidoresSearch;
@@ -81,11 +82,17 @@ class SeguidoresController extends Controller
     {
         $seguidor = new Seguidores();
         $seguidor->usuario_id = Yii::$app->user->identity->id;
-        var_dump($_POST);
+
         $id = $_POST['seguidor_id'];
         $seguidor->seguidor_id = $id;
         $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
 
+        $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidor])->one();
+
+        if ($estaBloqueado != null) {
+            Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
+            return $this->goBack();
+        }
         if ($seguidor->validate() && $esSeguidor == null) {
             $seguidor->save();
             Yii::$app->session->setFlash('success', 'Ahora eres amigo');
