@@ -31,7 +31,7 @@ class Bloqueos extends \yii\db\ActiveRecord
     {
         return [
             [['usuariosid', 'bloqueadosid'], 'required'],
-            ['bloqueadosid', 'safe'],
+            ['bloqueadosid', 'unique'],
             [['usuariosid', 'bloqueadosid'], 'default', 'value' => null],
             [['usuariosid', 'bloqueadosid'], 'integer'],
             [['usuariosid'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuariosid' => 'id']],

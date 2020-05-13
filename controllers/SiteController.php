@@ -186,6 +186,7 @@ class SiteController extends Controller
                 ])
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
                 ->orwhere(['feeds.usuariosid' => $id])
+             
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
 
