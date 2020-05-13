@@ -139,8 +139,11 @@ class BloqueosController extends Controller
         $seguidor = new Seguidores();
         $seguidor->usuario_id = $seguidorid;
         $seguidor->seguidor_id = $usuarioid;
-        $seguidor->save();
-        return $this->redirect(['site/index']);
+        if ($seguidor->save()) {
+          
+            return $this->redirect(['site/index']);
+            
+        }
     }
 
     /**
