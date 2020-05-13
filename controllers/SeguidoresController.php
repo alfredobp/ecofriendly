@@ -87,6 +87,7 @@ class SeguidoresController extends Controller
         $seguidor->seguidor_id = $id;
         $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
 
+        //Se comprueba si el usuario se encuentra en situación de bloqueo.
         $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidor])->one();
 
         if ($estaBloqueado != null) {

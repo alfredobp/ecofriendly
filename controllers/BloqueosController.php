@@ -71,8 +71,9 @@ class BloqueosController extends Controller
     }
 
     /**
-     * Creates a new Bloqueos model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Crea un nuevo registro en la tabla bloqueos
+     * Borra al usuario de la tabal seguidores para que el usuario bloqueado no pueda observar la actividad del
+     * usuario.
      * @return mixed
      */
     public function actionCreate()
@@ -89,7 +90,7 @@ class BloqueosController extends Controller
             ->where(['usuario_id' => $_POST['bloqueadosid']])
             ->andWhere(['seguidor_id' => Yii::$app->user->identity->id])->one();
 
-        if ($estaBloqueado!=null) {
+        if ($estaBloqueado != null) {
             return $this->goBack();
         }
         if ($model->validate() && $model->save()) {
