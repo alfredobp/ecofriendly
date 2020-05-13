@@ -6,6 +6,7 @@
 
 use app\helper_propio\Auxiliar;
 use app\helper_propio\GestionCookies;
+use app\models\Bloqueos;
 use app\models\Feeds;
 use app\models\Seguidores;
 use app\models\Usuarios;
@@ -250,11 +251,28 @@ $this->registerJs($js);
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
-                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post');
-                    echo Html::hiddenInput('id', $seguidores[$i]->id);
-                    echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                    $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->andWhere(['bloqueadosid' => $seguidores[$i]->usuario_id]);
+                    if ($bloqueados->count() > 1) {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
+                    } else {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
+                        echo Html::a(
+                            'Bloquear usuario',
+                            Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
+                            [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => [
+                                        'usuariosid' => Yii::$app->user->identity->id,
+                                        'bloqueadosid' => $seguidores[$i]->usuario_id
+                                    ],
 
-                    echo Html::endForm();
+                                ],
+                                'class' => ['btn btn-danger btn-xs']
+                            ]
+
+                        );
+                    }
                 }
             } else {
                 echo 'Actualmente no tiene seguidores';
@@ -302,10 +320,24 @@ $this->registerJs($js);
         <div class="panel-body">
             <fieldset class="col-md-12">
                 <legend>Usuarios Bloqueados:</legend>
-
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p>...</p>
+
+                        <?php $bloqueados = Bloqueos::find()->select('bloqueadosid')->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
+                        <?php
+                        // var_dump($bloqueados->nombre);
+
+                        foreach ($bloqueados as $bloqueadosnombre) {
+                            // var_dump($bloqueados);
+                            $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
+                            echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
+                        }
+
+
+                        ?>
+
+
+
                     </div>
                 </div>
 
@@ -336,7 +368,7 @@ $this->registerJs($js);
                 </select>
             </p>
             <p>Color del texto de los feeds:
-                <input type="color"  id="pickerColor2">
+                <input type="color" id="pickerColor2">
             </p>
             <p>Color del Fondo de la aplicación:
                 <input type="color" id="pickerColor3">

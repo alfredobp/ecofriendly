@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Bloqueos;
 use app\models\BloqueosSearch;
+use app\models\Seguidores;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -70,21 +71,38 @@ class BloqueosController extends Controller
     }
 
     /**
-     * Creates a new Bloqueos model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Crea un nuevo registro en la tabla bloqueos
+     * Borra al usuario de la tabal seguidores para que el usuario bloqueado no pueda observar la actividad del
+     * usuario.
      * @return mixed
      */
     public function actionCreate()
     {
         $model = new Bloqueos();
+        $model->usuariosid = Yii::$app->user->identity->id;
+        $model->bloqueadosid = $_POST['bloqueadosid'];
+        $estaBloqueado = Bloqueos::find()
+            ->where(['usuariosid' => Yii::$app->user->identity->id])
+            ->andWhere(['bloqueadosid' => $_POST['bloqueadosid']])
+            ->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $eliminado = Seguidores::find()
+            ->where(['usuario_id' => $_POST['bloqueadosid']])
+            ->andWhere(['seguidor_id' => Yii::$app->user->identity->id])->one();
+
+        if ($estaBloqueado != null) {
+            return $this->goBack();
         }
+        if ($model->validate() && $model->save()) {
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            $eliminado->delete();
+
+            Yii::$app->session->setFlash('Success', 'El usuario ha sido bloqueado');
+            return $this->goBack();
+        } else {
+            Yii::$app->session->setFlash('Error', 'El usuario  ya ha sido bloqueado');
+            return $this->goHome();
+        }
     }
 
     /**
