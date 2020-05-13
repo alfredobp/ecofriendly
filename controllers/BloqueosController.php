@@ -132,11 +132,15 @@ class BloqueosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $seguidorid, $usuarioid)
     {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $this->findModel($id)->delete();
+        $seguidor = new Seguidores();
+        $seguidor->usuario_id = $seguidorid;
+        $seguidor->seguidor_id = $usuarioid;
+        $seguidor->save();
+        return $this->redirect(['site/index']);
     }
 
     /**
