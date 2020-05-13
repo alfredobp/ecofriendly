@@ -268,7 +268,7 @@ $this->registerJs($js);
                                     ],
 
                                 ],
-                                'class'=>['btn btn-danger btn-xs']
+                                'class' => ['btn btn-danger btn-xs']
                             ]
 
                         );
@@ -320,10 +320,24 @@ $this->registerJs($js);
         <div class="panel-body">
             <fieldset class="col-md-12">
                 <legend>Usuarios Bloqueados:</legend>
-
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p>...</p>
+
+                        <?php $bloqueados = Bloqueos::find()->select('bloqueadosid')->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
+                        <?php
+                        // var_dump($bloqueados->nombre);
+
+                        foreach ($bloqueados as $bloqueadosnombre) {
+                            // var_dump($bloqueados);
+                            $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
+                            echo '<div class="badge badge-secondary">' . $usuarios['nombre'] . '</div>';
+                        }
+
+
+                        ?>
+
+
+
                     </div>
                 </div>
 
