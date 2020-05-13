@@ -126,9 +126,9 @@ class BloqueosController extends Controller
     }
 
     /**
-     * Deletes an existing Bloqueos model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * Borrar el bloqueo de la tabla
+     * Y crea de nuevo el registro en la tabla de seguimientos.
+     * @param integer $id $usuarioid $seguidorid
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -140,9 +140,8 @@ class BloqueosController extends Controller
         $seguidor->usuario_id = $seguidorid;
         $seguidor->seguidor_id = $usuarioid;
         if ($seguidor->save()) {
-          
+
             return $this->redirect(['site/index']);
-            
         }
     }
 
