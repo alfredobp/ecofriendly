@@ -140,16 +140,27 @@ class SiteController extends Controller
                 $diferencia = $end_ts - $start_ts;
                 $diferencia2 = round($diferencia / 86400);
                 if ($diferencia2 >= 7) {
-                    var_dump('hola');
+
+                    $subject = 'Ultimas Novedades de la red de Ecofriendly';
+                    $body = 'Estimado usuario: ' . $value['nombre'];
+                    $body .=  ' Desde el equipo de <strong> #ecofriendly</strong></p> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
+                    $body .= ' <li>Se han compartido:' . $nFeeds . '</li>';
+                    $body .= '<li>Su nivel es: ' . $nivel . '</li>';
+                    $body .= '<li>Te faltan: ' . $puntos . ' para subir de categoría</li> </ul>';
+                    $body .= '<br> <p> Atte. El equipo de ecofrienfly';
+
+
+
+                    //Enviamos el correo
+                    Yii::$app->mailer->compose()
+                        ->setTo($value['email'])
+                        ->setFrom([Yii::$app->params['adminEmail']])
+                        ->setSubject($subject)
+                        ->setHtmlBody($body)
+                        ->send();
                 }
             }
-            die;
 
-            if ($diferencia == 1) {
-                var_dump($usuariosAusentes->nombre);
-                # code...
-            }
-            die;
 
 
             return $this->render('_indexAdmin', [
