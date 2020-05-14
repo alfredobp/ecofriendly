@@ -126,6 +126,30 @@ class SiteController extends Controller
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
 
+            //Envio de email a usuarios que lleven mas de una semana sin conectarse
+
+            $usuariosAusentes = Usuarios::find()->asArray()->all();
+            // $dif = $usuariosAusentes['ultima_conexion'];
+            // $nombre=$usuariosAusentes->nombre;
+            $dif2 = date('Y-m-d H:i:s');
+            foreach ($usuariosAusentes as $key => $value) {
+                var_dump($value['ultima_conexion']);
+
+                $start_ts = strtotime($value['ultima_conexion']);
+                $end_ts = strtotime(date('Y-m-d H:i:s'));
+                $diferencia = $end_ts - $start_ts;
+                $diferencia2 = round($diferencia / 86400);
+                if ($diferencia2 >= 7) {
+                    var_dump('hola');
+                }
+            }
+            die;
+
+            if ($diferencia == 1) {
+                var_dump($usuariosAusentes->nombre);
+                # code...
+            }
+            die;
 
 
             return $this->render('_indexAdmin', [
@@ -186,7 +210,7 @@ class SiteController extends Controller
                 ])
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
                 ->orwhere(['feeds.usuariosid' => $id])
-          
+
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
 
