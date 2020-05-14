@@ -154,15 +154,11 @@ class SiteController extends Controller
 
                     $subject = 'Ultimas Novedades de la red de Ecofriendly';
                     $body = 'Estimado usuario: ' . $value['nombre'];
-                    $body .=  ' Desde el equipo de <strong> #ecofriendly</strong></p> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
+                    $body .=  ' Desde el equipo de <strong> #ecofriendly</strong> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
                     $body .= ' <li>Se han compartido:' . $nFeeds . '</li>';
                     $body .= '<li>Tu nivel es: ' . $nivel->categoria->cat_nombre . '</li>';
                     $body .= '<li>Te faltan: ' . $puntos->ranking->puntuacion . ' para subir de categoría</li> </ul>';
                     $body .= '<br> <p> Atte. El equipo de ecofrienfly';
-
-
-
-                    //Enviamos el correo
                     Yii::$app->mailer->compose()
                         ->setTo($value['email'])
                         ->setFrom([Yii::$app->params['adminEmail']])
