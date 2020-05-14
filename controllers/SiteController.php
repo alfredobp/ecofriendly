@@ -127,20 +127,19 @@ class SiteController extends Controller
                 ->asArray()->all();
 
             //Envio de email a usuarios que lleven mas de una semana sin conectarse
+            //cuando el usuario admin inicia sesión
 
             $usuariosAusentes = Usuarios::find()->asArray()->all();
-            // $dif = $usuariosAusentes['ultima_conexion'];
-            // $nombre=$usuariosAusentes->nombre;
             $dif2 = date('Y-m-d H:i:s');
             foreach ($usuariosAusentes as $key => $value) {
-                var_dump($value['ultima_conexion']);
-
+                //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
                 $start_ts = strtotime($value['ultima_conexion']);
                 $end_ts = strtotime(date('Y-m-d H:i:s'));
-                $diferencia = $end_ts - $start_ts;
-                $diferencia2 = round($diferencia / 86400);
-                if ($diferencia2 >= 0) {
-
+                $diferenciaTiempo = $end_ts - $start_ts;
+                //redondeo el tiempo transcurrido para obtener el número de días que han transcurrido.
+                $diferenciaTiempoDias = round($diferenciaTiempo / 86400);
+                //Si ha pasado 7 dias o más desde la última conexión se envia un correo a todos los usuarios.
+                if ($diferenciaTiempoDias >= 7) {
                     $nivel = Usuarios::find()->joinWith('categoria')->where(['usuarios.id' => $value['id']])->one();
                     $puntos = Usuarios::find()->joinWith('ranking')->where(['usuarios.id' => $value['id']])->one();
                     $nFeeds = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
@@ -167,8 +166,6 @@ class SiteController extends Controller
                         ->send();
                 }
             }
-
-
 
             return $this->render('_indexAdmin', [
                 'model' => Feeds::find()->all(),
