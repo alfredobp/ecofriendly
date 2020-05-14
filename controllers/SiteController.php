@@ -126,7 +126,46 @@ class SiteController extends Controller
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
 
+            //Envio de email a usuarios que lleven mas de una semana sin conectarse
+            //cuando el usuario admin inicia sesión
 
+            $usuariosAusentes = Usuarios::find()->asArray()->all();
+            $dif2 = date('Y-m-d H:i:s');
+            foreach ($usuariosAusentes as $key => $value) {
+                //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
+                $start_ts = strtotime($value['ultima_conexion']);
+                $end_ts = strtotime(date('Y-m-d H:i:s'));
+                $diferenciaTiempo = $end_ts - $start_ts;
+                //redondeo el tiempo transcurrido para obtener el número de días que han transcurrido.
+                $diferenciaTiempoDias = round($diferenciaTiempo / 86400);
+                //Si ha pasado 7 dias o más desde la última conexión se envia un correo a todos los usuarios.
+                if ($diferenciaTiempoDias >= 7) {
+                    $nivel = Usuarios::find()->joinWith('categoria')->where(['usuarios.id' => $value['id']])->one();
+                    $puntos = Usuarios::find()->joinWith('ranking')->where(['usuarios.id' => $value['id']])->one();
+                    $nFeeds = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                        ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                        ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                        ->Where([
+                            'seguidores.usuario_id' => $value['id']
+                        ])
+                        ->andWhere('feeds.created_at>usuarios.ultima_conexion')
+                        ->count();
+
+                    $subject = 'Ultimas Novedades de la red de Ecofriendly';
+                    $body = 'Estimado usuario: ' . $value['nombre'];
+                    $body .=  ' Desde el equipo de <strong> #ecofriendly</strong> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
+                    $body .= ' <li>Se han compartido:' . $nFeeds . '</li>';
+                    $body .= '<li>Tu nivel es: ' . $nivel->categoria->cat_nombre . '</li>';
+                    $body .= '<li>Te faltan: ' . $puntos->ranking->puntuacion . ' para subir de categoría</li> </ul>';
+                    $body .= '<br> <p> Atte. El equipo de ecofrienfly';
+                    Yii::$app->mailer->compose()
+                        ->setTo($value['email'])
+                        ->setFrom([Yii::$app->params['adminEmail']])
+                        ->setSubject($subject)
+                        ->setHtmlBody($body)
+                        ->send();
+                }
+            }
 
             return $this->render('_indexAdmin', [
                 'model' => Feeds::find()->all(),
@@ -186,7 +225,7 @@ class SiteController extends Controller
                 ])
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
                 ->orwhere(['feeds.usuariosid' => $id])
-          
+
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
 
