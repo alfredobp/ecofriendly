@@ -139,14 +139,25 @@ class SiteController extends Controller
                 $end_ts = strtotime(date('Y-m-d H:i:s'));
                 $diferencia = $end_ts - $start_ts;
                 $diferencia2 = round($diferencia / 86400);
-                if ($diferencia2 >= 7) {
+                if ($diferencia2 >= 0) {
+
+                    $nivel = Usuarios::find()->joinWith('categoria')->where(['usuarios.id' => $value['id']])->one();
+                    $puntos = Usuarios::find()->joinWith('ranking')->where(['usuarios.id' => $value['id']])->one();
+                    $nFeeds = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                        ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                        ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                        ->Where([
+                            'seguidores.usuario_id' => $value['id']
+                        ])
+                        ->andWhere('feeds.created_at>usuarios.ultima_conexion')
+                        ->count();
 
                     $subject = 'Ultimas Novedades de la red de Ecofriendly';
                     $body = 'Estimado usuario: ' . $value['nombre'];
                     $body .=  ' Desde el equipo de <strong> #ecofriendly</strong></p> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
                     $body .= ' <li>Se han compartido:' . $nFeeds . '</li>';
-                    $body .= '<li>Su nivel es: ' . $nivel . '</li>';
-                    $body .= '<li>Te faltan: ' . $puntos . ' para subir de categoría</li> </ul>';
+                    $body .= '<li>Tu nivel es: ' . $nivel->categoria->cat_nombre . '</li>';
+                    $body .= '<li>Te faltan: ' . $puntos->ranking->puntuacion . ' para subir de categoría</li> </ul>';
                     $body .= '<br> <p> Atte. El equipo de ecofrienfly';
 
 
