@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\MensajesPrivados;
 use app\models\MensajesPrivadosSearch;
+use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -54,13 +55,24 @@ class MensajesPrivadosController extends Controller
     public function actionView($id)
     {
         $model = MensajesPrivados::find()->where(['id' => $id])->one();
-        $model->visto_dat = date('Y-m-d H:i:s');
-        $model->seen = true;
-        $model->save();
+        //Si el usuario que visualizar el mensaje es el receptor del mismo
+        //se pone como viste y se le añade la fecha de visualización
+        if ($model->receptor_id === Yii::$app->user->identity->id) {
+            $model->visto_dat = date('Y-m-d H:i:s');
+            $model->seen = true;
+            $model->save();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
+    /**
+     * Responder
+     * Función que responde a mensaje previamente enviado al usuario
+     * Se conserva el asunto, añadiendo el prefijo Re: para indicar que corresponde a un mensaje de respuesta.
+     * @param [type] $id
+     * @return void
+     */
     public function actionResponder($id)
     {
 
@@ -86,13 +98,14 @@ class MensajesPrivadosController extends Controller
     public function actionCreate()
     {
         $model = new MensajesPrivados();
-
+        $model->emisor_id = Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'usuarios' => Usuarios::participantes(),
         ]);
     }
 

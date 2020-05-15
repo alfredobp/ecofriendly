@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $script = <<<JS
 $(function(){
-var checks = $("tr:contains('No')"); 
+    var checks = $("tr:contains('Pendiente de lectura')"); // Obtengo todos los checkbox 
 checks.css("background","#F78181");
 });
 JS;
@@ -78,11 +78,15 @@ $this->registerJs($script); // Registro el script javascript en el view
             ],
             [
                 'attribute' => 'Mensaje leido:',
+
+                'contentOptions' => ['class' => 'target'],
+
+
                 'value' => function ($dataProvider) {
                     if ($dataProvider->visto_dat != null) {
                         return 'Si';
                     } else {
-                        return 'No';
+                        return 'Pendiente de lectura';
                     }
                 },
                 'format' => 'raw',
