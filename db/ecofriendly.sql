@@ -24,14 +24,15 @@ CREATE TABLE usuarios (
     provincia varchar(255),
     localidad varchar(255),
     estado varchar(255),
+    descripcion text,
     fecha_nac date NOT NULL,
     token_acti VARCHAR(255),
     rol VARCHAR(30) NOT NULL DEFAULT 'usuario',
     codigo_verificacion VARCHAR(255),
     ultima_conexion timestamp,
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp,
-    categoria_id integer REFERENCES ecoretos(categoria_id),
-    supendido boolean DEFAULT false
+    categoria_id integer REFERENCES ecoretos(categoria_id)
+    
 );
 
 DROP TABLE IF EXISTS usuarios_actividad CASCADE;
