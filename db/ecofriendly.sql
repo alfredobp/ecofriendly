@@ -167,7 +167,7 @@ CREATE TABLE mensajes_privados (
 INSERT into
     ecoretos(cat_nombre, categoria_id)
 VALUES
-    ('Principante', 1);
+    ('Principiante', 1);
 
 INSERT into
     ecoretos(cat_nombre, categoria_id)
