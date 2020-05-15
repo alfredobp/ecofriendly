@@ -19,10 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $script = <<<JS
 $(function(){
-var checks = $("tr:contains('No')"); // Obtengo todos los checkbox
-console.log(checks);
-var checks2 = $("td:contains('Pendiente de devolución')");
-checks2.css("background","#F78181")
+var checks = $("tr:contains('No')"); 
 checks.css("background","#F78181");
 });
 JS;
