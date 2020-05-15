@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'emisor_id',
             // 'receptor_id',
             'asunto',
-            'contenido',
+            // 'contenido',
             //'seen:boolean',
             // 'created_at',
             [
@@ -65,7 +65,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            //'visto_dat',
+            [
+                'attribute' => 'Mensaje leido:',
+                'value' => function ($dataProvider) {
+                    if ($dataProvider->visto_dat != null) {
+                        return 'Si';
+                    } else {
+                        return 'No';
+                    }
+                },
+                'format' => 'raw',
+            ],
+
             [
                 'class' => 'yii\grid\ActionColumn',
 

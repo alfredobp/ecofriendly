@@ -13,25 +13,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mensajes-privados-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode('Mensaje Recibido de:  ' . $model->emisor->username) ?></h3>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'emisor_id',
-            'receptor_id',
+            // 'id',
+            'emisor.nombre',
+            'receptor.nombre',
             'asunto',
             'contenido',
             'seen:boolean',
@@ -39,5 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'visto_dat',
         ],
     ]) ?>
-
+    <p>
+        <!-- <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?> -->
+        <?= Html::a('Responder', ['responder', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar Mensaje', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 </div>

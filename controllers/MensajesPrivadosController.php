@@ -37,7 +37,7 @@ class MensajesPrivadosController extends Controller
     {
         $searchModel = new MensajesPrivadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider2=MensajesPrivados::find()->where(['emisor_id'=>Yii::$app->user->identity->id]);
+        $dataProvider2 = MensajesPrivados::find()->where(['emisor_id' => Yii::$app->user->identity->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -53,18 +53,22 @@ class MensajesPrivadosController extends Controller
      */
     public function actionView($id)
     {
+        $model = MensajesPrivados::find()->where(['id' => $id])->one();
+        $model->visto_dat = date('Y-m-d H:i:s');
+        $model->save();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
     public function actionResponder($id)
     {
-       
-        $model = MensajesPrivados::find()->where(['id'=>$id])->one();
 
-        $nuevoMensaje=new MensajesPrivados();
-        $nuevoMensaje->emisor_id= Yii::$app->user->identity->id;
-        $nuevoMensaje->receptor_id=$model->emisor_id;
+        $model = MensajesPrivados::find()->where(['id' => $id])->one();
+
+        $nuevoMensaje = new MensajesPrivados();
+        $nuevoMensaje->emisor_id = Yii::$app->user->identity->id;
+        $nuevoMensaje->receptor_id = $model->emisor_id;
+        $nuevoMensaje->asunto = 'Re:' . $model->asunto;
         if ($nuevoMensaje->load(Yii::$app->request->post()) && $nuevoMensaje->save()) {
             return $this->redirect(['index']);
         }
