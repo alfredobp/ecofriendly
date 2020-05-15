@@ -55,6 +55,7 @@ class MensajesPrivadosController extends Controller
     {
         $model = MensajesPrivados::find()->where(['id' => $id])->one();
         $model->visto_dat = date('Y-m-d H:i:s');
+        $model->seen = true;
         $model->save();
         return $this->render('view', [
             'model' => $this->findModel($id),

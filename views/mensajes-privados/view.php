@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mensajes-privados-view">
 
-    <h3><?= Html::encode('Mensaje Recibido de:  ' . $model->emisor->username) ?></h3>
+    <h3><?= Html::encode('Mensaje Recibido de:  ' . ucfirst($model->emisor->username)) ?></h3>
 
 
 
@@ -21,13 +21,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             // 'id',
-            'emisor.nombre',
-            'receptor.nombre',
+           
+            [
+                'attribute' => 'Enviado por:',
+                'value' => function ($model) {
+                    return ucfirst($model->emisor->nombre);
+                },
+                'format' => 'raw',
+            ],
+
+            // 'receptor.nombre',
             'asunto',
             'contenido',
-            'seen:boolean',
-            'created_at',
-            'visto_dat',
+            // 'seen:boolean',
+            [
+                'attribute' => 'Recibido:',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asRelativeTime($model->created_at);
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'Viste este mensaje',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asRelativeTime($model->visto_dat);
+                },
+                'format' => 'raw',
+            ],
+
         ],
     ]) ?>
     <p>
@@ -36,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Eliminar Mensaje', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Seguro que quieres borrar este mensaje?',
                 'method' => 'post',
             ],
         ]) ?>

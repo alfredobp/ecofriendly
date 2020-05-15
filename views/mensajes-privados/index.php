@@ -15,12 +15,12 @@ Icon::map($this);
 $this->title = 'Mensajes Privados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mensajes-privados-index">
+<div class="mensajes-privados-index col-8">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Mensajes #ecofriendly   ') ?>  <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?></h1>
 
     <p>
-        <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?>
+       
     </p>
     <br>
 
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url, [
 
-                            'title' => Yii::t('yii', 'Create'),
+                            'title' => Yii::t('yii', 'Ver Mensaje'),
 
                         ]);
                     },
