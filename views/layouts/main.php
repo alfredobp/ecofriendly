@@ -111,7 +111,7 @@ AppAsset::register($this);
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
-                    ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/usuarios/mensajes']],
+                    ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 

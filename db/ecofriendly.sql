@@ -147,7 +147,7 @@ CREATE TABLE notificaciones (
     seguidor_id bigint NOT NULL,
     leido boolean,
     tipo_notificacion_id integer NOT NULL REFERENCES tipos_notificaciones(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    created_at timestamp
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS mensajes_privados CASCADE;
@@ -159,7 +159,7 @@ CREATE TABLE mensajes_privados (
     asunto varchar(255),
     contenido varchar(255),
     seen boolean,
-    created_at timestamp,
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
     visto_dat timestamp
 );
 
