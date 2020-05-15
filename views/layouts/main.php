@@ -12,6 +12,7 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use app\helper_propio\Auxiliar;
+use app\models\MensajesPrivados;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
@@ -40,6 +41,7 @@ AppAsset::register($this);
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode('Ecofriendly.es') ?></title>
+
     <?= GATracking::widget([
         'trackingId' => 'UA-162197120-1',
     ]) ?>
@@ -54,6 +56,7 @@ AppAsset::register($this);
         <div class="wrap">
 
             <?php
+            $cuantos = MensajesPrivados::find()->where(['receptor_id' => Yii::$app->user->identity->id])->andWhere(['seen' => null])->count();
 
             NavBar::begin([
                 'brandLabel' => '<span class="badge badge-secondary">Ecofriendly </span><h6>En Búsca de la sostenibilidad</h6>',
@@ -109,9 +112,9 @@ AppAsset::register($this);
                         'title' => 'Control Panel',
                     ],
                     $usuario == 'superadministrador'  ?  '' :
-                        ['label' => Icon::show('wrench') . 'Área de usuario', 'url' => ['/usuarios/update']],
+                        ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
-                    ['label' => Icon::show('mail-bulk') . 'Mensajes', 'url' => ['/mensajes-privados']],
+                    ['label' =>  $cuantos>0? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>': Icon::show('mail-bulk') , 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 
@@ -180,20 +183,20 @@ AppAsset::register($this);
 
                     <?= Alert::widget() ?>
                     <?= $content ?>
-                <footer class="footer">
+                    <footer class="footer">
 
-                    <!-- Microdatos en el footer -->
+                        <!-- Microdatos en el footer -->
 
-                    <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                    <br>
-                    <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                        <br>
+                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                    <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+                        <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
-                    <p class="float-right"><?= Yii::powered() ?></p>
+                        <p class="float-right"><?= Yii::powered() ?></p>
 
 
-                </footer>
+                    </footer>
                 </div>
             </div>
             </div>
