@@ -18,6 +18,7 @@ use yii\web\IdentityInterface;
  * @property string|null $localidad
  * @property string|null $direccion
  * @property string|null $estado
+ * @property string|null $descripcion
  * @property string|null $fecha_nac
  * @property string|null $ultima_conexion
  * @property string $fecha_alta
@@ -67,6 +68,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['nombre', 'username', 'apellidos', 'email', 'contrasena','fecha_nac'], 'required'],
             [['fecha_nac'], 'required', 'message'=>'La edad es obligatoria'],
             [['nombre', 'email'], 'unique'],
+            [['descripcion'], 'string'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Por ejemplo: usuario@gestorcorreo.com'],
             [['nombre', 'auth_key', 'provincia', 'localidad', 'direccion'], 'string', 'max' => 255],

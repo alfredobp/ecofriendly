@@ -155,6 +155,7 @@ $this->registerJs($js);
         <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
         <!-- permite ajustar el estado de un usuario -->
         <?= $form->field($model, 'estado')->textInput(['type' => 'text']) ?>
+        <?= $form->field($model, 'descripcion')->textInput(['type' => 'text']) ?>
         <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
         <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
 

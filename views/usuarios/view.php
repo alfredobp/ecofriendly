@@ -43,16 +43,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'contrasena',
                 // 'auth_key',
                 'nombre',
-                'localidad',
                 'apellidos',
-                'email:email',
-                'direccion',
+                'localidad',
+                'descripcion',
+                // 'email:email',
+                // 'direccion',
                 'estado',
                 'fecha_nac',
                 // 'token_acti',
                 // 'codigo_verificacion',
             ],
-            'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
+            'options' => ['class' => 'table table table-hover table-md col-10  ']
         ]) ?>
     </div>
 
