@@ -12,15 +12,29 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 Icon::map($this);
+
 $this->title = 'Mensajes Privados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+$script = <<<JS
+$(function(){
+var checks = $("tr:contains('No')"); // Obtengo todos los checkbox
+console.log(checks);
+var checks2 = $("td:contains('Pendiente de devolución')");
+checks2.css("background","#F78181")
+checks.css("background","#F78181");
+});
+JS;
+
+$this->registerJs($script); // Registro el script javascript en el view 
+?>
 <div class="mensajes-privados-index col-8">
 
-    <h1><?= Html::encode('Mensajes #ecofriendly   ') ?>  <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?></h1>
+    <h1><?= Html::encode('Mensajes #ecofriendly   ') ?> <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?></h1>
 
     <p>
-       
+
     </p>
     <br>
 
