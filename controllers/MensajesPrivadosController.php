@@ -57,7 +57,22 @@ class MensajesPrivadosController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionResponder($id)
+    {
+       
+        $model = MensajesPrivados::find()->where(['id'=>$id])->one();
 
+        $nuevoMensaje=new MensajesPrivados();
+        $nuevoMensaje->emisor_id= Yii::$app->user->identity->id;
+        $nuevoMensaje->receptor_id=$model->emisor_id;
+        if ($nuevoMensaje->load(Yii::$app->request->post()) && $nuevoMensaje->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('_responder', [
+            'model' => $nuevoMensaje,
+        ]);
+    }
     /**
      * Creates a new MensajesPrivados model.
      * If creation is successful, the browser will be redirected to the 'view' page.

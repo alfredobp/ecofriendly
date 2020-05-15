@@ -1,14 +1,17 @@
 <?php
 
 use app\models\MensajesPrivados;
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MensajesPrivadosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+Icon::map($this);
 $this->title = 'Mensajes Privados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Mensajes Privados', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <br>
 
@@ -33,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ?>
 
-    <h3>Mensajes Recibidos</h3>
+    <h3>Mensajes recibidos</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 
@@ -63,8 +66,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             //'visto_dat',
+            [
+                'class' => 'yii\grid\ActionColumn',
 
-            ['class' => 'yii\grid\ActionColumn'],
+                'template' => '{responder}{view}{delete}',
+
+                'buttons' => [
+
+                    'view' => function ($url, $model) {
+
+                        return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url, [
+
+                            'title' => Yii::t('yii', 'Create'),
+
+                        ]);
+                    },
+                    'responder' => function ($url, $model) {
+
+                        return Html::a(Icon::show('reply'), $url, [
+
+                            'title' => Yii::t('yii', 'Responder'),
+
+                        ]);
+                    }
+
+                ]
+
+
+
+            ],
+
+            // ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php
@@ -91,6 +123,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+
+            // 'emisor_id',
+            // 'receptor_id',
+            'asunto',
+            'contenido',
             [
                 'attribute' => 'Enviado:',
                 'value' => function ($dataProvider) {
@@ -98,10 +135,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            // 'emisor_id',
-            // 'receptor_id',
-            'asunto',
-            'contenido',
             //'seen:boolean',
             // 'created_at',
             //'visto_dat',
