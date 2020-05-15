@@ -21,10 +21,10 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'contenido')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seen')->checkbox() ?>
-
+<!-- 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
-    <?= $form->field($model, 'visto_dat')->textInput() ?>
+    <?= $form->field($model, 'visto_dat')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

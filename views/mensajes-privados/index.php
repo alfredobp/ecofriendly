@@ -28,12 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'emisor_id',
-            'receptor_id',
+            'emisor.nombre',
+            'receptor.nombre',
+            // 'emisor_id',
+            // 'receptor_id',
             'asunto',
             'contenido',
             //'seen:boolean',
-            //'created_at',
+            'created_at',
             //'visto_dat',
 
             ['class' => 'yii\grid\ActionColumn'],

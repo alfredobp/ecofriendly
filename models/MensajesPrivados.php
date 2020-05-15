@@ -13,7 +13,7 @@ use Yii;
  * @property string|null $asunto
  * @property string|null $contenido
  * @property bool|null $seen
- * @property string|null $created_at
+ * @property string $created_at
  * @property string|null $visto_dat
  *
  * @property Usuarios $emisor
