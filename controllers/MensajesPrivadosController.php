@@ -37,6 +37,7 @@ class MensajesPrivadosController extends Controller
     {
         $searchModel = new MensajesPrivadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider2=MensajesPrivados::find()->where(['emisor_id'=>Yii::$app->user->identity->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

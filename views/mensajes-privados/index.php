@@ -1,6 +1,8 @@
 <?php
 
+use app\models\MensajesPrivados;
 use yii\bootstrap4\Html;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -17,17 +19,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Mensajes Privados', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <br>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
+    <?php
+    $dataProvider = new ActiveDataProvider([
 
+        'query' => MensajesPrivados::find()->where(['receptor_id' => Yii::$app->user->identity->id])
+
+    ]);
+
+    ?>
+ 
+    <h3>Mensajes Recibidos</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+
+        'columns' => [
+
+
+            // 'id',
             'emisor.nombre',
             'receptor.nombre',
             // 'emisor_id',
@@ -36,6 +50,51 @@ $this->params['breadcrumbs'][] = $this->title;
             'contenido',
             //'seen:boolean',
             'created_at',
+            [
+                'attribute' => 'Tipo Mensaje',
+                'value' => function ($dataProvider) {
+                    if ($dataProvider->emisor_id == 1) {
+                        return $dataProvider->emisor_id . $dataProvider->emisor->nombre;
+                    }
+                },
+                'format' => 'raw',
+            ],
+            //'visto_dat',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+    <?php
+    $dataProvider = new ActiveDataProvider([
+
+        'query' => MensajesPrivados::find()->where(['emisor_id' => Yii::$app->user->identity->id])
+
+    ]);
+
+
+
+
+    ?>
+       <br>
+    <br>
+    <br>
+    <h3>Mensajes enviados</h3>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+
+        'columns' => [
+           
+
+            // 'id',
+            'emisor.nombre',
+            'receptor.nombre',
+            // 'emisor_id',
+            // 'receptor_id',
+            'asunto',
+            'contenido',
+            //'seen:boolean',
+            'created_at',
+           
             //'visto_dat',
 
             ['class' => 'yii\grid\ActionColumn'],

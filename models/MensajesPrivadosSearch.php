@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MensajesPrivados;
+use Yii;
 
 /**
  * MensajesPrivadosSearch represents the model behind the search form of `app\models\MensajesPrivados`.
@@ -41,7 +42,9 @@ class MensajesPrivadosSearch extends MensajesPrivados
      */
     public function search($params)
     {
-        $query = MensajesPrivados::find();
+        $query = MensajesPrivados::find()->joinWith('emisor e')->where(['emisor_id' => Yii::$app->user->identity->id])
+            ->orWhere(['receptor_id' => Yii::$app->user->identity->id]);
+
 
         // add conditions that should always apply here
 
