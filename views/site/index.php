@@ -617,16 +617,15 @@ if (!isset($_COOKIE['intro'])) {
                     <p class="card-text">
                         <div class="col-12">
                             <?php
-                            // var_dump($seguidores);
-                            // die;
+                   
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
+                               
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo  '<br>' . Html::tag('span', Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['class' => 'username']);
-
-                                // echo Html::tag(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one())->username;
+                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $seguidores[$i]->seguidor_id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                               
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',

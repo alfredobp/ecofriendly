@@ -1,6 +1,7 @@
 <?php
 
 use app\helper_propio\Auxiliar;
+use app\models\Seguidores;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -29,14 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <p>
-            <!-- <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?> -->
+
+
         </p>
 
         <?= DetailView::widget([
@@ -61,21 +56,49 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </div>
 
-    <?php echo Html::a(
+    <?php
+    $siguiendo = Seguidores::find()
+        ->where(['usuario_id' => Yii::$app->user->identity->id])
+        ->andWhere(['seguidor_id' => $model->id])
+        ->one();
 
-        'Añadir como amigo',
-        ['site/index'],
-        [
-            'onclick' => "$.ajax({
+
+    $model2 = Seguidores::find()->where(['seguidor_id' => $model->id])->one();
+    if ($siguiendo != null) {
+        echo Html::a('Dejar de seguir a usuario', ['seguidores/delete', 'id' => $model2->id], [
+            'class' => 'btn btn-danger',
+            'controller' => 'seguidores',
+            'data' => [
+                'confirm' => '¿Desea dejar de seguir a este usuario?',
+                'method' => 'post',
+            ],
+        ]);
+        echo '<br>';
+        echo Html::a('Enviar mensaje', ['mensajes-privados/create', 'receptor_id' => $model2->seguidor_id], [
+            'class' => 'btn btn-success',
+            'controller' => 'mensajesPrivados',
+            'data' => [
+                
+                'method' => 'post',
+            ],
+        ]);
+    } else
+
+        echo Html::a(
+
+            'Añadir como amigo',
+            ['site/index'],
+            [
+                'onclick' => "$.ajax({
 
                         url: '" . Url::to(['seguidores/create']) . "',
                         type: 'POST',
                         data: 'seguidor_id=$model->id',
                          })",
-            'class' => 'btn btn-success'
-        ],
-        ['class' => 'btn btn-success'],
-    );
+                'class' => 'btn btn-success'
+            ],
+            ['class' => 'btn btn-success'],
+        );
     ?>
 
 </div>

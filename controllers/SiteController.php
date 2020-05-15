@@ -135,15 +135,15 @@ class SiteController extends Controller
                 //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
 
                 if ($value['ultima_conexion'] != null) {
-                  
+
                     $start_ts = strtotime($value['ultima_conexion']);
-                    
+
                     $end_ts = strtotime(date('Y-m-d H:i:s'));
 
                     $diferenciaTiempo = $end_ts - $start_ts;
                     //redondeo el tiempo transcurrido para obtener el número de días que han transcurrido.
                     $diferenciaTiempoDias = round($diferenciaTiempo / 86400);
-                  
+
 
                     //Si ha pasado 7 dias o más desde la última conexión se envia un correo a todos los usuarios.
                     if ($diferenciaTiempoDias >= 7) {
@@ -247,6 +247,7 @@ class SiteController extends Controller
                 'pagination' => $pagination,
                 'usuarios' => $listaUsuarios,
                 'seguidores' => Seguidores::find()
+                    ->joinWith('usuario')
                     ->where(['usuario_id' => $id])
                     ->andWhere(['!=', 'seguidor_id', $id])
                     ->all(),

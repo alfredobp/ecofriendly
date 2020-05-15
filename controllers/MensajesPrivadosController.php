@@ -100,7 +100,8 @@ class MensajesPrivadosController extends Controller
         $model = new MensajesPrivados();
         $model->emisor_id = Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Mensaje enviado correctamente.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
