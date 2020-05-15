@@ -32,30 +32,33 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
 
     ?>
- 
+
     <h3>Mensajes Recibidos</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 
 
         'columns' => [
-
-
             // 'id',
-            'emisor.nombre',
-            'receptor.nombre',
+            // 'emisor.nombre',
+            [
+                'attribute' => 'Recibido de:',
+                'value' => function ($dataProvider) {
+                    return ucfirst($dataProvider->emisor->username);
+                },
+                'format' => 'raw',
+            ],
+            // 'receptor.nombre',
             // 'emisor_id',
             // 'receptor_id',
             'asunto',
             'contenido',
             //'seen:boolean',
-            'created_at',
+            // 'created_at',
             [
-                'attribute' => 'Tipo Mensaje',
+                'attribute' => 'Recibido:',
                 'value' => function ($dataProvider) {
-                    if ($dataProvider->emisor_id == 1) {
-                        return $dataProvider->emisor_id . $dataProvider->emisor->nombre;
-                    }
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
                 },
                 'format' => 'raw',
             ],
@@ -68,14 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
     $dataProvider = new ActiveDataProvider([
 
         'query' => MensajesPrivados::find()->where(['emisor_id' => Yii::$app->user->identity->id])
-
     ]);
-
-
-
-
     ?>
-       <br>
+    <br>
     <br>
     <br>
     <h3>Mensajes enviados</h3>
@@ -83,20 +81,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
 
         'columns' => [
-           
-
             // 'id',
-            'emisor.nombre',
-            'receptor.nombre',
+            // 'emisor.nombre',
+
+            [
+                'attribute' => 'Destinatario:',
+                'value' => function ($dataProvider) {
+                    return ucfirst($dataProvider->receptor->username);
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'Enviado:',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                },
+                'format' => 'raw',
+            ],
             // 'emisor_id',
             // 'receptor_id',
             'asunto',
             'contenido',
             //'seen:boolean',
-            'created_at',
-           
+            // 'created_at',
             //'visto_dat',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
