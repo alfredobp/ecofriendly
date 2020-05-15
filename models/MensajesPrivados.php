@@ -67,7 +67,7 @@ class MensajesPrivados extends \yii\db\ActiveRecord
      */
     public function getEmisor()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'emisor_id'])->inverseOf('mensajesPrivados');
+        return $this->hasOne(Usuarios::className(), ['id' => 'emisor_id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class MensajesPrivados extends \yii\db\ActiveRecord
      */
     public function getReceptor()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'receptor_id'])->inverseOf('mensajesPrivados0');
+        return $this->hasOne(Usuarios::className(), ['id' => 'receptor_id']);
     }
 }
