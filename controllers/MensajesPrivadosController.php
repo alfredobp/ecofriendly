@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Bloqueos;
 use Yii;
 use app\models\MensajesPrivados;
 use app\models\MensajesPrivadosSearch;
+use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -99,6 +101,20 @@ class MensajesPrivadosController extends Controller
     {
         $model = new MensajesPrivados();
         $model->emisor_id = Yii::$app->user->identity->id;
+
+        $seguidores =  Usuarios::find()
+            ->select('seguidores.seguidor_id')
+            ->joinWith('seguidores')
+            ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
+
+        $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
+        $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidores])->all();
+
+  
+        if ($estaBloqueado != null) {
+            Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado y no puedes enviarle mensajes');
+            return $this->goBack();
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Mensaje enviado correctamente.');
             return $this->redirect(['site/index', 'id' => $model->id]);
@@ -106,7 +122,7 @@ class MensajesPrivadosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'usuarios' => Usuarios::participantes(),
+            'usuarios' => $mensajes
         ]);
     }
 

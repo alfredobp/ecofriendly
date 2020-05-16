@@ -134,7 +134,6 @@ class RetosUsuariosController extends Controller
 
 
         if ($model->save() && $model->culminado == false) {
-
             $model->culminado = true;
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();

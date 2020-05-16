@@ -15,7 +15,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
-    //por defecto, se recuerda el recordatorio de acceso 
+    //por defecto, se recuerda el recordatorio de acceso
     public $rememberMe = true;
 
     private $_user = false;

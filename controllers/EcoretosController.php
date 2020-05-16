@@ -141,5 +141,4 @@ class EcoretosController extends \yii\db\ActiveRecord
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
- 
 }

@@ -86,7 +86,6 @@ class SiteController extends Controller
         $user = Usuarios::find()->where(['email' => $attributes['email']])->one();
 
         if (!empty($user)) {
-
             Yii::$app->user->login(Usuarios::findPorEmail($attributes));
         } else {
             $session = Yii::$app->session;
@@ -135,7 +134,6 @@ class SiteController extends Controller
                 //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
 
                 if ($value['ultima_conexion'] != null) {
-
                     $start_ts = strtotime($value['ultima_conexion']);
 
                     $end_ts = strtotime(date('Y-m-d H:i:s'));

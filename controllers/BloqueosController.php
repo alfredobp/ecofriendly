@@ -94,9 +94,7 @@ class BloqueosController extends Controller
             return $this->goBack();
         }
         if ($model->validate() && $model->save()) {
-
             $eliminado->delete();
-
             Yii::$app->session->setFlash('Success', 'El usuario ha sido bloqueado');
             return $this->goBack();
         } else {
@@ -140,7 +138,6 @@ class BloqueosController extends Controller
         $seguidor->usuario_id = $seguidorid;
         $seguidor->seguidor_id = $usuarioid;
         if ($seguidor->save()) {
-
             return $this->redirect(['site/index']);
         }
     }

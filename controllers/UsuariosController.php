@@ -3,28 +3,24 @@
 namespace app\controllers;
 
 use app\models\AccionesRetos;
-use app\models\EcoRetos;
 use app\models\EcoValora;
 use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
-use app\models\ImagenForm;
 use app\models\Ranking;
 use app\models\Usuarios;
 use Yii;
-use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
-use yii\web\Response;
 
 require '../helper_propio/AdministradorAWS3c.php';
+
 
 class UsuariosController extends Controller
 {
@@ -152,7 +148,6 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -451,9 +446,7 @@ class UsuariosController extends Controller
         $model = Usuarios::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
-
             if (!empty($_FILES)) {
-
                 $model->url_avatar = $_FILES['Usuarios']['name']['url_avatar'];
             }
             $model->save();
