@@ -65,8 +65,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'username', 'apellidos', 'email', 'contrasena','fecha_nac'], 'required'],
-            [['fecha_nac'], 'required', 'message'=>'La edad es obligatoria'],
+            [['nombre', 'username', 'apellidos', 'email', 'contrasena', 'fecha_nac'], 'required'],
+            [['fecha_nac'], 'required', 'message' => 'La edad es obligatoria'],
             [['nombre', 'email'], 'unique'],
             [['descripcion'], 'string'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
@@ -183,6 +183,18 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public static function participantes()
     {
         return static::find()->select('username')->indexBy('id')->column();
+    }
+    public static function usuariosAmigos()
+    {
+        $id = Yii::$app->user->identity->id;
+        $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
+        return static::find()
+            ->select('username')
+            ->joinWith('seguidores s')
+            ->where(['!=', 'usuarios.id', $id])
+            ->andWhere(['!=', 'rol', 'superadministrador'])
+            ->andWhere($esSeguidor);
+         
     }
     public function setEstado($estado)
     {

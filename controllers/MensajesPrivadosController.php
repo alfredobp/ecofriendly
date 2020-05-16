@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\MensajesPrivados;
 use app\models\MensajesPrivadosSearch;
+use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -103,10 +104,16 @@ class MensajesPrivadosController extends Controller
             Yii::$app->session->setFlash('success', 'Mensaje enviado correctamente.');
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
+        $seguidores =  Usuarios::find()
+            ->select('seguidores.seguidor_id')
+            ->joinWith('seguidores')
+            ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
+
+        $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
 
         return $this->render('create', [
             'model' => $model,
-            'usuarios' => Usuarios::participantes(),
+            'usuarios' => $mensajes
         ]);
     }
 
