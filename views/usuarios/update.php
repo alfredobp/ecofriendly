@@ -5,6 +5,7 @@
 /* @var $model app\models\LoginForm */
 
 use app\helper_propio\Auxiliar;
+use app\helper_propio\EstilosAppUsuario;
 use app\helper_propio\GestionCookies;
 use app\models\Bloqueos;
 use app\models\Feeds;
@@ -60,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </head>
 <?php
 if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
-    $this->registerJs(GestionCookies::cookiesEstiloSeleccionado());
+    $this->registerJs(EstilosAppUsuario::cookiesEstiloSeleccionado());
 }
 $url4 = Url::to(['usuarios/guardacookie']);
 $url5 = Url::to(['usuarios/obtenercookie']);
@@ -270,7 +271,6 @@ $this->registerJs($js);
                                 ],
                                 'class' => ['btn btn-danger btn-xs']
                             ]
-
                         );
                     }
                 }
@@ -350,7 +350,6 @@ $this->registerJs($js);
                                     ],
                                     'class' => ['btn btn-danger btn-xs']
                                 ]
-
                             );
                         }
 
