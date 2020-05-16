@@ -166,7 +166,6 @@ class SiteController extends Controller
                 ])
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
                 ->orwhere(['feeds.usuariosid' => $id])
-
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
             return $this->render('index', [
@@ -222,7 +221,6 @@ class SiteController extends Controller
      */
     public function actionBuscar()
     {
-        $id = Yii::$app->user->identity->id;
         $usuarios = new ActiveDataProvider([
             'query' => Usuarios::find()->where('1=0'),
         ]);
@@ -238,7 +236,7 @@ class SiteController extends Controller
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena]);
             $feed->query->where(['ilike', 'contenido', $cadena]);
-            $retos->query->where(['ilike', 'titulo', $cadena])->andWhere(['cat_id' => $id = Yii::$app->user->identity->categoria_id]);
+            $retos->query->where(['ilike', 'titulo', $cadena])->andWhere(['cat_id' => Yii::$app->user->identity->categoria_id]);
             $hastag->query->where(['ilike', 'contenido', $cadena . '%', false]);
         }
         return $this->render('buscar', [

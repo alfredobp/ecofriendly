@@ -5,7 +5,6 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Usuarios;
-use Yii;
 
 /**
  * UsuariosSearch represents the model behind the search form of `app\models\Usuarios`.
@@ -22,7 +21,6 @@ class UsuariosSearch extends Usuarios
             [['username', 'contrasena', 'auth_key', 'nombre', 'apellidos', 'email', 'direccion', 'estado', 'fecha_nac', 'token_acti', 'codigo_verificacion'], 'safe'],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -31,7 +29,6 @@ class UsuariosSearch extends Usuarios
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
-
     /**
      * Creates data provider instance with search query applied
      *
@@ -43,11 +40,9 @@ class UsuariosSearch extends Usuarios
     {
         // $query = Usuarios::find()->where(['id'=>Yii::$app->user->id]);
         $query = Usuarios::find();
-        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
