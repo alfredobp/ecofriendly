@@ -114,7 +114,7 @@ AppAsset::register($this);
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
-                    ['label' =>  $cuantos>0? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>': Icon::show('mail-bulk') , 'url' => ['/mensajes-privados']],
+                    ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>' : Icon::show('mail-bulk'), 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 
@@ -199,7 +199,7 @@ AppAsset::register($this);
                     </footer>
                 </div>
             </div>
-            </div>
+
         </main>
 
 
