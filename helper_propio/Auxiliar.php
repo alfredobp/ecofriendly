@@ -7,11 +7,15 @@ Conjunto de herramientas que permiten la reutilización de código.
 namespace app\helper_propio;
 
 use app\models\AccionesRetos;
+use app\models\Feeds;
 use app\models\Ranking;
 use app\models\RankingSearch;
 use app\models\Usuarios;
+use Github\Api\Enterprise\Stats;
+use PhpParser\Node\Stmt\Static_;
 use Yii;
 use yii\bootstrap4\Modal;
+use yii\data\Pagination;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\Dialog;
@@ -103,6 +107,72 @@ class Auxiliar
         } elseif ($categoriaId == 3) {
             return 100 - $puntos->puntuacion;
         }
+    }
+    public static function enviarEmailAusentes()
+    {
+        $usuariosAusentes = Usuarios::find()->asArray()->all();
+        $dif2 = date('Y-m-d H:i:s');
+        foreach ($usuariosAusentes as $key => $value) {
+            //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
+            if ($value['ultima_conexion'] != null) {
+                $start_ts = strtotime($value['ultima_conexion']);
+                $end_ts = strtotime(date('Y-m-d H:i:s'));
+                $diferenciaTiempo = $end_ts - $start_ts;
+                //redondeo el tiempo transcurrido para obtener el número de días que han transcurrido.
+                $diferenciaTiempoDias = round($diferenciaTiempo / 86400);
+
+                //Si ha pasado 7 dias o más desde la última conexión se envia un correo a todos los usuarios.
+                if ($diferenciaTiempoDias >= 7) {
+                    $nivel = Usuarios::find()->joinWith('categoria')->where(['usuarios.id' => $value['id']])->one();
+                    $puntos = Usuarios::find()->joinWith('ranking')->where(['usuarios.id' => $value['id']])->one();
+                    $nFeeds = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                        ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                        ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                        ->Where([
+                            'seguidores.usuario_id' => $value['id'],
+                        ])
+                        ->andWhere('feeds.created_at>usuarios.ultima_conexion')
+                        ->count();
+
+                    $subject = 'Ultimas Novedades de la red de Ecofriendly';
+                    $body = 'Estimado usuario: ' . $value['nombre'];
+                    $body .= ' Desde el equipo de <strong> #ecofriendly</strong> queremos informarle sobre las últimas novedades de la red: <br> <ul>';
+                    $body .= ' <li>Se han compartido:' . $nFeeds . '</li>';
+                    $body .= '<li>Tu nivel es: ' . $nivel->categoria->cat_nombre . '</li>';
+                    $body .= '<li>Te faltan: ' . $puntos->ranking->puntuacion . ' para subir de categoría</li> </ul>';
+                    $body .= '<br> <p> Atte. El equipo de ecofrienfly';
+                    Yii::$app->mailer->compose()
+                        ->setTo($value['email'])
+                        ->setFrom([Yii::$app->params['adminEmail']])
+                        ->setSubject($subject)
+                        ->setHtmlBody($body)
+                        ->send();
+                }
+            }
+        }
+    }
+    public static function areaAdminConf()
+    {
+
+
+        $feed = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+            ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+            ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+            ->orderBy('feeds.created_at desc')
+            ->asArray()->all();
+
+        return $feed;
+    }
+    public static function areaAdminConfII()
+    {
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+                ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+                ->count(),
+        ]);
+        return $pagination;
     }
     public static function puntosConseguidos($id)
     {
