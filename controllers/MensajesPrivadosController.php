@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Bloqueos;
 use Yii;
 use app\models\MensajesPrivados;
 use app\models\MensajesPrivadosSearch;
@@ -100,16 +101,25 @@ class MensajesPrivadosController extends Controller
     {
         $model = new MensajesPrivados();
         $model->emisor_id = Yii::$app->user->identity->id;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Mensaje enviado correctamente.');
-            return $this->redirect(['site/index', 'id' => $model->id]);
-        }
+
         $seguidores =  Usuarios::find()
             ->select('seguidores.seguidor_id')
             ->joinWith('seguidores')
             ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
 
         $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
+        $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidores])->all();
+
+        var_dump(Yii::$app->user->identity->id);
+        die;
+        if ($estaBloqueado != null) {
+            Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado y no puedes enviarle mensajes');
+            return $this->goBack();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Mensaje enviado correctamente.');
+            return $this->redirect(['site/index', 'id' => $model->id]);
+        }
 
         return $this->render('create', [
             'model' => $model,
