@@ -111,7 +111,6 @@ class UsuariosController extends Controller
 
     public static function estados()
     {
-
         return array_merge([''], Usuarios::find()
             ->select('estado')
             ->indexBy('id')
@@ -421,9 +420,7 @@ class UsuariosController extends Controller
         $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
             'attributes' => ['puntuacion'],
         ],]);
-        // $searchModel = new UsuariosSearch();
-        // // $dataProvider =Usuarios::find()->where(['NOT', ['rol'=> 'superadministrador']])->all();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams)->where(['NOT', ['rol' => 'superadministrador']])->all();
+      
         return $this->render(
             'seguimiento',
             [
@@ -431,15 +428,7 @@ class UsuariosController extends Controller
             ]
         );
     }
-    //
-    // public static function subirCategoria($categoria)
-
-    // {
-
-    //     $modelo = $this->findModel(Yii::$app->user->identity->id);
-    //     $modelo->categoria_id = $categoria;
-    //     $modelo->save();
-    // }
+  
     public function actionImagen($id)
     {
 
@@ -460,12 +449,7 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
-    // public function actionPreferencia($respuesta = 'red')
-    // {
-    //     $valor = $respuesta;
-    //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
-    //     return $respuesta;
-    // }
+ 
     public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño, $colorFondo)
     {
         //Expira en 7 dias
@@ -527,9 +511,6 @@ class UsuariosController extends Controller
     public function actionPuntos($id)
     {
         $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
-
-
-
         return $usuarioPuntos->puntuacion;
     }
     protected function findModel($id)

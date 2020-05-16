@@ -60,5 +60,4 @@ class UsuariosActividad extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
-   
 }

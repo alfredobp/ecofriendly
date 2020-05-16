@@ -127,21 +127,16 @@ class SiteController extends Controller
 
             //Envio de email a usuarios que lleven mas de una semana sin conectarse
             //cuando el usuario admin inicia sesión
-
             $usuariosAusentes = Usuarios::find()->asArray()->all();
             $dif2 = date('Y-m-d H:i:s');
             foreach ($usuariosAusentes as $key => $value) {
                 //Calcula la diferencia entre la ultima conexión de los usuarios  y la fecha actual.
-
                 if ($value['ultima_conexion'] != null) {
                     $start_ts = strtotime($value['ultima_conexion']);
-
                     $end_ts = strtotime(date('Y-m-d H:i:s'));
-
                     $diferenciaTiempo = $end_ts - $start_ts;
                     //redondeo el tiempo transcurrido para obtener el número de días que han transcurrido.
                     $diferenciaTiempoDias = round($diferenciaTiempo / 86400);
-
 
                     //Si ha pasado 7 dias o más desde la última conexión se envia un correo a todos los usuarios.
                     if ($diferenciaTiempoDias >= 7) {
@@ -187,7 +182,6 @@ class SiteController extends Controller
              *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
              */
             $user = Usuarios::findOne($id);
-
             if ($user->categoria_id == null) {
                 if ($puntuacion['puntuacion'] <= 30) {
                     $usuarios = Usuarios::find()->where(['id' => $id])->one();
@@ -208,7 +202,6 @@ class SiteController extends Controller
                     return $this->goHome();
                 }
             }
-
             //paginacion de 10 feeds, ordenados cronologicamente
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
@@ -233,9 +226,6 @@ class SiteController extends Controller
 
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
-
-
-
             return $this->render('index', [
 
                 'datos' => Usuarios::findOne($id),
@@ -249,11 +239,9 @@ class SiteController extends Controller
                     ->where(['usuario_id' => $id])
                     ->andWhere(['!=', 'seguidor_id', $id])
                     ->all(),
-
             ]);
         }
     }
-
     /**
      * Login action.
      *
@@ -264,18 +252,15 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
-
     /**
      * Logout action.
      *
@@ -325,7 +310,6 @@ class SiteController extends Controller
         $hastag = new ActiveDataProvider([
             'query' => Feeds::find()->where('1=0'),
         ]);
-
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena]);
             $feed->query->where(['ilike', 'contenido', $cadena]);

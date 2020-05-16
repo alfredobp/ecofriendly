@@ -17,7 +17,6 @@ class GestionCookies
     public static function introduccion()
     {
         $url5 = Url::to(['usuarios/obtenercookie']);
-        $url4 = Url::to(['usuarios/guardacookie']);
         $url1 = Url::to(['usuarios/estado']);
         $url2 = Url::to(['usuarios/puntos']);
         $id = Yii::$app->user->identity->id;
@@ -43,7 +42,6 @@ class GestionCookies
                     $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
                 }
             }
-
             function obtenerCookieColorFondo(){
                     $.ajax({
                         url: '$url5',
@@ -85,7 +83,6 @@ class GestionCookies
                              }
                         });
                     }
-
             function obtenerEstado(){
                     $.ajax({
                         url: '$url1',
@@ -96,8 +93,7 @@ class GestionCookies
                             }
                         });
                     }
- 
-            function obtenerPuntuacion(){
+             function obtenerPuntuacion(){
                     $.ajax({
                         url: '$url2',
                         data: { id: '$id'},
