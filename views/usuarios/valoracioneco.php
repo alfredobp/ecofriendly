@@ -36,7 +36,7 @@ $this->title = 'EcoFriendly'; ?>
         </p>
 
         <?=
-            $form->field($model, 'desplazamiento1')
+            $form->field($model, 'desplazamiento1')->inline()
                 ->radioList(
                     [0 => 'Nunca', 1 => 'A veces', 2 => 'Con frecuencia', 3 => 'Siempre'],
                     ['uncheckValue' => null],
@@ -77,7 +77,7 @@ $this->title = 'EcoFriendly'; ?>
                 </tr>
             </tbody>
         </table>
-        <hr>
+       <br>
         <div class="alert alert-success" role="alert">
             <h4>Compras cotidianas</h4>
         </div>
@@ -87,7 +87,7 @@ $this->title = 'EcoFriendly'; ?>
         </p>
 
         <?=
-            $form->field($model, 'compra1')
+            $form->field($model, 'compra1')->inline()
                 ->radioList(
                     [0 => 'Todos los dias', 1 => '6 días a la semana', 8 => '1 dia a la semana', 10 => 'Compro por internet'],
                     ['uncheckValue' => null],
@@ -105,14 +105,16 @@ $this->title = 'EcoFriendly'; ?>
                     ]
                 )
                 ->label(false);
-        ?>
 
+        ?>
+        <hr>
+        <br>
         </p>
         ¿Dónde adquiere el mayor volumen de estas compras?
         </p>
 
         <?=
-            $form->field($model, 'compra2')
+            $form->field($model, 'compra2')->inline()
                 ->radioList(
                     [2 => 'Supermercados', 4 => 'Internet', 6 => 'Comercio local', 10 => 'Proximidad'],
                     ['uncheckValue' => null],
@@ -136,8 +138,10 @@ $this->title = 'EcoFriendly'; ?>
         </p>
         ¿Con qué frecuencia selecciona alimentos certificados como orgánicos o producidos de forma sostenible?
         </p>
+        <hr>
+        <br>
         <?=
-            $form->field($model, 'compra3')
+            $form->field($model, 'compra3')->inline()
                 ->radioList(
                     [0 => 'Nunca', 3 => 'Casi Nunca', 8 => 'A veces', 10 => 'La mayoría de las veces'],
                     ['uncheckValue' => null],
@@ -156,13 +160,15 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
+        <br>
         <div class="alert alert-success" role="alert">
             <h4>Estilo de Vida</h4>
         </div>
+  
         <hr>
         <p> ¿Qué tipos de envases son más frecuentes en tu hogar?</p>
         <?=
-            $form->field($model, 'estilo1')
+            $form->field($model, 'estilo1')->inline()
                 ->radioList(
                     [0 => 'Botellas/envases de plásticos', 3 => 'Botellas de vidrio', 6 => 'Tupperware reutilizable', 10 => 'Utilizo mi propio envase'],
                     ['uncheckValue' => null],
@@ -183,7 +189,7 @@ $this->title = 'EcoFriendly'; ?>
         ?>
         <p> ¿Duración aproximada de una ducha en su casa?</p>
         <?=
-            $form->field($model, 'estilo2')
+            $form->field($model, 'estilo2')->inline()
                 ->radioList(
                     [0 => 'No me ducho, me baño', 1 => '>10 min', 4 => '5-10 min', 10 => ' <5 min'],
                     ['uncheckValue' => null],
@@ -192,7 +198,6 @@ $this->title = 'EcoFriendly'; ?>
 
                             $return = '<label class="modal-radio">';
                             $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                            $return .= '<i></i>';
                             $return .= '<span>' . ucwords($label) . '</span>';
                             $return .= '</label>';
 
@@ -202,10 +207,11 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
-
+        <hr>
+        <br>
         <p> ¿Que tipo de edificación define su casa?</p>
         <?=
-            $form->field($model, 'estilo3')
+            $form->field($model, 'estilo3')->inline()
                 ->radioList(
                     [0 => 'Vivienda de Lujo', 4 => 'Duplex con parcela', 7 => 'Duplex', 10 => 'Bloque de viviendas'],
                     ['uncheckValue' => null],

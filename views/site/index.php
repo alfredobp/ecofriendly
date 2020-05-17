@@ -466,10 +466,16 @@ if (!isset($_COOKIE['intro'])) {
                                             'options' =>   ['enctype' => 'multipart/form-data'],
                                         ]); ?>
                                         <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
-                                        <?php $model = new Comentarios() ?>
+                                        <?php $model = new Comentarios();
+                                        $model->usuario_id = Yii::$app->user->id;
+                                        $model->created_at = date('Y-m-d H:i:s');
+                                        $model->comentarios_id=$feeds['id'];
+                                        ?>
                                         <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
-
-                                        <?= Html::hiddenInput('comentarios_id', $feeds['id']); ?>
+                                        <?= $form->field($model, 'usuario_id')->hiddenInput()->label(false) ?>
+                                        <?= $form->field($model, 'created_at')->hiddenInput()->label(false) ?>
+                                        <?= $form->field($model, 'comentarios_id')->hiddenInput()->label(false) ?>
+                                   
                                         <?php ActiveForm::end(); ?>
 
 
@@ -617,15 +623,15 @@ if (!isset($_COOKIE['intro'])) {
                     <p class="card-text">
                         <div class="col-12">
                             <?php
-                   
+
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
                             for ($i = 0; $i < sizeof($seguidores); $i++) {
-                               
+
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
                                 echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $seguidores[$i]->seguidor_id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
-                               
+
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(
                                     '<span class="glyphicon glyphicon-minus"></span>',

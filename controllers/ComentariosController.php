@@ -97,12 +97,7 @@ class ComentariosController extends Controller
     {
 
         $model = new Comentarios();
-        $model->usuario_id = Yii::$app->user->id;
-        $model->created_at = date('Y-m-d H:i:s');
-        $model->comentarios_id=$_POST['comentarios_id'];
-        // var_dump($_POST);
-        // die;
-
+ 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->save();
             return $this->redirect(['site/index', 'id' => $model->id]);

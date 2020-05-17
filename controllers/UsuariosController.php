@@ -10,6 +10,7 @@ use app\models\FormRecoverPass;
 use app\models\FormResetPass;
 use app\models\ImagenForm;
 use app\models\Ranking;
+use app\models\Seguidores;
 use app\models\Usuarios;
 use Yii;
 use yii\bootstrap4\Alert;
@@ -131,9 +132,20 @@ class UsuariosController extends Controller
     public function actionView($id)
     {
         //renderizo la vista mediante consulta ajax en la ventana modal.
-        return $this->renderAjax('view', [
-            'model' => $this->findModel($id)
-        ]);
+        $sonAmigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['seguidor_id' => $id])->one();
+       
+
+        if ($sonAmigos == null) {
+
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id)
+            ]);
+        }
+        else {
+            return $this->renderAjax('_viewamigos', [
+                'model' => $this->findModel($id)
+            ]);
+        }
     }
     public function actionViewnoajax($id)
     {
