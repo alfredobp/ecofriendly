@@ -20,6 +20,13 @@ $(function () {
 
 
     })
+    $('.modalButton7').click(function () {
+        $('#modal5').modal('show')
+            .find('#modalContent7')
+            .load($(this).attr('value'));
+
+
+    })
 
     $('.modalButton5').click(function () {
         $('#modal5').modal('show')

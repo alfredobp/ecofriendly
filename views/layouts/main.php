@@ -186,16 +186,16 @@ AppAsset::register($this);
                     <footer class="footer">
 
                         <!-- Microdatos en el footer -->
+                        <div class="container" itemscope itemtype="http://schema.org/Organization">
+                            <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                            <br>
+                            <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                        <br>
-                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                            <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
-                        <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+                            <p class="float-right"><?= Yii::powered() ?></p>
 
-                        <p class="float-right"><?= Yii::powered() ?></p>
-
-
+                        </div>
                     </footer>
                 </div>
             </div>

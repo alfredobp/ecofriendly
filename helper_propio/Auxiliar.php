@@ -86,7 +86,7 @@ class Auxiliar
     {
         $ventana =
             Modal::begin([
-                'title' => '<h3>' . $title . ':</h3>',
+                'title' =>  $title . ':',
                 'id' => 'modal' . $id,
                 'size' => 'modal-' . $size,
             ]);
