@@ -64,71 +64,71 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo Auxiliar::obtenerImagenUsuario($model->id, $optionsBarraUsuarios);
 
                 ?>
+                <!-- <h5><span class="badge badge-light"> Seguidor </span></h5> -->
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'attributes' =>  [
 
-                <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' =>  [
+                            // 'id',
+                            'username',
+                            // 'contrasena',
+                            // 'auth_key',
+                            [
+                                'attribute' => 'Nombre completo',
+                                'value' => function ($dataProvider) {
+                                    return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
+                                },
+                                'format' => 'raw',
+                            ],
+                            'localidad',
+                            'ranking.puntuacion',
 
-                        // 'id',
-                        'username',
-                        // 'contrasena',
-                        // 'auth_key',
-                        [
-                            'attribute' => 'Nombre completo',
-                            'value' => function ($dataProvider) {
-                                return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
-                            },
-                            'format' => 'raw',
+
+                            [
+                                'attribute' => 'Categoría',
+                                'value' => function ($dataProvider) {
+
+                                    if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
+                                        return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
+                                        return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
+                                        return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    }
+                                },
+                                'format' => 'raw',
+                            ],
+                            [
+                                'attribute' => 'Descripción',
+                                'value' => function ($dataProvider) {
+                                    if ($dataProvider->descripcion == null) {
+
+                                        return  '-----------';
+                                    }
+                                    return $dataProvider->descripcion;
+                                },
+                                'format' => 'raw',
+                            ],
+                            [
+                                'attribute' => 'Edad',
+                                'value' => function ($dataProvider) {
+
+                                    $fecha = time() - strtotime($dataProvider->fecha_nac);
+
+                                    $edad = floor($fecha / 31556926);
+                                    return  $edad . ' años';
+                                },
+                                'format' => 'raw',
+                            ],
+                            // 'email:email',
+                            // 'direccion',
+                            'estado',
+                            // 'fecha_nac',
+                            // 'token_acti',
+                            // 'codigo_verificacion',
                         ],
-                        'localidad',
-                        'ranking.puntuacion',
-
-
-                        [
-                            'attribute' => 'Categoría',
-                            'value' => function ($dataProvider) {
-
-                                if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
-                                    return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
-                                    return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
-                                    return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                }
-                            },
-                            'format' => 'raw',
-                        ],
-                        [
-                            'attribute' => 'Descripción',
-                            'value' => function ($dataProvider) {
-                                if ($dataProvider->descripcion == null) {
-
-                                    return  '-----------';
-                                }
-                                return $dataProvider->descripcion;
-                            },
-                            'format' => 'raw',
-                        ],
-                        [
-                            'attribute' => 'Edad',
-                            'value' => function ($dataProvider) {
-
-                                $fecha = time() - strtotime($dataProvider->fecha_nac);
-
-                                $edad = floor($fecha / 31556926);
-                                return  $edad . ' años';
-                            },
-                            'format' => 'raw',
-                        ],
-                        // 'email:email',
-                        // 'direccion',
-                        'estado',
-                        // 'fecha_nac',
-                        // 'token_acti',
-                        // 'codigo_verificacion',
-                    ],
-                    'options' => ['class' => 'table table table-hover table-md col-12  ']
-                ]) ?>
+                        'options' => ['class' => 'table table table-hover table-md col-12  ']
+                    ]) ?>
             </div>
 
             <?php
@@ -290,7 +290,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo Html::endForm();
                     }
                 } else {
-                    echo 'Actualmente no sigue a ningún usuario de la red #Ecofriendly';
+                    echo 'Actualmente no sigue a ningún usuario #Ecofriendly';
                 }
                 ?>
 
