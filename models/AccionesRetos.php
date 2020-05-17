@@ -35,7 +35,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
             [['titulo', 'descripcion'], 'required'],
             [['cat_id', 'puntaje'], 'default', 'value' => null],
             [['cat_id', 'puntaje'], 'integer'],
-            [['ecoreto.cat_nombre'],'safe'],
+            [['ecoreto.cat_nombre'], 'safe'],
             [['titulo', 'descripcion'], 'string', 'max' => 255],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ecoretos::className(), 'targetAttribute' => ['cat_id' => 'categoria_id']],
         ];
@@ -52,7 +52,7 @@ class AccionesRetos extends \yii\db\ActiveRecord
             'descripcion' => 'Descripcion',
             'cat_id' => 'Categoría id',
             'puntaje' => 'Puntaje',
-            'ecoreto.cat_nombre'=>'Categoría de usuario'
+            'ecoreto.cat_nombre' => 'Categoría de usuario'
 
         ];
     }
@@ -85,6 +85,4 @@ class AccionesRetos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Usuarios::className(), ['id' => 'usuario_id'])->viaTable('retos_usuarios', ['idreto' => 'id']);
     }
-
-   
 }

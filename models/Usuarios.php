@@ -184,6 +184,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::find()->select('username')->indexBy('id')->column();
     }
+
     public static function usuariosAmigos()
     {
         $id = Yii::$app->user->identity->id;
@@ -209,36 +210,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         $this->setImagen(Yii::getAlias('@img/' . $this->id . '.jpg'));
         return $this->_imagen;
     }
-    // public function actionActivar($id, $token)
-    // {
-    //     $usuario = $this->findModel($id);
-    //     if ($usuario->token === $token) {
-    //         $usuario->token = null;
-    //         $usuario->save();
-    //         Yii::$app->session->setFlash('success', 'Usuario validado. Inicie sesión.');
-    //         return $this->redirect(['site/login']);
-    //     }
-    //     Yii::$app->session->setFlash('error', 'La validación no es correcta.');
-    //     return $this->redirect(['site/index']);
-    // }
 
-    public function setImagen($imagen)
-    {
-        $this->_imagen = $imagen;
-    }
-
-    public static function getImagenUrl()
-    {
-
-
-
-        return Yii::getAlias('@imgUrl/' . 1 . '.jpg');
-    }
-
-    public function setImagenUrl($imagenUrl)
-    {
-        $this->_imagenUrl = $imagenUrl;
-    }
     /**
      * Gets query for [[Bloqueos]].
      *
@@ -278,7 +250,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(EcoRetos::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }
-
     /**
      * Gets query for [[Feeds]].
      *
@@ -288,7 +259,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Feeds::className(), ['usuariosid' => 'id'])->inverseOf('usuarios');
     }
-
     /**
      * Gets query for [[MensajesPrivados]].
      *

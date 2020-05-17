@@ -5,7 +5,6 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Usuarios;
-use Yii;
 
 /**
  * UsuariosSearch represents the model behind the search form of `app\models\Usuarios`.
@@ -22,7 +21,6 @@ class UsuariosSearch extends Usuarios
             [['username', 'contrasena', 'auth_key', 'nombre', 'apellidos', 'email', 'direccion', 'estado', 'fecha_nac', 'token_acti', 'codigo_verificacion'], 'safe'],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -31,7 +29,6 @@ class UsuariosSearch extends Usuarios
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
-
     /**
      * Creates data provider instance with search query applied
      *
@@ -43,13 +40,9 @@ class UsuariosSearch extends Usuarios
     {
         // $query = Usuarios::find()->where(['id'=>Yii::$app->user->id]);
         $query = Usuarios::find();
-
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -57,7 +50,6 @@ class UsuariosSearch extends Usuarios
             // $query->where('0=1');
             return $dataProvider;
         }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -65,7 +57,6 @@ class UsuariosSearch extends Usuarios
             'ultima_conexion' => $this->ultima_conexion,
             'fecha_alta' => $this->fecha_alta,
         ]);
-
         $query->andFilterWhere(['ilike', 'username', $this->username])
             ->andFilterWhere(['ilike', 'contrasena', $this->contrasena])
             ->andFilterWhere(['ilike', 'auth_key', $this->auth_key])
@@ -73,7 +64,7 @@ class UsuariosSearch extends Usuarios
             ->andFilterWhere(['ilike', 'apellidos', $this->apellidos])
             ->andFilterWhere(['ilike', 'email', $this->email])
             ->andFilterWhere(['ilike', 'direccion', $this->direccion])
-            ->andFilterWhere(['ilike', 'localidad', $this->localidad]) 
+            ->andFilterWhere(['ilike', 'localidad', $this->localidad])
             ->andFilterWhere(['ilike', 'estado', $this->estado])
             ->andFilterWhere(['ilike', 'token_acti', $this->token_acti])
             ->andFilterWhere(['ilike', 'codigo_verificacion', $this->codigo_verificacion]);

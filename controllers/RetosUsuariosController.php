@@ -102,7 +102,6 @@ class RetosUsuariosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -131,10 +130,7 @@ class RetosUsuariosController extends Controller
         $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
         $titulo = AccionesRetos::find()->where(['id' => $idreto])->one();
         $feed = new Feeds();
-
-
         if ($model->save() && $model->culminado == false) {
-
             $model->culminado = true;
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
@@ -146,8 +142,6 @@ class RetosUsuariosController extends Controller
             if ($feed->validate()) {
                 $feed->save();
             }
-
-
             if (($puntuacion->puntuacion + $puntaje->puntaje) > 100) {
                 $puntuacion->puntuacion = 100;
                 $puntuacion->save();
@@ -196,7 +190,6 @@ class RetosUsuariosController extends Controller
     public function actionDelete($idreto, $usuario_id)
     {
         $this->findModel($idreto, $usuario_id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -213,7 +206,6 @@ class RetosUsuariosController extends Controller
         if (($model = RetosUsuarios::findOne(['idreto' => $idreto, 'usuario_id' => $usuario_id])) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

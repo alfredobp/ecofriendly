@@ -36,8 +36,8 @@ use yii\web\View;
                 <div class="col-md-8 mb-5">
                     <h2>Que hacemos</h2>
                     <hr>
-                    <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración prvia de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
-                    <p>Simple pero efectivo. Mediante nuestra estrategia de <b>Gamificación </b> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
+                    <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
+                    <p>Simple pero efectivo. Mediante nuestra estrategia de <strong>Gamificación </strong> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
 
                     <?= Html::button('Registro&raquo;', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => 'btn btn-primary modalButton4 btn-lg ', 'id' => 'modalButton4']); ?>
                     <br>
@@ -98,14 +98,16 @@ use yii\web\View;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton4']); ?></em>
+                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
 
-
+                    <?php
+                    Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'md');
+                    ?>
                     <br>
 
                     <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
                     <div class="mt-3">
-                        <p>Accede con Facebook: <?= AuthChoice::widget(['baseAuthUrl' => ['site/auth']]) ?></p>
+                        Accede con Facebook: <?= AuthChoice::widget(['baseAuthUrl' => ['site/auth']]) ?>
 
                     </div>
 

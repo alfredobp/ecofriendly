@@ -4,9 +4,9 @@ namespace app\helper_propio;
 
 class MenuLateral
 {
-  public static function menuLateral()
-  {
-    $str = <<<EOD
+    public static function menuLateral()
+    {
+        $str = <<<EOD
       
             <div class="wrapper">
             <!-- Sidebar  -->
@@ -71,6 +71,6 @@ class MenuLateral
         EOD;
 
 
-    return $str;
-  }
+        return $str;
+    }
 }

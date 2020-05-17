@@ -3,29 +3,25 @@
 namespace app\controllers;
 
 use app\models\AccionesRetos;
-use app\models\EcoRetos;
 use app\models\EcoValora;
 use yii\web\Session;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
-use app\models\ImagenForm;
 use app\models\Ranking;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use Yii;
-use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 use app\models\UsuariosSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
-use yii\web\Response;
 
 require '../helper_propio/AdministradorAWS3c.php';
+
 
 class UsuariosController extends Controller
 {
@@ -116,7 +112,6 @@ class UsuariosController extends Controller
 
     public static function estados()
     {
-
         return array_merge([''], Usuarios::find()
             ->select('estado')
             ->indexBy('id')
@@ -164,7 +159,6 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -438,9 +432,7 @@ class UsuariosController extends Controller
         $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
             'attributes' => ['puntuacion'],
         ],]);
-        // $searchModel = new UsuariosSearch();
-        // // $dataProvider =Usuarios::find()->where(['NOT', ['rol'=> 'superadministrador']])->all();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams)->where(['NOT', ['rol' => 'superadministrador']])->all();
+      
         return $this->render(
             'seguimiento',
             [
@@ -448,24 +440,14 @@ class UsuariosController extends Controller
             ]
         );
     }
-    //
-    // public static function subirCategoria($categoria)
-
-    // {
-
-    //     $modelo = $this->findModel(Yii::$app->user->identity->id);
-    //     $modelo->categoria_id = $categoria;
-    //     $modelo->save();
-    // }
+  
     public function actionImagen($id)
     {
 
         $model = Usuarios::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
-
             if (!empty($_FILES)) {
-
                 $model->url_avatar = $_FILES['Usuarios']['name']['url_avatar'];
             }
             $model->save();
@@ -479,12 +461,7 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
-    // public function actionPreferencia($respuesta = 'red')
-    // {
-    //     $valor = $respuesta;
-    //     setcookie('backgroundColor', $respuesta, time() + 60 * 60 * 24 * 15);
-    //     return $respuesta;
-    // }
+ 
     public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño, $colorFondo)
     {
         //Expira en 7 dias
@@ -546,9 +523,6 @@ class UsuariosController extends Controller
     public function actionPuntos($id)
     {
         $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
-
-
-
         return $usuarioPuntos->puntuacion;
     }
     protected function findModel($id)

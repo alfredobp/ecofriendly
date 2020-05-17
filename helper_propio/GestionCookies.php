@@ -16,11 +16,10 @@ class GestionCookies
      */
     public static function introduccion()
     {
+        $id = Yii::$app->user->identity->id;
         $url5 = Url::to(['usuarios/obtenercookie']);
-        $url4 = Url::to(['usuarios/guardacookie']);
         $url1 = Url::to(['usuarios/estado']);
         $url2 = Url::to(['usuarios/puntos']);
-        $id = Yii::$app->user->identity->id;
         $js = <<<EOT
             $( function() {
             $(".loader").fadeOut("slow");
@@ -43,7 +42,6 @@ class GestionCookies
                     $('.progress-bar').css("width", puntuacion+'%').addClass("bg-success");
                 }
             }
-
             function obtenerCookieColorFondo(){
                     $.ajax({
                         url: '$url5',
@@ -85,7 +83,6 @@ class GestionCookies
                              }
                         });
                     }
-
             function obtenerEstado(){
                     $.ajax({
                         url: '$url1',
@@ -96,8 +93,7 @@ class GestionCookies
                             }
                         });
                     }
- 
-            function obtenerPuntuacion(){
+             function obtenerPuntuacion(){
                     $.ajax({
                         url: '$url2',
                         data: { id: '$id'},
@@ -204,70 +200,7 @@ class GestionCookies
      * obteniendo el valor de las cookies creadas a tal efecto.
      * @return void
      */
-    public static function cookiesEstiloSeleccionado()
-    {
-        $url5 = Url::to(['usuarios/obtenercookie']);
-        $jsEstilo = <<<EOT
-            $( function() {
-             obtenerCookieColorFondo();
-             obtenerCookieColorTexto();
-             obtenerCookieFuente();
-             obtenerCookieTamañoFuente();
-             obtenerCookieColorFondoBody();
-            });
-                function obtenerCookieColorFondo(){
-                    $.ajax({
-                        url: '$url5',
-                        data:{cookie:'colorPanel'},
-                        success: function(data){
-                            $("#pickerColor").val(data);
-                        }
-                    });
-            }
-            function obtenerCookieColorTexto(){
-                        $.ajax({
-                            url: '$url5',
-                            data:{cookie:'colorTexto'},
-                            success: function(data){
-                                
-                                $("#pickerColor2").val(data);
-                            }
-                        });
-                }
-            function obtenerCookieFuente(){
-                            $.ajax({
-                                url: '$url5',
-                                data:{cookie:'fuente'},
-                                success: function(data){
-                                    $("#fuente").val(data);
-                                     
-                                }
-                            });
-                            }
-                function obtenerCookieTamañoFuente(){
-                                $.ajax({
-                                    url: '$url5',
-                                    data:{cookie:'tamaño'},
-                                    success: function(data){
-                                   
-                                        $("#slider").val(data.substring(0,2));
-                                    }
-                                });
-                                }
-                                function obtenerCookieColorFondoBody(){
-                                    $.ajax({
-                                        url: '$url5',
-                                        data:{cookie:'colorFondo'},
-                                        success: function(data){                                              
-                                                $("#pickerColor3").val(data);
-                                        }
-                                    });
-                                    }
-                
-        EOT;
-        return $jsEstilo;
-    }
-
+ 
     public static function privacidad()
     {
         $urlCookie = Url::toRoute(['site/cookie',  'respuesta' => 'aceptada'], $schema = true);
@@ -296,7 +229,7 @@ EOT;
                 'closable' => false,
                 'size' => Dialog::SIZE_SMALL,
                 'type' => Dialog::TYPE_WARNING,
-                'title' => 'Politica de cookies de #ecofriendly',
+                'title' => 'Mensaje de #ecofriendly',
                 'message' => 'Utilizamos cookies para mejorar su experiencia de usuario. Por favor, acepte nuestra politica de cookies.',
                 'btnOKClass' => 'btn-primary',
                 'btnOKLabel' =>  'Aceptar',

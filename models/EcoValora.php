@@ -6,7 +6,6 @@ use Composer\XdebugHandler\Status;
 use Yii;
 use yii\base\Model;
 
-
 class EcoValora extends Model
 {
     public $desplazamiento1;
@@ -91,7 +90,6 @@ class EcoValora extends Model
  * @return void
  */
     public function calculo()
-
     {
         $this->sumatorio1 = $this->desplazamiento2 + $this->desplazamiento3 + $this->desplazamiento4 + $this->desplazamiento5;
 

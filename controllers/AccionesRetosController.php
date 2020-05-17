@@ -145,7 +145,6 @@ class AccionesRetosController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->save()) {
-
             $model->aceptado = true;
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
             $model->usuario_id = Yii::$app->user->identity->id;

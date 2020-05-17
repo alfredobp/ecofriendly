@@ -114,7 +114,7 @@ AppAsset::register($this);
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
                     ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
-                    ['label' =>  $cuantos>0? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>': Icon::show('mail-bulk') , 'url' => ['/mensajes-privados']],
+                    ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>' : Icon::show('mail-bulk'), 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 
 
@@ -186,20 +186,20 @@ AppAsset::register($this);
                     <footer class="footer">
 
                         <!-- Microdatos en el footer -->
+                        <div class="container" itemscope itemtype="http://schema.org/Organization">
+                            <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                            <br>
+                            <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                        <br>
-                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                            <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
-                        <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+                            <p class="float-right"><?= Yii::powered() ?></p>
 
-                        <p class="float-right"><?= Yii::powered() ?></p>
-
-
+                        </div>
                     </footer>
                 </div>
             </div>
-            </div>
+
         </main>
 
 

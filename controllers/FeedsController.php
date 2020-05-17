@@ -19,7 +19,6 @@ require '../helper_propio/AdministradorAWS3c.php';
 class FeedsController extends Controller
 {
 
-    public $contenido;
     public $imagen;
     /**
      * {@inheritdoc}
@@ -121,32 +120,7 @@ class FeedsController extends Controller
      *
      * @return void
      */
-    public function actionCreate2()
-    {
-        $model = new Feeds();
-        $model->usuariosid = Yii::$app->user->id;
-        // $model->created_at = date('Y-m-d H:i:s');
-        //ESCENaRIO SI SE QUIERE MANDAR SOLO UNA IMAGEN
-        $model->contenido = '::';
-
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if (!empty($_FILES)) {
-                $model->imagen = $_FILES['Feeds']['name']['imagen'];
-            }
-            $model->save();
-            if (!empty($_FILES['Feeds']['name']['imagen'])) {
-                uploadImagenFeed($model);
-            }
-            return;
-        }
-
-
-        return $this->render('create', [
-            'model' => $model,
-
-        ]);
-    }
+   
     public function actionImagen()
     {
         $model = new ImagenForm();
@@ -164,23 +138,7 @@ class FeedsController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Feeds model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    // public function actionUpdate($id)
-    // {
-    //     $model = $this->findModel($id);
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    //         return $this->redirect(['view', 'id' => $model->id]);
-    //     }
-    //     return $this->render('update', [
-    //         'model' => $model,
-    //     ]);
-    // }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
