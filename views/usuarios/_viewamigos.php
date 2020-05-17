@@ -34,11 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <nav>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
+
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="contact" aria-selected="true">Perfil usuario</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#inicio" role="tab" aria-controls="contact" aria-selected="false">Actividad en la red</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#inicio" role="tab" aria-controls="contact" aria-selected="false">Perfil de usuario</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Actividad en la red</a>
@@ -63,16 +61,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $seguidor_id = $model->id;
 
-
-
                 echo Auxiliar::obtenerImagenUsuario($model->id, $optionsBarraUsuarios);
 
                 ?>
-
-                <p>
-
-
-                </p>
 
                 <?= DetailView::widget([
                     'model' => $model,
@@ -193,15 +184,124 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <p>
 
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla quam hic, a beatae consectetur ipsum, nihil fuga pariatur ratione, neque quibusdam sequi aliquid doloribus odit vitae explicabo dolorum saepe vel.
+            <h4>ültimos feeds publicados en la red #ecofriendly:</h4>
+            <br>
+            <?php
+            $dataProvider = new ActiveDataProvider([
+                'query' => Feeds::find()
+                    ->where(['usuariosid' => $model->id]),
+            ]);
+
+            $dataProvider->setSort([
+                'defaultOrder' => ['created_at' => SORT_DESC],
+            ]);
+            //paginacion de 10 feeds por página
+            $dataProvider->pagination = ['pageSize' => 10];
+            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+
+            Pjax::begin();
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
+                'columns' => [
+                    [
+
+                        'attribute' => 'created_at',
+                        'value' => function ($dataProvider) {
+                            return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                        },
+
+                    ],
+                    [
+                        'attribute' => 'imagen',
+                        'value' => function ($dataProvider) {
+                            return Auxiliar::obtenerImagenFeed($dataProvider->imagen);
+                        },
+                        'format' => 'raw',
+                    ],
+                    'contenido',
+
+                ],
+
+            ]);
+
+            Pjax::end();
+            ?>
 
         </p>
     </section>
     <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+        <fieldset class="col-md-12">
 
-        <h4> Actividad del usuario: </h4>
+            <legend>Seguidores: </legend>
+            <?php
+            $seguidores =  Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
+            if (sizeof($seguidores) > 0) {
+                for ($i = 0; $i < sizeof($seguidores); $i++) {
+                    $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
+                    $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->andWhere(['bloqueadosid' => $seguidores[$i]->usuario_id]);
+                    if ($bloqueados->count() > 1) {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
+                    } else {
+                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
+                        echo Html::a(
+                            'Bloquear usuario',
+                            Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
+                            [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => [
+                                        'usuariosid' => Yii::$app->user->identity->id,
+                                        'bloqueadosid' => $seguidores[$i]->usuario_id
+                                    ],
+
+                                ],
+                                'class' => ['btn btn-danger btn-xs']
+                            ]
+
+                        );
+                    }
+                }
+            } else {
+                echo 'Actualmente no tiene seguidores';
+            }
+            ?>
+        </fieldset>
+
         <br>
+        <br>
+        <div class="clearfix"></div>
+        <div class="panel-body">
+            <fieldset class="col-md-12">
+                <legend>Siguiendo a:</legend>
+                <?php
+                $amigos = Seguidores::find()->where(['usuario_id' => $model->id])->all();
+                if (sizeof($amigos) > 0) {
+                    for ($i = 0; $i < sizeof($amigos); $i++) {
+                        $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
+                        echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
+                        echo Html::hiddenInput('id', $amigos[$i]->id);
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                        echo Html::submitButton(
+                            '<span class="glyphicon glyphicon-minus"></span>',
+                            ['class' => 'btn btn-danger btn-sm ml-2'],
+                        );
+                        echo Html::endForm();
+                    }
+                } else {
+                    echo 'Actualmente no sigue a ningún usuario de la red #Ecofriendly';
+                }
+                ?>
 
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
 
     </section>
 
