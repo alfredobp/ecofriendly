@@ -52,12 +52,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'localidad',
                 'ranking.puntuacion',
 
-            
+
                 [
                     'attribute' => 'Categoría',
                     'value' => function ($dataProvider) {
-                    
-                        if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
+                        if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
                             return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
                         } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
                             return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';

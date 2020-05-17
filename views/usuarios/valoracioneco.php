@@ -57,6 +57,7 @@ $this->title = 'EcoFriendly'; ?>
         ?>
 
         <hr size="3px">
+        <br>
         <p> Introduzca el número de Km. aproximados que viaja al año en cada modo de transporte:</p>
 
         <table class="table">
@@ -77,12 +78,12 @@ $this->title = 'EcoFriendly'; ?>
                 </tr>
             </tbody>
         </table>
-       <br>
+        <br>
         <div class="alert alert-success" role="alert">
             <h4>Compras cotidianas</h4>
         </div>
 
-        <hr class="hr-danger" />
+
         ¿Con qué frecuencia haces las compras de artículos de primera necesidad? (alimentos, artículos de limpieza, etc)
         </p>
 
@@ -134,12 +135,12 @@ $this->title = 'EcoFriendly'; ?>
                 ->label(false);
         ?>
 
-
+        <hr>
+        <br>
         </p>
         ¿Con qué frecuencia selecciona alimentos certificados como orgánicos o producidos de forma sostenible?
         </p>
-        <hr>
-        <br>
+
         <?=
             $form->field($model, 'compra3')->inline()
                 ->radioList(
@@ -160,12 +161,12 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
+        <hr>
         <br>
+        
         <div class="alert alert-success" role="alert">
             <h4>Estilo de Vida</h4>
         </div>
-  
-        <hr>
         <p> ¿Qué tipos de envases son más frecuentes en tu hogar?</p>
         <?=
             $form->field($model, 'estilo1')->inline()
@@ -187,6 +188,8 @@ $this->title = 'EcoFriendly'; ?>
                 )
                 ->label(false);
         ?>
+        <hr>
+        <br>
         <p> ¿Duración aproximada de una ducha en su casa?</p>
         <?=
             $form->field($model, 'estilo2')->inline()
