@@ -156,6 +156,7 @@ $this->registerJs($js);
         <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
         <!-- permite ajustar el estado de un usuario -->
         <?= $form->field($model, 'estado')->textInput(['type' => 'text']) ?>
+        <?= $form->field($model, 'descripcion')->textInput(['type' => 'text']) ?>
         <!-- <?= $form->field($model, 'contrasena')->passwordInput() ?>
         <?= $form->field($model, 'password_repeat')->passwordInput() ?> -->
 
@@ -373,7 +374,7 @@ $this->registerJs($js);
         <fieldset>
             <legend>Modifique los estilos de la aplicación:</legend>
             <p>Color de fondo de los feeds:
-                <input type="color" id="pickerColor">
+                <input type="color" value=#FFFFFF id="pickerColor">
             </p>
             <br>
             <p> Tamaño de texto:
@@ -389,10 +390,10 @@ $this->registerJs($js);
                 </select>
             </p>
             <p>Color del texto de los feeds:
-                <input type="color" id="pickerColor2">
+                <input type="color" value="#FFFFFF" id="pickerColor2">
             </p>
             <p>Color del Fondo de la aplicación:
-                <input type="color" id="pickerColor3">
+                <input type="color" value="#FFFFFF" id="pickerColor3">
             </p>
             <br>
             <button id="preferencias" class="btn btn-success">Aplicar estilo</button>

@@ -18,6 +18,7 @@ use yii\web\IdentityInterface;
  * @property string|null $localidad
  * @property string|null $direccion
  * @property string|null $estado
+ * @property string|null $descripcion
  * @property string|null $fecha_nac
  * @property string|null $ultima_conexion
  * @property string $fecha_alta
@@ -64,9 +65,10 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'username', 'apellidos', 'email', 'contrasena','fecha_nac'], 'required'],
-            [['fecha_nac'], 'required', 'message'=>'La edad es obligatoria'],
+            [['nombre', 'username', 'apellidos', 'email', 'contrasena', 'fecha_nac'], 'required'],
+            [['fecha_nac'], 'required', 'message' => 'La edad es obligatoria'],
             [['nombre', 'email'], 'unique'],
+            [['descripcion'], 'string'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Por ejemplo: usuario@gestorcorreo.com'],
             [['nombre', 'auth_key', 'provincia', 'localidad', 'direccion'], 'string', 'max' => 255],
@@ -182,6 +184,33 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::find()->select('username')->indexBy('id')->column();
     }
+
+    public static function usuariosAmigos()
+    {
+        $id = Yii::$app->user->identity->id;
+        $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
+        return static::find()
+            ->select('username')
+            ->joinWith('seguidores s')
+            ->where(['!=', 'usuarios.id', $id])
+            ->andWhere(['!=', 'rol', 'superadministrador'])
+            ->andWhere($esSeguidor);
+         
+    }
+    public function setEstado($estado)
+    {
+        $this->_estado = $estado;
+    }
+    public function getImagen()
+    {
+        if ($this->_imagen !== null) {
+            return $this->_imagen;
+        }
+
+        $this->setImagen(Yii::getAlias('@img/' . $this->id . '.jpg'));
+        return $this->_imagen;
+    }
+
     /**
      * Gets query for [[Bloqueos]].
      *

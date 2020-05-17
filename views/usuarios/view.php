@@ -42,17 +42,61 @@ $this->params['breadcrumbs'][] = $this->title;
                 'username',
                 // 'contrasena',
                 // 'auth_key',
-                'nombre',
+                [
+                    'attribute' => 'Nombre completo',
+                    'value' => function ($dataProvider) {
+                        return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
+                    },
+                    'format' => 'raw',
+                ],
                 'localidad',
-                'apellidos',
-                'email:email',
-                'direccion',
+                'ranking.puntuacion',
+
+            
+                [
+                    'attribute' => 'Categoría',
+                    'value' => function ($dataProvider) {
+                    
+                        if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
+                            return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                        } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
+                            return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                        } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
+                            return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                        }
+                    },
+                    'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'Descripción',
+                    'value' => function ($dataProvider) {
+                        if ($dataProvider->descripcion == null) {
+
+                            return  '-----------';
+                        }
+                        return $dataProvider->descripcion;
+                    },
+                    'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'Edad',
+                    'value' => function ($dataProvider) {
+
+                        $fecha = time() - strtotime($dataProvider->fecha_nac);
+
+                        $edad = floor($fecha / 31556926);
+                        return  $edad . ' años';
+                    },
+                    'format' => 'raw',
+                ],
+                // 'email:email',
+                // 'direccion',
                 'estado',
-                'fecha_nac',
+                // 'fecha_nac',
                 // 'token_acti',
                 // 'codigo_verificacion',
             ],
-            'options' => ['class' => 'table table-bordered table-hover table-md col-6  ']
+            'options' => ['class' => 'table table table-hover table-md col-12  ']
         ]) ?>
     </div>
 
@@ -73,16 +117,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]);
-        echo '<br>';
+        echo '    ';
         echo Html::a('Enviar mensaje', ['mensajes-privados/create', 'receptor_id' => $model2->seguidor_id], [
-            'class' => 'btn btn-success',
+            'class' => 'btn btn-success ml-5',
             'controller' => 'mensajesPrivados',
             'data' => [
-                
+
                 'method' => 'post',
             ],
         ]);
-    } else
+    } else {
 
         echo Html::a(
 
@@ -90,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['site/index'],
             [
                 'onclick' => "$.ajax({
-
+    
                         url: '" . Url::to(['seguidores/create']) . "',
                         type: 'POST',
                         data: 'seguidor_id=$model->id',
@@ -99,6 +143,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['class' => 'btn btn-success'],
         );
+    }
+
     ?>
 
 </div>

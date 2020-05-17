@@ -110,7 +110,7 @@ class MensajesPrivadosController extends Controller
         $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
         $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidores])->all();
 
-  
+
         if ($estaBloqueado != null) {
             Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado y no puedes enviarle mensajes');
             return $this->goBack();
