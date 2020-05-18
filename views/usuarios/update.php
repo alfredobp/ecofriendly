@@ -11,6 +11,7 @@ use app\models\Bloqueos;
 use app\models\Feeds;
 use app\models\Seguidores;
 use app\models\Usuarios;
+use Github\Api\GitData\Blobs;
 use yii\base\Model;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -66,6 +67,8 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 $url4 = Url::to(['usuarios/guardacookie']);
 $url5 = Url::to(['usuarios/obtenercookie']);
 $js = <<<EOT
+
+
 function cambiarColorYGuardaCookie(){
     var color = $("#pickerColor").val();
     var tamanyo= $('#slider').val();
@@ -89,6 +92,8 @@ function cambiarColorYGuardaCookie(){
             }
         });
 }
+
+
 $(document).ready(function(){
     
              $('#preferencias').click(function(){
@@ -97,6 +102,7 @@ $(document).ready(function(){
          
         });
         $('#slider').change(function(){
+
       console.log($('#slider').val());
   });
     $("select[name=colorTexto]").change(function(){
@@ -253,21 +259,38 @@ $this->registerJs($js);
                         echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
                     } else {
                         echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
-                        echo Html::a(
-                            'Bloquear usuario',
-                            Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
-                            [
-                                'data' => [
-                                    'method' => 'post',
-                                    'params' => [
-                                        'usuariosid' => Yii::$app->user->identity->id,
-                                        'bloqueadosid' => $seguidores[$i]->usuario_id
-                                    ],
 
-                                ],
-                                'class' => ['btn btn-danger btn-xs']
-                            ]
-                        );
+                        $model = new Bloqueos();
+                        $form = ActiveForm::begin([
+                            'method' => 'post',
+                            'action' => ['bloqueos/create'],
+                            'enableClientValidation' => true
+                        ]); ?>
+
+                        <?= $form->field($model, 'usuariosid')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false) ?>
+
+                        <?= $form->field($model, 'bloqueadosid')->hiddenInput(['value' => $seguidores[$i]->usuario_id])->label(false) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Bloquear usuario', ['class' => 'btn btn-danger']) ?>
+                        </div>
+
+            <?php ActiveForm::end();
+                        // echo Html::a(
+                        //     'Bloquear Usuario',
+                        //     Url::to(['/bloqueos/create']),
+                        //     [
+                        //         'data' => [
+                        //             'method' => 'post',
+                        //             'params' => [
+                        //                 'usuariosid' => Yii::$app->user->identity->id,
+                        //                 'bloqueadosid' => $seguidores[$i]->usuario_id
+                        //             ],
+
+                        //         ],
+                        //         'class' => ['btn btn-danger btn-xs']
+                        //     ]
+                        // );
                     }
                 }
             } else {
@@ -328,6 +351,7 @@ $this->registerJs($js);
                             $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
                             echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
 
+                            ActiveForm::begin();
                             echo Html::a(
                                 'Desbloquear usuario',
                                 Url::to([
@@ -347,6 +371,7 @@ $this->registerJs($js);
                                     'class' => ['btn btn-danger btn-xs']
                                 ]
                             );
+                            ActiveForm::end();
                         }
 
 
@@ -385,7 +410,7 @@ $this->registerJs($js);
                 </select>
             </p>
             <p>Color del texto de los feeds:
-                <input type="color" value="#FFFFFF" id="pickerColor2">
+                <input type="color" value="#000000" id="pickerColor2">
             </p>
             <p>Color del Fondo de la aplicación:
                 <input type="color" value="#FFFFFF" id="pickerColor3">

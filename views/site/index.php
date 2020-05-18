@@ -400,7 +400,7 @@ if (!isset($_COOKIE['intro'])) {
                                         'method' => 'post',
                                         'options' =>   ['enctype' => 'multipart/form-data'],
                                     ]); ?>
-                                    <!-- <?= $form->field($favorito, 'feed_id')->hiddenInput(['value' => $feeds['id']])->label(false) ?> -->
+                                    <?= $form->field($favorito, 'feed_id')->hiddenInput(['value' => $feeds['id']])->label(false) ?>
 
                                     <?= Html::a(
                                         Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
