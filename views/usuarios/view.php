@@ -132,6 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Añadir como amigo',
             ['site/index'],
             [
+                //función flecha
                 'onclick' => "$.ajax({
     
                         url: '" . Url::to(['seguidores/create']) . "',

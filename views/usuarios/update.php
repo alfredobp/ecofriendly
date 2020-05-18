@@ -66,8 +66,6 @@ if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_CO
 $url4 = Url::to(['usuarios/guardacookie']);
 $url5 = Url::to(['usuarios/obtenercookie']);
 $js = <<<EOT
-
-
 function cambiarColorYGuardaCookie(){
     var color = $("#pickerColor").val();
     var tamanyo= $('#slider').val();
@@ -91,8 +89,6 @@ function cambiarColorYGuardaCookie(){
             }
         });
 }
-
-
 $(document).ready(function(){
     
              $('#preferencias').click(function(){
@@ -101,7 +97,6 @@ $(document).ready(function(){
          
         });
         $('#slider').change(function(){
-
       console.log($('#slider').val());
   });
     $("select[name=colorTexto]").change(function(){

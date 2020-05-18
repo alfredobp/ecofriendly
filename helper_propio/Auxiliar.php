@@ -64,8 +64,7 @@ class Auxiliar
     {
 
         $id1 = Usuarios::find()->where(['id' => $id])->one();
-        // var_dump($id1['url_avatar']);
-        // die;
+   
         $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }

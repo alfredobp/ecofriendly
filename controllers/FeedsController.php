@@ -145,8 +145,7 @@ class FeedsController extends Controller
         $model->updated_at = date('Y-m-d H:i:s');
         if ($model->load(Yii::$app->request->post())) {
             if (!empty($_FILES['Feeds']['name']['imagen'])) {
-                // var_dump($_FILES);
-                // die;
+          
                 uploadImagenFeed($model);
 
                 $model->imagen = $_FILES['Feeds']['name']['imagen'];
@@ -158,8 +157,7 @@ class FeedsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            // 'listaGeneros' => $this->listaGeneros(),
-            // 'listaAutores' => $this->listaAutores(),
+            
         ]);
     }
 

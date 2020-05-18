@@ -391,28 +391,41 @@ if (!isset($_COOKIE['intro'])) {
                                 $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
                                 ?>
 
-                                <div class="col"> <?= Html::a(
-                                                        Icon::show(' fa-thumbs-up') . 'Me gusta',
-                                                        Url::to(['/feeds-favoritos/create', 'feed_id' => $feeds['id']]),
-                                                        [
-                                                            'data' => [
-                                                                'method' => 'post',
-                                                                'params' => ['feed_id' => $feeds['id']], // <- extra level
-                                                            ],
-                                                        ]
+                                <div class="col">
+                             
+                                    <?php
+                                    $favorito = new FeedsFavoritos();
+                                    $form = ActiveForm::begin([
+                                        'action' => ['feeds-favoritos/create'],
+                                        'method' => 'post',
+                                        'options' =>   ['enctype' => 'multipart/form-data'],
+                                    ]); ?>
+                                    <!-- <?= $form->field($favorito, 'feed_id')->hiddenInput(['value' => $feeds['id']])->label(false) ?> -->
 
-                                                    ); ?>
-                                    <a class="text-primary" data-toggle="collapse" href="#collapseExampleMe<?= $i ?>"> <?= $meGusta->count() ?></a></div>
+                                    <?= Html::a(
+                                        Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
+                                        Url::to(['/feeds-favoritos/create']),
+                                        [
+                                            'data' => [
+                                                'method' => 'post',
+                                                'params' => ['feed_id' => $feeds['id']], // <- extra level
+                                            ],
+                                        ]
+                                    ); ?>
+                                    <?php ActiveForm::end(); ?>
+                                    
+                                    </div>
 
 
                                 <!-- Me gusta -->
 
 
                                 <div class="collapse" id="collapseExampleMe<?= $i ?>">
-                                    <br>
+                                  
                                     <div class="divider"></div>
                                     <div class="row">
                                         <div class="col-12">
+
                                             <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
                                             <?php foreach ($meGusta as $meGusta) : ?>
                                                 <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
@@ -433,7 +446,10 @@ if (!isset($_COOKIE['intro'])) {
                                 <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]); ?>
 
                                 <!-- Gestión de los comentarios -->
-                                <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+                                <div class="col">
+                             
+                                <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+                                
                                 </div>
                                 <!-- <div class="col dropup">
                                 <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
@@ -458,6 +474,7 @@ if (!isset($_COOKIE['intro'])) {
 
                                     </div>
                                     <div class="col-10">
+                                   
                                         <?php
                                         // $model = Feeds::find()->one();
                                         $form = ActiveForm::begin([
@@ -465,17 +482,12 @@ if (!isset($_COOKIE['intro'])) {
                                             'method' => 'post',
                                             'options' =>   ['enctype' => 'multipart/form-data'],
                                         ]); ?>
-                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
-                                        <?php $model = new Comentarios();
-                                        $model->usuario_id = Yii::$app->user->id;
-                                        $model->created_at = date('Y-m-d H:i:s');
-                                        $model->comentarios_id=$feeds['id'];
-                                        ?>
-                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
-                                        <?= $form->field($model, 'usuario_id')->hiddenInput()->label(false) ?>
-                                        <?= $form->field($model, 'created_at')->hiddenInput()->label(false) ?>
-                                        <?= $form->field($model, 'comentarios_id')->hiddenInput()->label(false) ?>
-                                   
+
+                                        <?= $form->field($comentarios2, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
+                                        <?= $form->field($comentarios2, 'comentarios_id')->hiddenInput(['value' => $feeds['id']])->label(false) ?>
+
+                                        <?= Html::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
+                                        <br>
                                         <?php ActiveForm::end(); ?>
 
 

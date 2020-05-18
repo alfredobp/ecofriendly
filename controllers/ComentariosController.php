@@ -97,8 +97,11 @@ class ComentariosController extends Controller
     {
 
         $model = new Comentarios();
- 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        
+        $model->usuario_id = Yii::$app->user->identity->id;
+        $model->created_at = date('Y-m-d H:i:s');
+    
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->save();
             return $this->redirect(['site/index', 'id' => $model->id]);
         }

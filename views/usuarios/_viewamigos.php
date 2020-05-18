@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Actividad en la red</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Contactosexit</a>
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Contactos</a>
         </li>
     </ul>
 </nav>

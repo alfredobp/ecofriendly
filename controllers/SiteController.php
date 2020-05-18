@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\helper_propio\Auxiliar;
 use app\models\AccionesRetos;
+use app\models\Comentarios;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -100,10 +101,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         $id = Yii::$app->user->identity->id;
         $model = new Feeds();
         $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
-        $listaUsuarios = Usuarios::find()->select(['nombre', 'id', 'url_avatar'])->where(['!=', 'id', $id])->andWhere(['!=', 'rol', 'superadministrador'])
+        $listaUsuarios = Usuarios::find()
+            ->select(['nombre', 'id', 'url_avatar'])
+            ->where(['!=', 'id', $id])
+            ->andWhere(['!=', 'rol', 'superadministrador'])
+            ->orWhere(['!=', 'auth_key', 'null'])
             ->all();
 
         if (Yii::$app->user->identity->rol == 'superadministrador') {
@@ -169,13 +175,14 @@ class SiteController extends Controller
                 ->orderBy('feeds.created_at desc')
                 ->asArray()->all();
             return $this->render('index', [
-
+                'comentarios2' => new Comentarios(),
                 'datos' => Usuarios::findOne($id),
                 // 'retosListado' => $retosListado,
                 'feeds' => $feed,
                 'model' => $model,
                 'pagination' => $pagination,
                 'usuarios' => $listaUsuarios,
+                'comentar' =>  new Comentarios(),
                 'seguidores' => Seguidores::find()
                     ->joinWith('usuario')
                     ->where(['usuario_id' => $id])
