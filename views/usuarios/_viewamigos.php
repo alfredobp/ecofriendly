@@ -8,6 +8,8 @@ use app\helper_propio\Auxiliar;
 use app\helper_propio\GestionCookies;
 use app\models\Bloqueos;
 use app\models\Feeds;
+use app\models\ObjetivosPersonales;
+use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use yii\base\Model;
@@ -42,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Actividad en la red</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Contactos en común</a>
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Contactos</a>
         </li>
     </ul>
 </nav>
@@ -65,70 +67,70 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ?>
                 <!-- <h5><span class="badge badge-light"> Seguidor </span></h5> -->
-                    <?= DetailView::widget([
-                        'model' => $model,
-                        'attributes' =>  [
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' =>  [
 
-                            // 'id',
-                            'username',
-                            // 'contrasena',
-                            // 'auth_key',
-                            [
-                                'attribute' => 'Nombre completo',
-                                'value' => function ($dataProvider) {
-                                    return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
-                                },
-                                'format' => 'raw',
-                            ],
-                            'localidad',
-                            'ranking.puntuacion',
-
-
-                            [
-                                'attribute' => 'Categoría',
-                                'value' => function ($dataProvider) {
-
-                                    if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
-                                        return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
-                                        return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
-                                        return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                    }
-                                },
-                                'format' => 'raw',
-                            ],
-                            [
-                                'attribute' => 'Descripción',
-                                'value' => function ($dataProvider) {
-                                    if ($dataProvider->descripcion == null) {
-
-                                        return  '-----------';
-                                    }
-                                    return $dataProvider->descripcion;
-                                },
-                                'format' => 'raw',
-                            ],
-                            [
-                                'attribute' => 'Edad',
-                                'value' => function ($dataProvider) {
-
-                                    $fecha = time() - strtotime($dataProvider->fecha_nac);
-
-                                    $edad = floor($fecha / 31556926);
-                                    return  $edad . ' años';
-                                },
-                                'format' => 'raw',
-                            ],
-                            // 'email:email',
-                            // 'direccion',
-                            'estado',
-                            // 'fecha_nac',
-                            // 'token_acti',
-                            // 'codigo_verificacion',
+                        // 'id',
+                        'username',
+                        // 'contrasena',
+                        // 'auth_key',
+                        [
+                            'attribute' => 'Nombre completo',
+                            'value' => function ($dataProvider) {
+                                return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
+                            },
+                            'format' => 'raw',
                         ],
-                        'options' => ['class' => 'table table table-hover table-md col-12  ']
-                    ]) ?>
+                        'localidad',
+                        'ranking.puntuacion',
+
+
+                        [
+                            'attribute' => 'Categoría',
+                            'value' => function ($dataProvider) {
+
+                                if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
+                                    return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
+                                    return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
+                                    return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                }
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'Descripción',
+                            'value' => function ($dataProvider) {
+                                if ($dataProvider->descripcion == null) {
+
+                                    return  '-----------';
+                                }
+                                return $dataProvider->descripcion;
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'Edad',
+                            'value' => function ($dataProvider) {
+
+                                $fecha = time() - strtotime($dataProvider->fecha_nac);
+
+                                $edad = floor($fecha / 31556926);
+                                return  $edad . ' años';
+                            },
+                            'format' => 'raw',
+                        ],
+                        // 'email:email',
+                        // 'direccion',
+                        'estado',
+                        // 'fecha_nac',
+                        // 'token_acti',
+                        // 'codigo_verificacion',
+                    ],
+                    'options' => ['class' => 'table table table-hover table-md col-12  ']
+                ]) ?>
             </div>
 
             <?php
@@ -184,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <p>
 
-            <h4>ültimos feeds publicados en la red #ecofriendly:</h4>
+            <h4>Últimos feeds publicados en la red #ecofriendly:</h4>
             <br>
             <?php
             $dataProvider = new ActiveDataProvider([
@@ -195,9 +197,9 @@ $this->params['breadcrumbs'][] = $this->title;
             $dataProvider->setSort([
                 'defaultOrder' => ['created_at' => SORT_DESC],
             ]);
-            //paginacion de 10 feeds por página
-            $dataProvider->pagination = ['pageSize' => 10];
-            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+
+            $dataProvider->pagination = ['pageSize' => 5];
+            $options = ['style' => ['width' => '20px', 'margin-right' => '0px', 'margin-left' => '0px', 'border-radius' => '0px']];
 
             Pjax::begin();
             echo GridView::widget([
@@ -214,13 +216,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     ],
                     [
-                        'attribute' => 'imagen',
+                        'attribute' => 'Contenido',
                         'value' => function ($dataProvider) {
-                            return Auxiliar::obtenerImagenFeed($dataProvider->imagen);
+                            $options = ['style' => ['width' => '60px', 'margin-right' => '0px', 'margin-left' => '0px', 'border-radius' => '0px']];
+                            return Auxiliar::obtenerImagenFeed($dataProvider->imagen, $options);
                         },
                         'format' => 'raw',
                     ],
-                    'contenido',
+                    [
+                        'attribute' => 'Contenido',
+                        'value' => function ($dataProvider) {
+                            
+                            return $dataProvider->contenido;
+                        },
+                        'format' => 'raw',
+                    ],
+                
 
                 ],
 
@@ -228,7 +239,86 @@ $this->params['breadcrumbs'][] = $this->title;
 
             Pjax::end();
             ?>
+            <h4>Retos aceptados:</h4>
+            <br>
+            <?php
+            $dataProvider = new ActiveDataProvider([
+                'query' => RetosUsuarios::find()
+                    ->joinWith('idreto0')
+                    ->where(['usuario_id' => $model->id]),
+            ]);
 
+            $dataProvider->setSort([
+                'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
+            ]);
+
+            $dataProvider->pagination = ['pageSize' => 5];
+            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+
+            Pjax::begin();
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
+                'columns' => [
+                    [
+                        'attribute' => 'Reto',
+                        'value' => function ($dataProvider) {
+                            return $dataProvider->idreto0->titulo;
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => '¿Finalizado?',
+                        'value' => function ($dataProvider) {
+                            return $dataProvider->culminado;
+                        },
+                        'format' => 'boolean',
+                    ],
+
+                ],
+
+            ]);
+
+            Pjax::end();
+            ?>
+             <h4>Obejtivos Personales:</h4>
+            <br>
+            <?php
+            $dataProvider = new ActiveDataProvider([
+                'query' => ObjetivosPersonales::find()
+                    ->joinWith('usuario')
+                    ->where(['usuario_id' => $model->id]),
+            ]);
+
+            $dataProvider->setSort([
+                'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
+            ]);
+
+            $dataProvider->pagination = ['pageSize' => 5];
+            $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
+
+            Pjax::begin();
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+
+                'columns' => [
+                    [
+                        'attribute' => 'Objetivo',
+                        'value' => function ($dataProvider) {
+                            return $dataProvider->objetivo;
+                        },
+                        'format' => 'raw',
+                    ],
+                   
+
+                ],
+
+            ]);
+
+            Pjax::end();
+            ?>
         </p>
     </section>
     <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
