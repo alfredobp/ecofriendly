@@ -193,9 +193,14 @@ AppAsset::register($this);
 
                             <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
 
-                            <p class="float-right"><?= Yii::powered() ?></p>
-
+                            <p class="float-right">
+                                <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
+                                    <img height="32" width="88" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
+                                    Contenido Web 1.0 del W3C-WAI"></a>
+                                <?= Yii::powered() ?>
+                            </p>
                         </div>
+
                     </footer>
                 </div>
             </div>
