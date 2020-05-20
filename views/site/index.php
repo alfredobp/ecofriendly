@@ -393,14 +393,9 @@ if (!isset($_COOKIE['intro'])) {
 
                                 <div class="col">
                              
-                                    <?php
-                                    $favorito = new FeedsFavoritos();
-                                    $form = ActiveForm::begin([
-                                        'action' => ['feeds-favoritos/create'],
-                                        'method' => 'post',
-                                        'options' =>   ['enctype' => 'multipart/form-data'],
-                                    ]); ?>
-                                    <?= $form->field($favorito, 'feed_id')->hiddenInput(['value' => $feeds['id']])->label(false) ?>
+                                
+                                   
+                                  
 
                                     <?= Html::a(
                                         Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
@@ -412,7 +407,7 @@ if (!isset($_COOKIE['intro'])) {
                                             ],
                                         ]
                                     ); ?>
-                                    <?php ActiveForm::end(); ?>
+                       
                                     
                                     </div>
 

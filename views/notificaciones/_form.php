@@ -12,7 +12,12 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'usuario_id')->textInput() ?>\n\n    <?= $form->field($model, 'seguidor_id')->textInput() ?>\n\n    <?= $form->field($model, 'leido')->checkbox() ?>\n\n    <?= $form->field($model, 'tipo_notificacion_id')->textInput() ?>\n\n    <?= $form->field($model, 'created_at')->textInput() ?>\n\n    <div class="form-group">
+    <?= $form->field($model, 'usuario_id')->textInput() ?>
+    <?= $form->field($model, 'seguidor_id')->textInput() ?>
+    <?= $form->field($model, 'leido')->checkbox() ?>
+    <?= $form->field($model, 'tipo_notificacion_id')->textInput() ?>
+    <?= $form->field($model, 'created_at')->textInput() ?>
+    <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

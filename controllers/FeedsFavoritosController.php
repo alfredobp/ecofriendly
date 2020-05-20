@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Feeds;
 use Yii;
 use app\models\FeedsFavoritos;
 use app\models\FeedsFavoritosSearch;
+use app\models\Notificaciones;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,14 +68,33 @@ class FeedsFavoritosController extends Controller
     {
         $model = new FeedsFavoritos();
         $model->usuario_id = Yii::$app->user->identity->id;
-      
-    
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $notificacion = new Notificaciones();
 
-            return $this->redirect(['site/index', 'id' => $model->id]);
-        } else {
+        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
+            $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
+                ->andWhere(['feed_id' => $model->feed_id])->one();
+            if ($yaMeGusta == null) {
+                $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->feed_id])->one();
+                // var_dump($dueño->usuariosid);
+                // var_dump(Yii::$app->user->identity->id);
+                // die;
+                if ($dueño->usuariosid != Yii::$app->user->identity->id) {
+
+                    $notificacion->usuario_id = $dueño->usuariosid;
+                    $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                    $notificacion->leido = false;
+                    $notificacion->tipo_notificacion_id = 2;
+                    $notificacion->save();
+                }
+
+
+
+                $model->save();
+                return $this->redirect(['site/index']);
+            }
+
             Yii::$app->session->setFlash('error', 'Ya has hecho me gusta en este feed');
-            return $this->redirect(['site/index', 'id' => $model->id]);
+            return $this->redirect(['site/index']);
         }
         // return $this->render('create', [
         //     'model' => $model,

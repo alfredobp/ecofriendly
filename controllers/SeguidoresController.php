@@ -83,24 +83,29 @@ class SeguidoresController extends Controller
         $seguidor = new Seguidores();
         $seguidor->usuario_id = Yii::$app->user->identity->id;
 
-        $id = $_POST['seguidor_id'];
-        $seguidor->seguidor_id = $id;
-        $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
+        if ($seguidor->load(Yii::$app->request->post(), '') && $seguidor->validate()) {
+            $id = $seguidor->seguidor_id;
 
-        //Se comprueba si el usuario se encuentra en situación de bloqueo.
-        $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidor])->one();
+            $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
 
-        if ($estaBloqueado != null) {
-            Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
-            return $this->goBack();
+            if ($esSeguidor == null) {
+                $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $id])->one();
+
+                //Se comprueba si el usuario se encuentra en situación de bloqueo.
+                if ($estaBloqueado != null) {
+                    Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
+                    return $this->goBack();
+                }
+
+                $seguidor->save();
+                Yii::$app->session->setFlash('success', 'Ahora eres amigo');
+                return $this->goBack();
+            } else {
+
+                Yii::$app->session->setFlash('error', 'Ya sigues a este usuario');
+                return $this->goHome();
+            }
         }
-        if ($seguidor->validate() && $esSeguidor == null) {
-            $seguidor->save();
-            Yii::$app->session->setFlash('success', 'Ahora eres amigo');
-            return $this->goBack();
-        }
-        Yii::$app->session->setFlash('error', 'Ya sigues a este usuario');
-        return $this->goHome();
     }
 
 

@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Notificaciones;
+use Yii;
 
 /**
  * NotificacionesSearch represents the model behind the search form of `app\models\Notificaciones`.
@@ -41,7 +42,7 @@ class NotificacionesSearch extends Notificaciones
      */
     public function search($params)
     {
-        $query = Notificaciones::find();
+        $query = Notificaciones::find()->where(['usuario_id'=>Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 
