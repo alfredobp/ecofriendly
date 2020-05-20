@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Comentarios;
+use app\models\Feeds;
 use app\models\Usuarios;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
@@ -19,24 +21,33 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Notificaciones', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-           
+
             [
-                'attribute' => 'Fecha Suspensión de la cuenta',
+                'attribute' => 'Usuario',
                 'value' => function ($dataProvider) {
 
-                    return (Usuarios::findOne($dataProvider->seguidor_id))->nombre ;
+                    return (Usuarios::findOne($dataProvider->seguidor_id))->nombre;
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'Usuario',
+                'value' => function ($dataProvider) {
+
+                    return (Comentarios::find()->where(['created_at' => $dataProvider->created_at])->one());
                 },
                 'format' => 'raw',
             ],
             'leido:boolean',
-      
+
             [
                 'attribute' => 'Tipo Notificación',
                 'value' => function ($dataProvider) {

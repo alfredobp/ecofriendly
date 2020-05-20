@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Bloqueos;
+use app\models\Notificaciones;
 use Yii;
 use app\models\Seguidores;
 use app\models\SeguidoresSearch;
@@ -82,7 +83,7 @@ class SeguidoresController extends Controller
     {
         $seguidor = new Seguidores();
         $seguidor->usuario_id = Yii::$app->user->identity->id;
-
+        $notificacion = new Notificaciones();
         if ($seguidor->load(Yii::$app->request->post(), '') && $seguidor->validate()) {
             $id = $seguidor->seguidor_id;
 
@@ -96,7 +97,11 @@ class SeguidoresController extends Controller
                     Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
                     return $this->goBack();
                 }
-
+                $notificacion->usuario_id = $id;
+                $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                $notificacion->leido = false;
+                $notificacion->tipo_notificacion_id = 3;
+                $notificacion->save();
                 $seguidor->save();
                 Yii::$app->session->setFlash('success', 'Ahora eres amigo');
                 return $this->goBack();
