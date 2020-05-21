@@ -12,7 +12,8 @@ use Yii;
  * @property int $seguidor_id
  * @property bool|null $leido
  * @property int $tipo_notificacion_id
- * @property string|null $created_at
+ * @property string $created_at
+ * @property string|null $url_evento
  *
  * @property TiposNotificaciones $tipoNotificacion
  * @property Usuarios $usuario
@@ -38,6 +39,7 @@ class Notificaciones extends \yii\db\ActiveRecord
             [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'integer'],
             [['leido'], 'boolean'],
             [['created_at'], 'safe'],
+            [['url_evento'], 'string'],
             [['tipo_notificacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposNotificaciones::className(), 'targetAttribute' => ['tipo_notificacion_id' => 'id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
@@ -54,6 +56,7 @@ class Notificaciones extends \yii\db\ActiveRecord
             'seguidor_id' => 'Seguidor ID',
             'leido' => 'Leido',
             'tipo_notificacion_id' => 'Tipo Notificacion ID',
+            'url_evento' => 'Url Evento',
             'created_at' => 'Created At',
         ];
     }

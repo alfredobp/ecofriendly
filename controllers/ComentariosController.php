@@ -112,6 +112,7 @@ class ComentariosController extends Controller
                 $notificacion->seguidor_id = Yii::$app->user->identity->id;
                 $notificacion->leido = false;
                 $notificacion->tipo_notificacion_id = 1;
+                $notificacion->url_evento =$model->comentarios_id;
                 $notificacion->save();
             }
 
