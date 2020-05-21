@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+
 
             [
                 'attribute' => 'Usuario',
@@ -38,20 +38,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+
+
             [
-                'attribute' => 'Usuario',
-                'value' => function ($dataProvider) {
-
-                    return (Comentarios::find()->where(['created_at' => $dataProvider->created_at])->one());
-                },
-                'format' => 'raw',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('Marcar notificación como leido', ['delete', 'id' => $model->id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => '¿Estas seguro de querer marcar esta notificiación como leída?',
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
+                ]
             ],
-            'leido:boolean',
-
             [
                 'attribute' => 'Tipo Notificación',
                 'value' => function ($dataProvider) {
-                    return ucfirst($dataProvider->tipoNotificacion->tipo);
+                    if ($dataProvider->tipoNotificacion->tipo == 'comentario' || $dataProvider->tipoNotificacion->tipo == 'me gusta') {
+                        # code...
+                        return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' ha realizado un  ' . $dataProvider->tipoNotificacion->tipo . ' en una publicación';
+                    }
+                    else {
+                        return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' le sigue.';
+
+                    }
                 },
                 'format' => 'raw',
             ],
@@ -63,7 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
