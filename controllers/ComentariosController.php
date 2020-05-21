@@ -107,7 +107,6 @@ class ComentariosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->comentarios_id])->one();
             if ($dueño->usuariosid != Yii::$app->user->identity->id) {
-
                 $notificacion->usuario_id = $dueño->usuariosid;
                 $notificacion->seguidor_id = Yii::$app->user->identity->id;
                 $notificacion->leido = false;

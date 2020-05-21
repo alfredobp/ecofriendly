@@ -75,9 +75,7 @@ class FeedsFavoritosController extends Controller
                 ->andWhere(['feed_id' => $model->feed_id])->one();
             if ($yaMeGusta == null) {
                 $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->feed_id])->one();
-
                 if ($dueño->usuariosid != Yii::$app->user->identity->id) {
-
                     $notificacion->usuario_id = $dueño->usuariosid;
                     $notificacion->seguidor_id = Yii::$app->user->identity->id;
                     $notificacion->leido = false;

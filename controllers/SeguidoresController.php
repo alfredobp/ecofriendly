@@ -97,16 +97,18 @@ class SeguidoresController extends Controller
                     Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
                     return $this->goBack();
                 }
-                $notificacion->usuario_id = $id;
-                $notificacion->seguidor_id = Yii::$app->user->identity->id;
-                $notificacion->leido = false;
-                $notificacion->tipo_notificacion_id = 3;
-                $notificacion->save();
+                if ($notificacion->validate()) {
+                    $notificacion->usuario_id = $id;
+                    $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                    $notificacion->leido = false;
+                    $notificacion->tipo_notificacion_id = 3;
+                    $notificacion->url_evento = $seguidor->id;
+                    $notificacion->save();
+                }
                 $seguidor->save();
                 Yii::$app->session->setFlash('success', 'Ahora eres amigo');
                 return $this->goBack();
             } else {
-
                 Yii::$app->session->setFlash('error', 'Ya sigues a este usuario');
                 return $this->goHome();
             }
