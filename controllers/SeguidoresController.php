@@ -69,6 +69,12 @@ class SeguidoresController extends Controller
      */
     public function actionView($id)
     {
+        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
+        $notificacionLeida->leido = true;
+        if ($notificacionLeida->validate()) {
+            $notificacionLeida->update();
+            # code...
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -97,12 +103,13 @@ class SeguidoresController extends Controller
                     Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
                     return $this->goBack();
                 }
+                $seguidor->save();
+                $notificacion->usuario_id = $id;
+                $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                $notificacion->leido = false;
+                $notificacion->tipo_notificacion_id = 3;
+                $notificacion->id_evento = $seguidor->id;
                 if ($notificacion->validate()) {
-                    $notificacion->usuario_id = $id;
-                    $notificacion->seguidor_id = Yii::$app->user->identity->id;
-                    $notificacion->leido = false;
-                    $notificacion->tipo_notificacion_id = 3;
-                    $notificacion->id_evento = $seguidor->id;
                     $notificacion->save();
                 }
                 $seguidor->save();

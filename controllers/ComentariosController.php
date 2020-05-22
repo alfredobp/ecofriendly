@@ -67,6 +67,12 @@ class ComentariosController extends Controller
      */
     public function actionView($id)
     {
+        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
+        $notificacionLeida->leido = true;
+        if ($notificacionLeida->validate()) {
+
+            $notificacionLeida->update();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -114,11 +120,6 @@ class ComentariosController extends Controller
                 $notificacion->leido = false;
                 $notificacion->tipo_notificacion_id = 1;
                 $notificacion->id_evento = $model->id;
-                var_dump($notificacion->save());
-                var_dump($model->id);
-                var_dump($notificacion->getErrors());
-
-                die;
             }
             return $this->redirect(['site/index', 'id' => $model->id]);
         }

@@ -27,11 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'URL',
                 'value' => function ($dataProvider) {
                     if ($dataProvider->tipoNotificacion->tipo == 'comentario') {
-                        return  Html::a('Ver notificacion', Url::to(['comentarios/view', 'id' => $dataProvider->id_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['comentarios/view', 'id' => $dataProvider->id_evento, 'idNotificacion' => $dataProvider->id_evento, true]));
                     } elseif ($dataProvider->tipoNotificacion->tipo == 'me gusta') {
-                        return  Html::a('Ver notificacion', Url::to(['feeds-favoritos/view', 'id' => $dataProvider->id_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['feeds-favoritos/view', 'id' => $dataProvider->id_evento, 'idNotificacion' => $dataProvider->id_evento, true]));
                     } else {
-                        return  Html::a('Ver notificacion', Url::to(['seguidores/view', 'id' => $dataProvider->id_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['seguidores/view', 'id' => $dataProvider->id_evento, 'idNotificacion' => $dataProvider->id_evento, true]));
                     }
                 },
 
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($dataProvider) {
                     if ($dataProvider->tipoNotificacion->tipo == 'comentario' || $dataProvider->tipoNotificacion->tipo == 'me gusta') {
                         return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' ha realizado un  '
-                         . $dataProvider->tipoNotificacion->tipo . ' en una publicación';
+                            . $dataProvider->tipoNotificacion->tipo . ' en una publicación';
                     } else {
                         return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' le sigue.';
                     }

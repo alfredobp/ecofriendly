@@ -54,6 +54,11 @@ class FeedsFavoritosController extends Controller
      */
     public function actionView($id)
     {
+        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
+        $notificacionLeida->leido = true;
+        if ($notificacionLeida->validate()) {
+            $notificacionLeida->update();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
