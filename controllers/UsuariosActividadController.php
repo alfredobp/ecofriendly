@@ -112,6 +112,7 @@ class UsuariosActividadController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'participantes' => Usuarios::Participantes(),
         ]);
     }
 

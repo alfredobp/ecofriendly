@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS usuarios_actividad CASCADE;
 
 CREATE TABLE usuarios_actividad(
     id bigserial PRIMARY KEY,
-    usuario_id integer REFERENCES usuarios(id),
+    usuario_id integer UNIQUE REFERENCES usuarios(id),
     motivo varchar,
     fecha_suspenso timestamp(0) NOT NULL DEFAULT current_timestamp
 );

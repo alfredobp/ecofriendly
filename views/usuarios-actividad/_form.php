@@ -12,7 +12,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'usuario_id')->textInput() ?>
+
 
     <?= $form->field($model, 'motivo')->textInput() ?>
 
@@ -20,7 +20,7 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'usuario_id')->label('Nombre')->dropDownList($participantes) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Bloquear cuenta', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

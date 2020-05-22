@@ -85,3 +85,58 @@ En esta zona de contempla los mensajes de los usuarios, permite enviar, recibir 
 Los usuarios pueden visitar en cualquier momento el area de preguntas y respuestas frecuentes.
 ![Faqs](images/faqs2.png)
 
+
+### Retos usuarios.
+
+Cuando un usuario se ha valorado se le asigna una categoría, a la que van asociados una serie de retos con una puntuación asignada. Por un lado, el usuario acepta el reto propuesto por el sistema, y cuando ha compliado lo anota como superado. De de forma que se aumenta su puntuación, subiendo de categoría y cambiando los retos propuestos.
+
+
+![retos](images/retos.png)
+
+![retos](images/retosI.png)
+
+![retos](images/retosII.png)
+
+![retos](images/retosIII.png)
+
+![retos](images/retosIV.png)
+
+![retos](images/retosV.png)
+
+![retos](images/retosVI.png)
+
+![retos](images/retosVII.png)
+
+
+### Objetivos personales
+
+Los usuarios pueden anotar objetivos personales para indicar más acciones medio ambientales para ser más sostenibles.
+![Objetivos Personales](images/objetivospersonalesI.png)
+![Objetivos Personales](images/objetivospersonalesIII.png)
+
+
+### Comentarios
+
+
+
+### Me gusta
+
+
+
+### modo admin
+
+
+Bloquear cuenta de usuario
+
+![Bloquear/suspender cuenta de usuario](images/modoadminIV.png)
+![Bloquear/suspender cuenta de usuario](images/modoadminV.png)
+
+
+Ver Ranking
+
+![El usuario admin puede ver el ranking de todos los usuarios registrados](images/modoadminVI.png)
+### recover y recuperar password
+
+### iniciar sesión con facebook
+
+

@@ -6,16 +6,17 @@ use yii\bootstrap4\Html;
 /* @var $model app\models\UsuariosActividad */
 
 $this->title = 'Update Usuarios Actividad: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios Actividads', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Actualizar suspensión de cuenta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar suspensión';
 ?>
 <div class="usuarios-actividad-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Actualizar suspensión de cuenta de usuario') ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'participantes'=>$participantes,
     ]) ?>
 
 </div>

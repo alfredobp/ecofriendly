@@ -6,12 +6,12 @@ use yii\bootstrap4\Html;
 /* @var $model app\models\UsuariosActividad */
 
 $this->title = 'Create Usuarios Actividad';
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios Actividads', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Cuentas suspendidas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Bloquear Cuenta de usuario';
 ?>
 <div class="usuarios-actividad-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Suspender actividad usuario') ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

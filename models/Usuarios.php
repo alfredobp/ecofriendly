@@ -182,7 +182,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 
     public static function participantes()
     {
-        return static::find()->select('username')->indexBy('id')->column();
+        return static::find()->select('username')->andWhere(['!=', 'rol', 'superadministrador'])->indexBy('id')->column();
     }
 
     public static function usuariosAmigos()
@@ -195,7 +195,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             ->where(['!=', 'usuarios.id', $id])
             ->andWhere(['!=', 'rol', 'superadministrador'])
             ->andWhere($esSeguidor);
-         
     }
     public function setEstado($estado)
     {

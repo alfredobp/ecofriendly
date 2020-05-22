@@ -15,17 +15,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>En este apartado se contemplan el ranking de todos los usuarios registrados en la red #ecofriendly</p>
+    <br>
     <!-- <p>
         <?= Html::a('Create Ranking', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
+
+
     ?>
 
     <?= GridView::widget([
+        
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -37,12 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-         
-            'usuarios.ultima_conexion',
+            [
+                'attribute' => 'Última Conexión',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->usuarios->ultima_conexion);
+                },
+                'format' => 'raw',
+            ],
+
             'puntuacion',
 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
