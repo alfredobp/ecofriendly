@@ -288,10 +288,10 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                     <h5 class="card-title"> Usuarios Registrados</h5>
 
 
-                    <div class="col-12">
+                    <div class="col-12" style="overflow-y: scroll; height: 350px;">
 
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px']];
-                        $usuarios = Usuarios::find()->all();
+                        $usuarios = Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
                                 . '<li class="list-group-item btn-light col-12" style="margin:1px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
@@ -303,49 +303,50 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
 
 
                         ?>
-                        <br>
-                        <?= Html::beginForm(['/usuarios/buscar'], 'get')
-                            . Html::textInput(
-                                'cadena',
-                                '',
-                                ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
-                                ['class' => 'form-control col-10']
-                            )
-                            . '<br>'
-                            . Html::submitButton(
-                                'Buscar amigos',
-                                ['class' => 'btn btn-success nav-link mt-3 col-10 ']
-                            )
-                            . Html::endForm();
-
-
-
-                        Modal::begin([
-                            'title' => '<h3>Usuarios encontrados</h3>',
-                            'id' => 'modal3',
-                            'size' => 'modal-md',
-                        ]);
-                        echo '<div id="modalContent3"></div>';
-
-                        Modal::end();
-                        ?>
-
-                        <br>
                     </div>
-                    <div class="divider"></div>
+                    <br>
+                    <?= Html::beginForm(['/usuarios/buscar'], 'get')
+                        . Html::textInput(
+                            'cadena',
+                            '',
+                            ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
+                            ['class' => 'form-control col-10']
+                        )
+                        . '<br>'
+                        . Html::submitButton(
+                            'Buscar amigos',
+                            ['class' => 'btn btn-success nav-link mt-3 col-10 ']
+                        )
+                        . Html::endForm();
+
+
+
+                    Modal::begin([
+                        'title' => '<h3>Usuarios encontrados</h3>',
+                        'id' => 'modal3',
+                        'size' => 'modal-md',
+                    ]);
+                    echo '<div id="modalContent3"></div>';
+
+                    Modal::end();
+                    ?>
+
+                    <br>
                 </div>
+                <div class="divider"></div>
             </div>
-            <br>
-            <div class="card card-inverse">
-                <div class="card-block">
-
-
-                </div>
-            </div>
-
-
-        </aside>
     </div>
-    </body>
+    <br>
+    <div class="card card-inverse">
+        <div class="card-block">
 
-    </html>
+
+        </div>
+    </div>
+
+
+    </aside>
+</div>
+</body>
+
+</html>

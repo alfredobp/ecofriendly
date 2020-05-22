@@ -25,10 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
 
 
+    $dataProvider->setSort([
+        'defaultOrder' => ['puntuacion' => SORT_DESC],
+    ]);
     ?>
-
     <?= GridView::widget([
-        
+
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
 
