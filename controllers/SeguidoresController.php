@@ -102,7 +102,7 @@ class SeguidoresController extends Controller
                     $notificacion->seguidor_id = Yii::$app->user->identity->id;
                     $notificacion->leido = false;
                     $notificacion->tipo_notificacion_id = 3;
-                    $notificacion->url_evento = $seguidor->id;
+                    $notificacion->id_evento = $seguidor->id;
                     $notificacion->save();
                 }
                 $seguidor->save();

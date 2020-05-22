@@ -18,7 +18,7 @@ class NotificacionesSearch extends Notificaciones
     public function rules()
     {
         return [
-            [['id', 'usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'integer'],
+            [['id', 'usuario_id', 'seguidor_id', 'tipo_notificacion_id', 'id_evento'], 'integer'],
             [['leido'], 'boolean'],
             [['created_at'], 'safe'],
         ];
@@ -66,6 +66,7 @@ class NotificacionesSearch extends Notificaciones
             'leido' => $this->leido,
             'tipo_notificacion_id' => $this->tipo_notificacion_id,
             'created_at' => $this->created_at,
+            'id_evento' => $this->id_evento
         ]);
 
         return $dataProvider;

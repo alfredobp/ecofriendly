@@ -13,7 +13,7 @@ use Yii;
  * @property bool|null $leido
  * @property int $tipo_notificacion_id
  * @property string $created_at
- * @property string|null $url_evento
+ * @property int|null $id_evento
  *
  * @property TiposNotificaciones $tipoNotificacion
  * @property Usuarios $usuario
@@ -35,11 +35,10 @@ class Notificaciones extends \yii\db\ActiveRecord
     {
         return [
             [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'required'],
-            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'default', 'value' => null],
-            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'integer'],
+            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id', 'id_evento'], 'default', 'value' => null],
+            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id', 'id_evento'], 'integer'],
             [['leido'], 'boolean'],
             [['created_at'], 'safe'],
-            [['url_evento'], 'string'],
             [['tipo_notificacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposNotificaciones::className(), 'targetAttribute' => ['tipo_notificacion_id' => 'id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
@@ -68,7 +67,7 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getTipoNotificacion()
     {
-        return $this->hasOne(TiposNotificaciones::className(), ['id' => 'tipo_notificacion_id'])->inverseOf('notificaciones');
+        return $this->hasOne(TiposNotificaciones::className(), ['id' => 'tipo_notificacion_id']);
     }
 
     /**
@@ -78,6 +77,6 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('notificaciones');
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
 }

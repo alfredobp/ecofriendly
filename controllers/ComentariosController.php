@@ -106,16 +106,20 @@ class ComentariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->comentarios_id])->one();
+
+            $model->save();
             if ($dueño->usuariosid != Yii::$app->user->identity->id) {
                 $notificacion->usuario_id = $dueño->usuariosid;
                 $notificacion->seguidor_id = Yii::$app->user->identity->id;
                 $notificacion->leido = false;
                 $notificacion->tipo_notificacion_id = 1;
-                $notificacion->url_evento =$model->comentarios_id;
-                $notificacion->save();
-            }
+                $notificacion->id_evento = $model->id;
+                var_dump($notificacion->save());
+                var_dump($model->id);
+                var_dump($notificacion->getErrors());
 
-            $model->save();
+                die;
+            }
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
         return $this->render('create', [

@@ -27,11 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'URL',
                 'value' => function ($dataProvider) {
                     if ($dataProvider->tipoNotificacion->tipo == 'comentario') {
-                        return  Html::a('Ver notificacion', Url::to(['comentarios/view', 'id' => $dataProvider->url_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['comentarios/view', 'id' => $dataProvider->id_evento, true]));
                     } elseif ($dataProvider->tipoNotificacion->tipo == 'me gusta') {
-                        return  Html::a('Ver notificacion', Url::to(['feeds-favoritos/view', 'id' => $dataProvider->url_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['feeds-favoritos/view', 'id' => $dataProvider->id_evento, true]));
                     } else {
-                        return  Html::a('Ver notificacion', Url::to(['seguidores/view', 'id' => $dataProvider->url_evento, true]));
+                        return  Html::a('Ver notificacion', Url::to(['seguidores/view', 'id' => $dataProvider->id_evento, true]));
                     }
                 },
 
