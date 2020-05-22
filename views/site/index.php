@@ -392,10 +392,10 @@ if (!isset($_COOKIE['intro'])) {
                                 ?>
 
                                 <div class="col">
-                             
-                                
-                                   
-                                  
+
+
+
+
 
                                     <?= Html::a(
                                         Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
@@ -407,16 +407,16 @@ if (!isset($_COOKIE['intro'])) {
                                             ],
                                         ]
                                     ); ?>
-                       
-                                    
-                                    </div>
+
+
+                                </div>
 
 
                                 <!-- Me gusta -->
 
 
                                 <div class="collapse" id="collapseExampleMe<?= $i ?>">
-                                  
+
                                     <div class="divider"></div>
                                     <div class="row">
                                         <div class="col-12">
@@ -442,9 +442,9 @@ if (!isset($_COOKIE['intro'])) {
 
                                 <!-- Gestión de los comentarios -->
                                 <div class="col">
-                             
-                                <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
-                                
+
+                                    <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+
                                 </div>
                                 <!-- <div class="col dropup">
                                 <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
@@ -469,7 +469,7 @@ if (!isset($_COOKIE['intro'])) {
 
                                     </div>
                                     <div class="col-10">
-                                   
+
                                         <?php
                                         // $model = Feeds::find()->one();
                                         $form = ActiveForm::begin([
@@ -590,7 +590,7 @@ if (!isset($_COOKIE['intro'])) {
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }
-                        Auxiliar::ventanaModal('Perfil de usuario', 2);
+                        Auxiliar::ventanaModal('Perfil de usuario', 2, 'lg');
                         ?>
                         <br>
                         <?= Html::beginForm(['/usuarios/buscar'], 'get')

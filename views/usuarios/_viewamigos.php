@@ -226,12 +226,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'Contenido',
                         'value' => function ($dataProvider) {
-                            
+
                             return $dataProvider->contenido;
                         },
                         'format' => 'raw',
                     ],
-                
+
 
                 ],
 
@@ -242,15 +242,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <h4>Retos aceptados:</h4>
             <br>
             <?php
+
             $dataProvider = new ActiveDataProvider([
                 'query' => RetosUsuarios::find()
                     ->joinWith('idreto0')
                     ->where(['usuario_id' => $model->id]),
             ]);
 
-            $dataProvider->setSort([
-                'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
-            ]);
+            // $dataProvider->setSort([
+            //     'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
+            // ]);
 
             $dataProvider->pagination = ['pageSize' => 5];
             $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
@@ -282,7 +283,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             Pjax::end();
             ?>
-             <h4>Obejtivos Personales:</h4>
+            <h4>Obejtivos Personales:</h4>
             <br>
             <?php
             $dataProvider = new ActiveDataProvider([
@@ -291,9 +292,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->where(['usuario_id' => $model->id]),
             ]);
 
-            $dataProvider->setSort([
-                'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
-            ]);
+            // $dataProvider->setSort([
+            //     'defaultOrder' => ['fecha_aceptacion' => SORT_DESC],
+            // ]);
 
             $dataProvider->pagination = ['pageSize' => 5];
             $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
@@ -311,7 +312,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                     ],
-                   
+
 
                 ],
 
@@ -324,34 +325,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
         <fieldset class="col-md-12">
 
-            <legend>Seguidores: </legend>
+            <legend>Seguidores de <?= $model->username ?>: </legend>
             <?php
-            $seguidores =  Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
+            $seguidores =  Seguidores::find()->where(['seguidor_id' => $model->id])->all();
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
-                    $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->andWhere(['bloqueadosid' => $seguidores[$i]->usuario_id]);
-                    if ($bloqueados->count() > 1) {
-                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
-                    } else {
-                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
-                        echo Html::a(
-                            'Bloquear usuario',
-                            Url::to(['/bloqueos/create', 'usuariosid' => Yii::$app->user->identity->id]),
-                            [
-                                'data' => [
-                                    'method' => 'post',
-                                    'params' => [
-                                        'usuariosid' => Yii::$app->user->identity->id,
-                                        'bloqueadosid' => $seguidores[$i]->usuario_id
-                                    ],
-
-                                ],
-                                'class' => ['btn btn-danger btn-xs']
-                            ]
-
-                        );
-                    }
+                    echo '<h3>  <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </h3>';
                 }
             } else {
                 echo 'Actualmente no tiene seguidores';
@@ -367,20 +347,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <legend>Siguiendo a:</legend>
                 <?php
                 $amigos = Seguidores::find()->where(['usuario_id' => $model->id])->all();
+
                 if (sizeof($amigos) > 0) {
                     for ($i = 0; $i < sizeof($amigos); $i++) {
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
-                        echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
-                        echo Html::hiddenInput('id', $amigos[$i]->id);
-                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
-                        echo Html::submitButton(
-                            '<span class="glyphicon glyphicon-minus"></span>',
-                            ['class' => 'btn btn-danger btn-sm ml-2'],
-                        );
-                        echo Html::endForm();
+
+                        echo '<h3><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></h3>';
                     }
                 } else {
-                    echo 'Actualmente no sigue a ningún usuario #Ecofriendly';
+                    echo 'Este usuario no sigue a nadie de #Ecofriendly';
                 }
                 ?>
 

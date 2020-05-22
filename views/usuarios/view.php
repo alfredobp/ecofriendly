@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             echo Html::a(
 
-                'Añadir como amigo',
+                'Seguir a este usuario',
                 ['site/index'],
                 [
                     //función flecha
