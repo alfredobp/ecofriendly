@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -14,14 +15,18 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descripcion')->textInput([
+        'maxlength' => true,
+        'format' => 'raw'
+    ]) ?>
+
 
     <!-- <?= $form->field($model, 'cat_id')->textInput() ?> -->
 
     <?= $form->field($model, 'puntaje')->textInput() ?>
     <?= $form->field($model, 'cat_id')->label('Categoria')->dropDownList($categorias) ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Icon::show('save') . ' Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

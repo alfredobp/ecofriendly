@@ -1,6 +1,8 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -33,8 +35,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'descripcion',
                 // 'cat_id',
                 'puntaje',
+                [
+                    'class' => ActionColumn::class,
+                    'controller' => 'acciones-retos',
+                    'template' => '{verreto} {update} {delete}',
+                    'buttons' => [
 
-                ['class' => 'yii\grid\ActionColumn'],
+                        'verreto' => function ($url, $model) {
+                            return \yii\helpers\Html::a(
+                                Icon::show('eye'),
+                                (new yii\grid\ActionColumn())->createUrl('acciones-retos/verreto', $model, $model['id'], 1),
+                                [
+                                    'title' => Yii::t('yii', 'Ver Accion Reto'),
+                                    'data-method' => 'post',
+                                    'data-pjax' => '0',
+                                ]
+                            );
+                        },
+                    ],
+                ],
+
+
             ],
         ]); ?>
 

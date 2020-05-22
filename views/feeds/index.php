@@ -26,13 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                 'usuarios.nombre',
-                'contenido',
-
+     
+                [
+                    'label' => 'Contenido',
+                    'attribute' => 'contenido',
+                    'value' => function ($dataProvider) {
+                        return  $dataProvider->contenido;
+                    },
+                    'format' => 'raw',
+                ],
                 [
                     'label' => 'Ruta Imagen',
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        return $dataProvider->imagen ==null ? '------------' : $dataProvider->imagen;
+                        return $dataProvider->imagen == null ? '------------' : $dataProvider->imagen;
                     },
                     'format' => 'raw',
                 ],

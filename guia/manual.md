@@ -133,10 +133,34 @@ Bloquear cuenta de usuario
 
 
 Ver Ranking
+El usuario admin puede ver el ranking de todos los usuarios registrado
+![ranking](images/modoAdminVI.png)
 
-![El usuario admin puede ver el ranking de todos los usuarios registrados](images/modoadminVI.png)
+
+Ver Acciones Retos
+
+![ecoretos](images/modoadminVII.png)
+
+Listados de Feeds publicados en la red #Ecofriendly
+
+![listadofeeds](images/modoadminVIII.png)
+
+
+Evolución de los usuarios registrados
+
+![evolucionUsuarios](images/modoadminIX.png)
+
+Gestión de usuarios de la red.
+![Gestión Usuarios](images/modoadminX.png)
+
 ### recover y recuperar password
+
+Reseteo de Contraseña.
+![Recuperar contraseña](images/restaurarPass.png)
+
+Recuperar Contraseña.
+![Recuperar contraseña](images/resetPass.png)
 
 ### iniciar sesión con facebook
 
-
+![Inicio de sesión con Facebook](images/inicioFacebook.png)
