@@ -12,8 +12,15 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="mensajes-privados-view">
+    <?php
+    if ($model->emisor->username === Yii::$app->user->identity->username) {
+        echo '<h3>' . Html::encode('Mensaje enviado de:  ' . ucfirst($model->emisor->username)) . '</h3>';
+    } else {
+        echo '<h3>' . Html::encode('Mensaje Recibido de:  ' . ucfirst($model->emisor->username)) . '</h3>';
+    }
 
-    <h3><?= Html::encode('Mensaje Recibido de:  ' . ucfirst($model->emisor->username)) ?></h3>
+
+    ?>
 
 
 
@@ -21,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             // 'id',
-           
+
             [
                 'attribute' => 'Enviado por:',
                 'value' => function ($model) {

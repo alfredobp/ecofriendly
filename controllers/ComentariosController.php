@@ -120,6 +120,7 @@ class ComentariosController extends Controller
                 $notificacion->leido = false;
                 $notificacion->tipo_notificacion_id = 1;
                 $notificacion->id_evento = $model->id;
+                $notificacion->save();
             }
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
