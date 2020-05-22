@@ -20,11 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+
         'columns' => [
 
             [
-                'attribute' => 'URL',
+                'attribute' => 'link',
                 'value' => function ($dataProvider) {
                     if ($dataProvider->tipoNotificacion->tipo == 'comentario') {
                         return  Html::a('Ver notificacion', Url::to(['comentarios/view', 'id' => $dataProvider->id_evento, 'idNotificacion' => $dataProvider->id_evento, true]));
@@ -46,14 +46,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+            [
+                'attribute' => 'Leida',
 
+                'value' => function ($dataProvider) {
+
+                    return ($dataProvider->leido);
+                },
+                'format' => 'Boolean',
+            ],
 
             [
+             
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete}',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return Html::a('Marcar notificación como leido', ['delete', 'id' => $model->id], [
+                        return Html::a('Borrar Notificación', ['delete', 'id' => $model->id], [
                             'class' => '',
                             'data' => [
                                 'confirm' => '¿Estas seguro de querer marcar esta notificiación como leída?',
