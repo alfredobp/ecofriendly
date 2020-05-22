@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Comentarios;
 use app\models\ComentariosSearch;
+use app\models\Feeds;
+use app\models\Notificaciones;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -65,6 +67,12 @@ class ComentariosController extends Controller
      */
     public function actionView($id)
     {
+        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
+        $notificacionLeida->leido = true;
+        if ($notificacionLeida->validate()) {
+
+            $notificacionLeida->update();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -97,12 +105,22 @@ class ComentariosController extends Controller
     {
 
         $model = new Comentarios();
-        
+
         $model->usuario_id = Yii::$app->user->identity->id;
         $model->created_at = date('Y-m-d H:i:s');
-    
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $notificacion = new Notificaciones();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->comentarios_id])->one();
+
             $model->save();
+            if ($dueño->usuariosid != Yii::$app->user->identity->id) {
+                $notificacion->usuario_id = $dueño->usuariosid;
+                $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                $notificacion->leido = false;
+                $notificacion->tipo_notificacion_id = 1;
+                $notificacion->id_evento = $model->id;
+            }
             return $this->redirect(['site/index', 'id' => $model->id]);
         }
         return $this->render('create', [

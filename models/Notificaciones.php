@@ -12,7 +12,8 @@ use Yii;
  * @property int $seguidor_id
  * @property bool|null $leido
  * @property int $tipo_notificacion_id
- * @property string|null $created_at
+ * @property string $created_at
+ * @property int|null $id_evento
  *
  * @property TiposNotificaciones $tipoNotificacion
  * @property Usuarios $usuario
@@ -34,8 +35,8 @@ class Notificaciones extends \yii\db\ActiveRecord
     {
         return [
             [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'required'],
-            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'default', 'value' => null],
-            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id'], 'integer'],
+            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id', 'id_evento'], 'default', 'value' => null],
+            [['usuario_id', 'seguidor_id', 'tipo_notificacion_id', 'id_evento'], 'integer'],
             [['leido'], 'boolean'],
             [['created_at'], 'safe'],
             [['tipo_notificacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposNotificaciones::className(), 'targetAttribute' => ['tipo_notificacion_id' => 'id']],
@@ -54,6 +55,7 @@ class Notificaciones extends \yii\db\ActiveRecord
             'seguidor_id' => 'Seguidor ID',
             'leido' => 'Leido',
             'tipo_notificacion_id' => 'Tipo Notificacion ID',
+            'url_evento' => 'Url Evento',
             'created_at' => 'Created At',
         ];
     }
@@ -65,7 +67,7 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getTipoNotificacion()
     {
-        return $this->hasOne(TiposNotificaciones::className(), ['id' => 'tipo_notificacion_id'])->inverseOf('notificaciones');
+        return $this->hasOne(TiposNotificaciones::className(), ['id' => 'tipo_notificacion_id']);
     }
 
     /**
@@ -75,6 +77,6 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('notificaciones');
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
 }

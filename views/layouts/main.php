@@ -13,6 +13,7 @@ use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use app\helper_propio\Auxiliar;
 use app\models\MensajesPrivados;
+use app\models\Notificaciones;
 use cybercog\yii\googleanalytics\widgets\GATracking;
 use kartik\dialog\Dialog;
 use kartik\dialog\DialogAsset;
@@ -57,7 +58,7 @@ AppAsset::register($this);
 
             <?php
             $cuantos = MensajesPrivados::find()->where(['receptor_id' => Yii::$app->user->identity->id])->andWhere(['seen' => null])->count();
-
+            $cuantosNotificaciones = Notificaciones::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['leido' => false])->count();
             NavBar::begin([
                 'brandLabel' => '<span class="badge badge-secondary">Ecofriendly </span><h6>En Búsca de la sostenibilidad</h6>',
                 'brandUrl' => Yii::$app->homeUrl,
@@ -111,9 +112,10 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
+
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
-                    ['label' => Icon::show('bell') . 'Notificaciones', 'url' => ['/']],
+                    ['label' => $cuantosNotificaciones > 0 ? Icon::show('bell') . '<span class="badge badge-primary">' . $cuantosNotificaciones . '</span></h5>' : Icon::show('bell') . 'Notificaciones', 'url' => ['/notificaciones/index']],
                     ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>' : Icon::show('mail-bulk'), 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
 

@@ -120,7 +120,7 @@ DROP TABLE if EXISTS feeds_favoritos CASCADE;
 CREATE TABLE feeds_favoritos (
     id bigserial PRIMARY KEY,
     usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    feed_id integer UNIQUE NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    feed_id integer  NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
     created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
@@ -148,7 +148,8 @@ CREATE TABLE notificaciones (
     seguidor_id bigint NOT NULL,
     leido boolean,
     tipo_notificacion_id integer NOT NULL REFERENCES tipos_notificaciones(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    created_at timestamp NOT NULL DEFAULT current_timestamp
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    id_evento integer
 );
 
 DROP TABLE IF EXISTS mensajes_privados CASCADE;
