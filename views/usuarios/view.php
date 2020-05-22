@@ -33,118 +33,126 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         </p>
+        <div itemscope itemtype="http://schema.org/Person">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' =>  [
 
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' =>  [
+                    // 'id',
+                    'username',
+                    // 'contrasena',
+                    // 'auth_key',
+                    [
+                        'attribute' => 'Nombre completo',
+                        'value' => function ($dataProvider) {
+                            return '<span itemprop="name">' . $dataProvider->nombre . ' ' . $dataProvider->apellidos . '</span>';
+                        },
+                        'format' => 'raw',
+                    ],
+                    'localidad',
+                    'ranking.puntuacion',
 
-                // 'id',
-                'username',
-                // 'contrasena',
-                // 'auth_key',
-                [
-                    'attribute' => 'Nombre completo',
-                    'value' => function ($dataProvider) {
-                        return $dataProvider->nombre . ' ' . $dataProvider->apellidos;
-                    },
-                    'format' => 'raw',
+
+                    [
+                        'attribute' => 'Categoría',
+                        'value' => function ($dataProvider) {
+                            if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
+                                return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                            } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
+                                return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                            } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
+                                return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                            }
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'Descripción',
+                        'value' => function ($dataProvider) {
+                            if ($dataProvider->descripcion == null) {
+
+                                return  '-----------';
+                            }
+                            return '<span itemprop="knows">' . $dataProvider->descripcion  . '</span>';
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'Edad',
+                        'value' => function ($dataProvider) {
+
+                            $fecha = time() - strtotime($dataProvider->fecha_nac);
+
+                            $edad = floor($fecha / 31556926);
+                            return  '<span itemprop="birthDate">' .  $edad . ' años </span>';
+                        },
+                        'format' => 'raw',
+                    ],
+                    // [
+                    //     'attribute' => 'Email',
+                    //     'value' => function ($dataProvider) {
+
+                    //         return  '<span itemprop="email">' .  $dataProvider->email . '  </span>';
+                    //     },
+                    //     'format' => 'raw',
+                    // ],
+                    // 'email:email',
+                    // 'direccion',
+                    'estado',
+                    // 'fecha_nac',
+                    // 'token_acti',
+                    // 'codigo_verificacion',
                 ],
-                'localidad',
-                'ranking.puntuacion',
+                'options' => ['class' => 'table table table-hover table-md col-12  ']
+            ]) ?>
+        </div>
+
+        <?php
+        $siguiendo = Seguidores::find()
+            ->where(['usuario_id' => Yii::$app->user->identity->id])
+            ->andWhere(['seguidor_id' => $model->id])
+            ->one();
 
 
-                [
-                    'attribute' => 'Categoría',
-                    'value' => function ($dataProvider) {
-                        if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
-                            return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                        } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
-                            return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                        } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
-                            return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                        }
-                    },
-                    'format' => 'raw',
+        $model2 = Seguidores::find()->where(['seguidor_id' => $model->id])->one();
+        if ($siguiendo != null) {
+            echo Html::a('Dejar de seguir a usuario', ['seguidores/delete', 'id' => $model2->id], [
+                'class' => 'btn btn-danger',
+                'controller' => 'seguidores',
+                'data' => [
+                    'confirm' => '¿Desea dejar de seguir a este usuario?',
+                    'method' => 'post',
                 ],
-                [
-                    'attribute' => 'Descripción',
-                    'value' => function ($dataProvider) {
-                        if ($dataProvider->descripcion == null) {
+            ]);
+            echo '    ';
+            echo Html::a('Enviar mensaje', ['mensajes-privados/create', 'receptor_id' => $model2->seguidor_id], [
+                'class' => 'btn btn-success ml-5',
+                'controller' => 'mensajesPrivados',
+                'data' => [
 
-                            return  '-----------';
-                        }
-                        return $dataProvider->descripcion;
-                    },
-                    'format' => 'raw',
+                    'method' => 'post',
                 ],
+            ]);
+        } else {
+
+            echo Html::a(
+
+                'Añadir como amigo',
+                ['site/index'],
                 [
-                    'attribute' => 'Edad',
-                    'value' => function ($dataProvider) {
-
-                        $fecha = time() - strtotime($dataProvider->fecha_nac);
-
-                        $edad = floor($fecha / 31556926);
-                        return  $edad . ' años';
-                    },
-                    'format' => 'raw',
-                ],
-                // 'email:email',
-                // 'direccion',
-                'estado',
-                // 'fecha_nac',
-                // 'token_acti',
-                // 'codigo_verificacion',
-            ],
-            'options' => ['class' => 'table table table-hover table-md col-12  ']
-        ]) ?>
-    </div>
-
-    <?php
-    $siguiendo = Seguidores::find()
-        ->where(['usuario_id' => Yii::$app->user->identity->id])
-        ->andWhere(['seguidor_id' => $model->id])
-        ->one();
-
-
-    $model2 = Seguidores::find()->where(['seguidor_id' => $model->id])->one();
-    if ($siguiendo != null) {
-        echo Html::a('Dejar de seguir a usuario', ['seguidores/delete', 'id' => $model2->id], [
-            'class' => 'btn btn-danger',
-            'controller' => 'seguidores',
-            'data' => [
-                'confirm' => '¿Desea dejar de seguir a este usuario?',
-                'method' => 'post',
-            ],
-        ]);
-        echo '    ';
-        echo Html::a('Enviar mensaje', ['mensajes-privados/create', 'receptor_id' => $model2->seguidor_id], [
-            'class' => 'btn btn-success ml-5',
-            'controller' => 'mensajesPrivados',
-            'data' => [
-
-                'method' => 'post',
-            ],
-        ]);
-    } else {
-
-        echo Html::a(
-
-            'Añadir como amigo',
-            ['site/index'],
-            [
-                //función flecha
-                'onclick' => "$.ajax({
+                    //función flecha
+                    'onclick' => "$.ajax({
     
                         url: '" . Url::to(['seguidores/create']) . "',
                         type: 'POST',
                         data: 'seguidor_id=$model->id',
                          })",
-                'class' => 'btn btn-success'
-            ],
-            ['class' => 'btn btn-success'],
-        );
-    }
+                    'class' => 'btn btn-success'
+                ],
+                ['class' => 'btn btn-success'],
+            );
+        }
 
-    ?>
+        ?>
 
-</div>
+    </div>
