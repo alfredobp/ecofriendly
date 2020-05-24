@@ -75,6 +75,6 @@ La página index cumple el nivel AA de accesibilidad, se detectan varios errores
 ---
 ### **([R25](https://github.com/alfredobp/ecofriendly/issues/25)) Codeception**
 
-![Pruebas Codeception](images/anexo/captura_codeception.png)
+![Pruebas Codeception](images/anexo/codeception.png)
 
 ---
