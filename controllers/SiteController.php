@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\helper_propio\Auxiliar;
 use app\models\AccionesRetos;
 use app\models\Comentarios;
+use app\models\ContactForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -275,5 +276,23 @@ class SiteController extends Controller
     public function actionFaqs()
     {
         return $this->render('faqs');
+    }
+
+    /**
+     * Displays contact page.
+     *
+     * @return Response|string
+     */
+    public function actionContactar()
+    {
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('Mensaje enviado');
+
+            return $this->refresh();
+        }
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
 }

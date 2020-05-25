@@ -340,13 +340,13 @@ a.desc:after {
 	-ms-transition:all .9s ease; /* Opera */
 	width:100%;
 	}
-	.img-contenedor:hover {
+	/* .img-contenedor:hover {
 	-webkit-transform:scale(1.35);
 	-moz-transform:scale(1.35);
 	-ms-transform:scale(1.35);
 	-o-transform:scale(1.35);
 	transform:scale(1.35);
-	}
+	} */
 	.img-contenedor {/*Ancho y altura son modificables al requerimiento de cada uno*/
 	width:350px;
 	height:180px;

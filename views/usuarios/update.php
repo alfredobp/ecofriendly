@@ -7,26 +7,24 @@
 use app\helper_propio\Auxiliar;
 use app\helper_propio\EstilosAppUsuario;
 use app\helper_propio\GestionCookies;
+use app\helper_propio\Gridpropio;
+use app\models\AccionesRetos;
 use app\models\Bloqueos;
+use app\models\Ecoretos;
 use app\models\Feeds;
+use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
 use Github\Api\GitData\Blobs;
+use kartik\icons\Icon;
 use yii\base\Model;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Button;
-use yii\bootstrap4\ButtonDropdown;
-use yii\bootstrap4\Tabs;
-use yii\bootstrap\Button as BootstrapButton;
-use yii\bootstrap\Tabs as BootstrapTabs;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
+use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Funcionalidades;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
-use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 $this->title = 'Actualizar';
@@ -125,8 +123,12 @@ $this->registerJs($js);
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Red de contactos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Preferencias</a>
+            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Progreso</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#ecovaloracion" role="tab" aria-controls="ecovaloracion" aria-selected="false">Preferencias</a>
+        </li>
+        <!-- <section class="tab-pane fade" id="ecovaloracion" role="tabpanel" aria-labelledby="ecovaloracion-tab"> -->
     </ul>
 </nav>
 <article class="tab-content" id="myTabContent">
@@ -387,7 +389,7 @@ $this->registerJs($js);
         </div>
     </section>
 
-    <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+    <section class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact3-tab">
 
         <h4> En esta sección puede realizar modificaciones de configuración: </h4>
         <br>
@@ -425,10 +427,111 @@ $this->registerJs($js);
 
             ]); ?>
         </fieldset>
-        </body>
-
-        </html>
-
     </section>
-    <?php echo Auxiliar::volverAtras() ?>
-    </div>
+    <section class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+
+        <h3 class="lead"> <?=Icon::show('leaf')?>Tu progreso <strong> #ecofriendly </strong></h3>
+        <br>
+        <br>
+        <h4 class="ml-5"> Has superado: <?= RetosUsuarios::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['culminado' => true])->count() ?> Retos </h4>
+        <br>
+        <h4 class="ml-5"> Actualmente estas en el nivel:
+            <?php $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])
+                ->one();
+
+            echo '<span class="badge badge-info">' . $nivel->cat_nombre .  '</span>';
+            ?>
+        </h4>
+        <br>
+        <h4 class="ml-5">Te faltan <strong> <?= Auxiliar::puntosRestantes(Yii::$app->user->identity->id, Yii::$app->user->identity->categoria_id) ?></strong> puntos para el siguiente nivel</h3>
+        <br>
+        <h4 class="ml-5">Has conseguido: <?= Auxiliar::puntosConseguidos(Yii::$app->user->identity->id) == null ? ' 0' : Auxiliar::puntosConseguidos($id) ?>
+            puntos desde que te diste de alta el: <?= Yii::$app->formatter->asDate(Yii::$app->user->identity->fecha_alta) ?></h4>
+
+        <br>
+
+        <br>
+
+        <h3 class="lead"> <?=Icon::show('clipboard-list')?> Recuerda que el sistema te ha asignado los siguientes retos:</h3>
+
+        <?php
+
+        $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
+
+        $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+            'attributes' => ['id'],
+        ],]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => AccionesRetos::find()
+                ->joinWith('retosUsuarios r')
+                ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
+
+        ]);
+        echo Gridpropio::widget([
+            'dataProvider' => $dataProvider,
+            'options' => [
+                'class' => ' col-6 table-hover',
+                'encode' => false
+            ],
+
+            'columns' => [
+                [
+                    'attribute' => 'Reto',
+                    'value' => function ($dataProvider) {
+
+                        return Html::a($dataProvider->titulo, Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id));
+                    },
+                    'format' => 'raw',
+
+                ],
+
+
+            ],
+
+        ]);
+        ?>
+        </fieldset>
+    </section>
+    <section class="tab-pane fade" id="ecovaloracion" role="tabpanel" aria-labelledby="ecovaloracion-tab">
+
+        <h4> En esta sección puede realizar modificaciones de configuración: </h4>
+        <br>
+        <fieldset>
+            <legend>Modifique los estilos de la aplicación:</legend>
+            <p>Color de fondo de los feeds:
+                <input type="color" value=#FFFFFF id="pickerColor">
+            </p>
+            <br>
+            <p> Tamaño de texto:
+                <input id="slider" type="range" min="6" max="20" value="15">
+            </p>
+
+            <p>
+                Fuente de texto:
+                <select name="colorTexto" id="fuente">
+                    <option value="Times New Roman" selected>Times New Roman</option>
+                    <option value="Arial" selected>Arial</option>
+                    <option value="Comic Sans">Comic Sans</option>
+                </select>
+            </p>
+            <p>Color del texto de los feeds:
+                <input type="color" value="#000000" id="pickerColor2">
+            </p>
+            <p>Color del Fondo de la aplicación:
+                <input type="color" value="#FFFFFF" id="pickerColor3">
+            </p>
+            <br>
+            <button id="preferencias" class="btn btn-success">Aplicar estilo</button>
+            <?= Button::widget([
+
+                'label' => ' Restaurar estilos predefinidos',
+
+                'options' => ['class' => 'btn-danger grid-button', 'data-confirm' => '¿Estas seguro de aplicar los estilos por defecto?', 'href' => Url::to(['usuarios/borrarestilos'])],
+
+            ]); ?>
+        </fieldset>
+    </section>
+</article>
+
+<?php echo Auxiliar::volverAtras() ?>
+</div>
