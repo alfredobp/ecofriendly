@@ -5,6 +5,7 @@
 /* @var $message string */
 /* @var $exception Exception */
 
+use kartik\icons\Icon;
 use yii\helpers\Html;
 
 $this->title = 'FAQs';
@@ -13,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="faqs">
 
     <div class="container">
-    <h1><?= Html::encode($this->title) ?></h1>
-     
+        <h1><?= Html::encode($this->title) ?></h1>
+
 
         <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -136,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card ">
                 <div class="card-header">
                     <h4 class="card-header">
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Quiero poner  publicidad</a>
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Quiero poner publicidad</a>
                     </h4>
                 </div>
                 <div id="collapseSeven" class="panel-collapse collapse">
@@ -146,8 +147,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
+            <br>
+            <hr>
+            <?= \yii\helpers\Html::a('<h4>' . Icon::show('arrow-alt-circle-left') . 'Volver atrás </h4>', Yii::$app->request->referrer); ?>
         </div>
     </div>
+    <br>
+
+
 
     <style>
         .faqHeader {

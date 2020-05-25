@@ -49,7 +49,7 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
 
         'pluginOptions' => [
             'autoclose' => true,
-            'format' => 'dd-mm-yyyy',
+            'format' => 'dd-M-yyyy',
             'endDate' => '-18Y',
             'startDate'=>'-100Y',
         ]

@@ -12,6 +12,7 @@ use app\models\Ranking;
 use app\models\RankingSearch;
 use app\models\Usuarios;
 use Github\Api\Enterprise\Stats;
+use kartik\icons\Icon;
 use PhpParser\Node\Stmt\Static_;
 use Yii;
 use yii\bootstrap4\Modal;
@@ -64,7 +65,7 @@ class Auxiliar
     {
 
         $id1 = Usuarios::find()->where(['id' => $id])->one();
-   
+
         $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
         return $imagenUsuario;
     }
@@ -178,5 +179,10 @@ class Auxiliar
 
 
         return AccionesRetos::find()->joinWith('retosUsuarios r')->where(['r.usuario_id' => $id])->andWhere(['r.culminado' => true])->sum('puntaje');
+    }
+
+    public static function volverAtras()
+    {
+        return '<br> <hr>' . yii\helpers\Html::a('<h4>' . Icon::show('arrow-alt-circle-left') . 'Volver atrás </h4>', Yii::$app->request->referrer);
     }
 }

@@ -1,12 +1,17 @@
 <?php
 
+use app\helper_propio\Auxiliar;
+use kartik\icons\Icon;
 use yii\bootstrap4\ActiveForm as Bootstrap4ActiveForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->params['breadcrumbs'][] = $this->title;
 $this->title = 'Restablecer contraseña';
+$this->title = 'Objetivos Personales';
+$this->params['breadcrumbs']['index'] = $this->title;
 ?>
+
 
 <div class="usuarios-recoverpass h-100">
 
@@ -19,7 +24,7 @@ $this->title = 'Restablecer contraseña';
         ],
     ]);
     ?>
-    <div class=col-6>
+    <div class=col-3>
         <p>Introduzca el e-mail de registro para resetar su contraseña de acceso:</p>
         <?= $form->field($model, 'email')->input('email') ?>
 
@@ -35,4 +40,5 @@ $this->title = 'Restablecer contraseña';
         de su gestor de correo. <strong>El equipo de #Ecofriendly</strong>
     </div>
 
+    <?php echo Auxiliar::volverAtras() ?>
 </div>
