@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use app\models\Comentarios;
 use app\models\Feeds;
 use app\models\Usuarios;
@@ -94,6 +95,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]); ?>
-
-
+    <?php echo Auxiliar::volverAtras() ?>
 </div>

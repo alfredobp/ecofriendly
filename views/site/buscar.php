@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use app\helper_propio\Auxiliar;
 use kartik\icons\Icon;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
@@ -95,7 +96,7 @@ Icon::map($this);
                                 'verhastag' => function ($url, $model, $key) {
                                     return Html::a(
                                         icon::show('fa fa-binoculars') . 'Ver #Hastag',
-                                        (new yii\grid\ActionColumn())->createUrl('feeds/verhastag', $model, ['id'=>$model['id'], 'cadena' =>'hola'], 1),
+                                        (new yii\grid\ActionColumn())->createUrl('feeds/verhastag', $model, ['id' => $model['id'], 'cadena' => 'hola'], 1),
                                         [
                                             'class' => 'btn btn-sm btn-light',
 
@@ -114,6 +115,6 @@ Icon::map($this);
 
         <?php endif ?>
 
-
+        <?php echo Auxiliar::volverAtras() ?>
     </div>
 </div>

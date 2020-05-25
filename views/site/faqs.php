@@ -5,6 +5,7 @@
 /* @var $message string */
 /* @var $exception Exception */
 
+use app\helper_propio\Auxiliar;
 use kartik\icons\Icon;
 use yii\helpers\Html;
 
@@ -147,9 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-            <br>
-            <hr>
-            <?= \yii\helpers\Html::a('<h4>' . Icon::show('arrow-alt-circle-left') . 'Volver atrás </h4>', Yii::$app->request->referrer); ?>
+            <?php echo Auxiliar::volverAtras() ?>
         </div>
     </div>
     <br>

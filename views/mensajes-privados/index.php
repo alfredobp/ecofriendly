@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use app\models\MensajesPrivados;
 use kartik\icons\Icon;
 use yii\bootstrap4\Html;
@@ -169,5 +170,6 @@ $this->registerJs($script); // Registro el script javascript en el view
     ]); ?>
 
     <?php Pjax::end(); ?>
+    <?php echo Auxiliar::volverAtras() ?>
 
 </div>

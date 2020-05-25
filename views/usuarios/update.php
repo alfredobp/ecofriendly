@@ -430,5 +430,5 @@ $this->registerJs($js);
         </html>
 
     </section>
-
+    <?php echo Auxiliar::volverAtras() ?>
     </div>

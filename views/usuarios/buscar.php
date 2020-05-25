@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 
+use app\helper_propio\Auxiliar;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -38,4 +39,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     </div>
+    <?php echo Auxiliar::volverAtras() ?>
 </div>
