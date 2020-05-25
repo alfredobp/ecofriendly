@@ -12,6 +12,7 @@ use app\helper_propio\Gridpropio;
 use app\models\Comentarios;
 
 use app\models\Feeds;
+use app\models\FeedsFavoritos;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
@@ -131,7 +132,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                             <hr>
                             <div class="col-12">
 
-                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto mx-auto d-block'], 'style' => ['margin' => '12px']]; ?>
                                 <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
                                     <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                         ' ' . Icon::show('trash-alt'),
@@ -155,7 +156,11 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                         <div class="card-footer text-muted">
                             <div class="row">
                                 <!-- Gestión de los me gusta -->
-                                <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted">12</small></a></div>
+                                <?php
+
+                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
+                                ?>
+                                <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted"> <?= $meGusta->count() ?> </small></a></div>
 
                                 <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
 
@@ -164,15 +169,7 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                                 <!-- Gestión de los comentarios -->
                                 <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
                                 </div>
-                                <!-- <div class="col dropup">
-                                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
-                                    <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
-                                    <a class="dropdown-item" href="#">Compartir Publico</a>
-                                    <div class="dropdown-divider"></div>
-                                </div>
-                            </div> -->
+
                             </div>
                             <div class="collapse" id="collapseExample<?= $i ?>">
                                 <br>
@@ -183,24 +180,11 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
                                     <div class="col-2">
                                         <!-- FOTO DEL USUARIO QUE ESCRIBE -->
                                         <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                        <?= Auxiliar::obtenerImagenusuario($id, $options) ?>
+                                        <!-- <?= Auxiliar::obtenerImagenusuario($id, $options) ?> -->
 
                                     </div>
                                     <div class="col-10">
-                                        <?php
-                                        // $model = Feeds::find()->one();
-                                        $form = ActiveForm::begin([
-                                            'action' => ['comentarios/create'],
-                                            'method' => 'post',
-                                            'options' =>   ['enctype' => 'multipart/form-data'],
-                                        ]); ?>
-                                        <?= HelpersHtml::submitButton('Comentar', ['class' => 'btn btn-outline-primary btn-sm float-right', 'name' => 'contact-button']) ?>
-                                        <?php $model = new Comentarios() ?>
-                                        <?= $form->field($model, 'contenido')->textarea(['rows' => 2])->label('Escribe tu comentario') ?>
-
-                                        <?= Html::hiddenInput('comentarios_id', $feeds['id']); ?>
-                                        <?php ActiveForm::end(); ?>
-
+                                    
 
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
                                         <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
