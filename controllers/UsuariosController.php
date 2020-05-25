@@ -128,15 +128,14 @@ class UsuariosController extends Controller
     {
         //renderizo la vista mediante consulta ajax en la ventana modal.
         $sonAmigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['seguidor_id' => $id])->one();
-       
+
 
         if ($sonAmigos == null) {
 
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id)
             ]);
-        }
-        else {
+        } else {
             return $this->renderAjax('_viewamigos', [
                 'model' => $this->findModel($id)
             ]);
@@ -159,6 +158,7 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -432,7 +432,7 @@ class UsuariosController extends Controller
         $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
             'attributes' => ['puntuacion'],
         ],]);
-      
+
         return $this->render(
             'seguimiento',
             [
@@ -440,7 +440,7 @@ class UsuariosController extends Controller
             ]
         );
     }
-  
+
     public function actionImagen($id)
     {
 
@@ -461,7 +461,7 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
- 
+
     public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño, $colorFondo)
     {
         //Expira en 7 dias
