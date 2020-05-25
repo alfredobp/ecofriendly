@@ -348,8 +348,8 @@ a.desc:after {
 	transform:scale(1.35);
 	} */
 	.img-contenedor {/*Ancho y altura son modificables al requerimiento de cada uno*/
-	width:350px;
-	height:180px;
+	width:450px;
+	height:270px;
 	overflow:hidden;
 	}
 	@media (max-width: 1000px) {

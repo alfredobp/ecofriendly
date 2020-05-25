@@ -347,9 +347,10 @@ if (!isset($_COOKIE['intro'])) {
 
 
                         <div class="card-block">
-                            <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
+
                             <div class="row">
                                 <div class="col-2 ">
+                                <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
 
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
@@ -362,7 +363,8 @@ if (!isset($_COOKIE['intro'])) {
                             <hr>
                             <div class="col-12">
 
-                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto'], 'style' => ['margin' => '12px']]; ?>
+                                <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto mx-auto d-block'], 'style' => ['margin' => '12px']]; ?>
+
                                 <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
                                     <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                         ' ' . Icon::show('trash-alt'),
@@ -442,8 +444,8 @@ if (!isset($_COOKIE['intro'])) {
 
                                 <!-- Gestión de los comentarios -->
                                 <div class="col">
-lse" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
-                                    <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="fa
+
+                                    <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
 
                                 </div>
                                 <!-- <div class="col dropup">

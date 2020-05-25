@@ -154,68 +154,108 @@ $this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READ
 
                         <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                         <div class="card-footer text-muted">
-                            <div class="row">
-                                <!-- Gestión de los me gusta -->
-                                <?php
-
-                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
-                                ?>
-                                <div class="col"><a href="#" class="text-primary" style="text-decoration:none;"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span id="estrella" class='glyphicon glyphicon-heart' aria-hidden='true'></span> Me Gusta <small class="text-muted"> <?= $meGusta->count() ?> </small></a></div>
-
-                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
-
-                                ?>
-
-                                <!-- Gestión de los comentarios -->
-                                <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
-                                </div>
-
-                            </div>
-                            <div class="collapse" id="collapseExample<?= $i ?>">
-                                <br>
-
-                                <div class="divider"></div>
-                                <br>
+                            <div class="card-footer text-muted">
                                 <div class="row">
-                                    <div class="col-2">
-                                        <!-- FOTO DEL USUARIO QUE ESCRIBE -->
-                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                        <!-- <?= Auxiliar::obtenerImagenusuario($id, $options) ?> -->
+                                    <!-- Gestión de los me gusta -->
+                                    <?php
+
+                                    $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
+                                    ?>
+
+                                    <div class="col">
+
+
+
+                                        <a class="text-primary" data-toggle="collapse" href="#collapseExampleMe<?= $i ?>"> nº de me gustas: <?= $meGusta->count() ?> </a>
+                                        <!-- 
+                                        <?= Html::a(
+                                            Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
+                                            Url::to(['/feeds-favoritos/create'])
+                                        ); ?> -->
+
 
                                     </div>
-                                    <div class="col-10">
-                                    
-
-                                        <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
-
-                                        <?php foreach ($comentarios as $comentarios) : ?>
 
 
-                                            <div class="col-10 border-bottom">
-                                                <div class="row">
-                                                    <div class="col-2">
-                                                        <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                    <!-- Me gusta -->
 
-                                                    </div>
-                                                    <div class="col-10">
-                                                        <p><?= $comentarios['contenido'] ?>
-                                                            <br>
-                                                            Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+
+                                    <div class="collapse" id="collapseExampleMe<?= $i ?>">
+
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-12">
+
+                                                <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
+                                                <?php foreach ($meGusta as $meGusta) : ?>
+                                                    <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
+                                                        . Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre  . '<br> <br>' ?>
+                                                    <br>
+                                                    <div class="divider"></div>
+                                                <?php
+                                                endforeach; ?>
+                                            </div>
+                                            <br>
+                                            <div class="divider"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Fin Me Gusta -->
+
+
+                                    <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
+
+                                    ?>
+
+                                    <!-- Gestión de los comentarios -->
+                                    <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+                                    </div>
+
+                                </div>
+                                <div class="collapse" id="collapseExample<?= $i ?>">
+                                    <br>
+
+                                    <div class="divider"></div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <!-- FOTO DEL USUARIO QUE ESCRIBE -->
+
+                                        </div>
+                                        <div class="col-10">
+
+
+                                            <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
+                                            <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
+
+                                            <?php foreach ($comentarios as $comentarios) : ?>
+
+
+                                                <div class="col-10 border-bottom">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p><?= $comentarios['contenido'] ?>
+                                                                <br>
+                                                                Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php
-                                        endforeach; ?>
+                                            <?php
+                                            endforeach; ?>
+                                        </div>
+
+                                        <br>
+                                        <div class="divider"></div>
+
+                                        <br>
+
                                     </div>
-
-                                    <br>
-                                    <div class="divider"></div>
-
-                                    <br>
-
                                 </div>
-                            </div>
                     </section>
                     <br>
                     <br>

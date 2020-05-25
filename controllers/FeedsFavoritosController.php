@@ -78,8 +78,8 @@ class FeedsFavoritosController extends Controller
         if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
             $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
                 ->andWhere(['feed_id' => $model->feed_id])->one();
-            $model->save();
             if ($yaMeGusta == null) {
+                $model->save();
                 $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->feed_id])->one();
                 if ($dueño->usuariosid != Yii::$app->user->identity->id) {
                     $notificacion->usuario_id = $dueño->usuariosid;
