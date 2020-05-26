@@ -70,7 +70,7 @@ if (!isset($_COOKIE['intro'])) {
                 <h5><?= Icon::show('comments') ?>: "<span id="estado"></span>"
                     <?php
 
-                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']);
+                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/usuarios/updateestado'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']);
                     ?>
                 </h5>
                 <?php
@@ -140,7 +140,7 @@ if (!isset($_COOKIE['intro'])) {
                             'attribute' => 'Reto',
                             'value' => function ($dataProvider) {
 
-                                return Html::button($dataProvider->titulo, ['value' => Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                                return Html::button($dataProvider->titulo, ['value' => Url::to(['acciones-retos/view', 'id' => $dataProvider->id]), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
                             },
                             'format' => 'raw',
 
@@ -174,8 +174,8 @@ if (!isset($_COOKIE['intro'])) {
                             'attribute' => 'Titulo',
                             'value' => function ($dataProvider) {
                                 return  Html::button($dataProvider->idreto0['titulo'], [
-                                    'value' => Url::to('/index.php?r=retos-usuarios%2Fview&idreto=' .
-                                        $dataProvider->idreto0['id'] . '&usuario_id=' . Yii::$app->user->identity->id),
+                                    'value' => Url::to(['/retos-usuarios/view', 'idreto' =>
+                                    $dataProvider->idreto0['id'], 'usuario_id' =>  Yii::$app->user->identity->id]),
                                     'class' => 'col-12 btn modalButton5 btn-md active', 'id' => 'modalButton5'
                                 ]);
                             },
@@ -227,7 +227,7 @@ if (!isset($_COOKIE['intro'])) {
                     }
                     ?>
                 </div>
-                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
                 <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
             </div>
             <br>
@@ -350,7 +350,7 @@ if (!isset($_COOKIE['intro'])) {
 
                             <div class="row">
                                 <div class="col-2 ">
-                                <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
+                                    <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
 
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
@@ -588,7 +588,7 @@ if (!isset($_COOKIE['intro'])) {
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
                                 . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
-                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to(['/usuarios/view', 'id' =>  $usuarios[$i]->id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
                         }
@@ -639,7 +639,7 @@ if (!isset($_COOKIE['intro'])) {
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $seguidores[$i]->seguidor_id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
 
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo Html::submitButton(

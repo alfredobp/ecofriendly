@@ -16,22 +16,22 @@ $config = [
         '@uploads' => 'https://s3.eu-west-3.amazonaws.com/ecofriendly/',
         '@img' => '@app/web/img',
         '@imgUrl' => '/img',
-        '@perfil'=>'index.php?r=usuarios/%2Fview&id='
+        '@perfil' => 'index.php?r=usuarios/%2Fview&id='
     ],
     'language' => 'es-ES',
     'components' => [
-        'authClientCollection'=>[
-            'class'=>'yii\authclient\Collection',
-            'clients'=>[
-                'facebook'=>[
-                    'class'=>'yii\authclient\clients\Facebook',
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
                     // 'authUrl'=>'https://www.facebook.com/dialog/oauth?display-popup',
-                    'clientId'=>'1084329348614527',
-                    'clientSecret'=>'5e6d9158d0b287efb6e5267ca81827a0',
-                     'attributeNames' => ['email'],
+                    'clientId' => '1084329348614527',
+                    'clientSecret' => '5e6d9158d0b287efb6e5267ca81827a0',
+                    'attributeNames' => ['email'],
                 ],
             ],
-    
+
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -73,9 +73,15 @@ $config = [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+
+                'usuarios/resetpass' => 'usuarios/resetpass',
+                'usuarios/view/<id>' => 'usuarios/view',
+                'acciones-retos/view/<id>' => 'accionesretos/view',
+                
+            ],
         ],
 
     ],
@@ -122,7 +128,7 @@ $config = [
         ],
         // your other modules
     ],
-   
+
     'params' => $params,
 ];
 
