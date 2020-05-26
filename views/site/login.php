@@ -106,10 +106,11 @@ use yii\web\View;
                     <br>
 
                     <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
-                    <div class="mt-3">
+                    <!-- Solo funciona en local -->
+                    <!-- <div class="mt-3">
                         Accede con Facebook: <?= AuthChoice::widget(['baseAuthUrl' => ['site/auth']]) ?>
 
-                    </div>
+                    </div> -->
 
                     <?php ActiveForm::end(); ?>
                 </div>
