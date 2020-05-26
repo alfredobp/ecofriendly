@@ -583,7 +583,8 @@ if (!isset($_COOKIE['intro'])) {
                 <div class="card-block sombraBis">
                     <h5 class="card-title h5  text-center"> <span class="glyphicon glyphicon-plus "></span> <strong> Encuentra a más usuarios </strong></h5>
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
-                    <div class="col-12">
+                    <div class="col-12" style="overflow-y: scroll; width:100%; height: 300px;">
+
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
@@ -594,35 +595,39 @@ if (!isset($_COOKIE['intro'])) {
                         }
                         Auxiliar::ventanaModal('Perfil de usuario', 2, 'lg');
                         ?>
-                        <br>
-                        <?= Html::beginForm(['/usuarios/buscar'], 'get')
-                            . Html::textInput(
-                                'cadena',
-                                '',
-                                ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
-                                ['class' => 'form-control']
-                            )
-                            . '<br>'
-                            . Html::submitButton(
-                                'Buscar amigos',
-                                ['class' => 'btn btn-success nav-link mt-3 ']
-                            )
-                            . Html::endForm();
 
-                        Modal::begin([
-                            'title' => '<h3>Usuarios encontrados</h3>',
-                            'id' => 'modal3',
-                            'size' => 'modal-md',
-                        ]);
-                        echo '<div id="modalContent3"></div>';
 
-                        Modal::end();
-                        ?>
-
-                        <br>
                     </div>
-                    <div class="divider"></div>
+                    <br>
+                    <?= Html::beginForm(['/usuarios/buscar'], 'get')
+                        . Html::textInput(
+                            'cadena',
+                            '',
+                            ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
+                            ['class' => 'form-control']
+                        )
+                        . '<br>'
+                        . Html::submitButton(
+                            'Buscar amigos',
+                            ['class' => 'btn btn-success nav-link mt-3 ']
+                        )
+                        . Html::endForm();
+
+                    Modal::begin([
+                        'title' => '<h3>Usuarios encontrados</h3>',
+                        'id' => 'modal3',
+                        'size' => 'modal-md',
+                    ]);
+                    echo '<div id="modalContent3"></div>';
+
+                    Modal::end();
+                    ?>
+
+                    <br>
+
                 </div>
+                <div class="divider"></div>
+
             </div>
             <br>
             <div class="card card-inverse">
@@ -630,7 +635,7 @@ if (!isset($_COOKIE['intro'])) {
 
                     <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
                     <p class="card-text">
-                        <div class="col-12">
+                    <div class="col-12" style="overflow-y: scroll; width:100%; height: 370px;">
                             <?php
 
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.

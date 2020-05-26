@@ -52,7 +52,9 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody(); ?>
     <?php if (isset(Yii::$app->user->identity)) {
+        
     ?>
+    
         <br>
         <div class="wrap">
 
