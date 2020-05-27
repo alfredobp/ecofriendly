@@ -150,7 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="alert alert-info alert-info col-6  mt-5" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-       Si estas preguntas frecuentes no han contestado a tus dudas. Puedes enviarnos un <a href="/index.php?r=site/contactar">mensaje</a> al <strong>El equipo de #Ecofriendly</strong>
+       Si estas preguntas frecuentes no han contestado a tus dudas. Puedes enviarnos un <a href="contactar">mensaje</a> al <strong>El equipo de #Ecofriendly</strong>
     </div>
             <?php echo Auxiliar::volverAtras() ?>
         </div>

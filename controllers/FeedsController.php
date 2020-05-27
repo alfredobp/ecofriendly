@@ -34,10 +34,10 @@ class FeedsController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create'],
+                'only' => ['index'],
                 'rules' => [
                     [
-                        'allow' => true,
+                        'allow' => false,
                         'roles' => ['@'],
                     ],
                     [
@@ -45,7 +45,7 @@ class FeedsController extends Controller
                         'actions' => ['index'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->nombre === 'desmeeo';
+                            return Yii::$app->user->identity->rol === 'superadministrador';
                         },
                     ],
 

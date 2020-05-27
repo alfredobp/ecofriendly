@@ -14,10 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
-<div class="Contacta con nosotros">
 
-    <div class="container">
-
+<div class="container">
+    
+    <div class="mt-5 shadow p-3 mb-5 bg-white">
 
         <div class="site-contact">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -78,6 +78,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 </div>
-<br>
 
 </div>

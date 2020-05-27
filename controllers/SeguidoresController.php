@@ -34,15 +34,23 @@ class SeguidoresController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create', 'delete'],
+                'only' => ['index'],
                 'rules' => [
                     [
-                        'allow' => true,
+                        'allow' => false,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','update'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->rol === 'superadministrador';
+                        },
                     ],
 
                 ],
-            ]
+            ],
         ];
     }
 

@@ -11,31 +11,30 @@ $this->title = 'Actualizar estado';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<div class="shadow p-3 mb-5 bg-white rounded">
+
+    <?php $form = ActiveForm::begin([
+        'id' => 'login-form',
+        'method' => 'post',
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'horizontalCssClasses' => ['wrapper' => 'col-12'],
+        ],
+    ]); ?>
 
 
-<p>Puede modificar sus datos a continuación:</p>
-<?php $form = ActiveForm::begin([
-    'id' => 'login-form',
-    'method' => 'post',
-    'layout' => 'horizontal',
-    'fieldConfig' => [
-        'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
-    ],
-]); ?>
-
-
-<?= $form->field($model, 'estado')->textInput(['type' => 'text']) ?>
+    <?= $form->field($model, 'estado')->label('Estoy:')->textarea(['type' => 'text']) ?>
 
 
 
 
-<div class="form-group">
-    <div class="offset-sm-2">
-        <?= Html::submitButton('Modificar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+    <div class="form-group">
+        <div class="offset-sm-2">
+            <?= Html::submitButton('Modificar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        </div>
     </div>
-</div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 
 </div>
