@@ -180,12 +180,20 @@ class Auxiliar
 
         return AccionesRetos::find()->joinWith('retosUsuarios r')->where(['r.usuario_id' => $id])->andWhere(['r.culminado' => true])->sum('puntaje');
     }
-
+    /**
+     * Función que permite al usuario volver atras mediante un botón
+     * Devuelve un boton con la ruta al sitio del que proviene el usuario
+     * @return function
+     */
     public static function volverAtras()
     {
         return '<br> <hr>' . yii\helpers\Html::a('<h4>' . Icon::show('arrow-alt-circle-left') . 'Volver atrás </h4>', Yii::$app->request->referrer);
     }
-
+    /**
+     * Undocumented function
+     * Devuelve true si el usuario tiene ese rol o false si no es usuario admin
+     * @return boolean
+     */
     public static function esAdministrador()
     {
         return Yii::$app->user->identity->rol == 'superadministrador' ? true : false;

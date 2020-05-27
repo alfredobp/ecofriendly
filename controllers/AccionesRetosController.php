@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helper_propio\Auxiliar;
 use Yii;
 use app\models\AccionesRetos;
 use app\models\AccionesRetosSearch;
@@ -39,7 +40,7 @@ class AccionesRetosController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->rol === 'superadministrador';
+                            return Auxiliar::esAdministrador();
                         },
                     ],
 
@@ -57,11 +58,11 @@ class AccionesRetosController extends Controller
     {
         $searchModel = new AccionesRetosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-       
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            
+
         ]);
     }
 
@@ -111,7 +112,7 @@ class AccionesRetosController extends Controller
         return $this->render('create', [
             'model' => $model,
             'categorias' => Ecoretos::categorias(),
-            
+
         ]);
     }
 

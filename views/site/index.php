@@ -228,7 +228,7 @@ if (!isset($_COOKIE['intro'])) {
                     }
                     ?>
                 </div>
-                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/objetivos-personales/create'), 'class' => 'btn-success modalButton6 btn-xl', 'id' => 'modalButton6']); ?>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/objetivos-personales/create'), 'class' => ' btn btn-success modalButton6 mt-3 btn-xl', 'id' => 'modalButton6']); ?>
                 <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
             </div>
             <br>
@@ -636,27 +636,33 @@ if (!isset($_COOKIE['intro'])) {
 
                     <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
                     <p class="card-text">
-                        <div class="col-12" style="overflow-y: scroll; width:100%; height: 370px;">
+                        <div class="col-12" style="overflow-y: scroll; width:100%; height: 270px;">
                             <?php
 
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
-                            for ($i = 0; $i < sizeof($seguidores); $i++) {
+                            if (sizeof($seguidores) == 0) {
+                                echo 'Actualmente no sigue a ningun usuario de la red <strong>#Ecofriendly</strong> ';
+                            } else {
 
-                                echo   '<ul class="list-group">';
-                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
 
-                                echo Html::hiddenInput('id', $seguidores[$i]->id);
-                                echo Html::submitButton(
-                                    '<span class="glyphicon glyphicon-minus"></span>',
-                                    ['class' => 'btn btn-danger btn-sm ml-3'],
-                                );
-                                echo '</li></ul>' . Html::endForm();
+                                for ($i = 0; $i < sizeof($seguidores); $i++) {
+                                    echo   '<ul class="list-group">';
+                                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
+                                        . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
+                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('username')->where(['id' => $seguidores[$i]->seguidor_id])->one()->username)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+
+                                    echo Html::hiddenInput('id', $seguidores[$i]->id);
+                                    echo Html::submitButton(
+                                        '<span class="glyphicon glyphicon-minus"></span>',
+                                        ['class' => 'btn btn-danger btn-sm ml-3'],
+                                    );
+                                    echo '</li></ul>' . Html::endForm();
+                                }
                             }
                             ?>
                             <br>
                         </div>
+                        <div class="divider"></div>
                     </p>
                     <a href="#" class="btn btn-primary">Invitar a más amigos</a>
                 </div>

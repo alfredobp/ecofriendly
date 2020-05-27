@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]);
-        } elseif (Yii::$app->user->identity->rol !== 'superadministrador') {
+        } elseif (!Auxiliar::esAdministrador()) {
 
 
 

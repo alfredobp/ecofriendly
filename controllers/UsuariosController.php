@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helper_propio\Auxiliar;
 use app\models\AccionesRetos;
 use app\models\EcoValora;
 use yii\web\Session;
@@ -50,7 +51,7 @@ class UsuariosController extends Controller
                         'actions' => ['index'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
-                            return Yii::$app->user->identity->rol === 'superadministrador';
+                            return Auxiliar::esAdministrador();
                         },
                     ],
                 ],
