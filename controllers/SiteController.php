@@ -155,6 +155,7 @@ class SiteController extends Controller
             //paginacion de 10 feeds, ordenados cronologicamente
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
+
                 'totalCount' => Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
                     ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
                     ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
@@ -165,7 +166,7 @@ class SiteController extends Controller
                     ->orwhere(['feeds.usuariosid' => $id])->count(),
             ]);
 
-            $feed = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+            $query = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
                 ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
                 ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
                 ->Where([
@@ -174,7 +175,11 @@ class SiteController extends Controller
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
                 ->orwhere(['feeds.usuariosid' => $id])
                 ->orderBy('feeds.created_at desc')
-                ->asArray()->all();
+                ->asArray();
+
+            $feed = $query->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
             return $this->render('index', [
                 'comentarios2' => new Comentarios(),
                 'datos' => Usuarios::findOne($id),
