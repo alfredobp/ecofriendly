@@ -81,7 +81,7 @@ class LoginForm extends Model
                 ' Por Favor, pongáse en contacto con el administrador de la plataforma (admin@ecofriendly.es)');
             return;
         }
-        if ($usuarios['token_acti'] != null&&$usuarios!=null) {
+        if ($usuarios!=null && $usuarios['token_acti'] != null) {
             Yii::$app->session->setFlash('error', 'Todavía no ha validado su cuenta');
             return;
         }
