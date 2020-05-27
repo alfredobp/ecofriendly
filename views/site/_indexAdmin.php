@@ -57,9 +57,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
             <!-- <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2> -->
 
-            <?php
-            Auxiliar::ventanaModal('Modifique su estado', 3);
-            ?>
+           
             <?php
 
             echo GoogleAnalytics::widget([
@@ -128,18 +126,8 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                             <div class="col-12">
 
                                 <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto mx-auto d-block'], 'style' => ['margin' => '12px']]; ?>
-                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
-                                    <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
-                                        ' ' . Icon::show('trash-alt'),
-                                        Url::to(['/feeds/delete', 'id' => $feeds['id']]),
-                                        [
-
-                                            'data' => [
-                                                'confirm' => '¿Esta seguro de querer borrar este feed?',
-                                                'method' => 'post',
-                                            ],
-                                        ]
-                                    ) : '' ?></p>
+                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == $id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                                   </p>
                                 <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
 
                                 <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>

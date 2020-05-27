@@ -155,13 +155,15 @@ class Auxiliar
     {
 
 
-        $feed = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+        $query = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
             ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
             ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
             ->orderBy('feeds.created_at desc')
-            ->asArray()->all();
+            ->asArray();
 
-        return $feed;
+           
+
+        return $query;
     }
     public static function areaAdminConfII()
     {

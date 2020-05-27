@@ -119,7 +119,9 @@ class SiteController extends Controller
 
             return $this->render('_indexAdmin', [
                 'model' => Feeds::find()->all(),
-                'feeds' =>  Auxiliar::areaAdminConf(),
+                'feeds' =>  Auxiliar::areaAdminConf()->offset(Auxiliar::areaAdminConfII()->offset)
+                    ->limit(Auxiliar::areaAdminConfII()->limit)
+                    ->all(),
                 'pagination' => Auxiliar::areaAdminConfII(),
             ]);
         } else {
