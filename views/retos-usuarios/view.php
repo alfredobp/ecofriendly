@@ -13,7 +13,7 @@ $this->title = $model->idreto;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="retos-usuarios-view">
- <!-- <h1><?= Html::encode('Sus retos') ?></h1> 
+    <!-- <h1><?= Html::encode('Sus retos') ?></h1> 
     <h1><?= Html::encode($this->title) ?></h1> -->
     <?= DetailView::widget([
         'model' => $model,
@@ -34,7 +34,7 @@ $this->title = $model->idreto;
             'culminado:boolean',
         ],
     ]) ?>
-
+    <br>
     <?php
 
     $puntos = AccionesRetos::find()->where(['id' => $model->idreto])->one();
@@ -43,7 +43,7 @@ $this->title = $model->idreto;
     ?>
     <?php if ($model->fecha_culminacion == null) {
         echo Html::a('Anotar este reto como superado', ['finalizar', 'idreto' => $model->idreto, 'usuario_id' => $model->usuario_id], [
-            'class' => 'btn btn-success',
+            'class' => 'btn btn-success mr-3  text-center',
             'data' => [
                 'confirm' => '¿Confirmas que que has superado este reto? Recibiras un total de <strong> ' . $puntos['puntaje'] . '</strong> puntos #Ecofriendly',
                 'method' => 'post',
@@ -61,11 +61,12 @@ $this->title = $model->idreto;
     ?>
         <div class="alert alert-info alert-info col-12  mt-5" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            El reto ya ha sido anotado como terminado.  <strong>El equipo de #Ecofriendly</strong> le agradece su participación.
+            El reto ya ha sido anotado como terminado. <strong>El equipo de #Ecofriendly</strong> le agradece su participación.
         </div>
     <?php
     } ?>
-    <p>Este reto consiste en:</p>
+
+    <p class="mt-5 shadow p-3">Este reto consiste en:</p>
     <?php $model = AccionesRetos::find()->where(['id' => $model->idreto])->one() ?>
     <?= DetailView::widget([
         'model' => $model,

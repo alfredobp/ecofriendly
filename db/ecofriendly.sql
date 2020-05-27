@@ -32,7 +32,6 @@ CREATE TABLE usuarios (
     ultima_conexion timestamp,
     fecha_alta timestamp(0) NOT NULL DEFAULT current_timestamp,
     categoria_id integer REFERENCES ecoretos(categoria_id)
-    
 );
 
 DROP TABLE IF EXISTS usuarios_actividad CASCADE;
@@ -120,7 +119,7 @@ DROP TABLE if EXISTS feeds_favoritos CASCADE;
 CREATE TABLE feeds_favoritos (
     id bigserial PRIMARY KEY,
     usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    feed_id integer  NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    feed_id integer NOT NULL REFERENCES feeds(id) ON DELETE CASCADE ON UPDATE CASCADE,
     created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
@@ -445,3 +444,18 @@ VALUES
         'Estoy loco',
         '05/05/1976'
     );
+
+INSERT INTO
+    tipos_notificaciones (id, tipo)
+VALUES
+    (1, 'comentario');
+
+INSERT INTO
+    tipos_notificaciones (tipo)
+VALUES
+    (2, 'me gusta');
+
+INSERT INTO
+    tipos_notificaciones (tipo)
+VALUES
+    ('seguimiento');
