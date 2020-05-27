@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\helper_propio\Auxiliar;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Notificaciones;
@@ -42,7 +43,14 @@ class NotificacionesSearch extends Notificaciones
      */
     public function search($params)
     {
-        $query = Notificaciones::find()->where(['usuario_id'=>Yii::$app->user->identity->id]);
+
+        if (Auxiliar::esAdministrador()) {
+   
+            $query = Notificaciones::find();
+        } else {
+
+            $query = Notificaciones::find()->where(['usuario_id' => Yii::$app->user->identity->id]);
+        }
 
         // add conditions that should always apply here
 

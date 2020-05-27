@@ -185,4 +185,9 @@ class Auxiliar
     {
         return '<br> <hr>' . yii\helpers\Html::a('<h4>' . Icon::show('arrow-alt-circle-left') . 'Volver atrás </h4>', Yii::$app->request->referrer);
     }
+
+    public static function esAdministrador()
+    {
+        return Yii::$app->user->identity->rol == 'superadministrador' ? true : false;
+    }
 }

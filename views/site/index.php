@@ -116,50 +116,51 @@ if (!isset($_COOKIE['intro'])) {
                 <br>
 
                 En función de su puntuación el sistema le propone los siguientes retos:
+                <div style="overflow-y: scroll; width:100%; height: 370px;">
+                    <?php
 
-                <?php
+                    $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
 
-                $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
+                    $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+                        'attributes' => ['id'],
+                    ],]);
+                    $dataProvider = new ActiveDataProvider([
+                        'query' => AccionesRetos::find()
+                            ->joinWith('retosUsuarios r')
+                            ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
 
-                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                    'attributes' => ['id'],
-                ],]);
-                $dataProvider = new ActiveDataProvider([
-                    'query' => AccionesRetos::find()
-                        ->joinWith('retosUsuarios r')
-                        ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-
-                ]);
-                echo Gridpropio::widget([
-                    'dataProvider' => $dataProvider,
-                    'options' => ['class' => 'table-hover hourglass-start  
+                    ]);
+                    echo Gridpropio::widget([
+                        'dataProvider' => $dataProvider,
+                        'options' => ['class' => 'table-hover hourglass-start  
                 ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
-                    'columns' => [
-                        [
-                            'attribute' => 'Reto',
-                            'value' => function ($dataProvider) {
+                        'columns' => [
+                            [
+                                'attribute' => 'Reto',
+                                'value' => function ($dataProvider) {
 
-                                return Html::button($dataProvider->titulo, ['value' => Url::to(['acciones-retos/view', 'id' => $dataProvider->id]), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
-                            },
-                            'format' => 'raw',
+                                    return Html::button($dataProvider->titulo, ['value' => Url::to(['acciones-retos/view', 'id' => $dataProvider->id]), 'class' => 'col-12 btn modalButton4 btn-md active', 'id' => 'modalButton4']);
+                                },
+                                'format' => 'raw',
+
+                            ],
+
 
                         ],
 
+                    ]);
 
-                    ],
+                    Auxiliar::ventanaModal('Sus retos', 4);
 
-                ]);
+                    $dataProvider = new ActiveDataProvider([
 
-                Auxiliar::ventanaModal('Sus retos', 4);
+                        'query' => RetosUsuarios::find()->joinWith('idreto0')->where(['usuario_id' => $id])
 
-                $dataProvider = new ActiveDataProvider([
+                    ]);
 
-                    'query' => RetosUsuarios::find()->joinWith('idreto0')->where(['usuario_id' => $id])
-
-                ]);
-
-                ?>
+                    ?>
+                </div>
             </div>
             <div class="sombra">
                 <h4 class="text-center">Retos aceptados:</h4>
@@ -204,7 +205,7 @@ if (!isset($_COOKIE['intro'])) {
             <div class="sombra">
                 <h4 class="text-center">Objetivos Personales:</h4>
                 <br>
-                <div class="paper">
+                <div class="paper" style="overflow-y: scroll; width:100%; height: 150px;">
 
                     <?php
                     $dataProvider = new ActiveDataProvider([
@@ -635,7 +636,7 @@ if (!isset($_COOKIE['intro'])) {
 
                     <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
                     <p class="card-text">
-                    <div class="col-12" style="overflow-y: scroll; width:100%; height: 370px;">
+                        <div class="col-12" style="overflow-y: scroll; width:100%; height: 370px;">
                             <?php
 
                             //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
