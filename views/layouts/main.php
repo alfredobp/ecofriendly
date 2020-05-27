@@ -39,7 +39,8 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico" type="image/x-icon" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode('Ecofriendly.es') ?></title>
 
@@ -47,14 +48,15 @@ AppAsset::register($this);
         'trackingId' => 'UA-162197120-1',
     ]) ?>
     <?php $this->head() ?>
+    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
     <?php $this->beginBody(); ?>
     <?php if (isset(Yii::$app->user->identity)) {
-        
+
     ?>
-    
+
         <br>
         <div class="wrap">
 
@@ -195,11 +197,11 @@ AppAsset::register($this);
                             <br>
                             <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                            <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
+                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), 'contactar') ?> </span>
 
-                            <p class="float-right">
+                            <p class="float-right d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img height="32" width="88" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
+                                    <img class="img-fluid " height="32px" width="83px" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
                                     Contenido Web 1.0 del W3C-WAI"></a>
                                 <?= Yii::powered() ?>
                             </p>

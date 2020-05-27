@@ -34,7 +34,7 @@ $this->registerCssFile('@web/css/error.css');
                     <h1>Oops!</h1>
                     <h2><?= nl2br(Html::encode($message)) ?></h2>
                 </div>
-                <a href="/index">Ir  a la página principal</a>
+                <a href="/site">Ir  a la página principal</a>
             </div>
         </div>
     </div>

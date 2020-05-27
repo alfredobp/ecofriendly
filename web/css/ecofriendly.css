@@ -365,21 +365,21 @@ a.desc:after {
 		}
 	}		
 	
-	@media (max-width: 600px) {
+	/* @media (max-width: 600px) {
 		body {
 		  font-size: 18px;
 		  font-family:Arial, Helvetica, sans-serif;
 		  letter-spacing: 0.02rem;
 		}
 		img{
-			width: 60%;
+			width: 10%;
 		
 			align-items: center;
 		}		
 		footer{
 			display: none;
 		}
-}
+} */
 
 .table-borderless > tbody > tr > td,
 .table-borderless > tbody > tr > th,
