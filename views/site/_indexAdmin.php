@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('@web/css/indexAdmin.css');
 
 
-$this->registerJs(Helper_propioGestionCookies::obtenerPuntos(), WebView::POS_READY);
+// $this->registerJs(Helper_propioGestionCookies::obtenerPuntos(), WebView::POS_READY);
 
 ?>
 
