@@ -522,7 +522,7 @@ class UsuariosController extends Controller
     }
     public function actionPuntos($id)
     {
-        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
+        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->andFilterWhere(['!=','usuarios.rol','superadministrador'])->one();
         return $usuarioPuntos->puntuacion;
     }
     protected function findModel($id)

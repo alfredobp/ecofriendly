@@ -39,18 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('@web/css/indexAdmin.css');
 
 
-
-if (isset($_COOKIE['colorPanel']) || isset($_COOKIE['colorTexto']) || isset($_COOKIE['fuente']) || isset($_COOKIE['tamaño'])) {
-    $this->registerJs(Helper_propioGestionCookies::cookiesEstilo());
-}
-
-$this->registerJs(Helper_propioGestionCookies::introduccion(), WebView::POS_READY);
+$this->registerJs(Helper_propioGestionCookies::obtenerPuntos(), WebView::POS_READY);
 
 ?>
 
 
 <div class="container-fluid">
-    <div class="loader"></div>
+    <!-- <div class="loader"></div> -->
     <div class="row ">
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
