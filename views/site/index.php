@@ -283,7 +283,17 @@ if (!isset($_COOKIE['intro'])) {
                                 $form = ActiveForm::begin([
                                     'action' => ['feeds/create'],
                                     'method' => 'post',
-                                    'options' =>   ['enctype' => 'multipart/form-data'],
+                                    'options' =>   [
+                                        'enctype' => 'multipart/form-data',
+                                        'enableClientValidation' => true,
+                                        'enableAjaxValidation' => false,
+                                        'validateOnSubmit' => true,
+                                        'validateOnChange' => false,
+                                        'validateOnType' => false,
+                                        'errorCssClass' => 'has-error',
+                                        'successCssClass' => 'has-success',
+                                        'afterValidate' => 'js:function(form, data, hasError){}'
+                                    ]
                                 ]);
 
                                 // echo TinyMCE::widget(['name' => 'text-content']);
@@ -330,6 +340,7 @@ if (!isset($_COOKIE['intro'])) {
                         'action' => ['feeds/imagen2'],
                         'method' => 'post',
                         'options' =>   ['enctype' => 'multipart/form-data'],
+                        'errorCssClass' => 'has-error',
                     ]); ?>
                     <?= $form->field($model, 'imagen')->fileInput() ?>
                     <br>

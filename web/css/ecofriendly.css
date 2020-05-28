@@ -459,3 +459,7 @@ html {
     -webkit-background-size:  100% 50px;
     background-size: 100% 50px;
 }
+.help-block{
+	color:red;
+	font-weight: bold;
+}

@@ -84,12 +84,15 @@ class MensajesPrivadosController extends Controller
         $nuevoMensaje->emisor_id = Yii::$app->user->identity->id;
         $nuevoMensaje->receptor_id = $model->emisor_id;
         $nuevoMensaje->asunto = 'Re:' . $model->asunto;
+        $mensajeAnterior=$model->contenido;
+      
         if ($nuevoMensaje->load(Yii::$app->request->post()) && $nuevoMensaje->save()) {
             return $this->redirect(['index']);
         }
 
         return $this->render('_responder', [
             'model' => $nuevoMensaje,
+            'mensajeAnterior'=>$mensajeAnterior,
         ]);
     }
     /**

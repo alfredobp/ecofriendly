@@ -7,6 +7,7 @@ use yii\bootstrap4\Html;
 
 $this->title = 'Create Mensajes Privados';
 $this->params['breadcrumbs'][] = ['label' => 'Mensajes Privados', 'url' => ['index']];
+$this->title='Enviar nuevo mensaje';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mensajes-privados-create">

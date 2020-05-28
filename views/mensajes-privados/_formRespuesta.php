@@ -9,19 +9,23 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="mensajes-privados-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <!-- <?= $form->field($model, 'emisor_id')->textInput() ?>
-
+    
     <?= $form->field($model, 'receptor_id')->textInput() ?> -->
 
     <?= $form->field($model, 'asunto')->textInput(['maxlength' => true]) ?>
 
+
+    <?= $form->field($model, 'contenido')->label('En respuesta a:')->textarea([
+        'value' => $mensajeAnterior, 'readonly' => true
+    ]) ?>
+
     <?= $form->field($model, 'contenido')->textInput(['maxlength' => true]) ?>
-<!-- 
+    <!-- 
     <?= $form->field($model, 'seen')->checkbox() ?> -->
-<!-- 
+    <!-- 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'visto_dat')->textInput() ?> -->

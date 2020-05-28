@@ -10,7 +10,13 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="usuarios-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => true,
+        'validateOnChange' => true,
+        'successCssClass' => 'has-success',
+    ]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
