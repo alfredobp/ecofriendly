@@ -40,9 +40,30 @@ Icon::map($this);
                 <?= GridView::widget([
                     'dataProvider' => $feed,
                     'columns' => [
-                        'contenido',
-                        'created_at',
-                        'usuarios.nombre',
+
+                        [
+                            'attribute' => 'created_at',
+                            'label' => 'Contenido',
+                            'value' => function ($dataProvider) {
+                                return Html::a($dataProvider->contenido);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'created_at',
+                            'value' => function ($dataProvider) {
+                                return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'Compartido por:',
+                            'value' => function ($dataProvider) {
+                                return $dataProvider->usuarios->nombre;
+                            },
+                            'format' => 'raw',
+                        ],
+
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'feeds',
@@ -83,9 +104,10 @@ Icon::map($this);
             </div>
 
         <?php endif ?>
+  
         <?php if ($hastag->totalCount > 0) : ?>
-            <h3>#Hastag encontrados: <?= $retos->totalCount ?></h3>
-            <div class="row">
+            <h3>#Hastag encontrados: <?= $hastag->totalCount ?></h3>
+            <div class="col-10 shadow-lg p-3 mb-5 bg-white rounded">
 
                 <?= GridView::widget([
                     'dataProvider' => $hastag,

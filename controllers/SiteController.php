@@ -258,7 +258,7 @@ class SiteController extends Controller
                     'seguidores.usuario_id' =>  Yii::$app->user->identity->id
                 ])
                 ->andWhere('feeds.created_at>seguidores.fecha_seguimiento');
-            $hastag->query->where(['ilike', 'contenido', $cadena . '%', false]);
+            $hastag->query->where(['ilike',  'contenido', '%<p>' . $cadena . '</p>%', false]);
         }
         return $this->render('buscar', [
             'feed' => $feed,
