@@ -61,7 +61,7 @@ class Auxiliar
         return $js;
     }
 
-    public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '25px', 'height' => '35px']])
+    public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '65px', 'height' => '65px']])
     {
 
         $id1 = Usuarios::find()->where(['id' => $id])->one();

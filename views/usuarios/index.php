@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'email:email',
                 [
                     'attribute' => 'imagen',
+                    'contentOptions'=>['style'=>'text-align:center; width:290px; '],
+
                     'value' => function ($dataProvider) {
                         return Auxiliar::obtenerImagenUsuario($dataProvider->id);
                     },

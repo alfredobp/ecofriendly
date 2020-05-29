@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
@@ -26,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                 'usuarios.nombre',
-     
+
                 [
                     'label' => 'Contenido',
                     'attribute' => 'contenido',
@@ -37,9 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'label' => 'Ruta Imagen',
+                    'contentOptions'=>['style'=>'text-align:center; width:190px; '],
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        return $dataProvider->imagen == null ? '------------' : $dataProvider->imagen;
+                        return $dataProvider->imagen == null ? '------------' : Auxiliar::ObtenerImagenFeed($dataProvider->imagen);
                     },
                     'format' => 'raw',
                 ],

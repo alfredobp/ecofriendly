@@ -8,7 +8,7 @@ use yii\bootstrap4\ActiveForm;
 /* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
-<div class="usuarios-actividad-form col-10">
+<div class="usuarios-actividad-form col-10 ">
 
     <?php $form = ActiveForm::begin(); ?>
 
