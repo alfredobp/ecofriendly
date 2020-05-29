@@ -21,7 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
         !Auxiliar::esAdministrador() ? GridView::widget([
             'dataProvider' => $dataProvider,
-
+            'options' => [
+                'class' => 'shadow-lg p-3 mb-5 bg-white rounded'
+            ],
             'columns' => [
 
                 [

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helper_propio\Auxiliar;
 use app\models\Bloqueos;
 use Yii;
 use app\models\MensajesPrivados;
@@ -111,6 +112,7 @@ class MensajesPrivadosController extends Controller
             ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
 
         $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
+        $mensajesAdmin = Usuarios::find()->select('username')->indexBy('id')->column();
         $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidores])->all();
 
 
@@ -125,7 +127,7 @@ class MensajesPrivadosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'usuarios' => $mensajes
+            'usuarios' => Auxiliar::esAdministrador()?$mensajesAdmin:$mensajes
         ]);
     }
 

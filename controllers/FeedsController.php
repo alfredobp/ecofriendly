@@ -36,10 +36,7 @@ class FeedsController extends Controller
                 'class' => AccessControl::class,
                 'only' => ['index'],
                 'rules' => [
-                    [
-                        'allow' => false,
-                        'roles' => ['@'],
-                    ],
+                 
                     [
                         'allow' => true,
                         'actions' => ['index'],

@@ -5,7 +5,7 @@ use yii\bootstrap4\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\AccionesRetos */
 
-$this->title = 'Create Acciones Retos';
+$this->title = 'Crear Acción Reto';
 $this->params['breadcrumbs'][] = ['label' => 'Acciones Retos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

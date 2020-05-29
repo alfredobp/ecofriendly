@@ -109,8 +109,8 @@ class SiteController extends Controller
         $listaUsuarios = Usuarios::find()
             ->select(['nombre', 'id', 'url_avatar'])
             ->where(['!=', 'id', $id])
+            ->andWhere(['token_acti' => null])
             ->andWhere(['!=', 'rol', 'superadministrador'])
-            ->orWhere(['!=', 'auth_key', 'null'])
             ->all();
 
         if (Yii::$app->user->identity->rol == 'superadministrador') {

@@ -17,12 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Acciones Retos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear nuevo reto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-    <div class="overflow-auto">
+    <div style="height:600px" class="overflow-auto shadow-lg p-3 mb-5 bg-white rounded">
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,

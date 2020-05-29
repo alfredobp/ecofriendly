@@ -51,7 +51,9 @@ $this->registerJs($script); // Registro el script javascript en el view
     <h3>Mensajes recibidos</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-
+        'options' => [
+            'class' => 'shadow-lg p-3 mb-5 bg-white rounded'
+        ],
 
         'columns' => [
             // 'id',
@@ -138,6 +140,7 @@ $this->registerJs($script); // Registro el script javascript en el view
     <h3>Mensajes enviados</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'options' => ['class' => 'shadow-lg p-3 mb-5 bg-white rounded'],
 
         'columns' => [
             // 'id',

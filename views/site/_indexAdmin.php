@@ -57,7 +57,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
             <!-- <hr>
             <h2> <?= ucfirst(Yii::$app->user->identity->nombre) ?> </h2> -->
 
-           
+
             <?php
 
             echo GoogleAnalytics::widget([
@@ -127,7 +127,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
 
                                 <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto mx-auto d-block'], 'style' => ['margin' => '12px']]; ?>
                                 <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == $id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
-                                   </p>
+                                </p>
                                 <?= Auxiliar::obtenerImagenFeed($feeds['imagen'], $options) ?>
 
                                 <p class="card-text"><small class="text-muted">Publicado: <?= Html::encode(Yii::$app->formatter->asRelativeTime($feeds['created_at']))  ?></small></p>
@@ -316,8 +316,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                         . Html::textInput(
                             'cadena',
                             '',
-                            ['placeholder' => 'Buscar #AmigoEcofriendly', 'required' => 'true'],
-                            ['class' => 'form-control col-10']
+                            ['placeholder' => 'Buscar #usuarioEcofriendly', 'required' => 'true', 'class' => 'form-control col-12']
                         )
                         . '<br>'
                         . Html::submitButton(
