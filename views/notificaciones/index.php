@@ -4,6 +4,7 @@ use app\helper_propio\Auxiliar;
 use app\models\Comentarios;
 use app\models\Feeds;
 use app\models\Usuarios;
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -122,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' ha realizado un  '
                                 . $dataProvider->tipoNotificacion->tipo . ' en una publicación de ' . Usuarios::findOne($dataProvider->usuario_id)->nombre;
                         } else {
-                            return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' ha comenzado a seguir a ' . Usuarios::findOne($dataProvider->usuario_id)->nombre   ;
+                            return Usuarios::findOne($dataProvider->seguidor_id)->nombre . ' ha comenzado a seguir a ' . Usuarios::findOne($dataProvider->usuario_id)->nombre;
                         }
                     },
                     'format' => 'raw',
@@ -136,5 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ])  ?>
+
+    <?= Html::a(Icon::show('server') . 'Configurar Tipos de Notificaciones', '/index.php?r=tipos-notificaciones%2Findex', $options = []) ?>
     <?php echo Auxiliar::volverAtras() ?>
 </div>
