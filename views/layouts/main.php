@@ -166,18 +166,20 @@ AppAsset::register($this);
 
         </div>
         <footer class="footer">
-            <div class="container" itemscope itemtype="http://schema.org/Organization">
-                <!-- Microdatos en el footer -->
+        <div class="container" itemscope itemtype="http://schema.org/Organization">
+                            <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                            <br>
+                            <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                <br>
-                <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), 'contactar') ?> </span>
 
-                <span itemprop="email"> Email de contacto: ecofriendlyrrss@gmail.com </span>
-
-                <p class="float-right"><?= Yii::powered() ?></p>
-
-            </div>
+                            <p class="float-right d-xs-none d-md-none d-lg-block">
+                                <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
+                                    <img class="img-fluid " height="32px" width="83px" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
+                                    Contenido Web 1.0 del W3C-WAI"></a>
+                                <?= Yii::powered() ?>
+                            </p>
+                        </div>
         </footer>
 
         <?php $this->endBody() ?>
