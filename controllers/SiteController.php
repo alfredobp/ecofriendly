@@ -243,15 +243,21 @@ class SiteController extends Controller
             'query' => AccionesRetos::find()->where('1=0'),
         ]);
         $feed = new ActiveDataProvider([
-            'query' => Feeds::find()->where('1=0'),
+            'query' => Feeds::find()->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')->where('1=0'),
         ]);
         $hastag = new ActiveDataProvider([
-            'query' => Feeds::find()->where('1=0'),
+            'query' => Feeds::find()->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+            ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')->where('1=0'),
         ]);
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
-            $usuarios->query->where(['ilike', 'nombre', $cadena]);
-            $feed->query->where(['ilike', 'contenido', $cadena]);
-            $retos->query->where(['ilike', 'titulo', $cadena])->andWhere(['cat_id' => Yii::$app->user->identity->categoria_id]);
+            $usuarios->query->where(['ilike', 'nombre', $cadena])->andWhere(['!=', 'rol', 'superadministrador']);
+            $feed->query
+                ->where(['ilike', 'contenido', $cadena])
+                ->andWhere([
+                    'seguidores.usuario_id' =>  Yii::$app->user->identity->id
+                ])
+                ->andWhere('feeds.created_at>seguidores.fecha_seguimiento');
             $hastag->query->where(['ilike', 'contenido', $cadena . '%', false]);
         }
         return $this->render('buscar', [

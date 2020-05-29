@@ -18,11 +18,13 @@ Icon::map($this);
     <div class="body-content">
         <?php if ($usuarios->totalCount > 0) : ?>
             <h3>Usuarios encontrados: <?= $usuarios->totalCount ?></h3>
-            <div class="row">
+            <div class="col-10 shadow-lg p-3 mb-5 bg-white rounded">
                 <?= GridView::widget([
                     'dataProvider' => $usuarios,
                     'columns' => [
+                        'username',
                         'nombre',
+
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'usuarios',
@@ -33,12 +35,14 @@ Icon::map($this);
             </div>
         <?php endif ?>
         <?php if ($feed->totalCount > 0) : ?>
-            <h3>Feeds encontrados: <?= $feed->totalCount ?></h3>
-            <div class="row">
+            <h3>Feeds compartidos por los usuarios a los que sigues: <?= $feed->totalCount ?></h3>
+            <div class="col-10 shadow-lg p-3 mb-5 bg-white rounded">
                 <?= GridView::widget([
                     'dataProvider' => $feed,
                     'columns' => [
                         'contenido',
+                        'created_at',
+                        'usuarios.nombre',
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'feeds',
