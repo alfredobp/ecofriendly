@@ -34,6 +34,7 @@ class UsuariosActividad extends \yii\db\ActiveRecord
             [['usuario_id'], 'integer'],
             [['usuario_id'], 'unique','message' => 'El usuario ya ha sido bloqueado.'],
             [['motivo'], 'string'],
+            ['motivo', 'required'],
             [['fecha_suspenso'], 'safe'],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
@@ -47,7 +48,7 @@ class UsuariosActividad extends \yii\db\ActiveRecord
         return [
             'id' => 'El usuario ya ha sido bloqueado',
             // 'usuario_id' => 'Usuario ID',
-            'motivo' => 'Motivo',
+            'motivo' => 'Motivo de la suspensión',
             'fecha_suspenso' => 'Fecha Suspensión de la cuenta',
         ];
     }

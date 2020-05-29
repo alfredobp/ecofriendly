@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS usuarios_actividad CASCADE;
 CREATE TABLE usuarios_actividad(
     id bigserial PRIMARY KEY,
     usuario_id integer UNIQUE REFERENCES usuarios(id),
-    motivo varchar,
+    motivo varchar NOT NULL,
     fecha_suspenso timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
@@ -136,7 +136,7 @@ DROP TABLE IF EXISTS tipos_notificaciones CASCADE;
 
 CREATE TABLE tipos_notificaciones (
     id bigserial PRIMARY KEY,
-    tipo varchar (255)
+    tipo varchar (255) NOT NUll 
 );
 
 DROP TABLE IF EXISTS notificaciones CASCADE;

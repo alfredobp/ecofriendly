@@ -67,7 +67,7 @@ class TiposNotificacionesController extends Controller
         $model = new TiposNotificaciones();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [

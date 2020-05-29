@@ -29,6 +29,7 @@ class TiposNotificaciones extends \yii\db\ActiveRecord
     {
         return [
             [['tipo'], 'string', 'max' => 255],
+            ['tipo', 'required']
         ];
     }
 
