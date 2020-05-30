@@ -132,9 +132,9 @@ class FeedsFavoritosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        FeedsFavoritos::deleteAll(['feed_id'=>$id, 'usuario_id'=>Yii::$app->user->identity->id ]);
 
-        return $this->redirect(['index']);
+        return $this->goHome();
     }
 
     /**

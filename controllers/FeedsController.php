@@ -36,7 +36,7 @@ class FeedsController extends Controller
                 'class' => AccessControl::class,
                 'only' => ['index'],
                 'rules' => [
-                 
+
                     [
                         'allow' => true,
                         'actions' => ['index'],
@@ -79,6 +79,11 @@ class FeedsController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionStart()
+    {
+        var_dump('hola');
+        exit;
+    }
     /**
      * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
      *
@@ -117,7 +122,7 @@ class FeedsController extends Controller
      *
      * @return void
      */
-   
+
     public function actionImagen()
     {
         $model = new ImagenForm();
@@ -134,15 +139,13 @@ class FeedsController extends Controller
             'model' => $model,
         ]);
     }
-
-
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         $model->updated_at = date('Y-m-d H:i:s');
         if ($model->load(Yii::$app->request->post())) {
             if (!empty($_FILES['Feeds']['name']['imagen'])) {
-          
+
                 uploadImagenFeed($model);
 
                 $model->imagen = $_FILES['Feeds']['name']['imagen'];
@@ -154,7 +157,7 @@ class FeedsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            
+
         ]);
     }
 

@@ -35,7 +35,7 @@ Icon::map($this);
             </div>
         <?php endif ?>
         <?php if ($feed->totalCount > 0) : ?>
-            <h3>Feeds compartidos por los usuarios a los que sigues: <?= $feed->totalCount ?></h3>
+            <?= !Auxiliar::esAdministrador() ? '<h3>Feeds compartidos por los usuarios a los que sigues:' . $feed->totalCount .  '</h3>' : '<h3> Feeds encontrados de la red #ecofriendly: ' . $feed->totalCount . '</h3>'  ?>
             <div class="col-10 shadow-lg p-3 mb-5 bg-white rounded">
                 <?= GridView::widget([
                     'dataProvider' => $feed,
@@ -80,7 +80,7 @@ Icon::map($this);
                     'dataProvider' => $retos,
                     'columns' => [
                         'titulo',
-                        
+
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'acciones-retos',
@@ -105,7 +105,7 @@ Icon::map($this);
             </div>
 
         <?php endif ?>
-  
+
         <?php if ($hastag->totalCount > 0) : ?>
             <h3>#Hastag encontrados: <?= $hastag->totalCount ?></h3>
             <div class="col-10 shadow-lg p-3 mb-5 bg-white rounded">
@@ -113,7 +113,7 @@ Icon::map($this);
                 <?= GridView::widget([
                     'dataProvider' => $hastag,
                     'columns' => [
-            
+
                         [
                             'attribute' => 'contenido',
                             'label' => 'Contenido',

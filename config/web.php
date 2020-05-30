@@ -74,7 +74,7 @@ $config = [
 
         'urlManager' => [
             'enablePrettyUrl' => false,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
 
                 'usuarios/resetpass' => 'usuarios/resetpass',

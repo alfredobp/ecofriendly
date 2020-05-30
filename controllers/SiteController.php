@@ -232,6 +232,8 @@ class SiteController extends Controller
     /**
      * Acción Buscar
      * Permite la busqueda desde un parametro que se le envía como cadena desde un formulario en el index.
+     * Dependiendo de si el usuario es admin o no, se permite una búsqueda global o bien una búsqueda de su red
+     * de contactos
      * @return void
      */
     public function actionBuscar()
@@ -246,25 +248,32 @@ class SiteController extends Controller
             'query' => Feeds::find()->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
                 ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')->where('1=0'),
         ]);
+        $feedGeneral = new ActiveDataProvider([
+            'query' => Feeds::find()->where('1=0'),
+        ]);
         $hastag = new ActiveDataProvider([
             'query' => Feeds::find()->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
-            ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')->where('1=0'),
+                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')->where('1=0'),
+        ]);
+        $hastagGeneral = new ActiveDataProvider([
+            'query' => Feeds::find()->where('1=0'),
         ]);
         if (($cadena = Yii::$app->request->get('cadena', ''))) {
             $usuarios->query->where(['ilike', 'nombre', $cadena])->andWhere(['!=', 'rol', 'superadministrador']);
-            $feed->query
+            !Auxiliar::esAdministrador() ? $feed->query
                 ->where(['ilike', 'contenido', $cadena])
                 ->andWhere([
                     'seguidores.usuario_id' =>  Yii::$app->user->identity->id
                 ])
-                ->andWhere('feeds.created_at>seguidores.fecha_seguimiento');
-            $hastag->query->where(['ilike',  'contenido', '%<p>' . $cadena . '</p>%', false]);
+                ->andWhere('feeds.created_at>seguidores.fecha_seguimiento') : $feedGeneral->query
+                ->where(['ilike', 'contenido', $cadena]);
+            Auxiliar::esAdministrador() ? $hastag : $hastagGeneral->query->where(['ilike',  'contenido', '%<p>' . $cadena . '</p>%', false]);
         }
         return $this->render('buscar', [
-            'feed' => $feed,
+            'feed' => Auxiliar::esAdministrador() ? $feedGeneral : $feed,
             'usuarios' => $usuarios,
             'retos' => $retos,
-            'hastag' => $hastag,
+            'hastag' => Auxiliar::esAdministrador() ? $hastag : $hastagGeneral,
             'cadena' => $cadena
         ]);
     }
