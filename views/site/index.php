@@ -415,7 +415,7 @@ if (!isset($_COOKIE['intro'])) {
                                     <?php $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
                                         ->andWhere(['feed_id' => $feeds['id']])->one(); ?>
 
-                                    <?= $yaMeGusta == null ? Html::a(
+                                    <?= $yaMeGusta == null ?  Html::a(
                                         Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
                                         Url::to(['/feeds-favoritos/create']),
                                         [
@@ -424,7 +424,7 @@ if (!isset($_COOKIE['intro'])) {
                                                 'params' => ['feed_id' => $feeds['id']], // <- extra level
                                             ],
                                         ]
-                                    ) : Html::a(Icon::show(' fa-thumbs-down') . 'ya no me gusta', Url::to(['/feeds-favoritos/delete', 'id' => $feeds['id']]), [
+                                    ) : Html::a(Icon::show(' fa-thumbs-down') . 'ya no me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>', Url::to(['/feeds-favoritos/delete', 'id' => $feeds['id']]), [
 
                                         'data' => [
                                             'method' => 'post',
