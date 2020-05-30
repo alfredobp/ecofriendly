@@ -451,7 +451,7 @@ $this->registerJs($js);
         <br>
         <h4 class="ml-5">Te faltan <strong> <?= Auxiliar::puntosRestantes(Yii::$app->user->identity->id, Yii::$app->user->identity->categoria_id) ?></strong> puntos para el siguiente nivel</h3>
             <br>
-            <h4 class="ml-5">Has conseguido: <?= Auxiliar::puntosConseguidos(Yii::$app->user->identity->id) == null ? ' 0' : Auxiliar::puntosConseguidos($id) ?>
+            <h4 class="ml-5">Has conseguido: <?= Auxiliar::puntosConseguidos(Yii::$app->user->identity->id) == null ? ' 0' : Auxiliar::puntosConseguidos(Yii::$app->user->identity->id) ?>
                 puntos desde que te diste de alta el: <?= Yii::$app->formatter->asDate(Yii::$app->user->identity->fecha_alta) ?></h4>
 
             <br>

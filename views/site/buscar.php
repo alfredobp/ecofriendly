@@ -42,7 +42,7 @@ Icon::map($this);
                     'columns' => [
 
                         [
-                            'attribute' => 'created_at',
+                            'attribute' => 'contenido',
                             'label' => 'Contenido',
                             'value' => function ($dataProvider) {
                                 return Html::a($dataProvider->contenido);
@@ -80,6 +80,7 @@ Icon::map($this);
                     'dataProvider' => $retos,
                     'columns' => [
                         'titulo',
+                        
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'acciones-retos',
@@ -112,7 +113,22 @@ Icon::map($this);
                 <?= GridView::widget([
                     'dataProvider' => $hastag,
                     'columns' => [
-                        'contenido',
+            
+                        [
+                            'attribute' => 'contenido',
+                            'label' => 'Contenido',
+                            'value' => function ($dataProvider) {
+                                return Html::a($dataProvider->contenido);
+                            },
+                            'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'Compartido por:',
+                            'value' => function ($dataProvider) {
+                                return $dataProvider->usuarios->nombre;
+                            },
+                            'format' => 'raw',
+                        ],
 
                         [
                             'class' => 'yii\grid\ActionColumn',
