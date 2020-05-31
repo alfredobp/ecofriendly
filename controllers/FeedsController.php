@@ -79,11 +79,7 @@ class FeedsController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-    public function actionStart()
-    {
-        var_dump('hola');
-        exit;
-    }
+
     /**
      * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
      *

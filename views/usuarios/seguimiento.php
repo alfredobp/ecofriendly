@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'Feeds compartidos',
                     'value' => function ($dataProvider) {
                         $feeds = Feeds::find()->where(['usuariosid' => $dataProvider->id]);
-                        // var_dump($feeds);
+                  
                         $cuantos = $feeds->count();
 
                         if ($cuantos != 0) {
@@ -111,7 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'Nº seguidores',
                     'value' => function ($dataProvider) {
                         $seguidores = Seguidores::find()->where(['seguidor_id' => $dataProvider->id]);
-                        // var_dump($feeds);
                         $cuantosSeguidores = $seguidores->count();
                         if ($cuantosSeguidores != 0) {
                             return $cuantosSeguidores;

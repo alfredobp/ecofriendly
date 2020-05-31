@@ -348,10 +348,10 @@ $this->registerJs($js);
 
                         <?php $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
                         <?php
-                        // var_dump($bloqueados->nombre);
+
 
                         foreach ($bloqueados as $bloqueadosnombre) {
-                            // var_dump($bloqueados);
+
                             $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
                             echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
 

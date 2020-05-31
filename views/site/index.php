@@ -48,17 +48,17 @@ if (!isset($_COOKIE['intro'])) {
 }
 
 ?>
+<?php
+$id = Yii::$app->user->identity->id;
+$categoriaId = Yii::$app->user->identity->categoria_id;
 
+?>
 <div class="container-fluid">
     <div class="loader"></div>
     <div class="row ">
         <aside class="col-3 col-lg-3 order-1 order-lg-0 d-none d-md-block">
 
-            <?php
-            $id = Yii::$app->user->identity->id;
-            $categoriaId = Yii::$app->user->identity->categoria_id;
 
-            ?>
             <?php $options = ['class' => ['img-contenedor mx-auto d-block'], 'style' => ['width' => '128px', 'height' => '128px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
             <div class="sombra">
 

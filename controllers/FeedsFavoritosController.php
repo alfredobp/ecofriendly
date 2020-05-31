@@ -71,19 +71,22 @@ class FeedsFavoritosController extends Controller
      */
     public function actionCreate()
     {
+        $id = Yii::$app->user->identity->id;
         $model = new FeedsFavoritos();
-        $model->usuario_id = Yii::$app->user->identity->id;
+        $model->usuario_id = $id;
         $notificacion = new Notificaciones();
 
         if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
-            $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
-                ->andWhere(['feed_id' => $model->feed_id])->one();
+            $yaMeGusta = FeedsFavoritos::find()
+                ->where(['usuario_id' => $id])
+                ->andWhere(['feed_id' => $model->feed_id])
+                ->one();
             if ($yaMeGusta == null) {
                 $model->save();
                 $dueño = Feeds::find()->select('usuariosid')->where(['id' => $model->feed_id])->one();
-                if ($dueño->usuariosid != Yii::$app->user->identity->id) {
+                if ($dueño->usuariosid != $id) {
                     $notificacion->usuario_id = $dueño->usuariosid;
-                    $notificacion->seguidor_id = Yii::$app->user->identity->id;
+                    $notificacion->seguidor_id = $id;
                     $notificacion->leido = false;
                     $notificacion->tipo_notificacion_id = 2;
                     $notificacion->id_evento = $model->id;
@@ -132,7 +135,7 @@ class FeedsFavoritosController extends Controller
      */
     public function actionDelete($id)
     {
-        FeedsFavoritos::deleteAll(['feed_id'=>$id, 'usuario_id'=>Yii::$app->user->identity->id ]);
+        FeedsFavoritos::deleteAll(['feed_id' => $id, 'usuario_id' => Yii::$app->user->identity->id]);
 
         return $this->goHome();
     }
