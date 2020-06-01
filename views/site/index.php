@@ -60,7 +60,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
 
             <?php $options = ['class' => ['img-contenedor mx-auto d-block'], 'style' => ['width' => '128px', 'height' => '128px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-            <div class="sombra">
+            <div class="sombra intro2">
 
                 <?= Auxiliar::obtenerImagenUsuario($id, $options); ?>
 
@@ -83,7 +83,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     'domain' => 'TRACKING_DOMAIN',
                     'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
                 ]); ?>
-                <h4> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
+                <h4 class="intro2"> ECOpuntuación <span id='puntos' class="badge"></span> </h4>
 
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -93,7 +93,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             <br>
             <div class="sombra">
 
-
+          
                 <h4 class="text-center">Tu progreso:</h4>
                 <br>
                 <h6>Has publicado: </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> Feeds</h6>

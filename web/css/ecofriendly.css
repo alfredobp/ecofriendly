@@ -463,3 +463,37 @@ html {
 	color:red;
 	font-weight: bold;
 }
+
+
+        /* Código de animación */
+        @keyframes example {
+            0% {
+                /* background-color: red; */
+                left: 0px;
+                top: 300px;
+            }
+
+            25% {
+                /* background-color: yellow; */
+                left: 0px;
+                top: 150px;
+            }
+
+          
+
+            100% {
+                /* background-color: red; */
+                left: 0px;
+                top: 0px;
+            }
+        }
+     
+
+        /* Elemento al que se le aplica la animación */
+        .intro2 {
+           
+            position: relative;
+          
+            animation-name: example;
+            animation-duration: 3s;
+        }

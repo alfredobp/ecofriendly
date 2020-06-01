@@ -309,9 +309,9 @@ class SiteController extends Controller
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('Mensaje enviado');
+            Yii::$app->session->setFlash('success', 'Correo enviado');
 
-            return $this->refresh();
+            return $this->redirect(['site/index']);
         }
         return $this->render('contact', [
             'model' => $model,

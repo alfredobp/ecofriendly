@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
+    'adminEmail' => 'ecofriendlyrrss@gmail.com',
+    'senderEmail' => 'ecofriendlyrrss@gmail.com',
     'senderName' => 'Example.com mailer',
     'smtpUsername' => 'ecofriendlyrrss@gmail.com',
     'bsVersion' => '4.x',
