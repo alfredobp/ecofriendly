@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\RegistrarForm */
 
+use app\helper_propio\Auxiliar;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -11,30 +12,37 @@ $this->title = 'Reseteo de password';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuarios-resetpass h-100">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Introduzca los siguientes datos para resetear su contraseña de acceso:</p>
+    <div class="container">
 
-    <?php $form = ActiveForm::begin([
-        'method' => 'post',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'horizontalCssClasses' => ['wrapper' => 'col-6'],
-        ],
-    ]);
-    ?>
+        <div class="mt-5 shadow p-3 mb-3 bg-white">
 
-    <?= $form->field($model, 'email')->input('email') ?>
+            <h1><?= Html::encode($this->title) ?></h1>
+            <p>Introduzca los siguientes datos para resetear su contraseña de acceso:</p>
 
-    <?= $form->field($model, 'contrasena')->passwordInput() ?>
+            <?php $form = ActiveForm::begin([
+                'method' => 'post',
+                'layout' => 'horizontal',
+                'fieldConfig' => [
+                    'horizontalCssClasses' => ['wrapper' => 'col-6'],
+                ],
+            ]);
+            ?>
 
-    <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+            <?= $form->field($model, 'email')->input('email') ?>
 
-    <?= $form->field($model, 'verification_code')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'contrasena')->passwordInput() ?>
 
-    <?= $form->field($model, 'recover')->input('hidden')->label(false) ?>
+            <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 
-    <?= Html::submitButton('Reestablecer contraseña', ['class' => 'btn btn-primary']) ?>
+            <?= $form->field($model, 'verification_code')->textInput(['autofocus' => true]) ?>
 
-    <?php $form->end() ?>
-    <br>
+            <?= $form->field($model, 'recover')->input('hidden')->label(false) ?>
+
+            <?= Html::submitButton('Reestablecer contraseña', ['class' => 'btn btn-primary']) ?>
+
+            <?php $form->end() ?>
+            <br>
+        </div>
+        <?php echo Auxiliar::volverAtras() ?>
+    </div>
 </div>
