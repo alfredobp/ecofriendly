@@ -39,7 +39,7 @@ use yii\web\View;
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <strong>Gamificación </strong> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
 
-                    <?= Html::button('Registro&raquo;', ['value' => Url::to('/usuarios/registrar'), 'class' => 'btn btn-primary modalButton4 btn-lg intro2 ', 'id' => 'modalButton4']); ?>
+                    <?= Html::button('Registro&raquo;', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => 'btn btn-primary modalButton4 btn-lg intro2 ', 'id' => 'modalButton4']); ?>
                     <br>
 
                     <?php
@@ -48,7 +48,7 @@ use yii\web\View;
                     <br>
                     <div class="alert alert-info alert-info" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="faqs"> Área de FAQs</a> y resuelve tus dudas. También puedes mandarnos un <a href="contactar">correo.</a>
+                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="faqs"> Área de FAQs</a> y resuelve tus dudas. También puedes mandarnos un <a href="index.php?r=site%2Fcontactar">correo.</a>
                     </div>
                 </div>
                 <div class="bird-container bird-container--one">
@@ -98,14 +98,14 @@ use yii\web\View;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/usuarios/registrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
+                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
 
                     <?php
                     Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'md');
                     ?>
                     <br>
 
-                    <em><a href="/usuarios/recoverpass"> ¿Olvídaste tu contraseña?</a></em>
+                    <em><a href="index.php?r=usuarios%2Frecoverpass"> ¿Olvídaste tu contraseña?</a></em>
                     <!-- Solo funciona en local -->
                     <!-- <div class="mt-3">
                         Accede con Facebook: <?= AuthChoice::widget(['baseAuthUrl' => ['site/auth']]) ?>

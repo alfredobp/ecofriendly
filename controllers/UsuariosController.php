@@ -325,7 +325,7 @@ class UsuariosController extends Controller
                     $body = '<p>Copie el siguiente código de verificación para restablecer su password ... ';
                     $body .= '<strong>' . $verification_code . '</strong></p>';
 
-                    $body .= '<p><a href="' . Url::to('usuarios/resetpass', true) . '">Recuperar password</a></p>';
+                    $body .= '<p><a href="' . Url::to('index.php?r=usuarios%2Fresetpass', true) . '">Recuperar password</a></p>';
                    
                     //Enviamos el correo
                     Yii::$app->mailer->compose()

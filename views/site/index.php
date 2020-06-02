@@ -70,7 +70,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                 <h5><?= Icon::show('comments') ?>: "<span id="estado"></span>"
                     <?php
 
-                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/usuarios/updateestado'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']);
+                    echo Html::button(Icon::show('edit'), ['value' => Url::to('/index.php?r=usuarios%2Fupdateestado'), 'class' => 'btn modalButton3 btn-xs active col-1', 'id' => 'modalButton3']);
                     ?>
                 </h5>
                 <?php
@@ -231,7 +231,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     }
                     ?>
                 </div>
-                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/objetivos-personales/create'), 'class' => ' btn btn-success modalButton6 mt-3 btn-xl', 'id' => 'modalButton6']); ?>
+                <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales%2Fcreate'), 'class' => ' btn btn-success modalButton6 mt-3 btn-xl', 'id' => 'modalButton6']); ?>
                 <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
             </div>
             <br>
