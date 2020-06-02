@@ -117,14 +117,20 @@ Los usuarios pueden anotar objetivos personales para indicar más acciones medio
 
 ### Comentarios
 
+Un usuario puede hacer un comentario en un feed, y también puede borrarlo.
 
+![Comentarios](images/comentarios.png)
 
 ### Me gusta
 
+Un usuario puede hacer me gusta y eliminar el me gusta de un feed publicado.
 
+![Me gusta](images/megusta.png)
+![No me gusta](images/yanomegusta.png)
 
 ### modo admin
 
+El administrador de la plataforma puede realizar las siguientes tareas de administración:
 
 Bloquear cuenta de usuario
 
@@ -133,7 +139,7 @@ Bloquear cuenta de usuario
 
 
 Ver Ranking
-El usuario admin puede ver el ranking de todos los usuarios registrado
+El usuario admin puede ver el ranking de todos los usuarios registrados
 ![ranking](images/modoAdminVI.png)
 
 
@@ -153,14 +159,19 @@ Evolución de los usuarios registrados
 Gestión de usuarios de la red.
 ![Gestión Usuarios](images/modoadminX.png)
 
-### recover y recuperar password
+### Búsqueda
+Un usuario puede realizar busquedas de usuarios, hastags o feeds publicados en la red.
+![Búsqueda](images/busqueda.png)
 
-Reseteo de Contraseña.
+### recover y recuperar password
+Los usuarios pueden restaurar la contraseña si no la recuerda, para ello el proceso consta de dos partes, Restaurar y reseto de su contraseña. 
+Restaurar  Contraseña.
 ![Recuperar contraseña](images/restaurarPass.png)
 
-Recuperar Contraseña.
+Resetear Contraseña.
 ![Recuperar contraseña](images/resetPass.png)
 
 ### iniciar sesión con facebook
+Un usuario puede iniciar sesión con facebook (solo operativo en localhost, debido a las limitaciones de la cuenta gratuita de heroku)
 
 ![Inicio de sesión con Facebook](images/inicioFacebook.png)
