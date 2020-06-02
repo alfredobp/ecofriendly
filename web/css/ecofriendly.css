@@ -496,4 +496,15 @@ html {
           
             animation-name: example;
             animation-duration: 3s;
-        }
+		}
+		@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+		.fraseDestacada{
+			font-family: 'Architects Daughter', cursive;
+			font-size: 30px;
+			text-shadow: 2px 2px 2px rgb(64, 150, 52);
+			font-style: italic;
+			position: relative;
+          
+            animation-name: example;
+            animation-duration: 3s;
+		}

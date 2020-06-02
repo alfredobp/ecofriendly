@@ -154,6 +154,7 @@ use yii\web\View;
                     </div>
                 </div>
             </div>
+            <p class="fraseDestacada text-center">La primera ley de la ecología es que todo está relacionado con todo lo demás. —Barry Commoner.</p>
             <!-- /.row -->
 
         </div>
