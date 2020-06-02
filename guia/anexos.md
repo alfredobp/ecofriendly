@@ -1,5 +1,26 @@
 # Anexos
 
+## **([R38](https://github.com/alfredobp/ecofriendly/issues/38)) Despliegue en un servidor local**
+
+![Configuración maquina servidor:bind9](images/anexo/hostinglocal/bind9.png)
+![Configuración maquina servidor:bind9](images/anexo/hostinglocal/bind92.png)
+![Configuración maquina servidor:netplan](images/anexo/hostinglocal/netplan.png)
+![Configuración maquina servidor:Resolución Directa](images/anexo/hostinglocal/directa.png)
+![Configuración maquina servidor:V Host Apache](images/anexo/hostinglocal/vhostssl.png)
+![Configuración maquina servidor:V Host Apache](images/anexo/hostinglocal/vhostssl2.png)
+![Configuración maquina servidor:Directivas](images/anexo/hostinglocal/vhostssl.png)
+![Configuración maquina servidor:Directivas Apache](images/anexo/hostinglocal/directivas.png)
+![Configuración:Digest](images/anexo/hostinglocal/digest.png)
+![Configuración:Digest](images/anexo/hostinglocal/digest2.png)
+![Comprobación funcionamiento](images/anexo/hostinglocal/comprobacion.png)
+![Comprobación funcionamiento](images/anexo/hostinglocal/comprobacionII.png)
+![Comprobación funcionamiento](images/anexo/hostinglocal/comprobacionIII.png)
+![Comprobación funcionamiento](images/anexo/hostinglocal/comprobacionIV.png)
+
+
+---
+
+
 ### **([R34](https://github.com/alfredobp/ecofriendly/issues/34)) Validación HTML5, CSS3 y accesibilidad**
 
 
