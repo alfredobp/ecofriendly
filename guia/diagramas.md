@@ -12,3 +12,8 @@ Incluir.
 ## Diagramas de clases
 
 ![Diagrama de clases](images/DiagramaClases.png)
+
+
+## Esquema funcionamiento YII 2 Framework
+
+![Diagrama de clases](images/esquemaYii2.png)
