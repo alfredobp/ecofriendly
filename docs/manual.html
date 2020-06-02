@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="en" />
         
-<link href="./assets/ffebd7b6/css/bootstrap.css" rel="stylesheet">
-<link href="./assets/ac3e485a/solarized_light.css" rel="stylesheet">
-<link href="./assets/ef5ce69c/style.css" rel="stylesheet">
-<script src="./assets/a0d54ea4/jquery.js"></script>
-<script src="./assets/ffebd7b6/js/bootstrap.js"></script>
-<script src="./assets/a8f7c482/jssearch.js"></script>    <title>Manual de usuario - Manual de usuario - Guía del proyecto</title>
+<link href="./assets/e6f0e6f7/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/b525791b/solarized_light.css" rel="stylesheet">
+<link href="./assets/f647d7dd/style.css" rel="stylesheet">
+<script src="./assets/b9ce7fe5/jquery.js"></script>
+<script src="./assets/e6f0e6f7/js/bootstrap.js"></script>
+<script src="./assets/b1ecf5c3/jssearch.js"></script>    <title>Manual de usuario - Manual de usuario - Guía del proyecto</title>
 </head>
 <body>
 
@@ -49,7 +49,85 @@
 <a class="list-group-item" href="#navigation-128" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-128" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
 <a class="list-group-item" href="#navigation-129" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-129" class="submenu panel-collapse collapse"><a class="list-group-item" href="./anexos.html">Anexos</a></div></div>    </div>
     <div class="col-md-9 guide-content" role="main">
-        <h1>Manual de usuario <span id="manual-de-usuario"></span><a href="#manual-de-usuario" class="hashlink">&para;</a></h1><p>Explicar, incluyendo capturas de pantalla.</p>
+        <h1>Manual de usuario <span id="manual-de-usuario"></span><a href="#manual-de-usuario" class="hashlink">&para;</a></h1><h3>Página de inicio sin loguearse <span id="pagina-de-inicio-sin-loguearse"></span><a href="#pagina-de-inicio-sin-loguearse" class="hashlink">&para;</a></h3><p>esta es la página de inicio para todos los visitante no logueados. En esta vista tienen las opciones de loguearse, registrarse o recuperar la contraseña. </p>
+<p><img src="images/paginicio.png" alt="Página de inicio sin loguearse" /></p>
+<p>Imagen detalle formulario de registro de nuevos usuarios.</p>
+<p><img src="images/registro.png" alt="Registro usuario" /></p>
+<p>También puede consultar el área de FAQs por si tienen alguna duda sobre el funcionamiento de la red.</p>
+<p><img src="images/faqs.png" alt="Área de Faqs" /></p>
+<h3>Página de inicio para usuarios logueados primera sesión <span id="pagina-de-inicio-para-usuarios-logueados-primera-sesion"></span><a href="#pagina-de-inicio-para-usuarios-logueados-primera-sesion" class="hashlink">&para;</a></h3><p>Si el usuario es nuevo (primera sesión) debe cumplimentar un cuestionario de valoración de su estilo de vida. Una vez cumplimentado el usuario obtendrá una puntuación de 0 a 100, se le asignará una categoría y en función de esta, unos retos.
+<img src="images/ecovalora.png" alt="Ecovaloración" /></p>
+<p>El usuario debe cumplimentar todos los campos, para enviar el formulario.</p>
+<p><img src="images/ecovaloraFormulario.png" alt="Ecovaloración validación" /></p>
+<p>Tras la valoración se accede a la pantalla principal de la aplicación (index.html), otorgando los siguientes datos:</p>
+<p><img src="images/ecovaloraResultado.png" alt="Ecovaloración resultado" /></p>
+<p><img src="images/ecovaloraRetos.png" alt="Ecovaloración retos asignados" /></p>
+<h3>Página de inicio para usuarios logueados (Sesión ordinaria) <span id="pagina-de-inicio-para-usuarios-logueados-sesion-ordinaria"></span><a href="#pagina-de-inicio-para-usuarios-logueados-sesion-ordinaria" class="hashlink">&para;</a></h3><p>Esta es la vista principal de la aplicación. EN la barra superior aparece un navbar con las diferentes áreas de la pagína, un buscador y accesos a notificaciones y mensajes, además de la opción de desloguearse.</p>
+<p>Por otro lado, el área principal se compone de tres áreas principales:</p>
+<p>Un sidebar a la izquierda, con la información del usuario sobre la puntuación obtenida, sus datos de uso así como la gestión de los retos.</p>
+<p>En el área central, aparece los feeds propios así como de los usuarios a los que se les sigue. En este área, el usuario puede compartir imagenes, o contenidos.</p>
+<p>El siderbar de la derecha refleja la actividad general de la red, con un ranking de puntuación de los usuarios, un listado de participantes y los usuarios a los que se le realiza el seguimiento.</p>
+<p><img src="images/IndexPrincipal.png" alt="Pantalla Principal" /></p>
+<h3>Área de configuración y estado de la cuenta del usuario. <span id="area-de-configuracion-y-estado-de-la-cuenta-del-usuario"></span><a href="#area-de-configuracion-y-estado-de-la-cuenta-del-usuario" class="hashlink">&para;</a></h3><p>En esta zona el usuario dispone varias pestañas relativas a la cuenta de usuario:</p>
+<p>Perfil del usuario: donde puede configurar datos sobre el perfil, modificar la imagen del avatar, así como datos del perfil y de interacción con la red, tal como el estado o la descripción del usuario.</p>
+<p>En esta sesión el usuario puede eliminar la cuenta de usuario, si así lo desea.</p>
+<p><img src="images/areausuario.png" alt="Perfil usuario" /></p>
+<p>Actividad: en este área el usuario puede ver los feeds compartidos, editarlos, borrarlos o verlos con detalle.</p>
+<p><img src="images/areausuario.png" alt="Actividad en la red" /></p>
+<p>Actividad: en este área el usuario puede ver los contactos a los que sigues, te sigue, así como los usuarios a los que has bloqueado.</p>
+<p><img src="images/usuarios-contactos.png" alt="Actividad en la red" /></p>
+<p>Actividad: en este área el usuario puede ver las preferencias de apariencia de la aplicación y puede definir colores, tamaños de texto, ... para distintas áreas del index de la app.</p>
+<p><img src="images/usuarios-preferencias.png" alt="Actividad en la red" /></p>
+<h3>Área de notificaciones. <span id="area-de-notificaciones"></span><a href="#area-de-notificaciones" class="hashlink">&para;</a></h3><p>En esta zona de contempla las notificaciones de los me gusta, comentarios, y seguimientos que el hacen a la actividad del usuario.</p>
+<p><img src="images/notificaciones.png" alt="Notificaciones" /></p>
+<h3>Área de Mensajes. <span id="area-de-mensajes"></span><a href="#area-de-mensajes" class="hashlink">&para;</a></h3><p>En esta zona de contempla los mensajes de los usuarios, permite enviar, recibir mensajes entre usuarios que se siguen.</p>
+<p><img src="images/mensajes.png" alt="Mensajes" />
+<img src="images/mensaje_recibido.png" alt="Mensajes Recibidos" />
+<img src="images/notificacionmensaje.png" alt="Mensajes notificación" />
+<img src="images/mensajeNoLeido.png" alt="Mensajes No leido" /></p>
+<h3>Área de FAQs. <span id="area-de-faqs"></span><a href="#area-de-faqs" class="hashlink">&para;</a></h3><p>Los usuarios pueden visitar en cualquier momento el area de preguntas y respuestas frecuentes.
+<img src="images/faqs2.png" alt="Faqs" /></p>
+<h3>Retos usuarios. <span id="retos-usuarios"></span><a href="#retos-usuarios" class="hashlink">&para;</a></h3><p>Cuando un usuario se ha valorado se le asigna una categoría, a la que van asociados una serie de retos con una puntuación asignada. Por un lado, el usuario acepta el reto propuesto por el sistema, y cuando ha compliado lo anota como superado. De de forma que se aumenta su puntuación, subiendo de categoría y cambiando los retos propuestos.</p>
+<p><img src="images/retos.png" alt="retos" /></p>
+<p><img src="images/retosI.png" alt="retos" /></p>
+<p><img src="images/retosII.png" alt="retos" /></p>
+<p><img src="images/retosIII.png" alt="retos" /></p>
+<p><img src="images/retosIV.png" alt="retos" /></p>
+<p><img src="images/retosV.png" alt="retos" /></p>
+<p><img src="images/retosVI.png" alt="retos" /></p>
+<p><img src="images/retosVII.png" alt="retos" /></p>
+<h3>Objetivos personales <span id="objetivos-personales"></span><a href="#objetivos-personales" class="hashlink">&para;</a></h3><p>Los usuarios pueden anotar objetivos personales para indicar más acciones medio ambientales para ser más sostenibles.
+<img src="images/objetivospersonalesI.png" alt="Objetivos Personales" />
+<img src="images/objetivospersonalesIII.png" alt="Objetivos Personales" /></p>
+<h3>Comentarios <span id="comentarios"></span><a href="#comentarios" class="hashlink">&para;</a></h3><p>Un usuario puede hacer un comentario en un feed, y también puede borrarlo.</p>
+<p><img src="images/comentarios.png" alt="Comentarios" /></p>
+<h3>Me gusta <span id="me-gusta"></span><a href="#me-gusta" class="hashlink">&para;</a></h3><p>Un usuario puede hacer me gusta y eliminar el me gusta de un feed publicado.</p>
+<p><img src="images/megusta.png" alt="Me gusta" />
+<img src="images/yanomegusta.png" alt="No me gusta" /></p>
+<h3>modo admin <span id="modo-admin"></span><a href="#modo-admin" class="hashlink">&para;</a></h3><p>El administrador de la plataforma puede realizar las siguientes tareas de administración:</p>
+<p>Bloquear cuenta de usuario</p>
+<p><img src="images/modoadminIV.png" alt="Bloquear/suspender cuenta de usuario" />
+<img src="images/modoadminV.png" alt="Bloquear/suspender cuenta de usuario" /></p>
+<p>Ver Ranking
+El usuario admin puede ver el ranking de todos los usuarios registrados
+<img src="images/modoAdminVI.png" alt="ranking" /></p>
+<p>Ver Acciones Retos</p>
+<p><img src="images/modoadminVII.png" alt="ecoretos" /></p>
+<p>Listados de Feeds publicados en la red #Ecofriendly</p>
+<p><img src="images/modoadminVIII.png" alt="listadofeeds" /></p>
+<p>Evolución de los usuarios registrados</p>
+<p><img src="images/modoadminIX.png" alt="evolucionUsuarios" /></p>
+<p>Gestión de usuarios de la red.
+<img src="images/modoadminX.png" alt="Gestión Usuarios" /></p>
+<h3>Búsqueda <span id="busqueda"></span><a href="#busqueda" class="hashlink">&para;</a></h3><p>Un usuario puede realizar busquedas de usuarios, hastags o feeds publicados en la red.
+<img src="images/busqueda.png" alt="Búsqueda" /></p>
+<h3>recover y recuperar password <span id="recover-y-recuperar-password"></span><a href="#recover-y-recuperar-password" class="hashlink">&para;</a></h3><p>Los usuarios pueden restaurar la contraseña si no la recuerda, para ello el proceso consta de dos partes, Restaurar y reseto de su contraseña. 
+Restaurar  Contraseña.
+<img src="images/restaurarPass.png" alt="Recuperar contraseña" /></p>
+<p>Resetear Contraseña.
+<img src="images/resetPass.png" alt="Recuperar contraseña" /></p>
+<h3>iniciar sesión con facebook <span id="iniciar-sesion-con-facebook"></span><a href="#iniciar-sesion-con-facebook" class="hashlink">&para;</a></h3><p>Un usuario puede iniciar sesión con facebook (solo operativo en localhost, debido a las limitaciones de la cuenta gratuita de heroku)</p>
+<p><img src="images/inicioFacebook.png" alt="Inicio de sesión con Facebook" /></p>
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -58,7 +136,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Wed, 06 May 2020 08:02:03 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 02 Jun 2020 07:23:10 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="en" />
         
-<link href="./assets/ffebd7b6/css/bootstrap.css" rel="stylesheet">
-<link href="./assets/ac3e485a/solarized_light.css" rel="stylesheet">
-<link href="./assets/ef5ce69c/style.css" rel="stylesheet">
-<script src="./assets/a0d54ea4/jquery.js"></script>
-<script src="./assets/ffebd7b6/js/bootstrap.js"></script>
-<script src="./assets/a8f7c482/jssearch.js"></script>    <title>Anexos - Anexos - Guía del proyecto</title>
+<link href="./assets/e6f0e6f7/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/b525791b/solarized_light.css" rel="stylesheet">
+<link href="./assets/f647d7dd/style.css" rel="stylesheet">
+<script src="./assets/b9ce7fe5/jquery.js"></script>
+<script src="./assets/e6f0e6f7/js/bootstrap.js"></script>
+<script src="./assets/b1ecf5c3/jssearch.js"></script>    <title>Anexos - Anexos - Guía del proyecto</title>
 </head>
 <body>
 
@@ -49,11 +49,61 @@
 <a class="list-group-item" href="#navigation-56" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-56" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
 <a class="list-group-item active" href="#navigation-57" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-57" class="submenu panel-collapse collapse in"><a class="list-group-item active" href="./anexos.html">Anexos</a></div></div>    </div>
     <div class="col-md-9 guide-content" role="main">
-        <h1>Anexos <span id="anexos"></span><a href="#anexos" class="hashlink">&para;</a></h1><p>Documentos específicos vinculados a determinados requisitos funcionales o
-técnicos ("prueba del seis" y similares).</p>
-<p>Poner cada uno en un apartado separado, indicando en el título de cada apartado
-el código y la descripción corta del requisito asociado (por ejemplo,
-<strong>(RF24) Prueba del seis</strong>).</p>
+        <h1>Anexos <span id="anexos"></span><a href="#anexos" class="hashlink">&para;</a></h1><h3><strong>(<a href="https://github.com/alfredobp/ecofriendly/issues/34">R34</a>) Validación HTML5, CSS3 y accesibilidad</strong> <span id="r34-validacion-html5-css3-y-accesibilidad"></span><a href="#r34-validacion-html5-css3-y-accesibilidad" class="hashlink">&para;</a></h3><hr />
+<h3>Validación de HTML y CSS <span id="validacion-de-html-y-css"></span><a href="#validacion-de-html-y-css" class="hashlink">&para;</a></h3><p><strong>HTML</strong></p>
+<p><img src="images/anexo/validacion_html.png" alt="Validación HTML" /></p>
+<p><a href="https://validator.w3.org/nu/?showsource=yes&amp;showoutline=yes&amp;doc=http%3A%2F%2Fecofriendlysocial.herokuapp.com">Enlace a la validación HTML</a></p>
+<p><strong>CSS</strong></p>
+<p><img src="images/anexo/validacionCSS.png" alt="Validación CSS" /></p>
+<!-- [Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
+<hr />
+<h3>Validación de accesibilidad <span id="validacion-de-accesibilidad"></span><a href="#validacion-de-accesibilidad" class="hashlink">&para;</a></h3><p><img src="images/anexo/accesibilidad.png" alt="Validación accesibilidad" /></p>
+<p><a href="https://achecker.ca/checker/">Enlace a la validación WCAG</a></p>
+<p>La página index cumple el nivel AA de accesibilidad, se detectan varios errores,  debidos a la utilización de plugins y que no se detectan el código en el IDE, ni puedo modificar.</p>
+<hr />
+<h3>Prueba del seis <span id="prueba-del-seis"></span><a href="#prueba-del-seis" class="hashlink">&para;</a></h3><ol>
+<li><p>¿Qué sitio es éste?</p>
+<ul>
+<li>La aplicación tiene en todo momento elementos indicativos de que sitio es, contemplando el nombre de la aplicación. En la parte superior aparece el menú de navegación apareciendo siempre el titulo de la aplicación y las diferentes secciones de la página. Abajo en el pié de página, esta también el nombre de la web, la dirección de contactoga , por lo que siempre se encuenta el sitio identificado.</li>
+</ul>
+</li>
+<li><p>¿En qué página estoy?</p>
+<ul>
+<li>Todas las páginas del sitio están identificadas por las migas de pan, excepto en la página inicial y en las permitidas por el  no logueo.</li>
+</ul>
+</li>
+<li><p>¿Cuales son las principales secciones del sitio?</p>
+<ul>
+<li>Las principales secciones del sitio son <em>Inicio</em>, <em>Mensajes</em>, <em>Notificaciones</em>, <em>Área de usuario</em> y <em>Buscar</em> . Esta zonas solo son visibles si estamos logueados en la aplicación.</li>
+</ul>
+</li>
+<li><p>¿Qué opciones tengo en este nivel?</p>
+<ul>
+<li>Dentro de las diferentes opciones, aparecen tabs, con las diferentes secciones del lugar, indicando de forma clara las diferentes opciones del lugar.</li>
+</ul>
+</li>
+<li><p>¿Dónde estoy en el esquema de las cosas?</p>
+<ul>
+<li>En todas las páginas existe en la zona superior un indicador de bloque con las migas de pan.</li>
+</ul>
+</li>
+<li><p>¿Cómo busco algo?</p>
+<ul>
+<li>La barra superior tiene siempre un buscador activo así como un área de FAQs sobre instrucciones de utilización del sitio..</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>(<a href="https://github.com/alfredobp/ecofriendly/issues/36">R36</a>) Varios navegadores</strong> <span id="r36-varios-navegadores"></span><a href="#r36-varios-navegadores" class="hashlink">&para;</a></h3><h4><strong>Google Chrome</strong> <span id="google-chrome"></span><a href="#google-chrome" class="hashlink">&para;</a></h4><p><img src="images/anexo/captura_chrome.png" alt="Captura Google Chrome" /></p>
+<hr />
+<h4><strong>Mozilla Firefox</strong> <span id="mozilla-firefox"></span><a href="#mozilla-firefox" class="hashlink">&para;</a></h4><p><img src="images/anexo/captura_firefox.png" alt="Captura Mozilla Firefox" /></p>
+<hr />
+<h4><strong>Opera</strong> <span id="opera"></span><a href="#opera" class="hashlink">&para;</a></h4><p><img src="images/anexo/captura_opera.png" alt="Captura Opera" /></p>
+<hr />
+<h3><strong>(<a href="https://github.com/alfredobp/ecofriendly/issues/26">R26</a>) Validación HTML5, CSS3 y accesibilidad</strong> <span id="r26-validacion-html5-css3-y-accesibilidad"></span><a href="#r26-validacion-html5-css3-y-accesibilidad" class="hashlink">&para;</a></h3><p><img src="images/anexo/codeclimate.png" alt="Estilo de código según code climate" /></p>
+<hr />
+<h3><strong>(<a href="https://github.com/alfredobp/ecofriendly/issues/25">R25</a>) Codeception</strong> <span id="r25-codeception"></span><a href="#r25-codeception" class="hashlink">&para;</a></h3><p><img src="images/anexo/codeception.png" alt="Pruebas Codeception" /></p>
+<hr />
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -62,7 +112,7 @@ el código y la descripción corta del requisito asociado (por ejemplo,
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Wed, 06 May 2020 08:02:02 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 02 Jun 2020 07:23:10 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {
