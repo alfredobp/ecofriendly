@@ -147,7 +147,7 @@ class FeedsController extends Controller
                 $model->imagen = $_FILES['Feeds']['name']['imagen'];
             }
             if ($model->save()) {
-                return $this->redirect(['index', 'id' => $model->id]);
+                return $this->redirect(['site/index']);
             }
         }
 

@@ -249,7 +249,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             <article>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> Compartir estado
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> Compartir contenido
 
                             <svg class="bi bi-chat-quote" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 01.287.801 10.97 10.97 0 01-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8.06 8.06 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 01-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 00.244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.52.263-1.639.742-3.468 1.105z" clip-rule="evenodd" />
@@ -262,19 +262,48 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                            Compartir imagen
-                            <svg class="bi bi-card-image" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd" />
-                                <path d="M10.648 7.646a.5.5 0 01.577-.093L15.002 9.5V13h-14v-1l2.646-2.354a.5.5 0 01.63-.062l2.66 1.773 3.71-3.71z" />
-                                <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" />
-                            </svg>
+                            Compartir contenido E.avanzado <?=Icon::show('desktop')?>
+                        
                         </a>
                     </li>
 
                 </ul>
             </article>
             <article class="tab-content" id="myTabContent">
-                <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          
+                <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                <?php
+                                $form = ActiveForm::begin([
+                                    'action' => ['feeds/create'],
+                                    'method' => 'post',
+                                    'options' =>   [
+                                        'enctype' => 'multipart/form-data',
+                                        'enableClientValidation' => true,
+                                        'enableAjaxValidation' => false,
+                                        'validateOnSubmit' => true,
+                                        'validateOnChange' => false,
+                                        'validateOnType' => false,
+                                        'errorCssClass' => 'has-error',
+                                        'successCssClass' => 'has-success',
+                                        'afterValidate' => 'js:function(form, data, hasError){}'
+                                    ]
+                                ]);
+
+                                ?>
+                                <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
+                                    'toogle' => [
+                                        'active' => true,
+                                        'show' => true,
+                                        'toggle' => ['label' => 'Editor Avanzado', 'options' => ['class' => 'btn btn-default']],
+                                        'unToggle' => ['label' => 'Editor Simple', 'options' => ['class' => 'btn btn-default']],
+                                        'tinyStart' => false,
+                                    ]
+                                ]); ?>
+                                <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
+                                <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                                <?php ActiveForm::end(); ?>
+                </section>
+                <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="card">
                         <div class="card-header">
                             <b>Comparte lo que quieras</b>
@@ -314,7 +343,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 // ]); 
                                 // 
                                 ?>
-                                <?= $form->field($model, 'contenido')->label('')->widget(TinyMCE::className(), [
+                                <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
                                     'toogle' => [
                                         'active' => true,
                                         'show' => true,
@@ -336,19 +365,6 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         </div>
                     </div>
                     <br>
-                </section>
-                <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <?php
-                    $form = ActiveForm::begin([
-                        'action' => ['feeds/imagen2'],
-                        'method' => 'post',
-                        'options' =>   ['enctype' => 'multipart/form-data'],
-                        'errorCssClass' => 'has-error',
-                    ]); ?>
-                    <?= $form->field($model, 'imagen')->fileInput() ?>
-                    <br>
-                    <?= HelpersHtml::submitButton('Subir Imagen', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                    <?php ActiveForm::end(); ?>
                 </section>
                 <br>
             </article>

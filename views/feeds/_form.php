@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use Codeception\Step\Skip;
 use kartik\icons\Icon;
 use yii\bootstrap4\Html;
@@ -21,15 +22,15 @@ use yii\bootstrap4\ActiveForm;
 
         'value' => Yii::$app->formatter->asHtml($model->contenido)
     ]) ?>
+        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
+    <p><?=Auxiliar::ObtenerImagenFeed($model->imagen, $options) ?></p>
 
-    <?= $form->field($model, 'created_at')->textInput([
-        'value' => Yii::$app->formatter->asRelativeTime($model->created_at), 'readonly' => true
-    ]) ?>
+    <p> Publicaste este feed: <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></p>
 
 
-    <?= $form->field($model, 'imagen')->fileInput([
-        'value' => $model->imagen,
-    ]) ?>
+    <!-- <?= $form->field($model, 'imagen')->fileInput([
+                'value' => $model->imagen,
+            ]) ?> -->
     <div class="form-group">
         <?= Html::submitButton(Icon::show('save') . 'Guardar', ['class' => 'btn btn-success']) ?>
     </div>
