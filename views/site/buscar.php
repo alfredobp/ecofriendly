@@ -31,7 +31,7 @@ Icon::map($this);
                             'template' => '{verusuario}',
                             'buttons' => [
 
-                                'Ver Usuario' => function ($url, $model) {
+                                'verusuario' => function ($url, $model) {
                                     return \yii\helpers\Html::a(
                                         icon::show('fa fa-binoculars'),
                                         (new yii\grid\ActionColumn())->createUrl('usuarios/viewnoajax', $model, $model['id'], 1),
