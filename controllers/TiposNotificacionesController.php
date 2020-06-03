@@ -8,6 +8,7 @@ use app\models\TiposNotificacionesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TiposNotificacionesController implements the CRUD actions for TiposNotificaciones model.
@@ -18,16 +19,34 @@ class TiposNotificacionesController extends Controller
      * {@inheritdoc}
      */
     public function behaviors()
-    {
+        {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede crear nuevos retos desde la plataformas
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->rol === 'superadministrador';
+                        },
+                    ],
+
+
+                ],
+            ]
         ];
     }
+    
 
     /**
      * Lists all TiposNotificaciones models.

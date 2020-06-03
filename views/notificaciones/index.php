@@ -138,6 +138,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ])  ?>
 
-    <?= Html::a(Icon::show('server') . 'Configurar Tipos de Notificaciones', '/index.php?r=tipos-notificaciones%2Findex', $options = []) ?>
+    <?= Auxiliar::esAdministrador()?Html::a(Icon::show('server') . 'Configurar Tipos de Notificaciones', '/index.php?r=tipos-notificaciones%2Findex', $options = []):'' ?>
     <?php echo Auxiliar::volverAtras() ?>
 </div>
