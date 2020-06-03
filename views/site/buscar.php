@@ -28,7 +28,21 @@ Icon::map($this);
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'usuarios',
-                            'template' => '{view}',
+                            'template' => '{verusuario}',
+                            'buttons' => [
+
+                                'Ver Usuario' => function ($url, $model) {
+                                    return \yii\helpers\Html::a(
+                                        icon::show('fa fa-binoculars'),
+                                        (new yii\grid\ActionColumn())->createUrl('usuarios/viewnoajax', $model, $model['id'], 1),
+                                        [
+                                            'title' => Yii::t('yii', 'Ver usuario'),
+                                            'data-method' => 'post',
+                                            'data-pjax' => '0',
+                                        ]
+                                    );
+                                },
+                            ]
                         ],
                     ],
                 ]) ?>
