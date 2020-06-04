@@ -27,7 +27,7 @@ JS;
 
 $this->registerJs($script); // Registro el script javascript en el view 
 ?>
-<div class="mensajes-privados-index col-8">
+<div class="mensajes-privados-index xs-col-10">
 
     <h1><?= Html::encode('Mensajes #ecofriendly   ') ?> <?= Html::a('Enviar nuevo mensaje', ['create'], ['class' => 'btn btn-success']) ?></h1>
 
@@ -52,7 +52,7 @@ $this->registerJs($script); // Registro el script javascript en el view
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'options' => [
-            'class' => 'shadow-lg p-3 mb-5 bg-white rounded'
+            'class' => 'shadow-lg p-3 mb-5 bg-white rounded overflow-auto'
         ],
 
         'columns' => [
@@ -140,7 +140,7 @@ $this->registerJs($script); // Registro el script javascript en el view
     <h3>Mensajes enviados</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'options' => ['class' => 'shadow-lg p-3 mb-5 bg-white rounded'],
+        'options' => ['class' => 'shadow-lg p-3 mb-5 bg-white rounded overflow-auto'],
 
         'columns' => [
             // 'id',

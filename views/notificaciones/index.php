@@ -16,14 +16,14 @@ use yii\helpers\Url;
 $this->title = 'Notificaciones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="notificaciones-index">
+<div class="notificaciones-index shadow-lg p-3 mb-5 bg-white rounded">
 
 
     <?=
         !Auxiliar::esAdministrador() ? GridView::widget([
             'dataProvider' => $dataProvider,
             'options' => [
-                'class' => 'shadow-lg p-3 mb-5 bg-white rounded'
+                'class' => 'overflow-auto '
             ],
             'columns' => [
 
