@@ -126,10 +126,10 @@ $this->registerJs($js);
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Red de contactos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact3" role="tab" aria-controls="contact" aria-selected="false">Preferencias</a>
+            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Progreso</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Progreso</a>
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact3" role="tab" aria-controls="contact" aria-selected="false">Preferencias</a>
         </li>
     </ul>
 </nav>
@@ -140,7 +140,7 @@ $this->registerJs($js);
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
 
 
-        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => 'auto', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
         <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
 
 
@@ -205,7 +205,7 @@ $this->registerJs($js);
         Pjax::begin();
         echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify'],
+            'options' => ['class' => 'table table-hover table-borderless mb-6 overflow-auto', 'style' => 'padding:50px, text-align:justify'],
 
             'columns' => [
                 [
@@ -219,7 +219,9 @@ $this->registerJs($js);
                 [
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        return Auxiliar::obtenerImagenFeed($dataProvider->imagen);
+                        $options = ['style' => ['width' => '60%', 'margin-right' => '12px', 'margin-left' => '12px']];
+
+                        return Auxiliar::obtenerImagenFeed($dataProvider->imagen, $options);
                     },
                     'format' => 'raw',
                 ],
@@ -476,7 +478,7 @@ $this->registerJs($js);
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
                 'options' => [
-                    'class' => ' col-6 table-hover',
+                    'class' => ' xs-col-12 table-hover',
                     'encode' => false
                 ],
 
@@ -485,7 +487,7 @@ $this->registerJs($js);
                         'attribute' => 'Reto',
                         'value' => function ($dataProvider) {
 
-                            return Html::a($dataProvider->titulo, Url::to('/index.php?r=acciones-retos%2Fview&id=' . $dataProvider->id));
+                            return Html::a($dataProvider->titulo, Url::to('/index.php?r=acciones-retos%2Fverreto&id=' . $dataProvider->id));
                         },
                         'format' => 'raw',
 
