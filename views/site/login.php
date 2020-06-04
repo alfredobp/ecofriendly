@@ -17,13 +17,13 @@ use yii\web\View;
 
 <div class="login">
 
-    <div class="wrap h-100">
+    <div class="wrap h-100 col-lg-12 col-xs-6">
 
-        <header class="bg-success py-5">
+        <header class="bg-success py-5 col-lg-12 col-xs-6">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
-                    <div class="col-lg-12">
-                        <h1 class="display-4 text-white mt-5 mb-2"> #Ecofriendly: En Busca de la sostenibilidad</h1>
+                    <div class="col-lg-12 col-xs-6">
+                        <h1 class="display-4 text-white mt-5 mb-2 col-12 col-xs-2"> #Ecofriendly: En Busca de la sostenibilidad</h1>
                         <p class="lead mb-5 text-gray-50">Primera red social que te ayuda a ser más sostenible mediante simples pero efectivos retos.</p>
                     </div>
                 </div>
