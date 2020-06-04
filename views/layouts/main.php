@@ -201,9 +201,9 @@ AppAsset::register($this);
 
                             <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
 
-                            <p class="float-right d-xs-none d-md-none d-lg-block">
+                            <p class="float-right d-none d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid " height="32px" width="83px" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
+                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
                                     Contenido Web 1.0 del W3C-WAI"></a>
                                 <?= Yii::powered() ?>
                             </p>

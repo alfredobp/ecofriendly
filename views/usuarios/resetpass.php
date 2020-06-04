@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
                 'layout' => 'horizontal',
                 'fieldConfig' => [
-                    'horizontalCssClasses' => ['wrapper' => 'col-6'],
+                    'horizontalCssClasses' => ['wrapper' => 'col-md-6 col-12'],
                 ],
             ]);
             ?>

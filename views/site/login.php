@@ -48,7 +48,7 @@ use yii\web\View;
                     <br>
                     <div class="alert alert-info alert-info" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="faqs"> Área de FAQs</a> y resuelve tus dudas. También puedes mandarnos un <a href="index.php?r=site%2Fcontactar">correo.</a>
+                        ¿Tienes dudas sobre <strong>#Ecofriendly</strong>? Visita nuestra <a href="/index.php?r=site%2Ffaqs"> Área de FAQs</a> y resuelve tus dudas. También puedes mandarnos un <a href="index.php?r=site%2Fcontactar">correo.</a>
                     </div>
                 </div>
                 <div class="bird-container bird-container--one">
