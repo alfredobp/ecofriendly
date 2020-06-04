@@ -200,12 +200,11 @@ $this->registerJs($js);
         ]);
         //paginacion de 10 feeds por página
         $dataProvider->pagination = ['pageSize' => 10];
-        $options = ['style' => ['width' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']];
 
         Pjax::begin();
         echo GridView::widget([
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'table table-hover table-borderless mb-6 overflow-auto', 'style' => 'padding:50px, text-align:justify'],
+            'options' => ['class' => 'table table-hover table-borderless overflow-auto text-cennter', 'style' => 'padding:0px, text-align:justify'],
 
             'columns' => [
                 [
@@ -219,15 +218,22 @@ $this->registerJs($js);
                 [
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        $options = ['style' => ['width' => '60%', 'margin-right' => '12px', 'margin-left' => '12px']];
+                        $options = ['class' => 'mx-auto d-block', 'style' => ['margin' => 0, 'width' => '40%', 'margin-right' => '12px', 'margin-left' => '12px']];
 
-                        return Auxiliar::obtenerImagenFeed($dataProvider->imagen, $options);
+                        return Html::a(Auxiliar::obtenerImagenFeed($dataProvider->imagen, $options));
                     },
                     'format' => 'raw',
                 ],
-                'contenido',
+                [
+                    'attribute' => 'contenido',
+                    'value' => function ($dataProvider) {
+                        $options = ['class' => 'mx-auto d-block', 'style' => ['margin' => 0, 'width' => '40%', 'margin-right' => '12px', 'margin-left' => '12px']];
 
-
+                        return Html::a($dataProvider->contenido);
+                    },
+                    'format' => 'raw',
+                ],
+             
                 [
                     // 'header' => 'Fecha de <br> Actualización',
                     'attribute' => 'updated_at',
