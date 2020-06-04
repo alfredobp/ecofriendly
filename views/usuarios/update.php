@@ -140,7 +140,7 @@ $this->registerJs($js);
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
 
 
-        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => [ 'width'=>'250px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
         <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
 
 
@@ -324,7 +324,7 @@ $this->registerJs($js);
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
                         echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
                         echo Html::hiddenInput('id', $amigos[$i]->id);
-                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                        echo Auxiliar::obtenerImagenUsuario($amigos[$i]->id) . '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-minus"></span>',
                             ['class' => 'btn btn-danger btn-sm ml-2'],

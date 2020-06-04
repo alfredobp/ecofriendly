@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS retos_usuarios CASCADE;
 CREATE TABLE retos_usuarios (
     id bigserial NOT NULL,
     idReto integer REFERENCES acciones_retos(id),
-    usuario_id integer REFERENCES usuarios(id),
+    usuario_id integer REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     fecha_aceptacion timestamp NOT NULL DEFAULT current_timestamp,
     fecha_culminacion timestamp,
     culminado boolean default false,
@@ -451,11 +451,11 @@ VALUES
     (1, 'comentario');
 
 INSERT INTO
-    tipos_notificaciones (tipo)
+    tipos_notificaciones (id,tipo)
 VALUES
     (2, 'me gusta');
 
 INSERT INTO
-    tipos_notificaciones (tipo)
+    tipos_notificaciones (id, tipo)
 VALUES
-    ('seguimiento');
+    (3,'seguimiento');
