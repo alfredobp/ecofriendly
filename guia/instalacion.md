@@ -16,7 +16,7 @@ Pasos:
     Hacer composer install.
     Cargar las bases de datos, para ello ejecutamos los scripts ./db/create.sh y ./db/load.sh.
     Cambiar el correo electrónico del administrador en config/params.php.
-    Crear la variable de entorno STMP_PASS con la clave de aplicación del correo electrónico.
+    Crear la variable de entorno STMP_PASS con la clave de aplicación del correo electrónico, así como las de AWS.
     En el directorio del servicio ejecutar Make Serve, para iniciar el servidor local.
 
 ## En la nube
