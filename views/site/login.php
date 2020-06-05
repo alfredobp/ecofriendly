@@ -134,7 +134,7 @@ use yii\web\View;
                         <img class="card-img-top img-fluid" src="/img/interno/chess-1215079_1920.jpg" alt="">
                         <div class="card-body">
                             <h4 class="card-title">Aprender jugando</h4>
-                            <p class="card-text">Con nuestra estrategia de gamificación a medida que vas avanzando te diviertes, y sobre todo aprendes a ser más sostenible.</p>
+                            <p class="card-text">Con nuestra estrategia de gamificación a medida que vas avanzando te diviertes, y sobre todo aprendes a ser más sostenible cambiando tus hábitos de vida.</p>
                         </div>
                         <div class="card-footer">
 

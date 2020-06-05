@@ -140,7 +140,7 @@ $this->registerJs($js);
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
 
 
-        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => [ 'width'=>'250px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
+        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['width' => '150px','height'=>'150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '50px']]; ?>
         <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
 
 
@@ -233,7 +233,7 @@ $this->registerJs($js);
                     },
                     'format' => 'raw',
                 ],
-             
+
                 [
                     // 'header' => 'Fecha de <br> Actualización',
                     'attribute' => 'updated_at',
@@ -268,41 +268,29 @@ $this->registerJs($js);
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
                     $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->andWhere(['bloqueadosid' => $seguidores[$i]->usuario_id]);
                     if ($bloqueados->count() > 1) {
-                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h5>';
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>' .  'Usuario bloqueado</h3>';
                     } else {
-                        echo '<h5> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
-
                         $model = new Bloqueos();
                         $form = ActiveForm::begin([
                             'method' => 'post',
                             'action' => ['bloqueos/create'],
                             'enableClientValidation' => true
-                        ]); ?>
+                        ]);
+                        echo Auxiliar::obtenerImagenUsuario($seguidores[$i]->usuario_id);
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
+                        echo Html::submitButton(
+                            '<span class="glyphicon glyphicon-ban-circle"></span> Bloquear usuario',
+                            ['class' => 'btn btn-danger btn-sm ml-2'],
+                        );
 
+                         ?>
                         <?= $form->field($model, 'usuariosid')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false) ?>
 
                         <?= $form->field($model, 'bloqueadosid')->hiddenInput(['value' => $seguidores[$i]->usuario_id])->label(false) ?>
 
-                        <div class="form-group">
-                            <?= Html::submitButton('Bloquear usuario', ['class' => 'btn btn-danger']) ?>
-                        </div>
+
 
             <?php ActiveForm::end();
-                        // echo Html::a(
-                        //     'Bloquear Usuario',
-                        //     Url::to(['/bloqueos/create']),
-                        //     [
-                        //         'data' => [
-                        //             'method' => 'post',
-                        //             'params' => [
-                        //                 'usuariosid' => Yii::$app->user->identity->id,
-                        //                 'bloqueadosid' => $seguidores[$i]->usuario_id
-                        //             ],
-
-                        //         ],
-                        //         'class' => ['btn btn-danger btn-xs']
-                        //     ]
-                        // );
                     }
                 }
             } else {
@@ -326,7 +314,7 @@ $this->registerJs($js);
                         echo Html::hiddenInput('id', $amigos[$i]->id);
                         echo Auxiliar::obtenerImagenUsuario($amigos[$i]->id) . '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
                         echo Html::submitButton(
-                            '<span class="glyphicon glyphicon-minus"></span>',
+                            '<span class="glyphicon glyphicon-minus"></span> Dejar de seguir',
                             ['class' => 'btn btn-danger btn-sm ml-2'],
                         );
                         echo Html::endForm();
@@ -506,5 +494,5 @@ $this->registerJs($js);
             ?>
             </fieldset>
     </section>
-
+    <?= Auxiliar::volverAtras() ?>
     </div>
