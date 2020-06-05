@@ -17,7 +17,6 @@ use app\models\ObjetivosPersonales;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
-use Codeception\PHPUnit\ResultPrinter\HTML as ResultPrinterHTML;
 use kartik\social\FacebookPlugin;
 use kartik\social\TwitterPlugin;
 use kartik\social\GoogleAnalytics;
@@ -262,46 +261,46 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                            Compartir contenido E.avanzado <?=Icon::show('desktop')?>
-                        
+                            Compartir contenido E.avanzado <?= Icon::show('desktop') ?>
+
                         </a>
                     </li>
 
                 </ul>
             </article>
             <article class="tab-content" id="myTabContent">
-          
-                <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
-                <?php
-                                $form = ActiveForm::begin([
-                                    'action' => ['feeds/create'],
-                                    'method' => 'post',
-                                    'options' =>   [
-                                        'enctype' => 'multipart/form-data',
-                                        'enableClientValidation' => true,
-                                        'enableAjaxValidation' => false,
-                                        'validateOnSubmit' => true,
-                                        'validateOnChange' => false,
-                                        'validateOnType' => false,
-                                        'errorCssClass' => 'has-error',
-                                        'successCssClass' => 'has-success',
-                                        'afterValidate' => 'js:function(form, data, hasError){}'
-                                    ]
-                                ]);
 
-                                ?>
-                                <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
-                                    'toogle' => [
-                                        'active' => true,
-                                        'show' => true,
-                                        'toggle' => ['label' => 'Editor Avanzado', 'options' => ['class' => 'btn btn-default']],
-                                        'unToggle' => ['label' => 'Editor Simple', 'options' => ['class' => 'btn btn-default']],
-                                        'tinyStart' => false,
-                                    ]
-                                ]); ?>
-                                <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
-                                <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                                <?php ActiveForm::end(); ?>
+                <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    <?php
+                    $form = ActiveForm::begin([
+                        'action' => ['feeds/create'],
+                        'method' => 'post',
+                        'options' =>   [
+                            'enctype' => 'multipart/form-data',
+                            'enableClientValidation' => true,
+                            'enableAjaxValidation' => false,
+                            'validateOnSubmit' => true,
+                            'validateOnChange' => false,
+                            'validateOnType' => false,
+                            'errorCssClass' => 'has-error',
+                            'successCssClass' => 'has-success',
+                            'afterValidate' => 'js:function(form, data, hasError){}'
+                        ]
+                    ]);
+
+                    ?>
+                    <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
+                        'toogle' => [
+                            'active' => true,
+                            'show' => true,
+                            'toggle' => ['label' => 'Editor Avanzado', 'options' => ['class' => 'btn btn-default']],
+                            'unToggle' => ['label' => 'Editor Simple', 'options' => ['class' => 'btn btn-default']],
+                            'tinyStart' => false,
+                        ]
+                    ]); ?>
+                    <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
+                    <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                    <?php ActiveForm::end(); ?>
                 </section>
                 <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="card">
@@ -327,21 +326,6 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                         'afterValidate' => 'js:function(form, data, hasError){}'
                                     ]
                                 ]);
-
-                                // echo TinyMCE::widget(['name' => 'text-content']);
-
-                                // $form->field($model, 'attribute')->widget(TinyMCE::className());
-
-                                // //toggle to tinyMCE or to textarea
-
-                                // echo TinyMCE::widget(['name' => 'text-content', 'toggle' => ['active' => true]]);
-
-                                // $form->field($model, 'attribute')->widget(TinyMCE::className(), [
-                                //     'toggle' => [
-                                //         'active' => true,
-                                //     ]
-                                // ]); 
-                                // 
                                 ?>
                                 <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
                                     'toogle' => [
@@ -460,7 +444,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                                     <div class="divider"></div>
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-12" style="overflow-y: scroll; max-height: 150px;">
 
                                             <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
                                             <?php foreach ($meGusta as $meGusta) : ?>
@@ -529,46 +513,47 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
                                         <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
-
-                                        <?php foreach ($comentarios as $comentarios) : ?>
-
-
-                                            <div class="col-10 border-bottom">
-                                                <div class="row">
-                                                    <div class="col-2">
-                                                        <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                        <div class="col-12" style="overflow-y: scroll; max-height: 600px;">
+                                            <?php foreach ($comentarios as $comentarios) : ?>
 
 
+                                                <div class="col-10 border-bottom">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
 
-                                                    </div>
-                                                    <div class="col-10">
-                                                        <p><?= $comentarios['contenido'] ?>
-                                                            <br>
-                                                            Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
-                                                        <?= $feeds['usuariosid'] === Yii::$app->user->identity->id ? Html::a(
-                                                            Icon::show('trash-alt') . 'Borrar Comentario',
-                                                            Url::to(['/comentarios/delete', 'id' => $comentarios['id']]),
-                                                            [
-                                                                'data' => [
-                                                                    'confirm' => '¿Esta seguro de querer borrar este Comentario?',
-                                                                    'method' => 'post',
-                                                                ],
-                                                            ]
-                                                        ) : '' ?>
+
+
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p><?= $comentarios['contenido'] ?>
+                                                                <br>
+                                                                Publicado por: <?= Usuarios::find()->where(['id' => $comentarios['usuario_id']])->one()->nombre ?> <?= Html::encode(Yii::$app->formatter->asRelativeTime($comentarios['created_at'])) ?></p>
+                                                            <?= $feeds['usuariosid'] === Yii::$app->user->identity->id ? Html::a(
+                                                                Icon::show('trash-alt') . 'Borrar Comentario',
+                                                                Url::to(['/comentarios/delete', 'id' => $comentarios['id']]),
+                                                                [
+                                                                    'data' => [
+                                                                        'confirm' => '¿Esta seguro de querer borrar este Comentario?',
+                                                                        'method' => 'post',
+                                                                    ],
+                                                                ]
+                                                            ) : '' ?>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php
-                                        endforeach; ?>
+
+                                            <?php
+                                            endforeach; ?>
+                                        </div>
+
+                                        <br>
+                                        <div class="divider"></div>
+
+                                        <br>
+
                                     </div>
-
-                                    <br>
-                                    <div class="divider"></div>
-
-                                    <br>
-
                                 </div>
-                            </div>
                     </section>
                     <br>
                     <br>

@@ -53,7 +53,7 @@ class Comentarios extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
-            'contenido' => 'Contenido',
+            'contenido' => 'Comentario',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'deleted' => 'Deleted',
