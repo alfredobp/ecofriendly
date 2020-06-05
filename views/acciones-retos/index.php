@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\grid\ActionColumn;
@@ -60,4 +61,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
 
     </div>
+    <?= Auxiliar::volverAtras() ?>
 </div>

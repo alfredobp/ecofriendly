@@ -131,8 +131,11 @@ class UsuariosController extends Controller
         $sonAmigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['seguidor_id' => $id])->one();
 
 
-        if ($sonAmigos == null) {
-
+        if (Auxiliar::esAdministrador()) {
+            return $this->renderAjax('_viewamigos', [
+                'model' => $this->findModel($id),
+            ]);
+        } elseif ($sonAmigos==null) {
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id)
             ]);
@@ -159,7 +162,7 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          
+
             Yii::$app->session->setFlash(
                 'info',
                 'Confirme su dirección de correo electrónico: ' . $model->email
@@ -326,7 +329,7 @@ class UsuariosController extends Controller
                     $body .= '<strong>' . $verification_code . '</strong></p>';
 
                     $body .= '<p><a href="' . Url::to('index.php?r=usuarios%2Fresetpass', true) . '">Recuperar password</a></p>';
-                   
+
                     //Enviamos el correo
                     Yii::$app->mailer->compose()
                         ->setTo($model->email)
@@ -523,7 +526,7 @@ class UsuariosController extends Controller
     }
     public function actionPuntos($id)
     {
-        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->andFilterWhere(['!=','usuarios.rol','superadministrador'])->one();
+        $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->andFilterWhere(['!=', 'usuarios.rol', 'superadministrador'])->one();
         return $usuarioPuntos->puntuacion;
     }
     protected function findModel($id)

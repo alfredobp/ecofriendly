@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-    <div class="overflow-auto">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded overflow-auto">
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'email:email',
                 [
                     'attribute' => 'imagen',
-                    'contentOptions'=>['style'=>'text-align:center; width:290px; '],
+                    'contentOptions' => ['style' => 'text-align:center; width:290px; '],
 
                     'value' => function ($dataProvider) {
                         return Auxiliar::obtenerImagenUsuario($dataProvider->id);
@@ -103,6 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
         ]); ?>
-
     </div>
+    <?= Auxiliar::volverAtras() ?>
 </div>

@@ -61,5 +61,5 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
-
+    <?= Auxiliar::volverAtras() ?>
 </div>

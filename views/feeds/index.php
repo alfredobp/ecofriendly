@@ -68,4 +68,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
 
     </div>
+    <?= Auxiliar::volverAtras() ?>
 </div>

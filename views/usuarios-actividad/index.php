@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
@@ -18,13 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Bloquear cuenta usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
-        'options'=>[
-            'class'=>'shadow-lg p-3 mb-5 bg-white rounded',
+        'options' => [
+            'class' => 'shadow-lg p-3 mb-5 bg-white rounded',
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -35,14 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'motivo',
             [
                 'attribute' => 'Fecha Suspensión de la cuenta',
-                'contentOptions'=>['style'=>'text-align:center; width:290px; '],
+                'contentOptions' => ['style' => 'text-align:center; width:290px; '],
 
                 'value' => function ($dataProvider) {
                     return Yii::$app->formatter->asRelativeTime($dataProvider->fecha_suspenso);
                 },
                 'format' => 'raw',
             ],
-  
+
             [
                 'class' => 'yii\grid\ActionColumn',
 
@@ -52,5 +54,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-
+    <?= Auxiliar::volverAtras() ?>
 </div>
