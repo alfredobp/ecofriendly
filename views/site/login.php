@@ -95,7 +95,7 @@ use yii\helpers\Url;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
+                    <em><?= Html::button('<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
 
                     <?php
                     Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'md');
@@ -116,7 +116,7 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="/img/interno/hands-600497_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="/img/interno/hands-600497_1920.jpg" alt="Manos unidas">
                         <div class="card-body">
                             <h4 class="card-title">Porque nuestro planeta lo necesita</h4>
                             <p class="card-text">Con nuestro actual ritmo de vida, necesitamos 1,7 planetas, acabandose nuestra cuota sobre el mes de agosto.</p>
@@ -128,7 +128,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="/img/interno/chess-1215079_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="/img/interno/chess-1215079_1920.jpg" alt="Jugando se aprende">
                         <div class="card-body">
                             <h4 class="card-title">Aprender jugando</h4>
                             <p class="card-text">Con nuestra estrategia de gamificación a medida que vas avanzando te diviertes, y sobre todo aprendes a ser más sostenible cambiando tus hábitos de vida.</p>
@@ -140,7 +140,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top img-fluid" src="/img/interno/social-media-1795578_1920.jpg" alt="">
+                        <img class="card-img-top img-fluid" src="/img/interno/social-media-1795578_1920.jpg" alt="social">
                         <div class="card-body">
                             <h4 class="card-title">Comparte con los demás</h4>
                             <p class="card-text">Ecofriendly es mucho más, puedes compartir experiencias con otros usuarios, aprender de otros. Porque la colaboración es clave para salvar nuestro planeta.</p>
