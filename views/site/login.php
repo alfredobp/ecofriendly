@@ -20,7 +20,7 @@ use yii\helpers\Url;
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12 col-xs-6">
-                        <h1 class="display-4 text-white mt-5 mb-2 col-12 col-xs-2"> #Ecofriendly: En Busca de la sostenibilidad</h1>
+                        <p class="display-4 text-white mt-5 mb-2 col-12 col-xs-2"> #Ecofriendly: En Busca de la sostenibilidad</p>
                         <p class="lead mb-5 text-gray-50">Primera red social que te ayuda a ser más sostenible mediante simples pero efectivos retos.</p>
                     </div>
                 </div>
@@ -31,7 +31,7 @@ use yii\helpers\Url;
 
             <div class="row">
                 <div class="col-md-8 mb-5">
-                    <p>Que hacemos</p>
+                    <p class="personalizado">Que hacemos</p>
                     <hr>
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <strong>Gamificación </strong> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
@@ -65,7 +65,7 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <p>Iniciar sesión</p>
+                    <p class="personalizado">Iniciar sesión</p>
                     <hr>
                     <?php $form = ActiveForm::begin([
                         'id' => 'login-form',
