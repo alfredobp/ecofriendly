@@ -355,7 +355,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                         <div class="card-block">
 
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2 ">
                                     <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
 
@@ -401,14 +401,11 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 ?>
 
                                 <div class="col">
-
-
-
                                     <?php $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
                                         ->andWhere(['feed_id' => $feeds['id']])->one(); ?>
 
                                     <?= $yaMeGusta == null ?  Html::a(
-                                        Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
+                                        $meGusta->count() == 0 ? Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> </a>' : Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
                                         Url::to(['/feeds-favoritos/create']),
                                         [
                                             'data' => [
