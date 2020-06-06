@@ -175,8 +175,7 @@ AppAsset::register($this);
 
                             <p class="float-right d-none d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
-                                    Contenido Web 1.0 del W3C-WAI"></a>
+                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A"></a>
                                 <?= Yii::powered() ?>
                             </p>
                         </div>
@@ -203,8 +202,7 @@ AppAsset::register($this);
 
                             <p class="float-right d-none d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A, de las Directrices de Accesibilidad para el 
-                                    Contenido Web 1.0 del W3C-WAI"></a>
+                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A"></a>
                                 <?= Yii::powered() ?>
                             </p>
                         </div>
