@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="card-block">
-                        Sí, el registro es obligatorio para participar en  <strong>#Ecofriendly</strong>. El proceso es muy simple y no te llevará más
+                        Sí, el registro es obligatorio para participar en <strong>#Ecofriendly</strong>. El proceso es muy simple y no te llevará más
                         de 5 minutos. Recuerda, que tras el registro, te llegará un email de confirmación a la cuenta de correo.
                         Hasta que no hagas la validación tu cuenta no estará activa.
                         <p>Pasos a seguir:</p>
@@ -149,9 +149,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="alert alert-info alert-info col-6 d-none d-md-block mt-5" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-       Si estas preguntas frecuentes no han contestado a tus dudas. Puedes enviarnos un <a href="/index.php?r=site%2Fcontactar">mensaje</a> al <strong>El equipo de #Ecofriendly</strong>
-    </div>
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                Si estas preguntas frecuentes no han contestado a tus dudas. Puedes enviarnos un <a href="/index.php?r=site%2Fcontactar">mensaje</a> al <strong>El equipo de #Ecofriendly</strong>
+            </div>
             <?php echo Auxiliar::volverAtras() ?>
         </div>
     </div>

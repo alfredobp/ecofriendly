@@ -63,7 +63,7 @@
 
 ![Validación CSS](images/anexo/validacionCSS.png)
 
-La validación del css de la página falla debido al boostrap.css, se comprueba la hoja de estilo css, no obteniendo ningún error. Los errores obtenidos en la comprobación online son ajenos a este programador.
+La validación del css de la página da algunos fallos debido al  al archivo boostrap.css. Se comprueba la hoja de estilo css propia, no obteniendo ningún error. Los errores obtenidos en la comprobación online son ajenos a este programador.
 <!-- 
 [Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
 
@@ -94,10 +94,10 @@ La página index cumple el nivel AA de accesibilidad, se detectan varios errores
 - Dentro de las diferentes opciones, aparecen tabs, con las diferentes secciones del lugar, indicando de forma clara las diferentes opciones del lugar.
 
  5. ¿Dónde estoy en el esquema de las cosas?
-- En todas las páginas existe en la zona superior un indicador de bloque con las migas de pan.
+- En todas las páginas existe en la zona superior un indicador de bloque con las migas de pan. Además de un botón de volver atŕas que permite al usuario regresar a la página de destino.
 
  6. ¿Cómo busco algo?
-- La barra superior tiene siempre un buscador activo así como un área de FAQs sobre instrucciones de utilización del sitio..
+- La barra superior tiene siempre un buscador activo así como un área de FAQs sobre instrucciones de utilización del sitio. Además todas las opciones aparecdivididas en secciones en el área superior. 
 
 ---
 ### **([R36](https://github.com/alfredobp/ecofriendly/issues/36)) Varios navegadores**

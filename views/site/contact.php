@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="container">
-    
+
     <div class="mt-5 shadow p-3 mb-5 bg-white">
 
         <div class="site-contact">
@@ -67,16 +67,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php ActiveForm::end(); ?>
 
                     </div>
+
+                <?php endif; ?>
                 </div>
 
-            <?php endif; ?>
         </div>
 
-
-        <?php echo Auxiliar::volverAtras() ?>
     </div>
-
-</div>
-</div>
+    <?php echo Auxiliar::volverAtras() ?>
 
 </div>
