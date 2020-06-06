@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'Categoría',
                             'value' => function ($dataProvider) {
 
-                                if ($dataProvider->categoria['cat_nombre'] === 'Principante') {
+                                if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
                                     return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
                                 } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
                                     return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
@@ -159,11 +159,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                 ]);
+            } elseif (Auxiliar::esAdministrador()) {
+                echo '';
             } else {
 
                 echo Html::a(
 
-                    'Añadir como amigo',
+                    'Seguir a este usuario',
                     ['site/index'],
                     [
                         'onclick' => "$.ajax({

@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="card-block">
-                        Sí, el registro es obligatorio para participar en y <strong>Ecofriendly</strong>. El proceso es muy simple y no te llevará más
-                        de 5 minutos. Recuerda, que tras el registro, te llegará un emial de confrimación a la cuenta de correo.
+                        Sí, el registro es obligatorio para participar en  <strong>#Ecofriendly</strong>. El proceso es muy simple y no te llevará más
+                        de 5 minutos. Recuerda, que tras el registro, te llegará un email de confirmación a la cuenta de correo.
                         Hasta que no hagas la validación tu cuenta no estará activa.
                         <p>Pasos a seguir:</p>
                         <ul>
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="card-block">
-                        Tras el registro, el sistema prepara una serie de preguntas al usuario, distribuidas en tres bloques temáticos, otrogando una puntuación de 0 a 100,
+                        Tras el registro, el sistema prepara una serie de preguntas al usuario, distribuidas en tres bloques temáticos, otorgando una puntuación de 0 a 100,
                         y asignado retos para mejorar su huella ecológica.
                     </div>
                 </div>
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse">
                     <div class="card-block">
-                        Para patrocinar <strong> Ecofriendly</strong> envíe un email a <mail>ecofriendlyrrss@gmail.com.</mail>
+                        Para patrocinar <strong> #Ecofriendly</strong> envíe un email a <mail>ecofriendlyrrss@gmail.com.</mail>
                         <br />
 
                     </div>
@@ -156,40 +156,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <br>
-
-
-
-    <style>
-        .faqHeader {
-            font-size: 27px;
-            margin: 20px;
-        }
-
-        .panel-heading [data-toggle="collapse"]:after {
-            font-family: 'Glyphicons Halflings';
-            content: "e072";
-            /* "play" icon */
-            float: right;
-            color: #F58723;
-            font-size: 18px;
-            line-height: 22px;
-            /* rotate "play" icon from > (right arrow) to down arrow */
-            -webkit-transform: rotate(-90deg);
-            -moz-transform: rotate(-90deg);
-            -ms-transform: rotate(-90deg);
-            -o-transform: rotate(-90deg);
-            transform: rotate(-90deg);
-        }
-
-        .panel-heading [data-toggle="collapse"].collapsed:after {
-            /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
-            -webkit-transform: rotate(90deg);
-            -moz-transform: rotate(90deg);
-            -ms-transform: rotate(90deg);
-            -o-transform: rotate(90deg);
-            transform: rotate(90deg);
-            color: #454444;
-        }
-    </style>
 
 </div>
