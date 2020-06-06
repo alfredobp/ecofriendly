@@ -95,7 +95,7 @@ use yii\helpers\Url;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-                    <em><?= Html::button('<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
+                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
 
                     <?php
                     Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'md');

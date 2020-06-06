@@ -171,11 +171,11 @@ AppAsset::register($this);
                             <br>
                             <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a('Email', '/index.php?r=site%2Fcontactar') ?> </span>
+                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
 
                             <p class="float-right d-none d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A"></a>
+                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A""></a>
                                 <?= Yii::powered() ?>
                             </p>
                         </div>
@@ -198,7 +198,7 @@ AppAsset::register($this);
                             <br>
                             <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a('email', '/index.php?r=site%2Fcontactar') ?> </span>
+                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
 
                             <p class="float-right d-none d-xs-none d-md-none d-lg-block">
                                 <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">

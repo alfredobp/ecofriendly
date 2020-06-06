@@ -66,15 +66,17 @@
 <hr />
 <h3><strong>(<a href="https://github.com/alfredobp/ecofriendly/issues/34">R34</a>) Validación HTML5, CSS3 y accesibilidad</strong> <span id="r34-validacion-html5-css3-y-accesibilidad"></span><a href="#r34-validacion-html5-css3-y-accesibilidad" class="hashlink">&para;</a></h3><hr />
 <h3>Validación de HTML y CSS <span id="validacion-de-html-y-css"></span><a href="#validacion-de-html-y-css" class="hashlink">&para;</a></h3><p><strong>HTML</strong></p>
-<p><img src="images/anexo/validacion_html.png" alt="Validación HTML" /></p>
+<p><img src="images/anexo/Validacion_html.png" alt="Validación HTML" /></p>
 <p><a href="https://validator.w3.org/nu/?showsource=yes&amp;showoutline=yes&amp;doc=http%3A%2F%2Fecofriendlysocial.herokuapp.com">Enlace a la validación HTML</a></p>
 <p><strong>CSS</strong></p>
 <p><img src="images/anexo/validacionCSS.png" alt="Validación CSS" /></p>
-<!-- [Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
+<p>La validación del css de la página falla debido al boostrap.css, se comprueba la hoja de estilo css, no obteniendo ningún error. Los errores obtenidos en la comprobación online son ajenos a este programador.
+&lt;!-- 
+<a href="https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&amp;warning=1&amp;vextwarning=&amp;lang=es">Enlace a la validación CSS</a> --&gt;</p>
 <hr />
 <h3>Validación de accesibilidad <span id="validacion-de-accesibilidad"></span><a href="#validacion-de-accesibilidad" class="hashlink">&para;</a></h3><p><img src="images/anexo/accesibilidad.png" alt="Validación accesibilidad" /></p>
 <p><a href="https://achecker.ca/checker/">Enlace a la validación WCAG</a></p>
-<p>La página index cumple el nivel AA de accesibilidad, se detectan varios errores,  debidos a la utilización de plugins y que no se detectan el código en el IDE, ni puedo modificar.</p>
+<p>La página index cumple el nivel AA de accesibilidad, se detectan varios errores que son corregidos. En concreto, da problemas la utilización del plugin de kartik para los iconos fa, ya que los envuelve dentro de una etiqueta que no es reconocida por el validador, y que son ajenos a este programador.</p>
 <hr />
 <h3>Prueba del seis <span id="prueba-del-seis"></span><a href="#prueba-del-seis" class="hashlink">&para;</a></h3><ol>
 <li><p>¿Qué sitio es éste?</p>
@@ -127,7 +129,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Thu, 04 Jun 2020 15:12:01 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Sat, 06 Jun 2020 18:51:37 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

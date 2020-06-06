@@ -55,13 +55,15 @@
 
 **HTML**
 
-![Validación HTML](images/anexo/validacion_html.png)
+![Validación HTML](images/anexo/Validacion_html.png)
 
 [Enlace a la validación HTML](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&doc=http%3A%2F%2Fecofriendlysocial.herokuapp.com)
 
 **CSS**
 
 ![Validación CSS](images/anexo/validacionCSS.png)
+
+La validación del css de la página falla debido al boostrap.css, se comprueba la hoja de estilo css, no obteniendo ningún error. Los errores obtenidos en la comprobación online son ajenos a este programador.
 <!-- 
 [Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
 
@@ -73,7 +75,7 @@
 
 [Enlace a la validación WCAG](https://achecker.ca/checker/)
 
-La página index cumple el nivel AA de accesibilidad, se detectan varios errores,  debidos a la utilización de plugins y que no se detectan el código en el IDE, ni puedo modificar.
+La página index cumple el nivel AA de accesibilidad, se detectan varios errores que son corregidos. En concreto, da problemas la utilización del plugin de kartik para los iconos fa, ya que los envuelve dentro de una etiqueta que no es reconocida por el validador, y que son ajenos a este programador.
 
 ---
 
