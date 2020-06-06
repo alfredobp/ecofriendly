@@ -113,7 +113,7 @@ $this->registerJs($js);
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
 
 
-        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['width' => '150px','height'=>'150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '50px']]; ?>
+        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '50px']]; ?>
         <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
 
 
@@ -256,7 +256,7 @@ $this->registerJs($js);
                             ['class' => 'btn btn-danger btn-sm ml-2'],
                         );
 
-                         ?>
+            ?>
                         <?= $form->field($model, 'usuariosid')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false) ?>
 
                         <?= $form->field($model, 'bloqueadosid')->hiddenInput(['value' => $seguidores[$i]->usuario_id])->label(false) ?>
@@ -412,10 +412,13 @@ $this->registerJs($js);
         <br>
         <h4 class="ml-5"> Actualmente estas en el nivel:
             <?php $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])
-                ->one();
+                ->one(); ?>
 
-            echo '<span class="badge badge-info">' . $nivel->cat_nombre .  '</span>';
-            ?>
+            <?php if ($nivel != null) {
+                echo '<span class="badge badge-info">' . $nivel->cat_nombre  . '</span>';
+            } else {
+                echo 'Todavía no tienes un nivel asignado';
+            }        ?>
         </h4>
         <br>
         <h4 class="ml-5">Te faltan <strong> <?= Auxiliar::puntosRestantes(Yii::$app->user->identity->id, Yii::$app->user->identity->categoria_id) ?></strong> puntos para el siguiente nivel</h3>
