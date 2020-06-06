@@ -1,3 +1,7 @@
+@charset "utf-8"; 
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
 html,
 body {
 	height: 100%;
@@ -408,7 +412,6 @@ border-radius: 40px 0px 0px 40px;
 
 }
 
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
 html {
   min-height: 100%;
@@ -449,7 +452,7 @@ html {
 	font-size: 0.9em;
 	color:rgb(116, 114, 114);
   }
-  @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+
 
   .paper 
 {
@@ -508,7 +511,7 @@ html {
             animation-name: example;
             animation-duration: 3s;
 		}
-		@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+		
 		.fraseDestacada{
 			font-family: 'Architects Daughter', cursive;
 			font-size: 30px;
@@ -548,4 +551,26 @@ html {
             -o-transform: rotate(90deg);
             transform: rotate(90deg);
             color: #454444;
-        }
+		}
+		
+	/* Inserto css para controlar los aspectos de esa sección de página update */
+	fieldset {
+		border: 1px solid #ddd !important;
+		margin: 0;
+		padding: 10px;
+		position: relative;
+		border-radius: 4px;
+		background-color: #f5f5f5;
+		padding-left: 10px !important;
+	}
+
+	legend {
+		font-size: 14px;
+		font-weight: bold;
+		margin-bottom: 0px;
+		width: 35%;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		padding: 5px 5px 5px 10px;
+		background-color: #ffffff;
+	}
