@@ -34,7 +34,7 @@ use yii\web\View;
 
             <div class="row">
                 <div class="col-md-8 mb-5">
-                    <h2>Que hacemos</h2>
+                    <h3>Que hacemos</h3>
                     <hr>
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <strong>Gamificación </strong> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
@@ -68,7 +68,7 @@ use yii\web\View;
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <h2>Iniciar sesión</h2>
+                    <h3>Iniciar sesión</h3>
                     <hr>
                     <?php $form = ActiveForm::begin([
                         'id' => 'login-form',

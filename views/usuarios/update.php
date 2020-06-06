@@ -320,7 +320,6 @@ $this->registerJs($js);
 
 
                         foreach ($bloqueados as $bloqueadosnombre) {
-
                             $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
                             echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
 

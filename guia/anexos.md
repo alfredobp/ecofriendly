@@ -62,8 +62,8 @@
 **CSS**
 
 ![Validación CSS](images/anexo/validacionCSS.png)
-
-<!-- [Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
+<!-- 
+[Enlace a la validación CSS](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2F=all&warning=1&vextwarning=&lang=es) -->
 
 ---
 
