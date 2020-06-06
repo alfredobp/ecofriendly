@@ -119,9 +119,10 @@ AppAsset::register($this);
 
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
-                    ['label' => $cuantosNotificaciones > 0 ? Icon::show('bell') . '<span class="badge badge-primary">' . $cuantosNotificaciones . '</span></h5>' : Icon::show('bell') . 'Notificaciones', 'url' => ['/notificaciones/index']],
-                    ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . '<span class="badge badge-primary">' . $cuantos . '</span></h5>' : Icon::show('mail-bulk'), 'url' => ['/mensajes-privados']],
-                    $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question'), 'url' => ['/site/faqs']],
+                    ['label' => $cuantosNotificaciones > 0 ? Icon::show('bell') .  '<span class="d-md-none">Notificaciones </span>' . '<span class="badge badge-primary">' . $cuantosNotificaciones . '</span></h5>' : Icon::show('bell') . 'Notificaciones', 'url' => ['/notificaciones/index']],
+                    ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . ' <span class="d-md-none"> Mensajes</span>' . '<span class="badge badge-primary">' . $cuantos . '</span></h5>' 
+                    : Icon::show('mail-bulk') . ' <span class="d-md-none"> Mensajes</span>', 'url' => ['/mensajes-privados']],
+                    $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question') . ' <span class="d-md-none"> Faqs</span>', 'url' => ['/site/faqs']],
 
 
 
