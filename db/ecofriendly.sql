@@ -136,7 +136,7 @@ DROP TABLE IF EXISTS tipos_notificaciones CASCADE;
 
 CREATE TABLE tipos_notificaciones (
     id bigserial PRIMARY KEY,
-    tipo varchar (255) NOT NUll 
+    tipo varchar (255) NOT NUll
 );
 
 DROP TABLE IF EXISTS notificaciones CASCADE;
@@ -436,12 +436,61 @@ VALUES
     (
         'eduardocampeon',
         'Eduardo',
-        'Eduardo Campeón Llano',
+        'Campeón Llano',
         'eduardo.campeon@iesdonana.org',
         crypt('demodemo', gen_salt('bf', 10)),
         'Rota',
         'Calle de la Luna llena, 12, 2º A ',
-        'Estoy loco',
+        'Por el futuro de mis hijos, intentaré cambiar mis hábitos',
+        '05/05/1976'
+    );
+
+INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        localidad,
+        direccion,
+        estado,
+        fecha_nac
+    )
+VALUES
+    (
+        'RocioV',
+        'Rocio',
+        'Vidal Vidal',
+        'r.vidal@gmail.com',
+        crypt('demodemo', gen_salt('bf', 10)),
+        'Aracena',
+        'Plaza alta s/n ',
+        'Mucha gente haciendo pequeñas cosas, intentando cambiar el mundo',
+        '05/05/1976'
+    );
+    INSERT INTO
+    usuarios (
+        username,
+        nombre,
+        apellidos,
+        email,
+        contrasena,
+        localidad,
+        direccion,
+        estado,
+        fecha_nac
+    )
+VALUES
+    (
+        'Susana980',
+        'Susana',
+        'Rodriguez Sarmiento',
+        'susan@hotmail.com',
+        crypt('demodemo', gen_salt('bf', 10)),
+        'Merida',
+        'Plaza del Caballo vago s/n ',
+        'Save the Artic!!',
         '05/05/1976'
     );
 
@@ -451,11 +500,11 @@ VALUES
     (1, 'comentario');
 
 INSERT INTO
-    tipos_notificaciones (id,tipo)
+    tipos_notificaciones (id, tipo)
 VALUES
     (2, 'me gusta');
 
 INSERT INTO
     tipos_notificaciones (id, tipo)
 VALUES
-    (3,'seguimiento');
+    (3, 'seguimiento');
