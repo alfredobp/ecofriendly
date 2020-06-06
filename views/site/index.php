@@ -308,7 +308,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                             <b>Comparte lo que quieras</b>
                         </div>
                         <div class="card-block">
-                            <div class="tab-pane active" id="home" role="tabpanel">
+                            <div class="tab-pane active ml-3 mt-3 mr-1" id="home" role="tabpanel">
 
                                 <?php
                                 $form = ActiveForm::begin([
@@ -327,15 +327,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     ]
                                 ]);
                                 ?>
-                                <?= $form->field($model, 'contenido')->label(false)->widget(TinyMCE::className(), [
-                                    'toogle' => [
-                                        'active' => true,
-                                        'show' => true,
-                                        'toggle' => ['label' => 'Editor Avanzado', 'options' => ['class' => 'btn btn-default']],
-                                        'unToggle' => ['label' => 'Editor Simple', 'options' => ['class' => 'btn btn-default']],
-                                        'tinyStart' => false,
-                                    ]
-                                ]); ?>
+                                <?= $form->field($model, 'contenido')->label(false)->textarea(['rows' => '4']) ?>
                                 <?= $form->field($model, 'imagen')->label('Subir Imagen a Ecofrienly')->fileInput() ?>
                                 <?= HelpersHtml::submitButton('Publicar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                                 <?php ActiveForm::end(); ?>

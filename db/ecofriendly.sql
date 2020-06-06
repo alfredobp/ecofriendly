@@ -442,7 +442,7 @@ VALUES
         'Rota',
         'Calle de la Luna llena, 12, 2º A ',
         'Por el futuro de mis hijos, intentaré cambiar mis hábitos',
-        '05/05/1976'
+        '05/05/1996'
     );
 
 INSERT INTO
@@ -467,7 +467,7 @@ VALUES
         'Aracena',
         'Plaza alta s/n ',
         'Mucha gente haciendo pequeñas cosas, intentando cambiar el mundo',
-        '05/05/1976'
+        '05/05/1946'
     );
     INSERT INTO
     usuarios (
@@ -491,7 +491,7 @@ VALUES
         'Merida',
         'Plaza del Caballo vago s/n ',
         'Save the Artic!!',
-        '05/05/1976'
+        '05/05/1985'
     );
 
 INSERT INTO

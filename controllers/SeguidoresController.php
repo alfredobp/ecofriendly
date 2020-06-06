@@ -121,7 +121,7 @@ class SeguidoresController extends Controller
                     $notificacion->save();
                 }
                 $seguidor->save();
-                Yii::$app->session->setFlash('success', 'Ahora eres amigo');
+                Yii::$app->session->setFlash('success', 'Ahora sigues a este usuario');
                 return $this->goBack();
             } else {
                 Yii::$app->session->setFlash('error', 'Ya sigues a este usuario');
