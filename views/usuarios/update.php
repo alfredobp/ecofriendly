@@ -293,39 +293,34 @@ $this->registerJs($js);
                 <legend>Usuarios Bloqueados:</legend>
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <?php $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
                         <?php
 
-                        if ($bloqueados != null) {
+                        foreach ($bloqueados as $bloqueadosnombre) {
+                            $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
+                            echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
 
-
-                            foreach ($bloqueados as $bloqueadosnombre) {
-                                $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
-                                echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
-
-                                ActiveForm::begin();
-                                echo Html::a(
-                                    'Desbloquear usuario',
-                                    Url::to([
-                                        '/bloqueos/delete', 'id' => $bloqueadosnombre['id'], 'usuarioid' => Yii::$app->user->identity->id,
-                                        'seguidorid' => $bloqueadosnombre['bloqueadosid']
-                                    ]),
-                                    [
-                                        'data' => [
-                                            'method' => 'post',
-                                            'params' => [
-                                                'id' => Yii::$app->user->identity->id,
-                                                'usuarioid' => Yii::$app->user->identity->id,
-                                                'seguidorid' => $bloqueadosnombre['bloqueadosid']
-                                            ],
-
+                            ActiveForm::begin();
+                            echo Html::a(
+                                'Desbloquear usuario',
+                                Url::to([
+                                    '/bloqueos/delete', 'id' => $bloqueadosnombre['id'], 'usuarioid' => Yii::$app->user->identity->id,
+                                    'seguidorid' => $bloqueadosnombre['bloqueadosid']
+                                ]),
+                                [
+                                    'data' => [
+                                        'method' => 'post',
+                                        'params' => [
+                                            'id' => Yii::$app->user->identity->id,
+                                            'usuarioid' => Yii::$app->user->identity->id,
+                                            'seguidorid' => $bloqueadosnombre['bloqueadosid']
                                         ],
-                                        'class' => ['btn btn-danger btn-xs']
-                                    ]
-                                );
-                                ActiveForm::end();
-                            }
-                        } else {
-                            echo 'No tiene usuarios bloqueados';
+
+                                    ],
+                                    'class' => ['btn btn-danger btn-xs']
+                                ]
+                            );
+                            ActiveForm::end();
                         }
                         ?>
                     </div>
