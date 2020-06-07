@@ -7,15 +7,21 @@ Conjunto de herramientas que permiten la reutilización de código.
 namespace app\helper_propio;
 
 use app\models\AccionesRetos;
+use app\models\Ecoretos;
 use app\models\Feeds;
+use app\models\FeedsFavoritos;
+use app\models\ObjetivosPersonales;
 use app\models\Ranking;
 use app\models\RankingSearch;
+use app\models\RetosUsuarios;
 use app\models\Usuarios;
 use Github\Api\Enterprise\Stats;
 use kartik\icons\Icon;
 use PhpParser\Node\Stmt\Static_;
 use Yii;
 use yii\bootstrap4\Modal;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -161,7 +167,7 @@ class Auxiliar
             ->orderBy('feeds.created_at desc')
             ->asArray();
 
-           
+
 
         return $query;
     }
@@ -199,5 +205,69 @@ class Auxiliar
     public static function esAdministrador()
     {
         return Yii::$app->user->identity->rol == 'superadministrador' ? true : false;
+    }
+    public static function cuantosFeeds($id)
+    {
+        $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count();
+        return $cuentaFeeds;
+    }
+    public static function cuantosRetos($id)
+    {
+        $cuantosRetos = RetosUsuarios::find()->where(['usuario_id' => $id])->andWhere(['culminado' => true])->count();
+        return $cuantosRetos;
+    }
+    public static function nivel($id)
+    {
+
+        $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])->one();
+
+        return $nivel;
+    }
+    public static function retosUsuarios()
+    {
+        return AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
+    }
+    public static function dataProvider($categoriaId)
+    {
+        $arrModels = Auxiliar::retosUsuarios();
+
+        $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
+            'attributes' => ['id'],
+        ],]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => AccionesRetos::find()
+                ->joinWith('retosUsuarios r')
+                ->where(['cat_id' => $categoriaId])
+
+        ]);
+        return $dataProvider;
+    }
+
+    public static function objetivosPersonales($id)
+    {
+        $dataProvider = new ActiveDataProvider([
+
+            'query' => ObjetivosPersonales::find()->where(['usuario_id' => $id])
+
+        ]);
+
+        $dataProvider->pagination = ['pageSize' => 5];
+        if ($dataProvider->count > 0) {
+
+            return  Gridpropio::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    'objetivo',
+
+
+                ],
+            ]);
+        }
+    }
+    public static function yaMeGusta($feeds, $id)
+    {
+        $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => $id])
+            ->andWhere(['feed_id' => $feeds])->one();
+            return $yaMeGusta;
     }
 }

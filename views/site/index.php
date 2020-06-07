@@ -4,6 +4,7 @@
 
 use moonland\tinymce\TinyMCE;
 use app\helper_propio\Auxiliar;
+use app\helper_propio\Consultas;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
@@ -95,13 +96,11 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                 <h4 class="text-center">Tu progreso:</h4>
                 <br>
-                <h6>Has publicado: </strong> <?= $cuentaFeeds = Feeds::find()->where(['usuariosid' => $id])->count(); ?> Feeds</h6>
+                <h6>Has publicado: </strong> <?= Auxiliar::cuantosFeeds($id) ?> Feeds</h6>
                 <br>
-                <h6> Has superado: <?= RetosUsuarios::find()->where(['usuario_id' => $id])->andWhere(['culminado' => true])->count() ?> Retos </h6>
+                <h6> Has superado: <?= Auxiliar::cuantosRetos($id) ?> Retos </h6>
                 <br>
-                <h6> Tu nivel: <?php $nivel = Ecoretos::find()->where(['categoria_id' => Yii::$app->user->identity->categoria_id])->one();
-                                echo '<span class="badge badge-info">' . $nivel->cat_nombre .  '</span>';
-                                ?> </h6>
+                <h6> Tu nivel: <span class="badge badge-info"> <?= Auxiliar::nivel($id)->cat_nombre ?> </span></h6>
                 <br>
                 <h6>Te faltan <strong> <?= Auxiliar::puntosRestantes($id, $categoriaId) ?></strong> puntos para el siguiente nivel</h6>
                 <br>
@@ -114,23 +113,11 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                 <h4 class="text-center">Retos propuestos:</h4>
                 <br>
 
-                En función de su puntuación el sistema le propone los siguientes retos:
+                <p class="text-justify"> En función de su puntuación el sistema le propone los siguientes retos:</p>
                 <div style="overflow-y: scroll; width:100%; height: 370px;">
                     <?php
-
-                    $arrModels = AccionesRetos::find()->joinWith('retosUsuarios r')->where(['cat_id' => Yii::$app->user->identity->categoria_id])->Where(['r.id' => null])->limit(10)->all();
-
-                    $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                        'attributes' => ['id'],
-                    ],]);
-                    $dataProvider = new ActiveDataProvider([
-                        'query' => AccionesRetos::find()
-                            ->joinWith('retosUsuarios r')
-                            ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-
-                    ]);
                     echo Gridpropio::widget([
-                        'dataProvider' => $dataProvider,
+                        'dataProvider' => Auxiliar::dataProvider($categoriaId),
                         'options' => ['class' => 'table-hover hourglass-start  
                 ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
 
@@ -209,26 +196,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                 <br>
                 <div class="paper" style="overflow-y: scroll; width:100%; height: 150px;">
 
-                    <?php
-                    $dataProvider = new ActiveDataProvider([
-
-                        'query' => ObjetivosPersonales::find()->where(['usuario_id' => $id])
-
-                    ]);
-
-                    $dataProvider->pagination = ['pageSize' => 5];
-                    if ($dataProvider->count > 0) {
-
-                        echo Gridpropio::widget([
-                            'dataProvider' => $dataProvider,
-                            'columns' => [
-                                'objetivo',
-
-
-                            ],
-                        ]);
-                    }
-                    ?>
+                    <?= Auxiliar::objetivosPersonales($id); ?>
                 </div>
                 <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales%2Fcreate'), 'class' => ' btn btn-success modalButton6 mt-3 btn-xl', 'id' => 'modalButton6']); ?>
                 <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
@@ -397,14 +365,11 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 <!-- Gestión de los me gusta -->
                                 <?php
 
-                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
-                                ?>
+                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]); ?>
 
                                 <div class="col">
-                                    <?php $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => Yii::$app->user->identity->id])
-                                        ->andWhere(['feed_id' => $feeds['id']])->one(); ?>
 
-                                    <?= $yaMeGusta == null ?  Html::a(
+                                    <?= Auxiliar::yaMeGusta($feeds['id'], $id) == null ?  Html::a(
                                         $meGusta->count() == 0 ? Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> </a>' : Icon::show(' fa-thumbs-up') . 'Me gusta' . '<a class="text-primary" data-toggle="collapse" href="#collapseExampleMe' .  $i . '"> ' . $meGusta->count()  . '</a>',
                                         Url::to(['/feeds-favoritos/create']),
                                         [
@@ -449,26 +414,15 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     </div>
                                 </div>
 
-
                                 <!-- Fin Me Gusta -->
-
-                                <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]); ?>
 
                                 <!-- Gestión de los comentarios -->
                                 <div class="col">
 
-                                    <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
+                                    <a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= Consultas::comentarios($feeds['id'])->count() > 0 ? Consultas::comentarios($feeds['id'])->count() : '' ?></small></a>
 
                                 </div>
-                                <!-- <div class="col dropup">
-                                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;"><i class="fa fa-share-square-o" aria-hidden="true"></i> Compartir</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#" id="a" data-toggle="modal" data-target="#exampleModal">Compartir</a>
-                                    <a class="dropdown-item" href="#" id="a1" data-toggle="modal" data-target="#exampleModal">Compartir con Amigos</a>
-                                    <a class="dropdown-item" href="#">Compartir Publico</a>
-                                    <div class="dropdown-divider"></div>
-                                </div>
-                            </div> -->
+
                             </div>
                             <div class="collapse" id="collapseExample<?= $i ?>">
                                 <br>
@@ -501,17 +455,14 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
 
                                         <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                        <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
                                         <div class="col-12" style="overflow-y: scroll; max-height: 600px;">
-                                            <?php foreach ($comentarios as $comentarios) : ?>
+                                            <?php foreach (Consultas::muestraComentarios($feeds['id']) as $comentarios) : ?>
 
 
                                                 <div class="col-10 border-bottom">
                                                     <div class="row">
                                                         <div class="col-2">
                                                             <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
-
-
 
                                                         </div>
                                                         <div class="col-10">
@@ -556,40 +507,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
         <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
             <div class="sombra">
                 <p class="h5 text-success text-center"><strong>TOP participantes #ecofriendly</strong> </p>
-                <?php
-                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
-                $dataProvider = new ArrayDataProvider([
-                    'allModels' => $arrModels,
-                ]);
-
-                echo Gridpropio::widget([
-                    'dataProvider' => $dataProvider,
-                    'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-
-                        [
-                            'attribute' => 'Usuario',
-                            'value' => function ($dataProvider) {
-
-                                return  ucfirst($dataProvider->usuarios['nombre']);
-                            },
-                            'format' => 'raw',
-
-                        ],
-                        [
-                            'attribute' => 'puntuacion',
-                            'value' => function ($dataProvider) {
-
-                                return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
-                            },
-                            'format' => 'raw',
-
-                        ],
-                    ],
-
-                ]);
-                ?>
+                <?= Consultas::muestraRanking(); ?>
             </div>
             <br>
             <div class="card card-inverse">
@@ -608,8 +526,6 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         }
                         Auxiliar::ventanaModal('Perfil de usuario', 2, 'lg');
                         ?>
-
-
                     </div>
                     <br>
                     <div>
@@ -683,6 +599,3 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             </div>
         </aside>
     </div>
-    </body>
-
-    </html>
