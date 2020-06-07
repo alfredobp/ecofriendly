@@ -115,12 +115,14 @@ AppAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'title' => 'Control Panel',
                     ],
-
+                    // http://localhost:8080/index.php?r=retos-usuarios%2Findex
                     $usuario == 'superadministrador'  ?  '' :
                         ['label' => Icon::show('wrench') . 'Área usuario', 'url' => ['/usuarios/update']],
+                        ['label' => '<span class=d-md-none>' . Icon::show('cube') . 'Retos Propuestos' . '</span>', 'url' => ['/acciones-retos/index']],
+                    Auxiliar::esAdministrador() ? '' :  ['label' => '<span class=d-md-none>' . Icon::show('cubes') . 'Retos' . '</span>', 'url' => ['/retos-usuarios/index']],
                     ['label' => $cuantosNotificaciones > 0 ? Icon::show('bell') .  '<span class="d-md-none">Notificaciones </span>' . '<span class="badge badge-primary">' . $cuantosNotificaciones . '</span></h5>' : Icon::show('bell') . 'Notificaciones', 'url' => ['/notificaciones/index']],
                     ['label' =>  $cuantos > 0 ? Icon::show('mail-bulk') . ' <span class="d-md-none"> Mensajes</span>' . '<span class="badge badge-primary">' . $cuantos . '</span></h5>'
-                    : Icon::show('mail-bulk') . ' <span class="d-md-none"> Mensajes</span>', 'url' => ['/mensajes-privados']],
+                        : Icon::show('mail-bulk') . ' <span class="d-md-none"> Mensajes</span>', 'url' => ['/mensajes-privados']],
                     $usuario == 'superadministrador'  ?  '' : ['label' => Icon::show('question') . ' <span class="d-md-none"> Faqs</span>', 'url' => ['/site/faqs']],
 
 
@@ -166,16 +168,16 @@ AppAsset::register($this);
 
         </div>
         <footer class="footer">
-        <div class="container" itemscope itemtype="http://schema.org/Organization">
-                            <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                            <br>
-                            <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+            <div class="container" itemscope itemtype="http://schema.org/Organization">
+                <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                <br>
+                <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
+                <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
 
-                            <p class="float-right d-none d-xs-none d-md-none d-lg-block">
-                                <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A""></a>
+                <p class="float-right d-none d-xs-none d-md-none d-lg-block">
+                    <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
+                        <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A""></a>
                                 <?= Yii::powered() ?>
                             </p>
                         </div>
@@ -184,38 +186,38 @@ AppAsset::register($this);
         <?php $this->endBody() ?>
     <?php } else {    ?>
 
-        <main class="h-100">
-            <div class="wrap h-100">
-                <div class="container-fluid h-100">
+        <main class=" h-100">
+                        <div class="wrap h-100">
+                            <div class="container-fluid h-100">
 
-                    <?= Alert::widget() ?>
-                    <?= $content ?>
-                    <footer class="footer">
+                                <?= Alert::widget() ?>
+                                <?= $content ?>
+                                <footer class="footer">
 
-                        <!-- Microdatos en el footer -->
-                        <div class="container" itemscope itemtype="http://schema.org/Organization">
-                            <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
-                            <br>
-                            <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
+                                    <!-- Microdatos en el footer -->
+                                    <div class="container" itemscope itemtype="http://schema.org/Organization">
+                                        <span itemprop="brand">&copy; Ecofriendly.es <?= date('Y') ?> </span>
+                                        <br>
+                                        <span itemprop="address"> Avenida de Huelva s/n , Sanlúcar de Barrameda </span>
 
-                            <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
+                                        <span itemprop="email"> <em class="ml-5"> ¿Dudas? Envíanos un =></em> <?= Html::a(Icon::show('envelope'), '/index.php?r=site%2Fcontactar') ?> </span>
 
-                            <p class="float-right d-none d-xs-none d-md-none d-lg-block">
-                                <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
-                                    <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A"></a>
-                                <?= Yii::powered() ?>
-                            </p>
+                                        <p class="float-right d-none d-xs-none d-md-none d-lg-block">
+                                            <a href="http://www.w3.org/WAI/WCAG1AA-Conformance" title="Explicación del Nivel Doble-A de conformidad">
+                                                <img class="img-fluid accesible" src="http://www.w3.org/WAI/wcag1AA" alt="Icono de conformidad con el Nivel Doble-A"></a>
+                                            <?= Yii::powered() ?>
+                                        </p>
+                                    </div>
+
+                                </footer>
+                            </div>
                         </div>
 
-                    </footer>
-                </div>
-            </div>
-
-        </main>
+                        </main>
 
 
-    <?php $this->endBody();
-    } ?>
+                    <?php $this->endBody();
+                } ?>
 </body>
 
 </html>

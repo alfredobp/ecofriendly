@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use app\helper_propio\Auxiliar;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\AccionesRetos;
+use Yii;
 
 /**
  * AccionesRetosSearch represents the model behind the search form of `app\models\AccionesRetos`.
@@ -42,12 +44,15 @@ class AccionesRetosSearch extends AccionesRetos
     {
         $query = AccionesRetos::find()
             ->joinWith('ecoreto e');
+        $queryUsuario = AccionesRetos::find()
+            ->joinWith('ecoreto e')->where(['cat_id'=>Yii::$app->user->identity->categoria_id]);
 
-        // add conditions that should always apply here
+       
+            // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+            $dataProvider = new ActiveDataProvider([
+                'query' =>  Auxiliar::esAdministrador() ? $query : $queryUsuario
+            ]);
         // add conditions that should always apply here
         $dataProvider->sort->attributes['ecoreto.cat_nombre'] = [
             'asc' => ['e.cat_nombre' => SORT_ASC],

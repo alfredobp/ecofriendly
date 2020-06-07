@@ -12,28 +12,30 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="retos-usuarios-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Retos aceptados por el usuario') ?></h1>
 
-    <p>
-        <?= Html::a('Create Retos Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+ 
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+   
+            'idreto0.titulo',
+            [
+                // 'header' => 'Fecha de <br> Actualización',
+                'attribute' => 'created_at',
+                'label'=>'Fecha Aceptación',
 
-            'id',
-            'idreto',
-            'usuario_id',
-            'fecha_aceptacion',
-            'fecha_culminacion',
-            //'culminado:boolean',
+                'value' => function ($dataProvider) {
+                    return  Yii::$app->formatter->asRelativeTime($dataProvider->fecha_aceptacion);
+                },
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            'culminado:boolean',
+
+   
         ],
     ]); ?>
 

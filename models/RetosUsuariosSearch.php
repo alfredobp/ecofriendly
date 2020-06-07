@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\RetosUsuarios;
+use Yii;
 
 /**
  * RetosUsuariosSearch represents the model behind the search form of `app\models\RetosUsuarios`.
@@ -41,7 +42,7 @@ class RetosUsuariosSearch extends RetosUsuarios
      */
     public function search($params)
     {
-        $query = RetosUsuarios::find();
+        $query = RetosUsuarios::find()->where(['usuario_id'=>Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

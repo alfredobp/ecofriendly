@@ -423,10 +423,7 @@ $this->registerJs($js);
                             return Html::a($dataProvider->titulo, Url::to('/index.php?r=acciones-retos%2Fverreto&id=' . $dataProvider->id));
                         },
                         'format' => 'raw',
-
                     ],
-
-
                 ],
 
             ]);
