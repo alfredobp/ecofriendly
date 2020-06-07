@@ -365,7 +365,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 <!-- Gestión de los me gusta -->
                                 <?php
 
-                                $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]); ?>
+                                $meGusta = Consultas::numeroMeGustan($feeds['id']) ?>
 
                                 <div class="col">
 

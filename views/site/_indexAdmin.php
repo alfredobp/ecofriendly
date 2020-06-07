@@ -4,6 +4,7 @@
 
 use moonland\tinymce\TinyMCE;
 use app\helper_propio\Auxiliar;
+use app\helper_propio\Consultas;
 use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
@@ -66,24 +67,11 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                 'noscript' => 'Analytics cannot be run on this browser since Javascript is not enabled.'
             ]); ?>
 
-            <?php $puntuacionMedia = Ranking::find()->average('puntuacion'); ?>
 
             <div class="sombra">
                 <h5 class="text-info text-center"><strong>Datos generales #ecofriendly</strong></h5>
                 <div class="divider mb-3"></div>
-                La puntuación media de los usuarios de #ecofriendly es de: <span class="badge badge-secondary"> <?= Yii::$app->formatter->asInteger($puntuacionMedia) ?> </span> puntos.
-                <br>
-                <br>
-                <p>Se han publicado <strong> <?= $cuentaFeeds = Feeds::find()->count(); ?> </strong> Feeds</p>
-                <br>
-                <p>Se han realizado <?= Comentarios::find()->count() ?> comentarios</p>
-                <br>
-                <p>Los usuarios han superado: <?= RetosUsuarios::find()->count() ?> Retos #ecofriendly</p>
-                <br>
-                <?php $puntosTotales =  Ranking::find()->sum('puntuacion'); ?>
-
-                <p> Se han conseguido: <?= $puntosTotales ?> puntos #ecofriendly </p>
-                <p>Total usuarios registrados: <?= Usuarios::find()->count() - 1 ?></p>
+                <?= Consultas::estadisticas() ?>
 
             </div>
             <br>
@@ -142,8 +130,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                     <!-- Gestión de los me gusta -->
                                     <?php
 
-                                    $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']]);
-                                    ?>
+                                    $meGusta = Consultas::numeroMeGustan($feeds['id']) ?>
 
                                     <div class="col">
 
@@ -156,15 +143,9 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                             Url::to(['/feeds-favoritos/create'])
                                         ); ?> -->
 
-
                                     </div>
-
-
                                     <!-- Me gusta -->
-
-
                                     <div class="collapse" id="collapseExampleMe<?= $i ?>">
-
                                         <div class="divider"></div>
                                         <div class="row">
                                             <div class="col-12">
@@ -182,19 +163,11 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                             <div class="divider"></div>
                                         </div>
                                     </div>
-
-
                                     <!-- Fin Me Gusta -->
-
-
-                                    <?php $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']]);
-
-                                    ?>
-
+                                    <?php $comentar = Consultas::comentarios($feeds['id']) ?>
                                     <!-- Gestión de los comentarios -->
                                     <div class="col"><a style="text-decoration:none;" class="text-primary" data-toggle="collapse" href="#collapseExample<?= $i ?>" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i> <?= Icon::show('comment-dots') ?>Comentarios <small class="text-muted"><?= $comentar->count() > 0 ? $comentar->count() : '' ?></small></a>
                                     </div>
-
                                 </div>
                                 <div class="collapse" id="collapseExample<?= $i ?>">
                                     <br>
@@ -204,17 +177,9 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                     <div class="row">
                                         <div class="col-2">
                                             <!-- FOTO DEL USUARIO QUE ESCRIBE -->
-
                                         </div>
                                         <div class="col-10">
-
-
-                                            <!-- <a class="text-left" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></a> -->
-                                            <?php $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
-
-                                            <?php foreach ($comentarios as $comentarios) : ?>
-
-
+                                            <?php foreach (Consultas::muestraComentarios($feeds['id']) as $comentarios) : ?>
                                                 <div class="col-10 border-bottom">
                                                     <div class="row">
                                                         <div class="col-2">
@@ -231,12 +196,9 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                             <?php
                                             endforeach; ?>
                                         </div>
-
                                         <br>
                                         <div class="divider"></div>
-
                                         <br>
-
                                     </div>
                                 </div>
                     </section>
@@ -257,37 +219,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                 <p class="h5 text-success text-center"><strong>TOP mejores #ecofriendly</strong> </p>
 
 
-                <?php
-
-                $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->limit(10)->all();
-                $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
-                    'attributes' => ['puntuacion'],
-                ],]);
-
-                echo Gridpropio::widget([
-                    'dataProvider' => $dataProvider,
-                    'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
-
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-                        'usuarios.nombre',
-
-                        [
-                            'attribute' => 'puntuacion',
-                            'value' => function ($dataProvider) {
-
-                                return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');
-                            },
-                            'format' => 'raw',
-
-                        ],
-                    ],
-
-                ]);
-
-
-
-                ?>
+                <?= Consultas::muestraRanking(); ?>
                 <br>
             </div>
             <div class="card card-inverse">
@@ -297,15 +229,8 @@ $this->registerCssFile('@web/css/indexAdmin.css');
 
                     <div class="col-12" style="overflow-y: scroll; height: 350px;">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px']];
-                        $usuarios = Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
-                        for ($i = 0; $i < sizeof($usuarios); $i++) {
-                            echo '<ul class="list-group">'
-                                . '<li class="list-group-item btn-light col-12" style="margin:1px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
-                            echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to(['usuarios/view', 'id' =>  $usuarios[$i]->id]), 'class' => 'btn modalButton2 btn-xl active', 'id' => 'modalButton2']);
-                            echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
-                            echo '</li> </ul>';
-                        }
+                        <?php
+                        Consultas::usuariosRegistrados();
                         Auxiliar::ventanaModal('Perfil de usuario', 2);
 
 
@@ -343,16 +268,6 @@ $this->registerCssFile('@web/css/indexAdmin.css');
             </div>
     </div>
     <br>
-    <div class="card card-inverse">
-        <div class="card-block">
-
-
-        </div>
-    </div>
-
 
     </aside>
 </div>
-</body>
-
-</html>
