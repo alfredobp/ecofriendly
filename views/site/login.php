@@ -30,7 +30,7 @@ use yii\helpers\Url;
         <div class="container">
 
             <div class="row">
-                <div class="col-md-8 mb-5">
+                <div class="col-md-8 mb-5 d-none d-sm-block">
                     <p class="personalizado">Que hacemos</p>
                     <hr>
                     <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
@@ -113,8 +113,8 @@ use yii\helpers\Url;
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 mb-5">
+            <div class="row ">
+                <div class="col-md-4 mb-5 d-none d-sm-block">
                     <div class="card h-100">
                         <img class="card-img-top img-fluid" src="/img/interno/hands-600497_1920.jpg" alt="Manos unidas">
                         <div class="card-body">
@@ -126,7 +126,7 @@ use yii\helpers\Url;
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
+                <div class="col-md-4 mb-5 d-none d-sm-block">
                     <div class="card h-100">
                         <img class="card-img-top img-fluid" src="/img/interno/chess-1215079_1920.jpg" alt="Jugando se aprende">
                         <div class="card-body">
@@ -138,7 +138,7 @@ use yii\helpers\Url;
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
+                <div class="col-md-4 mb-5 d-none d-sm-block">
                     <div class="card h-100">
                         <img class="card-img-top img-fluid" src="/img/interno/social-media-1795578_1920.jpg" alt="social">
                         <div class="card-body">
