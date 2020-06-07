@@ -5,8 +5,8 @@
 /* @var $model app\models\LoginForm */
 
 use app\helper_propio\Auxiliar;
+use app\helper_propio\Consultas;
 use app\helper_propio\EstilosAppUsuario;
-use app\helper_propio\GestionCookies;
 use app\helper_propio\Gridpropio;
 use app\models\AccionesRetos;
 use app\models\Bloqueos;
@@ -15,24 +15,14 @@ use app\models\Feeds;
 use app\models\RetosUsuarios;
 use app\models\Seguidores;
 use app\models\Usuarios;
-use Github\Api\GitData\Blobs;
 use kartik\icons\Icon;
-use yii\base\Model;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Button;
-use yii\bootstrap4\ButtonDropdown;
-use yii\bootstrap4\Tabs;
-use yii\bootstrap\Button as BootstrapButton;
-use yii\bootstrap\Tabs as BootstrapTabs;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
-use yii\db\Query;
 use yii\grid\GridView;
-use yii\helpers\Funcionalidades;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
-use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 $this->title = 'Actualizar';
@@ -163,16 +153,7 @@ $this->registerJs($js);
         <h4>En esta área podrá gestionar todos los feeds publicados en la red #ecofriendly:</h4>
         <br>
         <?php
-        $dataProvider = new ActiveDataProvider([
-            'query' => Feeds::find()
-                ->where(['usuariosid' => Yii::$app->user->identity->id]),
-        ]);
-
-        $dataProvider->setSort([
-            'defaultOrder' => ['created_at' => SORT_DESC],
-        ]);
-        //paginacion de 10 feeds por página
-        $dataProvider->pagination = ['pageSize' => 10];
+        $dataProvider = $feeds;
 
         Pjax::begin();
         echo GridView::widget([
@@ -235,7 +216,6 @@ $this->registerJs($js);
 
             <legend>Seguidores: </legend>
             <?php
-            $seguidores =  Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
@@ -279,7 +259,6 @@ $this->registerJs($js);
             <fieldset class="col-md-12">
                 <legend>Siguiendo a:</legend>
                 <?php
-                $amigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
                 if (sizeof($amigos) > 0) {
                     for ($i = 0; $i < sizeof($amigos); $i++) {
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
@@ -314,11 +293,7 @@ $this->registerJs($js);
                 <legend>Usuarios Bloqueados:</legend>
                 <div class="panel panel-default">
                     <div class="panel-body">
-
-                        <?php $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all(); ?>
                         <?php
-
-
                         foreach ($bloqueados as $bloqueadosnombre) {
                             $usuarios = Usuarios::find()->where(['id' => $bloqueadosnombre['bloqueadosid']])->asArray()->one();
                             echo '<h3> <span class="badge badge-secondary">' . $usuarios['nombre'] . '</span></h3>';
@@ -345,13 +320,7 @@ $this->registerJs($js);
                             );
                             ActiveForm::end();
                         }
-
-
-
                         ?>
-
-
-
                     </div>
                 </div>
 
@@ -438,12 +407,7 @@ $this->registerJs($js);
             $dataProvider = new ArrayDataProvider(['allModels' => $arrModels,  'sort' => [
                 'attributes' => ['id'],
             ],]);
-            $dataProvider = new ActiveDataProvider([
-                'query' => AccionesRetos::find()
-                    ->joinWith('retosUsuarios r')
-                    ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
-
-            ]);
+            $dataProvider = $retosUsuarios;
             echo Gridpropio::widget([
                 'dataProvider' => $dataProvider,
                 'options' => [

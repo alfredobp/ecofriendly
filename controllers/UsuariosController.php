@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\helper_propio\Auxiliar;
+use app\helper_propio\Consultas;
 use app\models\AccionesRetos;
+use app\models\Bloqueos;
 use app\models\EcoValora;
 use yii\web\Session;
 use app\models\FormRecoverPass;
@@ -135,7 +137,7 @@ class UsuariosController extends Controller
             return $this->renderAjax('_viewamigos', [
                 'model' => $this->findModel($id),
             ]);
-        } elseif ($sonAmigos==null) {
+        } elseif ($sonAmigos == null) {
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id)
             ]);
@@ -221,6 +223,15 @@ class UsuariosController extends Controller
      */
     public function actionUpdate($id = null)
     {
+        $seguidores = Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
+        $amigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
+        $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all();
+        $retosUsuarios=  new ActiveDataProvider([
+            'query' => AccionesRetos::find()
+                ->joinWith('retosUsuarios r')
+                ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
+
+        ]);
         if ($id === null) {
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash('error', 'Debe estar logueado.');
@@ -246,6 +257,11 @@ class UsuariosController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'feeds' => Consultas::gestionFeeds(),
+            'seguidores' => $seguidores,
+            'amigos' =>   $amigos,
+            'bloqueados'=>$bloqueados,
+            'retosUsuarios'=>$retosUsuarios
         ]);
     }
     /**

@@ -12,11 +12,14 @@ use app\models\FeedsFavoritos;
 use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
+use kartik\grid\GridView;
 use kartik\icons\Icon;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 class Consultas
 {
@@ -116,5 +119,21 @@ EOT;
             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
             echo '</li> </ul>';
         }
+    }
+    public static function gestionFeeds()
+    {
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Feeds::find()
+                ->where(['usuariosid' => Yii::$app->user->identity->id]),
+        ]);
+
+        $dataProvider->setSort([
+            'defaultOrder' => ['created_at' => SORT_DESC],
+        ]);
+        //paginacion de 10 feeds por página
+        $dataProvider->pagination = ['pageSize' => 10];
+
+        return $dataProvider;
     }
 }
