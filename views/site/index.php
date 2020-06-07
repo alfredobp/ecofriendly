@@ -60,7 +60,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
 
             <?php $options = ['class' => ['img-contenedor mx-auto d-block'], 'style' => ['width' => '128px', 'height' => '128px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '30px']]; ?>
-            <div class="sombra intro2">
+            <div class=" col-3 col-md-2 sombra intro2">
 
                 <?= Auxiliar::obtenerImagenUsuario($id, $options); ?>
 
@@ -228,7 +228,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        <a class="nav-link d-none d-sm-block" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
                             Compartir contenido E.avanzado <?= Icon::show('desktop') ?>
 
                         </a>
@@ -504,17 +504,17 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                 </article>
 
         </main>
-        <aside class="d-none d-lg-block col-lg-3 order-0 order-lg-1">
-            <div class="sombra">
+        <aside class=" col-3 d-none d-lg-block col-lg-3 order-0 order-lg-1">
+            <div class="col-12 sombra">
                 <p class="h5 text-success text-center"><strong>TOP participantes #ecofriendly</strong> </p>
                 <?= Consultas::muestraRanking(); ?>
             </div>
             <br>
-            <div class="card card-inverse">
-                <div class="card-block sombraBis">
+            <div class="col-12 sombra">
+                <div class="col">
                     <h5 class="card-title h5  text-center"> <span class="glyphicon glyphicon-plus "></span> <strong> Encuentra a más usuarios </strong></h5>
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
-                    <div class="col-12" style="overflow-y: scroll; width:100%; height: 300px;">
+                    <div class="" style="overflow-y: scroll; width:100%; height: 300px;">
 
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
@@ -561,41 +561,41 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
             </div>
             <br>
-            <div class="card card-inverse">
-                <div class="card-block sombraBis">
 
-                    <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
-                    <p class="card-text">
-                        <div class="col-12" style="overflow-y: scroll; width:100%; height: 270px;">
-                            <?php
+            <div class="col-12 sombraBis">
 
-                            //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
-                            if (sizeof($seguidores) == 0) {
-                                echo 'Actualmente no sigue a ningun usuario de la red <strong>#Ecofriendly</strong> ';
-                            } else {
+                <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
+                <p class="card-text">
+                    <div style="overflow-y: scroll; width:100%; height: 270px;">
+                        <?php
+
+                        //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
+                        if (sizeof($seguidores) == 0) {
+                            echo 'Actualmente no sigue a ningun usuario de la red <strong>#Ecofriendly</strong> ';
+                        } else {
 
 
-                                for ($i = 0; $i < sizeof($seguidores); $i++) {
-                                    echo   '<ul class="list-group">';
-                                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                        . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2'])
+                            for ($i = 0; $i < sizeof($seguidores); $i++) {
+                                echo   '<ul class="list-group">';
+                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
+                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
+                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2'])
 
-                                        . Html::submitButton(
-                                            '<span class="glyphicon glyphicon-minus"></span>',
-                                            ['class' => 'btn btn-danger btn-sm ml-0'],
-                                        );
-                                    echo Html::hiddenInput('id', $seguidores[$i]->id);
-                                    echo '</li></ul>' . Html::endForm();
-                                }
+                                    . Html::submitButton(
+                                        '<span class="glyphicon glyphicon-minus"></span>',
+                                        ['class' => 'btn btn-danger btn-sm ml-0'],
+                                    );
+                                echo Html::hiddenInput('id', $seguidores[$i]->id);
+                                echo '</li></ul>' . Html::endForm();
                             }
-                            ?>
-                            <br>
-                        </div>
-                        <div class="divider"></div>
-                    </p>
-                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
-                </div>
+                        }
+                        ?>
+                        <br>
+                    </div>
+                    <div class="divider"></div>
+                </p>
+                <button class="irArriba"> <?=Icon::show('level-up-alt')?><em>Ir arriba</em></button>
             </div>
-        </aside>
     </div>
+    </aside>
+</div>

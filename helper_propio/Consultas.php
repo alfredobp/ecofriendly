@@ -44,12 +44,14 @@ class Consultas
 
         return Gridpropio::widget([
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'table table-hover table-borderless mb-6', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
+            'options' => ['class' => 'table-hover hourglass-start  
+            ', 'style' => 'padding:50px, text-align:justify', 'encode' => false],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
                 [
                     'attribute' => 'Usuario',
+                    'headerOptions' => ['style' => 'font-size:0.9vw;'],
                     'value' => function ($dataProvider) {
 
                         return  ucfirst($dataProvider->usuarios['nombre']);
@@ -58,7 +60,9 @@ class Consultas
 
                 ],
                 [
-                    'attribute' => 'puntuacion',
+
+                    'headerOptions' => ['style' => 'font-size:0.9vw; '],
+                                        'attribute' => 'puntuacion',
                     'value' => function ($dataProvider) {
 
                         return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');

@@ -39,7 +39,7 @@ function uploadImagenUsuarios($model)
     if (!empty($model->getOldAttribute('url_avatar'))) {
         $keyName = basename($model->getOldAttribute('url_avatar'));
 
-        var_dump($model->getOldAttributes());
+    
 
         $s3 = S3Client::factory(
             [

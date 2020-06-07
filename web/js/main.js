@@ -1,5 +1,17 @@
 $(function () {
-
+	$('.irArriba').click(function(){
+		$('body, html').animate({
+			scrollTop: '0px'
+		}, 300);
+	});
+ 
+	$(window).scroll(function(){
+		if( $(this).scrollTop() > 0 ){
+			$('.irArriba').slideDown(300);
+		} else {
+			$('.irArriba').slideUp(300);
+		}
+	});
     $('.modalButton2').click(function () {
         $('#modal2').modal('show')
             .find('#modalContent2')
