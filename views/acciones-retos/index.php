@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Crear nuevo reto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Auxiliar::esAdministrador() ? Html::a('Crear nuevo reto', ['create'], ['class' => 'btn btn-success']) : '' ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'puntaje',
                 [
                     'class' => ActionColumn::class,
-                    'controller' => 'acciones-retos',
-                    'template' => '{verreto} {update} {delete}',
+                    'controller' => 'retos-usuarios',
+                    'template' => Auxiliar::esAdministrador() ? '{verreto} {update} {delete}' : '{verreto}{aceptarreto}',
                     'buttons' => [
 
                         'verreto' => function ($url, $model) {
@@ -53,8 +53,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             );
                         },
+                        'aceptarreto' => function ($url, $model) {
+                            return \yii\helpers\Html::a(
+                                Icon::show('check'),
+                                (new yii\grid\ActionColumn())->createUrl('retos-usuarios/create', $model, ['idreto' => $model->id, 'usuario_id' => Yii::$app->user->identity->id], 1),
+                                [
+                                    'title' => Yii::t('yii', 'Aceptar Reto'),
+                                    'data-method' => 'post',
+                                    'data-pjax' => '0',
+                                ]
+                            );
+                        },
                     ],
                 ],
+
 
 
             ],

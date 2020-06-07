@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -43,4 +44,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
     </p>
+
 </div>

@@ -20,6 +20,7 @@ use yii\filters\VerbFilter;
  */
 class RetosUsuariosController extends Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -42,11 +43,14 @@ class RetosUsuariosController extends Controller
     public function actionIndex()
     {
         $searchModel = new RetosUsuariosSearch();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new RetosUsuarios;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
     }
 
@@ -69,6 +73,7 @@ class RetosUsuariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
     public function actionCreate($idreto, $usuario_id)
     {
 
@@ -108,6 +113,12 @@ class RetosUsuariosController extends Controller
     }
     public function actionDeclinar($idreto, $usuario_id)
     {
+        $model = RetosUsuarios::find()->where(['idreto' => $idreto])->andWhere(['usuario_id' => $usuario_id])->one();
+   
+        if ($model->culminado == true) {
+            Yii::$app->session->setFlash('error', 'El reto ya ha sido superado, no puedes declinarlo.');
+            return $this->redirect(['site/index']);
+        }
         $this->findModel($idreto, $usuario_id)->delete();
         Yii::$app->session->setFlash('error', 'El reto propuesto se ha declinado.');
         return $this->redirect(['site/index']);
