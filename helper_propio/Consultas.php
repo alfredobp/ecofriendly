@@ -38,10 +38,11 @@ class Consultas
     {
 
         $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
+     
         $dataProvider = new ArrayDataProvider([
             'allModels' => $arrModels,
         ]);
-
+        $dataProvider->pagination = ['pageSize' => 10];
         return Gridpropio::widget([
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-hover hourglass-start  
@@ -62,7 +63,7 @@ class Consultas
                 [
 
                     'headerOptions' => ['style' => 'font-size:0.9vw; '],
-                                        'attribute' => 'puntuacion',
+                    'attribute' => 'puntuacion',
                     'value' => function ($dataProvider) {
 
                         return $dataProvider->puntuacion .  ' ' . Icon::show('trophy');

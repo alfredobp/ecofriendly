@@ -26,6 +26,7 @@ use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use kartik\icons\Icon;
+use yii\bootstrap4\Breadcrumbs;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -34,6 +35,7 @@ use yii\web\View as WebView;
 Icon::map($this);
 $this->title = 'Ecofriendly';
 $this->params['breadcrumbs'][] = $this->title;
+
 
 
 
@@ -333,14 +335,17 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
                                     <h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
 
-                                </div>
+                                </div>]
                             </div>
                             <hr>
                             <div class="col-12">
 
                                 <?php $options = ['class' => ['img-contenedor img-fluid max-width: 100% height: auto mx-auto d-block'], 'style' => ['margin' => '12px']]; ?>
 
-                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update', 'id' => $feeds['id']])) : '' ?>
+                                <p class="card-text"><?= $feeds['contenido'] ?><?= $feeds['usuariosid'] == Yii::$app->user->identity->id ? '' . Html::a(' ' . Icon::show('edit'), Url::to(['/feeds/update',  'id' => $feeds['id']]), ['data-method' => 'POST', 'data-params' => [
+                                                                                    'id' => $feeds['id']
+
+                                                                                ]]) : '' ?>
                                     <?= $feeds['usuario_id'] != Yii::$app->user->identity->id ? '' . Html::a(
                                         ' ' . Icon::show('trash-alt'),
                                         Url::to(['/feeds/delete', 'id' => $feeds['id']]),
