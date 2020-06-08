@@ -147,6 +147,12 @@ class UsuariosController extends Controller
             ]);
         }
     }
+    /**
+     * Displays a single Usuarios model without render with ajax.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionViewnoajax($id)
     {
         //renderizo la vista mediante consulta ajax en la ventana modal.
@@ -156,8 +162,8 @@ class UsuariosController extends Controller
     }
     /**
      * Permite el registro de usuarios en función del modelo de datos
-     *
-     * @return void
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionRegistrar()
     {
@@ -226,7 +232,7 @@ class UsuariosController extends Controller
         $seguidores = Seguidores::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->all();
         $amigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->all();
         $bloqueados = Bloqueos::find()->where(['usuariosid' => Yii::$app->user->identity->id])->asArray()->all();
-        $retosUsuarios=  new ActiveDataProvider([
+        $retosUsuarios =  new ActiveDataProvider([
             'query' => AccionesRetos::find()
                 ->joinWith('retosUsuarios r')
                 ->where(['cat_id' => Yii::$app->user->identity->categoria_id])
@@ -260,8 +266,8 @@ class UsuariosController extends Controller
             'feeds' => Consultas::gestionFeeds(),
             'seguidores' => $seguidores,
             'amigos' =>   $amigos,
-            'bloqueados'=>$bloqueados,
-            'retosUsuarios'=>$retosUsuarios
+            'bloqueados' => $bloqueados,
+            'retosUsuarios' => $retosUsuarios
         ]);
     }
     /**
@@ -371,7 +377,11 @@ class UsuariosController extends Controller
         }
         return $this->render('recoverpass', ['model' => $model]);
     }
-
+    /**
+     * Action ResetPass
+     * Permite el reseteo de la contraseña
+     * @return void
+     */
     public function actionResetpass()
     {
         //Instancia para validar el formulario
@@ -439,6 +449,11 @@ class UsuariosController extends Controller
 
         return $this->render('resetpass', ['model' => $model, 'msg' => $msg]);
     }
+    /**
+     * Permite el borrado del perfil del usuario.
+     * @param [type] $id
+     * @return void
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -446,6 +461,7 @@ class UsuariosController extends Controller
         Yii::$app->session->setFlash('success', 'Se ha borrado el usuario.');
         return $this->goHome();
     }
+
     public function actionSeguimiento()
     {
         $arrModels = Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
@@ -481,7 +497,16 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
-
+    /**
+     * Permite guardar valores en las cookies
+     *
+     * @param [type] $color
+     * @param [type] $colorTexto
+     * @param [type] $fuente
+     * @param [type] $tama
+     * @param [type] $colorFondo
+     * @return void
+     */
     public function actionGuardacookie($color, $colorTexto, $fuente, $tamaño, $colorFondo)
     {
         //Expira en 7 dias
@@ -499,6 +524,12 @@ class UsuariosController extends Controller
 
         return $this->redirect('index');
     }
+    /**
+     * Permite obtener el valor de una cookie almacenada en el navegador.
+     *
+     * @param [type] $cookie
+     * @return void
+     */
     public function actionObtenercookie($cookie)
     {
         $cookies = $_COOKIE[$cookie];
@@ -516,6 +547,12 @@ class UsuariosController extends Controller
         // unset($_COOKIE['intro']);
         return $this->goBack();
     }
+    /**
+     * Permite buscar en el modelo un usuario que coincida con el paramétro de búsqueda
+     *
+     * @param [type] $cadena
+     * @return void
+     */
     public function actionBuscar($cadena)
     {
         $usuarios = new ActiveDataProvider([
@@ -535,11 +572,23 @@ class UsuariosController extends Controller
             'usuarios' => $usuarios,
         ]);
     }
+    /**
+     * Obtiene el estado de un usuario
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function actionEstado($id)
     {
         $usuario = Usuarios::find()->where(['id' => $id])->one();
         return $usuario->estado;
     }
+    /**
+     * Permite consultar la puntuación de un usuario
+     *
+     * @param [type] $id
+     * @return $puntuacion
+     */
     public function actionPuntos($id)
     {
         $usuarioPuntos = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->andFilterWhere(['!=', 'usuarios.rol', 'superadministrador'])->one();

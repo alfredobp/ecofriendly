@@ -82,7 +82,8 @@ class AccionesRetosController extends Controller
      * Función Ver Reto para las búsquedas de los retos asignados por el usuario.
      *
      * @param [type] $id
-     * @return void
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionVerreto($id)
     {

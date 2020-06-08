@@ -793,7 +793,7 @@
 | **Entrega**     | v3             |
 
 
-| **R89**     | **Chat interno**         |
+| **R89**     | **Chat/mensajes internos**         |
 | --------------: | :------------------- |
 | **Descripción** | Implementar servicio de mensajería interno para los usuarios-amigos             |
 | **Prioridad**   | Opcional           |
@@ -994,7 +994,7 @@
 | (**R86**) Crear Grupos de usuarios | Opcional | Funcional | Media | v3 | 
 | (**R87**) Eliminar grupos de usuarios | Opcional | Funcional | Media | v3 | 
 | (**R88**) Administrar grupo de usuarios | Opcional | Funcional | Difícil | v3 | 
-| (**R89**) Chat interno | Opcional | Funcional | Difícil | v3 | 
+| (**R89**) Chat/mensajes internos | Opcional | Funcional | Difícil | v3 | 
 | (**R90**) Acceder a la aplicación mediante perfil de gmail o facebook | Opcional | Funcional | Difícil | v3 | 
 | (**R91**) Bloquear usuarios | Opcional | Funcional | Media | v3 | 
 | (**R92**) Desbloquear usuarios | Opcional | Funcional | Media | v3 | 

@@ -84,23 +84,6 @@ class ComentariosController extends Controller
      * @return mixed
      */
 
-    // $model = new Feeds();
-    // $model->usuariosid = Yii::$app->user->id;
-    // // $model->created_at = date('Y-m-d H:i:s');
-
-    // if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-    //     if (!empty($_FILES)) {
-    //         $model->imagen = $_FILES['Feeds']['name']['imagen'];
-    //     }
-    //     $model->save();
-    //     if (!empty($_FILES['Feeds']['name']['imagen'])) {
-    //         uploadImagenFeed($model);
-    //     }
-    //     return $this->goHome();
-    // }
-
-
-
     public function actionCreate()
     {
 

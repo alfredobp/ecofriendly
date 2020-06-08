@@ -81,7 +81,7 @@ class FeedsController extends Controller
     }
 
     /**
-     * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
+     * Permite ver a un feed asociado con un hastag.
      *
      * @return void
      */
@@ -93,6 +93,11 @@ class FeedsController extends Controller
             'cadena' => $cadena
         ]);
     }
+        /**
+     * Crea un feed con los datos introducidos y/o la imagen subida por el usuario.
+     *
+     * @return mixed
+     */
     public function actionCreate()
     {
         $model = new Feeds();
