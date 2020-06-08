@@ -30,6 +30,17 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
     <?php $form = ActiveForm::begin([
         'id' => 'register-form',
         'layout' => 'horizontal',
+        'options' =>   [
+            'enctype' => 'multipart/form-data',
+            'enableClientValidation' => true,
+            'enableAjaxValidation' => false,
+            'validateOnSubmit' => true,
+            'validateOnChange' => true,
+            'validateOnType' => false,
+            'errorCssClass' => 'has-error',
+            'successCssClass' => 'has-success',
+            'afterValidate' => 'js:function(form, data, hasError){}'
+        ],
         'fieldConfig' => [
             'horizontalCssClasses' => ['wrapper' => 'col-10'],
         ],

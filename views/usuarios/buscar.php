@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use app\helper_propio\Auxiliar;
+use kartik\icons\Icon;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -25,7 +26,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => ActionColumn::class,
                             'controller' => 'usuarios',
-                            'template' => '{view}',
+                            'template' => '{viewnoajax}',
+                            'buttons' => [
+                                'viewnoajax' => function ($url, $model, $key) {
+                                    return Html::a(
+                                        Icon::show('fa fa-binoculars') . 'Ver usuario',
+                                        (new yii\grid\ActionColumn())->createUrl('usuarios/viewnoajax', $model, ['id' => $model['id']], 1),
+                                        [
+                                            'class' => 'btn btn-sm btn-light',
+
+                                        ]
+                                    );
+                                }
+                            ],
                         ],
                     ],
                 ]) ?>

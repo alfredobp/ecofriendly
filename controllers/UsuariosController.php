@@ -211,7 +211,7 @@ class UsuariosController extends Controller
 
         Yii::$app->session->setFlash(key($mensaje), $mensaje[key($mensaje)]);
 
-        return $this->redirect(['index/login']);
+        return $this->redirect(['/']);
     }
     /**
      * Acción update
