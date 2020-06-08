@@ -243,7 +243,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     $form = ActiveForm::begin([
                         'action' => ['feeds/create'],
                         'method' => 'post',
-                        'enableAjaxValidation'=>true,
+                        'enableAjaxValidation' => true,
                         'options' =>   [
                             'enableClientValidation' => true,
                             'enableAjaxValidation' => true,
@@ -514,7 +514,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                 <div class="col">
                     <h5 class="card-title h5  text-center"> <span class="glyphicon glyphicon-plus "></span> <strong> Encuentra a más usuarios </strong></h5>
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
-                    <div class="" style="overflow-y: scroll; width:100%; height: 300px;">
+                    <div class="" style="overflow-x:hidden; overflow-y: scroll; width:100%; height: 300px;">
 
                         <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
@@ -565,8 +565,8 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             <div class="col-12 sombraBis">
 
                 <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
-                <p class="card-text">
-                    <div style="overflow-y: scroll; width:100%; height: 270px;">
+                <p class="col-12">
+                    <div style="overflow-x:hidden; overflow-y:scroll; width:90%; height: 270px;">
                         <?php
 
                         //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
@@ -579,12 +579,12 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 echo   '<ul class="list-group">';
                                 echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                     . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2'])
+                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
 
-                                    . Html::submitButton(
-                                        '<span class="glyphicon glyphicon-minus"></span>',
-                                        ['class' => 'btn btn-danger btn-sm ml-0'],
-                                    );
+                                // . Html::submitButton(
+                                //     '<span class="glyphicon glyphicon-minus"></span>',
+                                //     ['class' => 'btn btn-danger btn-sm ml-0'],
+                                // );
                                 echo Html::hiddenInput('id', $seguidores[$i]->id);
                                 echo '</li></ul>' . Html::endForm();
                             }
@@ -594,7 +594,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     </div>
                     <div class="divider"></div>
                 </p>
-                <button class="irArriba"> <?=Icon::show('level-up-alt')?><em>Ir arriba</em></button>
+                <button class="irArriba"> <?= Icon::show('level-up-alt') ?><em>Ir arriba</em></button>
             </div>
     </div>
     </aside>

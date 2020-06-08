@@ -585,13 +585,14 @@ html {
 		font-size: 3rem;
 	}
 	.irArriba {
-		display:inline;
+		/* display:block; */
 		padding:10px;
 		background:#949494;
 		font-size:15px;
 		color:#fff;
 		cursor:pointer;
-	
+		float: right;
+	margin-left: 20px;
 		bottom:20px;
-		right:20px;
+		left:-200px;
 	}
