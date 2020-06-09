@@ -107,4 +107,10 @@ class Feeds extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuariosid'])->inverseOf('feeds');
     }
+    public static function feedsPropios()
+    {
+
+        return Feeds::find()
+            ->where(['usuariosid' => Yii::$app->user->identity->id]);
+    }
 }

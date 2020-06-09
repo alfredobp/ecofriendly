@@ -80,4 +80,12 @@ class Comentarios extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('comentarios');
     }
+    public static function obtenerComentarios($feeds)
+    {
+        return Comentarios::find()->where(['comentarios_id' => $feeds]);
+    }
+    public static function muestraComentarios($feeds)
+    {
+        return Comentarios::find()->where(['comentarios_id' => $feeds])->orderBy('created_at DESC')->all();
+    }
 }

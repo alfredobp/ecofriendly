@@ -45,7 +45,7 @@ class Ranking extends \yii\db\ActiveRecord
             'id' => 'ID',
             'puntuacion' => 'Puntuacion',
             'usuariosid' => 'Usuariosid',
-            
+
         ];
     }
 
@@ -57,5 +57,20 @@ class Ranking extends \yii\db\ActiveRecord
     public function getUsuarios()
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuariosid'])->inverseOf('ranking');
+    }
+
+    public static function dimeRanking()
+    {
+        return   Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
+    }
+    public static function puntuacionMedia()
+    {
+        $puntuacionMedia = Ranking::find()->average('puntuacion');
+        return $puntuacionMedia;
+    }
+    public static function puntosTotales()
+    {
+        $puntosTotales =  Ranking::find()->sum('puntuacion');
+        return $puntosTotales;
     }
 }

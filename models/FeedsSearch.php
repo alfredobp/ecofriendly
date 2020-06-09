@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Feeds;
+use Yii;
 
 /**
  * FeedsSearch represents the model behind the search form of `app\models\Feeds`.
@@ -18,7 +19,7 @@ class FeedsSearch extends Feeds
     {
         return [
             [['id', 'usuariosid'], 'integer'],
-            [['contenido','imagen', 'created_at', 'updated_at'], 'safe'],
+            [['contenido', 'imagen', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class FeedsSearch extends Feeds
      */
     public function search($params)
     {
-        $query = Feeds::find();
+        $query = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

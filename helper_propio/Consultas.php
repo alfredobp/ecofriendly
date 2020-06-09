@@ -26,19 +26,18 @@ class Consultas
 
     public static function comentarios($feeds)
     {
-        $comentar = $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds]);
-        return $comentar;
+
+        return  Comentarios::obtenerComentarios($feeds);
     }
     public static function muestraComentarios($feeds)
     {
-        $comentarios = Comentarios::find()->where(['comentarios_id' => $feeds])->orderBy('created_at DESC')->all();
-        return $comentarios;
+        return Comentarios::muestraComentarios($feeds);
     }
     public static function muestraRanking()
     {
 
-        $arrModels = Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
-     
+        $arrModels = Ranking::dimeRanking();
+
         $dataProvider = new ArrayDataProvider([
             'allModels' => $arrModels,
         ]);
@@ -75,21 +74,17 @@ class Consultas
 
         ]);
     }
-    public static function puntuacionMedia()
-    {
-        $puntuacionMedia = Ranking::find()->average('puntuacion');
-        return $puntuacionMedia;
-    }
+
 
     public static function estadisticas()
     {
 
         $cuentaFeeds = Feeds::find()->count();
-        $puntosTotales =  Ranking::find()->sum('puntuacion');
+        $puntosTotales = Ranking::puntosTotales();
         $usuariosRegistrados = Usuarios::find()->count() - 1;
         $retosSuperados = RetosUsuarios::find()->count();
         $numeroComentarios = Comentarios::find()->count();
-        $puntuacionMedia = Yii::$app->formatter->asInteger(Consultas::puntuacionMedia());
+        $puntuacionMedia = Yii::$app->formatter->asInteger(Ranking::puntuacionMedia());
 
         $var = <<<EOT
         La puntuación media de los usuarios de #ecofriendly es de: <span class="badge badge-secondary"> $puntuacionMedia </span> puntos.
@@ -102,21 +97,25 @@ class Consultas
         <br>
         <p>Los usuarios han superado: $retosSuperados Retos #ecofriendly</p>
         <br>
+        <p> La puntuacion media es de: $puntuacionMedia puntos.</p>
                 <p> Se han conseguido: $puntosTotales puntos #ecofriendly </p>
-        <p>Total usuarios registrados: $usuariosRegistrados</p>
+        
+                <p>Total usuarios registrados: $usuariosRegistrados</p>
+
 EOT;
         return $var;
     }
 
     public static function numeroMeGustan($feeds)
     {
-        $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds]);
+        $meGusta = FeedsFavoritos::numeroMeGustan($feeds);
         return $meGusta;
     }
     public static function usuariosRegistrados()
     {
         $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px']];
-        $usuarios = Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
+        $usuarios2 = new Usuarios;
+        $usuarios = $usuarios2->usuariosRegistrados();
         for ($i = 0; $i < sizeof($usuarios); $i++) {
             echo '<ul class="list-group">'
                 . '<li class="list-group-item btn-light col-12" style="margin:1px">' . Auxiliar::obtenerImagenUsuario($usuarios[$i]->id, $optionsBarraUsuarios);
@@ -129,8 +128,7 @@ EOT;
     {
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Feeds::find()
-                ->where(['usuariosid' => Yii::$app->user->identity->id]),
+            'query' => Feeds::feedsPropios()
         ]);
 
         $dataProvider->setSort([

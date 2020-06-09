@@ -335,7 +335,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
                                     <h5 id="estadoFeed"><?= Icon::show('comment-dots') .  ($feeds['estado']) ?> </h5>
 
-                                </div>]
+                                </div>
                             </div>
                             <hr>
                             <div class="col-12">

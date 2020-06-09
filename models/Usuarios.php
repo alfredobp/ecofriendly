@@ -67,9 +67,9 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['nombre', 'username', 'apellidos', 'email', 'contrasena', 'fecha_nac'], 'required'],
             [['fecha_nac'], 'required', 'message' => 'La edad es obligatoria'],
-            ['username', 'unique','message'=>'Este nombre de usuario ya ha sido utilizado'],
+            ['username', 'unique', 'message' => 'Este nombre de usuario ya ha sido utilizado'],
             [['descripcion'], 'string'],
-            ['email', 'unique','message'=>'Esta dirección de correo electrónico ya ha sido utilizada'],
+            ['email', 'unique', 'message' => 'Esta dirección de correo electrónico ya ha sido utilizada'],
             ['email', 'match', 'pattern' => '/^.{5,80}$/', 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de email no válido. Por ejemplo: usuario@gestorcorreo.com'],
             [['nombre', 'auth_key', 'provincia', 'localidad', 'direccion'], 'string', 'max' => 255],
@@ -345,5 +345,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function getCategoria()
     {
         return $this->hasOne(Ecoretos::className(), ['categoria_id' => 'categoria_id'])->inverseOf('usuarios');
+    }
+
+
+    public function usuariosRegistrados()
+    {
+
+        return Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
     }
 }

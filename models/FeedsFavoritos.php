@@ -72,4 +72,10 @@ class FeedsFavoritos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
+    public static function numeroMeGustan($feeds)
+    {
+        $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds]);
+        return $meGusta;
+    }
+    
 }
