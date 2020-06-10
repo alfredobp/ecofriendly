@@ -42,7 +42,7 @@ class SeguidoresController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','update'],
+                        'actions' => ['index', 'update'],
                         'roles' => ['@'],
                         'matchCallback' => function ($rules, $action) {
                             return Yii::$app->user->identity->rol === 'superadministrador';
@@ -77,11 +77,10 @@ class SeguidoresController extends Controller
      */
     public function actionView($id)
     {
-        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
-        $notificacionLeida->leido = true;
+        $notificacionLeida = Notificaciones::leerNotificacion($id);
+
         if ($notificacionLeida->validate()) {
             $notificacionLeida->update();
-            # code...
         }
         return $this->render('view', [
             'model' => $this->findModel($id),

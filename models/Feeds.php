@@ -113,4 +113,15 @@ class Feeds extends \yii\db\ActiveRecord
         return Feeds::find()
             ->where(['usuariosid' => Yii::$app->user->identity->id]);
     }
+    public static function publicarFeed($titulo, $usuario_id)
+    {
+        $feed = new Feeds();
+        $feed->contenido = 'Acabo de superar el reto: ' . $titulo . ' Ahora soy mas <strong>#ecofriendly</strong>';
+        $feed->usuariosid = $usuario_id;
+        $feed->imagen = 'retosuperado.jpg';
+        $feed->created_at = date('Y-m-d H:i:s');
+        if ($feed->validate()) {
+            $feed->save();
+        }
+    }
 }

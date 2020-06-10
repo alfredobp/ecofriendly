@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
@@ -13,30 +14,28 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comentarios-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Ver comentario') ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'usuario_id',
+            // 'id',
+            'usuario.nombre',
             'contenido',
-            'created_at',
-            'updated_at',
-            'deleted:boolean',
-            'comentarios_id',
+            [
+
+                'attribute' => 'Fecha de creación',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                },
+
+            ]
+            // 'updated_at',
+            // 'deleted:boolean',
+            // 'comentarios_id',
         ],
     ]) ?>
-
+    <?= Auxiliar::volverAtras() ?>
 </div>

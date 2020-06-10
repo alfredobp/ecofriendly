@@ -79,4 +79,22 @@ class Notificaciones extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
+
+    public static function leerNotificacion($id)
+    {
+        $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
+        $notificacionLeida->leido = true;
+        return $notificacionLeida;
+    }
+    public static function crearNotificacion($id, $dueño)
+    {
+        $notificacion = new Notificaciones();
+        $notificacion->usuario_id = $dueño;
+        $notificacion->seguidor_id = Yii::$app->user->identity->id;
+        $notificacion->leido = false;
+        $notificacion->tipo_notificacion_id = 1;
+        $notificacion->id_evento = $id;
+
+        return $notificacion;
+    }
 }

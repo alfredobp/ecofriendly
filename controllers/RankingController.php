@@ -35,7 +35,7 @@ class RankingController extends Controller
                         //Ningun usuario admin puede crear un nuevo ranking, modificarlo, ni borrarlo.
                         'allow' => false,
                         'roles' => ['@'],
-                        
+
                     ],
                 ],
 
@@ -108,6 +108,7 @@ class RankingController extends Controller
             'model' => $model,
         ]);
     }
+  
 
     /**
      * Deletes an existing Ranking model.
@@ -122,7 +123,8 @@ class RankingController extends Controller
 
         return $this->redirect(['index']);
     }
-   
+
+
     /**
      * Finds the Ranking model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

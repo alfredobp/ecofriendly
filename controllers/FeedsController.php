@@ -144,6 +144,9 @@ class FeedsController extends Controller
     {
         $model = $this->findModel($id);
         $model->updated_at = date('Y-m-d H:i:s');
+        if (Yii::$app->user->identity->id!=$model->usuariosid) {
+            return $this->redirect('index');
+        }
         if ($model->load(Yii::$app->request->post())) {
             if (!empty($_FILES['Feeds']['name']['imagen'])) {
 

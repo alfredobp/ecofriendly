@@ -1,5 +1,6 @@
 <?php
 
+use app\helper_propio\Auxiliar;
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
@@ -13,9 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="feeds-favoritos-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Ver me gusta') ?></h1>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -24,16 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p> -->
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'usuario_id',
-            'feed_id',
-            'created_at',
+            // 'id',
+            'usuario.nombre',
+            'feed.contenido',
+            [
+
+                'attribute' => 'created_at',
+                'value' => function ($dataProvider) {
+                    return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
+                },
+
+            ],
         ],
     ]) ?>
-
+    <?= Auxiliar::volverAtras() ?>
 </div>
