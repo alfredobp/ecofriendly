@@ -86,14 +86,14 @@ class Notificaciones extends \yii\db\ActiveRecord
         $notificacionLeida->leido = true;
         return $notificacionLeida;
     }
-    public static function crearNotificacion($id, $dueño)
+    public static function crearNotificacion($idEvento, $dueño, $tipo)
     {
         $notificacion = new Notificaciones();
         $notificacion->usuario_id = $dueño;
         $notificacion->seguidor_id = Yii::$app->user->identity->id;
         $notificacion->leido = false;
-        $notificacion->tipo_notificacion_id = 1;
-        $notificacion->id_evento = $id;
+        $notificacion->tipo_notificacion_id = $tipo;
+        $notificacion->id_evento = $idEvento;
 
         return $notificacion;
     }

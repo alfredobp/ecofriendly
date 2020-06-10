@@ -103,19 +103,18 @@ class SeguidoresController extends Controller
             $esSeguidor = Seguidores::find()->where(['seguidor_id' => $id])->andWhere(['usuario_id' => Yii::$app->user->identity->id])->one();
 
             if ($esSeguidor == null) {
-                $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $id])->one();
+
 
                 //Se comprueba si el usuario se encuentra en situación de bloqueo.
-                if ($estaBloqueado != null) {
+                if (Bloqueos::estaBloqueado($id)) {
                     Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
                     return $this->goBack();
                 }
                 $seguidor->save();
-                $notificacion->usuario_id = $id;
-                $notificacion->seguidor_id = Yii::$app->user->identity->id;
-                $notificacion->leido = false;
-                $notificacion->tipo_notificacion_id = 3;
-                $notificacion->id_evento = $seguidor->id;
+
+
+                $notificacion = Notificaciones::crearNotificacion($seguidor->id, $id, 3);
+
                 if ($notificacion->validate()) {
                     $notificacion->save();
                 }
@@ -159,9 +158,15 @@ class SeguidoresController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        Yii::$app->session->setFlash('success', 'Has dejado de seguir a este usuario');
-        return $this->goHome();
+
+        if ($this->findModel($id)->delete() != 0) {
+
+            Yii::$app->session->setFlash('success', 'Has dejado de seguir a este usuario');
+            return $this->goHome();
+        } else {
+            Yii::$app->session->setFlash('error', 'Ha ocurrido un error inesperado');
+            return $this->goHome();
+        }
     }
 
     /**

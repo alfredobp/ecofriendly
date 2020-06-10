@@ -70,4 +70,10 @@ class Bloqueos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'bloqueadosid'])->inverseOf('bloqueos0');
     }
+
+    public static function estaBloqueado($id)
+    {
+
+        return Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $id])->one();
+    }
 }
