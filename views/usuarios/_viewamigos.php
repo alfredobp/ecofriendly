@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $seguidor_id = $model->id;
 
-                echo Auxiliar::obtenerImagenUsuario($model->id, $optionsBarraUsuarios);
+                echo Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios);
 
                 ?>
                 <!-- <h5><span class="badge badge-light"> Seguidor </span></h5> -->

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'imagen',
                 'value' => function ($dataProvider) {
-                    return Auxiliar::obtenerImagenUsuario($dataProvider->usuariosid, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '65px', 'height' => '65px', 'margin-auto' => '0px']]);
+                    return Auxiliar::obtenerImagenSeguidor($dataProvider->usuariosid, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '65px', 'height' => '65px', 'margin-auto' => '0px']]);
                 },
                 'format' => 'raw',
             ],

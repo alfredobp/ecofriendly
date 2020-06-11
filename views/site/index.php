@@ -332,7 +332,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 <div class="col-2 ">
                                     <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
 
-                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
+                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenSeguidor($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
                                 <div class="col-8">
                                     <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
@@ -441,7 +441,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     <div class="col-2">
                                         <!-- FOTO DEL USUARIO QUE ESCRIBE -->
                                         <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
-                                        <?= Auxiliar::obtenerImagenusuario($id, $options) ?>
+                                        <?= Auxiliar::obtenerImagenSeguidor($id, $options) ?>
 
                                     </div>
                                     <div class="col-10">

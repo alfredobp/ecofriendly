@@ -102,7 +102,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                             <div class="row">
                                 <div class="col-2 ">
 
-                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenusuario($feeds['usuariosid'], $options) ?> </h4>
+                                    <h4 class="card-title"><?= Auxiliar::obtenerImagenSeguidor($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
                                 <div class="col-8">
                                     <h3> <?= ucfirst($feeds['nombre']) ?> </h3>
