@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\ObjetivosPersonales;
+use Yii;
 
 /**
  * ObjetivosPersonalesSearch represents the model behind the search form of `app\models\ObjetivosPersonales`.
@@ -40,7 +41,7 @@ class ObjetivosPersonalesSearch extends ObjetivosPersonales
      */
     public function search($params)
     {
-        $query = ObjetivosPersonales::find();
+        $query = ObjetivosPersonales::find()->where(['usuario_id' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

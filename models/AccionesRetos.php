@@ -85,4 +85,9 @@ class AccionesRetos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Usuarios::className(), ['id' => 'usuario_id'])->viaTable('retos_usuarios', ['idreto' => 'id']);
     }
+
+    public static function damePuntos($idreto)
+    {
+        return AccionesRetos::find()->select(['puntaje', 'titulo'])->where(['id' => $idreto])->one();
+    }
 }

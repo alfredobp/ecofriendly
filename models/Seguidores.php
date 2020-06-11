@@ -64,4 +64,12 @@ class Seguidores extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'seguidor_id'])->inverseOf('seguidores0');
     }
+    public static function listaSeguidores($id)
+    {
+        return    Seguidores::find()
+            ->joinWith('usuario')
+            ->where(['usuario_id' => $id])
+            ->andWhere(['!=', 'seguidor_id', $id])
+            ->all();
+    }
 }

@@ -105,9 +105,9 @@ class SiteController extends Controller
 
         $id = Yii::$app->user->identity->id;
         $model = new Feeds();
-        $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
-
+        $puntuacion = Ranking::puntuacionUsuario($id);
         $listaUsuarios = Usuarios::usuariosRegistrados($id);
+        //area Admin
         if (Yii::$app->user->identity->rol == 'superadministrador') {
             //Envio de email a usuarios que lleven mas de una semana sin conectarse cuando el usuario admin inicia sesión
             Auxiliar::enviarEmailAusentes();
@@ -119,6 +119,7 @@ class SiteController extends Controller
                     ->all(),
                 'pagination' => Auxiliar::areaAdminConfII(),
             ]);
+            //Area usuario rol usuario
         } else {
             if ($puntuacion == null) {
                 return $this->redirect(['usuarios/valorar']);
@@ -150,11 +151,7 @@ class SiteController extends Controller
                 'pagination' => $pagination,
                 'usuarios' => $listaUsuarios,
                 'comentar' =>  new Comentarios(),
-                'seguidores' => Seguidores::find()
-                    ->joinWith('usuario')
-                    ->where(['usuario_id' => $id])
-                    ->andWhere(['!=', 'seguidor_id', $id])
-                    ->all(),
+                'seguidores' => Seguidores::listaSeguidores($id)
             ]);
         }
     }

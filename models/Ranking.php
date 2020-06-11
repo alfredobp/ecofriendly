@@ -68,6 +68,10 @@ class Ranking extends \yii\db\ActiveRecord
         $puntuacionMedia = Ranking::find()->average('puntuacion');
         return $puntuacionMedia;
     }
+    public static function puntuacionUsuario($id)
+    {
+        return Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
+    }
     public static function puntosTotales()
     {
         $puntosTotales =  Ranking::find()->sum('puntuacion');

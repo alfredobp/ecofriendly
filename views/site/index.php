@@ -201,6 +201,9 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     <?= Auxiliar::objetivosPersonales($id); ?>
                 </div>
                 <?= Html::button('Añadir Objetivo', ['value' => Url::to('/index.php?r=objetivos-personales%2Fcreate'), 'class' => ' btn btn-success modalButton6 mt-3 btn-xl', 'id' => 'modalButton6']); ?>
+                <br>
+                <?= Html::a(Icon::show('edit') . '<em>editar</em>', Url::to('/index.php?r=objetivos-personales%2Findex')); ?>
+
                 <?php Auxiliar::ventanaModal('Sus Objetivos', 6); ?>
             </div>
             <br>

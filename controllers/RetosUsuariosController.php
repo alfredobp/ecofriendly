@@ -137,15 +137,14 @@ class RetosUsuariosController extends Controller
     public function actionFinalizar($idreto, $usuario_id)
     {
         $model = $this->findModel($idreto, $usuario_id);
-        $puntaje = AccionesRetos::find()->select('puntaje')->where(['id' => $idreto])->one();
+        $puntaje = AccionesRetos::damePuntos($idreto);
         $usuarios = Usuarios::find()->where(['id' => $usuario_id])->one();
-        $titulo = AccionesRetos::find()->where(['id' => $idreto])->one();
-      
+
         if ($model->save() && $model->culminado == false) {
             $model->culminado = true;
             $model->fecha_culminacion = date('Y-m-d H:i:s');
             $model->save();
-            Feeds::publicarFeed($titulo->titulo, $usuario_id);
+            Feeds::publicarFeed($puntaje->titulo, $usuario_id);
             Ranking::aumentarPuntuacion($puntaje, $usuarios);
             return $this->redirect(['site/index', 'id' => $model->id]);
         } else {
