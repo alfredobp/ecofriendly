@@ -89,13 +89,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'Categoría',
                             'value' => function ($dataProvider) {
-
-                                if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
-                                    return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
-                                    return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
-                                } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
-                                    return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                if ($dataProvider->categoria != null) {
+                                    # code...
+                                    if ($dataProvider->categoria['cat_nombre'] === 'Principiante') {
+                                        return '<h5><span class="badge badge-danger">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Intermedio') {
+                                        return '<h5><span class="badge badge-warning">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
+                                        return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
+                                    }
+                                }
+                                else {
+                                    return 'Sin categoria asignada';
                                 }
                             },
                             'format' => 'raw',
