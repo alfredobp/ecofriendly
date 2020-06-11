@@ -112,13 +112,13 @@ class SeguidoresController extends Controller
                 }
 
 
+                $seguidor->save();
 
                 $notificacion = Notificaciones::crearNotificacion($seguidor->id, $id, 3);
 
                 if ($notificacion->validate()) {
                     $notificacion->save();
                 }
-                $seguidor->save();
                 Yii::$app->session->setFlash('success', 'Ahora sigues a este usuario');
                 return $this->redirect('site');
             } else {

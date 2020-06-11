@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $seguidor_id = $model->id;
 
-                echo Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios);
+                echo Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios) . '<span class= display-4>' . $model->nombre . '</span>';
 
                 ?>
                 <!-- <h5><span class="badge badge-light"> Seguidor </span></h5> -->
@@ -98,8 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     } elseif ($dataProvider->categoria['cat_nombre'] === 'Avanzado') {
                                         return '<h5><span class="badge badge-success">' . $dataProvider->categoria['cat_nombre'] . '</span></h5>';
                                     }
-                                }
-                                else {
+                                } else {
                                     return 'Sin categoria asignada';
                                 }
                             },
@@ -146,18 +145,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             $model2 = Seguidores::find()->where(['seguidor_id' => $model->id])->one();
+
             if ($siguiendo != null) {
-                echo Html::a('Dejar de seguir a usuario', ['seguidores/delete', 'id' => $model2->id], [
-                    'class' => 'btn btn-danger',
-                    'controller' => 'seguidores',
-                    'data' => [
-                        'confirm' => '¿Desea dejar de seguir a este usuario?',
-                        'method' => 'post',
-                    ],
-                ]);
-                echo '    ';
+                // echo Html::a('Dejar de seguir a usuario', ['seguidores/delete', 'id' => $model2->id], [
+                //     'class' => 'btn btn-danger',
+                //     'controller' => 'seguidores',
+                //     'data' => [
+                //         'confirm' => '¿Desea dejar de seguir a este usuario?',
+                //         'method' => 'post',
+                //     ],
+                // ]);
+
+                echo Html::beginForm(['seguidores/delete', 'id' => $model2->id], 'post')
+
+
+
+                    . Html::submitButton(
+                        '<span class="glyphicon glyphicon-minus"></span> Dejar de seguir a este usuario',
+                        [
+                            'class' => 'btn btn-danger btn-sm ml-0',
+                            'data' => [
+                                'confirm' => '¿Desea dejar de seguir a este usuario?',
+                                'method' => 'post',
+                            ],
+                        ]
+                    );
+                echo Html::hiddenInput('id', $model2->id);
+                echo '</li></ul>' . Html::endForm();
+
+                echo '<br>';
+
                 echo Html::a('Enviar mensaje', ['mensajes-privados/create', 'receptor_id' => $model2->seguidor_id], [
-                    'class' => 'btn btn-success ml-5',
+                    'class' => 'btn btn-success btn-sm ml-0',
                     'controller' => 'mensajesPrivados',
                     'data' => [
 

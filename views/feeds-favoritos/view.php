@@ -32,10 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             // 'id',
             'usuario.nombre',
-            'feed.contenido',
+     
+            [
+
+                'attribute' => 'feed.contenido',
+                'label'=>'Hizo me gusta en:',
+                'value' => function ($dataProvider) {
+                    return $dataProvider->feed->contenido;
+                },
+
+            ],
             [
 
                 'attribute' => 'created_at',
+                'label'=>'¿Cuando le dio a me gusta?',
                 'value' => function ($dataProvider) {
                     return Yii::$app->formatter->asRelativeTime($dataProvider->created_at);
                 },

@@ -1,6 +1,7 @@
 <?php
 
 use app\helper_propio\Auxiliar;
+use app\models\Feeds;
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
@@ -21,9 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
-            'usuario.nombre',
+
+            [
+                'attribute' => 'usuario.nombre',
+                'label' => 'Nombre usuario',
+            ],
+            [
+                'attribute' => 'feeds',
+                'value' => function ($dataProvider) {
+                     $feed = Feeds::find()->where(['id' => 1])->one();
+                    return $feed->contenido;
+                },
+
+            ],
             'contenido',
+
             [
 
                 'attribute' => 'Fecha de creación',
