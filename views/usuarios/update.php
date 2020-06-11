@@ -104,7 +104,7 @@ $this->registerJs($js);
 
 
         <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '50px']]; ?>
-        <?= Auxiliar::obtenerImagenUsuario($model->id, $options) ?>
+        <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->id, $options) ?>
 
 
         <p>Puede modificar sus datos a continuación:</p>
