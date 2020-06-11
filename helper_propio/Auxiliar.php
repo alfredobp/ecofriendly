@@ -70,9 +70,15 @@ class Auxiliar
     public static function obtenerImagenUsuario($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '65px', 'height' => '65px']])
     {
 
-        $id1 = Usuarios::find()->where(['id' => $id])->one();
+        $id1 = Usuarios::find()->where(['id' => Yii::$app->user->identity->id])->one();
 
-        $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        // $id1['url_avatar'] != null ? $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options) :  $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        if ($id1['url_avatar'] != null) {
+            $imagenUsuario = Html::img(Yii::getAlias('@uploads') . '/' .  $id1['url_avatar'], $options);
+        } else {
+            $imagenUsuario = Html::img('@web/img/basica.jpg', $options);
+        }
+
         return $imagenUsuario;
     }
     public static function obtenerImagenSeguidor($id, $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '65px', 'margin-right' => '12px', 'margin-left' => '12px']])
@@ -268,6 +274,6 @@ class Auxiliar
     {
         $yaMeGusta = FeedsFavoritos::find()->where(['usuario_id' => $id])
             ->andWhere(['feed_id' => $feeds])->one();
-            return $yaMeGusta;
+        return $yaMeGusta;
     }
 }
