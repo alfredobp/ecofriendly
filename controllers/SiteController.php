@@ -106,13 +106,8 @@ class SiteController extends Controller
         $id = Yii::$app->user->identity->id;
         $model = new Feeds();
         $puntuacion = Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
-        $listaUsuarios = Usuarios::find()
-            ->select(['nombre', 'id', 'url_avatar'])
-            ->where(['!=', 'id', $id])
-            ->andWhere(['token_acti' => null])
-            ->andWhere(['!=', 'rol', 'superadministrador'])
-            ->all();
 
+        $listaUsuarios = Usuarios::usuariosRegistrados($id);
         if (Yii::$app->user->identity->rol == 'superadministrador') {
             //Envio de email a usuarios que lleven mas de una semana sin conectarse cuando el usuario admin inicia sesión
             Auxiliar::enviarEmailAusentes();
@@ -128,55 +123,19 @@ class SiteController extends Controller
             if ($puntuacion == null) {
                 return $this->redirect(['usuarios/valorar']);
             }
-            /**
-             * Si el usuario no tiene retos asignados, en función de la puntuación
-             *  calculada se le otorga unas serie de acciones que corresponden a un reto
-             *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
-             */
+
             $user = Usuarios::findOne($id);
             if ($user->categoria_id == null) {
-                if ($puntuacion['puntuacion'] <= 30) {
-                    $usuarios = Usuarios::find()->where(['id' => $id])->one();
-                    $usuarios->categoria_id = 1;
-                    $usuarios->save();
-                    return $this->goHome();
-                }
-                if ($puntuacion['puntuacion'] > 30 && $puntuacion['puntuacion'] < 60) {
-                    $usuarios = Usuarios::find()->where(['id' => $id])->one();
-                    $usuarios->categoria_id = 2;
-                    $usuarios->save();
-                    return $this->goHome();
-                }
-                if ($puntuacion['puntuacion']  >= 60) {
-                    $usuarios = Usuarios::find()->where(['id' => $id])->one();
-                    $usuarios->categoria_id = 3;
-                    $usuarios->save();
-                    return $this->goHome();
-                }
+                Ranking::puntuacionInicial($id);
+                return  $this->goHome();
             }
+            $query = Feeds::listarFeeds($id);
             //paginacion de 10 feeds, ordenados cronologicamente
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
-
-                'totalCount' => Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
-                    ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
-                    ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
-                    ->Where([
-                        'seguidores.usuario_id' => $id
-                    ])
-                    ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
-                    ->orwhere(['feeds.usuariosid' => $id])->count(),
+                'totalCount' => $query->count(),
             ]);
-
-            $query = Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
-                ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
-                ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
-                ->Where([
-                    'seguidores.usuario_id' => $id
-                ])
-                ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
-                ->orwhere(['feeds.usuariosid' => $id])
-                ->orderBy('feeds.created_at desc')
+            $query = $query->orderBy('feeds.created_at desc')
                 ->asArray();
 
             $feed = $query->offset($pagination->offset)

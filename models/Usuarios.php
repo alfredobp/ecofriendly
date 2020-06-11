@@ -348,9 +348,14 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-    public function usuariosRegistrados()
+    public static function usuariosRegistrados($id)
     {
 
-        return Usuarios::find()->where(['!=', 'rol', 'superadministrador'])->all();
+        return Usuarios::find()
+            ->select(['nombre', 'id', 'url_avatar'])
+            ->where(['!=', 'id', $id])
+            ->andWhere(['token_acti' => null])
+            ->andWhere(['!=', 'rol', 'superadministrador'])
+            ->all();
     }
 }

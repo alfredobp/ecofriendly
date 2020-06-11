@@ -124,4 +124,16 @@ class Feeds extends \yii\db\ActiveRecord
             $feed->save();
         }
     }
+    public static function listarFeeds($id)
+    {
+        $query =  Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])
+            ->leftJoin('seguidores', 'seguidores.seguidor_id=feeds.usuariosid')
+            ->leftJoin('usuarios', 'usuarios.id=feeds.usuariosid')
+            ->Where([
+                'seguidores.usuario_id' => $id
+            ])
+            ->andWhere('feeds.created_at>seguidores.fecha_seguimiento')
+            ->orwhere(['feeds.usuariosid' => $id]);
+        return $query;
+    }
 }
