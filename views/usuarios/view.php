@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-        echo Auxiliar::obtenerImagenUsuario($model->id, $optionsBarraUsuarios);
+        echo Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios);
 
         ?>
 

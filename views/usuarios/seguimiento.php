@@ -42,15 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'Nivel',
                     'value' => function ($dataProvider) {
-
-                        if ($dataProvider->categoria['cat_nombre'] == 'Principiante') {
-                            return '<span class="badge badge-danger"> Principiante</span>';
-                        } elseif ($dataProvider->categoria['cat_nombre'] == 'Intermedio') {
-                            return '<span class="badge badge-warning"> Intermedio</span>';
-                        } elseif ($dataProvider->categoria['cat_nombre'] == 'Avanzado') {
-                            return '<span class="badge badge-succes"> Avanzado</span>';
-                        } else {
+                        if ($dataProvider->categoria != null) {
+                            if ($dataProvider->categoria['cat_nombre'] == 'Principiante') {
+                                return '<span class="badge badge-danger"> Principiante</span>';
+                            } elseif ($dataProvider->categoria['cat_nombre'] == 'Intermedio') {
+                                return '<span class="badge badge-warning"> Intermedio</span>';
+                            } elseif ($dataProvider->categoria['cat_nombre'] == 'Avanzado') {
+                                return '<span class="badge badge-succes"> Avanzado</span>';
+                            }
                             return 'Categoría no definida';
+                        } else {
+
+                            return 'Sin categoria asignada';
                         }
                     },
                     'format' => 'raw',
@@ -67,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'Feeds compartidos',
                     'value' => function ($dataProvider) {
                         $feeds = Feeds::find()->where(['usuariosid' => $dataProvider->id]);
-                  
+
                         $cuantos = $feeds->count();
 
                         if ($cuantos != 0) {
