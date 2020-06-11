@@ -110,7 +110,7 @@ class SeguidoresController extends Controller
                     Yii::$app->session->setFlash('error', 'Este usuario te ha bloqueado');
                     return $this->goBack();
                 }
-                $seguidor->save();
+
 
 
                 $notificacion = Notificaciones::crearNotificacion($seguidor->id, $id, 3);
@@ -120,7 +120,7 @@ class SeguidoresController extends Controller
                 }
                 $seguidor->save();
                 Yii::$app->session->setFlash('success', 'Ahora sigues a este usuario');
-                return $this->goBack();
+                return $this->redirect('site');
             } else {
                 Yii::$app->session->setFlash('error', 'Ya sigues a este usuario');
                 return $this->goHome();

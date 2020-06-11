@@ -570,39 +570,41 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             </div>
             <br>
 
-            <div class="col-12 sombraBis">
+            <div class="card card-inverse">
+                <div class="card-block sombraBis">
 
-                <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
-                <p class="col-12">
-                    <div style="overflow-x:hidden; overflow-y:scroll; width:90%; height: 270px;">
-                        <?php
+                    <h4 class="card-title h5  text-center "> <strong> Tu red de amigos: </strong></h4>
+                    <p class="card-text">
+                        <div class="col-12" style="overflow-y: scroll; width:100%; height: 270px;">
+                            <?php
 
-                        //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
-                        if (sizeof($seguidores) == 0) {
-                            echo 'Actualmente no sigue a ningun usuario de la red <strong>#Ecofriendly</strong> ';
-                        } else {
+                            //muestra la red de amigos del usuario y permite mediante un boton dejar de seguir al usuario, ocultando los feeds del panel central, pues ya no es seguidor.
+                            if (sizeof($seguidores) == 0) {
+                                echo 'Actualmente no sigue a ningun usuario de la red <strong>#Ecofriendly</strong> ';
+                            } else {
 
 
-                            for ($i = 0; $i < sizeof($seguidores); $i++) {
-                                echo   '<ul class="list-group">';
-                                echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
-                                    . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
+                                for ($i = 0; $i < sizeof($seguidores); $i++) {
+                                    echo   '<ul class="list-group">';
+                                    echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
+                                        . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
+                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2'])
 
-                                // . Html::submitButton(
-                                //     '<span class="glyphicon glyphicon-minus"></span>',
-                                //     ['class' => 'btn btn-danger btn-sm ml-0'],
-                                // );
-                                echo Html::hiddenInput('id', $seguidores[$i]->id);
-                                echo '</li></ul>' . Html::endForm();
+                                        . Html::submitButton(
+                                            '<span class="glyphicon glyphicon-minus"></span>',
+                                            ['class' => 'btn btn-danger btn-sm ml-0'],
+                                        );
+                                    echo Html::hiddenInput('id', $seguidores[$i]->id);
+                                    echo '</li></ul>' . Html::endForm();
+                                }
                             }
-                        }
-                        ?>
-                        <br>
-                    </div>
-                    <div class="divider"></div>
-                </p>
-                <button class="irArriba"> <?= Icon::show('level-up-alt') ?><em>Ir arriba</em></button>
+                            ?>
+                            <br>
+                        </div>
+                        <div class="divider"></div>
+                    </p>
+                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+                </div>
             </div>
     </div>
     </aside>

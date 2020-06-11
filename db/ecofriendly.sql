@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS notificaciones CASCADE;
 
 CREATE TABLE notificaciones (
     id bigserial PRIMARY KEY,
-    usuario_id bigint NOT NULL REFERENCES usuarios(id),
+    usuario_id bigint NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
     seguidor_id bigint NOT NULL,
     leido boolean,
     tipo_notificacion_id integer NOT NULL REFERENCES tipos_notificaciones(id) ON DELETE CASCADE ON UPDATE CASCADE,
