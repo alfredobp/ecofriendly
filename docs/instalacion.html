@@ -60,28 +60,27 @@
 <span class="hljs-selector-tag">Una</span> <span class="hljs-selector-tag">cuenta</span> <span class="hljs-selector-tag">de</span> <span class="hljs-selector-tag">correo</span> <span class="hljs-selector-tag">de</span> <span class="hljs-selector-tag">gmail</span>.
 </code></pre>
 <p>Pasos:</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">Clonar</span> o descargar el proyecto.
-Hacer composer install.
-Cargar las bases de datos, para ello ejecutamos los scripts ./db/create.sh y ./db/load.sh.
-Cambiar el correo electrónico del administrador en config/params.php.
-Crear la variable de entorno STMP_PASS con la clave de aplicación del correo electrónico, así como las de AWS.
-En el directorio del servicio ejecutar Make Serve, para iniciar el servidor local.
-</code></pre>
-<h2>En la nube <span id="en-la-nube"></span><a href="#en-la-nube" class="hashlink">&para;</a></h2><p>Para la instalación de la aplicación en la nube usaremos Heroku, por lo que una cuénta en dicha plataforma será necesaria para continuar.</p>
+<pre><code class="hljs sql">Clonar o descargar el proyecto.
+Ejecutar en la terminal el comando composer <span class="hljs-keyword">install</span> para descargar las dependencias necesarias (Vendor).
+Cargar la esturctura e informaciónn de las  bases de datos, para ello ejecutamos los scripts ./db/create.sh y ./db/load.sh.
+Cambiar el correo electrónicoo del administrador en config/params.php.
+Crear la <span class="hljs-keyword">variable</span> de entorno STMP_PASS con la clave de aplicaciónn del correo electrónicoo, así</code></pre>
+<h2>En la nube <span id="en-la-nube"></span><a href="#en-la-nube" class="hashlink">&para;</a></h2><p>Para la instalación de la aplicación en la nube utilizaremos la aplicación Heroku, por lo que será necesaria una cuénta en dicha plataforma para continuar.</p>
 <p>Con nuestra cuenta de Heroku, realizaremos los siguientes pasos:</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">Con</span> nuestra cuenta de Heroku deberemos crear una aplicación. Además, necesitaremos el comando heroku para consola y poder así con la consola.
+<pre><code class="hljs nginx"><span class="hljs-attribute">Logueados</span> en nuestra cuenta de Heroku deberemos crear una nueva aplicación. Además, necesitaremos el comando heroku para consola y poder así cargar la base de datos en remoto y los archivos.
 
 Añadir la extensión para postgres y cargar la base de datos.
 </code></pre>
 <p>Comandos:</p>
-<p>heroku login
-heroku apps:create nombreAplicacion --region eu
-heroku addons:create heroku-postgresql
-heroku pg:psql &lt; db/load.sql
+<pre><code class="hljs sql">heroku login
+heroku apps:<span class="hljs-keyword">create</span> nombreAplicacion <span class="hljs-comment">--region eu</span>
+heroku addons:<span class="hljs-keyword">create</span> heroku-postgresql
+heroku pg:psql &lt; db/load.sql <span class="hljs-comment">--app</span>
 heroku pg:psql
-create extension pgcrypto;
-heroku config:set SMTP_PASS=clave
-git push -u heroku master</p>
+<span class="hljs-keyword">create</span> extension pgcrypto;
+heroku config:<span class="hljs-keyword">set</span> SMTP_PASS=clave
+git push -u heroku <span class="hljs-keyword">master</span>
+</code></pre>
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -90,7 +89,7 @@ git push -u heroku master</p>
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Mon, 08 Jun 2020 14:49:43 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Fri, 12 Jun 2020 15:38:34 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {
