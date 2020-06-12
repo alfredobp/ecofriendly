@@ -356,6 +356,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             ->where(['!=', 'id', $id])
             ->andWhere(['token_acti' => null])
             ->andWhere(['!=', 'rol', 'superadministrador'])
+            ->andWhere([' is not', 'categoria_id', new \yii\db\Expression('null')])
             ->all();
     }
 }
