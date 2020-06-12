@@ -16,5 +16,5 @@
 | Siguiendo, *Following*| Cuando alguien nos está siguiendo, significa que dicho usuario está recibiendo nuestro contenido, viéndolo en su actividad en su "Inicio". |
 | Mensajes privados     | Mensajes privados que un usuario envía a otro a través de la aplicación. |
 | EcoPuntuación         | Puntuación que se otorga a un  usuario  la hora de entrar en la aplicación, inmediatamente deespúes de haberse registrado (Solo se realiza una única vez)|
-| Me gusta/Ya no me gusta| Un Usuario puede indicar mediante un me gusta una publicación compartida en la red. A la vez que puede decidir quitarle el me gusta|
+| Me gusta/Ya no me gusta| Un Usuario puede indicar mediante un me gusta una publicación compartida en la red. A la vez que puede decidir quitarle el me gusta anteriormente concedido.|
 

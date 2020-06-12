@@ -117,7 +117,7 @@ La página index cumple el nivel AA de accesibilidad, se detectan varios errores
 ![Captura Opera](images/anexo/captura_opera.png)
 
 ---
-### **([R26](https://github.com/alfredobp/ecofriendly/issues/26)) Validación HTML5, CSS3 y accesibilidad**
+### **([R26](https://github.com/alfredobp/ecofriendly/issues/26)) CodeClimate**
 ![Estilo de código según code climate](images/anexo/codeclimate.png)
 
 
