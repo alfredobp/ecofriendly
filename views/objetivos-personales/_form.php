@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -19,7 +20,7 @@ use yii\bootstrap4\ActiveForm;
     <!-- <?= $form->field($model, 'created_at')->textInput() ?> -->
 
     <div class="form-group">
-        <?= Html::submitButton('Añadir', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Icon::show('save') . 'Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

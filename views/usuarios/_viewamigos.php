@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     . Html::submitButton(
-                        '<span class="glyphicon glyphicon-minus"></span> Dejar de seguir a este usuario',
+                        '<span class="glyphicon glyphicon-minus"></span> Dejar de seguir',
                         [
                             'class' => 'btn btn-danger btn-sm ml-0',
                             'data' => [

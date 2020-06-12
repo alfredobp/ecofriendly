@@ -588,14 +588,14 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     echo   '<ul class="list-group">';
                                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                         . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2'])
+                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
 
-                                        . Html::submitButton(
-                                            '<span class="glyphicon glyphicon-minus"></span>',
-                                            ['class' => 'btn btn-danger btn-sm ml-0'],
-                                        );
-                                    echo Html::hiddenInput('id', $seguidores[$i]->id);
-                                    echo '</li></ul>' . Html::endForm();
+                                    //     // // . Html::submitButton(
+                                    //     // //     '<span class="glyphicon glyphicon-minus"></span>',
+                                    //     // //     ['class' => 'btn btn-danger btn-sm ml-0'],
+                                    //     // );
+                                    // echo Html::hiddenInput('id', $seguidores[$i]->id);
+                                    // echo '</li></ul>' . Html::endForm();
                                 }
                             }
                             ?>
@@ -603,7 +603,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         </div>
                         <div class="divider"></div>
                     </p>
-                    <a href="#" class="btn btn-primary">Invitar a más amigos</a>
+                    <span class="irArriba"> <?= Icon::show('level-up-alt') ?></span>     
                 </div>
             </div>
     </div>

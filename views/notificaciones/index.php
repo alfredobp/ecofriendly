@@ -16,6 +16,16 @@ use yii\helpers\Url;
 $this->title = 'Notificaciones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+$script = <<<JS
+$(function(){
+    var checks = $("tr:contains('Pendiente de lectura')"); // Obtengo todos los checkbox 
+checks.css("background","#F78681");
+});
+JS;
+
+$this->registerJs($script); // Registro el script javascript en el view 
+?>
 <div class="notificaciones-index shadow-lg p-3 mb-5 bg-white rounded">
 
 
@@ -51,14 +61,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'attribute' => 'Leida',
+                    'attribute' => 'leido:',
+
+                    'contentOptions' => ['class' => 'target'],
+
 
                     'value' => function ($dataProvider) {
-
-                        return ($dataProvider->leido);
+                        if ($dataProvider->leido != null) {
+                            return 'Si';
+                        } else {
+                            return 'Pendiente de lectura';
+                        }
                     },
-                    'format' => 'Boolean',
+                    'format' => 'raw',
                 ],
+
+                // [
+                //     'attribute' => 'Leida',
+
+                //     'value' => function ($dataProvider) {
+
+                //         return ($dataProvider->leido);
+                //     },
+                //     'format' => 'Boolean',
+                // ],
 
                 [
 
