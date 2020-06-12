@@ -28,12 +28,12 @@ $this->registerJs($script); // Registro el script javascript en el view
 ?>
 <div class="notificaciones-index shadow-lg p-3 mb-5 bg-white rounded">
 
-<?php
-$dataProvider->sort->attributes['created_at'] = [
-    'asc' => ['created_at' => SORT_ASC],
-    'desc' => ['created_at' => SORT_DESC],
-];
-?>
+    <?php
+    $dataProvider->sort->attributes['created_at'] = [
+        'asc' => ['created_at' => SORT_ASC],
+        'desc' => ['created_at' => SORT_DESC],
+    ];
+    ?>
     <?=
         !Auxiliar::esAdministrador() ? GridView::widget([
             'dataProvider' => $dataProvider,

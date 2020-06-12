@@ -153,7 +153,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
                                                 <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
                                                 <?php foreach ($meGusta as $meGusta) : ?>
                                                     <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
-                                                        . Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre  . '<br> <br>' ?>
+                                                        . ucfirst(Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre)  . '<br> <br>' ?>
                                                     <br>
                                                     <div class="divider"></div>
                                                 <?php

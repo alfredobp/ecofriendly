@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
-use kartik\select2\Select2;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
@@ -21,7 +21,7 @@ $this->title = 'EcoFriendly'; ?>
         <hr>
         <h5>
             Para participar en la red social ecofriendly, necesitamos valorar tu huella ecológica. En función de tus hábitos de consumo, desplazamientos, conciencia ambiental,...
-            te daremos una puntuación para proponerte retos que te ayuden a tener una actitud más positiva.
+            te daremos una puntuación para proponerte retos que te ayuden a tener una actitud más #ecofriendly.
         </h5>
         <hr>
         <?php $form = ActiveForm::begin(); ?>
@@ -32,7 +32,7 @@ $this->title = 'EcoFriendly'; ?>
         </div>
 
         <p>
-            Sus viajes domicilio - trabajo en coche, ¿son en coche compartido?
+            Sus viajes domicilio - trabajo en coche, ¿Son en coche compartido?
         </p>
 
         <?=
@@ -64,7 +64,7 @@ $this->title = 'EcoFriendly'; ?>
             <thead>
                 <tr>
                     <th scope="col">Coche</th>
-                    <th scope="col">Autobus</th>
+                    <th scope="col">Autobús</th>
                     <th scope="col">Tren, metro o tranvía</th>
                     <th scope="col">Vuelos</th>
                 </tr>
@@ -216,7 +216,7 @@ $this->title = 'EcoFriendly'; ?>
         <?=
             $form->field($model, 'estilo3')->inline()
                 ->radioList(
-                    [0 => 'Vivienda de Lujo', 4 => 'Duplex con parcela', 7 => 'Duplex', 10 => 'Bloque de viviendas'],
+                    [0 => 'Vivienda de Lujo', 4 => 'Dúplex con parcela', 7 => 'Dúplex', 10 => 'Bloque de viviendas'],
                     ['uncheckValue' => null],
                     [
                         'item' => function ($index, $label, $name, $checked, $value) {
