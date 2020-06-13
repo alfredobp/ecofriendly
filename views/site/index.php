@@ -329,8 +329,8 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         <div class="card-block">
 
                             <div class="row mt-3">
-                                <div class="col-2 ">
-                                    <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '100px', 'border-radius' => '30px']]; ?>
+                                <div class="col-3 ">
+                                    <?php $options = ['class' => ['img-fluid rounded ml-1'], 'style' => ['width' => '240px', 'border-radius' => '30px']]; ?>
 
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenSeguidor($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
@@ -366,8 +366,6 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                             </div>
                         </div>
 
-
-                        <?php $options = ['class' => ['img-contenedor'], 'style' => ['width' => '500px', 'margin' => '12px']]; ?>
                         <div class="card-footer text-muted">
                             <div class="row">
                                 <!-- Gestión de los me gusta -->
@@ -595,7 +593,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     //     // //     ['class' => 'btn btn-danger btn-sm ml-0'],
                                     //     // );
                                     // echo Html::hiddenInput('id', $seguidores[$i]->id);
-                                    // echo '</li></ul>' . Html::endForm();
+                                    echo '</li></ul>' . Html::endForm();
                                 }
                             }
                             ?>

@@ -950,7 +950,7 @@
 | (**R42**) Registro mediante e-mail de confirmación | Opcional | Funcional | Media | v1 | 
 | (**R43**) Valoración test habilidades sostenibles | Mínimo | Funcional | Media | v1 | 
 | (**R44**) Iniciar sesión | Mínimo | Funcional | Fácil | v1 | 
-| (**R45**) Utilización de plantilla YII | Mínimo | Técnico | Media | v1 | 
+| (**R45**) Utilización de plugin YII Social | Mínimo | Técnico | Media | v1 | 
 | (**R46**) Diseño basado en bootstrap4 | Importante | Técnico | Media | v1 | 
 | (**R47**) Tareas de Administración | Opcional | Funcional | Media | v2 | 
 | (**R48**) Subir foto | Mínimo | Funcional | Media | v1 | 

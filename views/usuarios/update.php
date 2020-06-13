@@ -98,12 +98,12 @@ $this->registerJs($js);
 </nav>
 <article class="tab-content" id="myTabContent">
     <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h3>Bienvenido a su perfil personal de ecofriendly: <?= ucfirst(Yii::$app->user->identity->username) ?></h3>
+        <h3>Bienvenido a su perfil personal de ecofriendly: </h3>
         <br>
         <?php $url = Url::to(['usuarios/view', 'id' => Yii::$app->user->identity->id]); ?>
 
-
-        <?php $options = ['class' => ['img-contenedor d-none d-sm-block'], 'style' => ['width' => '150px', 'height' => '150px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '50px']]; ?>
+        <h3 class="ml-5"> <?= ucfirst(Yii::$app->user->identity->nombre) ?></h3>
+        <?php $options = ['class' => ['img-contenedor d-none d-sm-block mb-3'], 'style' => ['width' => '200px', 'height' => '200px', 'margin-right' => '12px', 'margin-left' => '12px', 'border-radius' => '25px']]; ?>
         <?= Auxiliar::obtenerImagenUsuario(Yii::$app->user->identity->id, $options) ?>
 
 
@@ -229,8 +229,10 @@ $this->registerJs($js);
                             'action' => ['bloqueos/create'],
                             'enableClientValidation' => true
                         ]);
-                        echo Auxiliar::obtenerImagenSeguidor($seguidores[$i]->usuario_id);
-                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </a>';
+                        $options = ['class' => ['img-contenedor d-none d-sm-block mb-3'], 'style' => ['width' => '100px', 'height' => '100px', 'border-radius' => '25px']];
+
+                        echo Auxiliar::obtenerImagenSeguidor($seguidores[$i]->usuario_id, $options);
+                        echo '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $seguidores[$i]->usuario_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre) . '</span> </a>';
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-ban-circle"></span> Bloquear usuario',
                             ['class' => 'btn btn-danger btn-sm ml-2'],
@@ -264,7 +266,11 @@ $this->registerJs($js);
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
                         echo Html::beginForm(['seguidores/delete', 'id' => $amigos[$i]->id], 'post') . '<br>';
                         echo Html::hiddenInput('id', $amigos[$i]->id);
-                        echo Auxiliar::obtenerImagenSeguidor($amigos[$i]->seguidor_id) . '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '></a><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span>';
+                        $options = ['class' => ['img-contenedor d-none d-sm-block mb-3'], 'style' => ['width' => '100px', 'height' => '100px', 'border-radius' => '25px']];
+
+                        echo Auxiliar::obtenerImagenSeguidor($amigos[$i]->seguidor_id, $options)
+                         . '<h3> <a href=' . Url::to(['usuarios/viewnoajax', 'id' => $amigos[$i]->seguidor_id]) . '> <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre) . '</span> </a>';
+                     
                         echo Html::submitButton(
                             '<span class="glyphicon glyphicon-minus"></span> Dejar de seguir',
                             ['class' => 'btn btn-danger btn-sm ml-2'],
