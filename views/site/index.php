@@ -601,7 +601,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                         </div>
                         <div class="divider"></div>
                     </p>
-                    <span class="irArriba"> <?= Icon::show('level-up-alt') ?></span>     
+                    <span class="irArriba"> <?= Icon::show('level-up-alt') ?></span>
                 </div>
             </div>
     </div>

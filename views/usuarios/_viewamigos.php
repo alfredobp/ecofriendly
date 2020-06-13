@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- <h1><?= Html::encode($this->title) ?></h1> -->
             <div class="col-12 center-block">
                 <?php
-                $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '160px', 'height' => '160px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+                $optionsBarraUsuarios = ['class' => ['img-contenedor ml-3 mr-5 mt-3 mb-1'], 'style' => ['width' => '160px', 'height' => '160px', 'margin-right' => '2px', 'margin-left' => '2px', 'border-radius' => '50px']];
 
                 $seguidor_id = $model->id;
 
@@ -353,11 +353,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <legend>Seguidores de <?= $model->username ?>: </legend>
             <?php
+            $options = ['class' => ['img-contenedor ml-3'], 'style' => ['width' => '50px', 'height' => '50px', 'border-radius' => '20px']];
+
             $seguidores =  Seguidores::find()->where(['seguidor_id' => $model->id])->all();
             if (sizeof($seguidores) > 0) {
                 for ($i = 0; $i < sizeof($seguidores); $i++) {
                     $nombreUsuario = Usuarios::findOne($seguidores[$i]->usuario_id);
-                    echo '<h3>  <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </h3>';
+
+                    echo Auxiliar::obtenerImagenSeguidor($seguidores[$i]->usuario_id, $options) . '<h3>  <span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span> </h3>';
                 }
             } else {
                 echo 'Actualmente no tiene seguidores';
@@ -373,12 +376,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <legend>Siguiendo a:</legend>
                 <?php
                 $amigos = Seguidores::find()->where(['usuario_id' => $model->id])->all();
+                $options = ['class' => ['img-contenedor ml-3'], 'style' => ['width' => '50px', 'height' => '50px', 'border-radius' => '20px']];
 
                 if (sizeof($amigos) > 0) {
                     for ($i = 0; $i < sizeof($amigos); $i++) {
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
 
-                        echo '<h3><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></h3>';
+                        echo Auxiliar::obtenerImagenSeguidor($seguidores[$i]->usuario_id, $options) . '<h3><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></h3>';
                     }
                 } else {
                     echo 'Este usuario no sigue a nadie de #Ecofriendly';

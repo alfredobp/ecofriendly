@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <p>
-            <?=$model->token_acti=null? '<h4><span class="badge badge-warning"> Este usuario todavía no ha validado su cuenta</span></h4>':''?>
+            <?= $model->token_acti = null ? '<h4><span class="badge badge-warning"> Este usuario todavía no ha validado su cuenta</span></h4>' : '' ?>
 
         </p>
         <div itemscope itemtype="http://schema.org/Person">
@@ -159,5 +159,5 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
         ?>
-
+        <?= Auxiliar::volverAtras() ?>
     </div>
