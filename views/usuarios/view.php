@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Usuarios */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'área usuario', 'url' => ['usuarios/update']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-        echo Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios);
+        echo  '<h3>' . Auxiliar::obtenerImagenSeguidor($model->id, $optionsBarraUsuarios) . '<strong>' .  ucfirst($model->nombre) . '</strong></h3>';
 
         ?>
 

@@ -8,13 +8,13 @@ use yii\widgets\DetailView;
 /* @var $model app\models\AccionesRetos */
 
 // $this->title = $model->id;
-// $this->params['breadcrumbs'][] = ['label' => 'Acciones Retos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'área usuario', 'url' => ['usuarios/update']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="acciones-retos-view">
 
-    <h1><?= Html::encode('Ecoreto:' . $model->titulo) ?></h1>
+    <h1><?= Html::encode('Ecoreto: ' . $model->titulo) ?></h1>
 
     <!-- <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

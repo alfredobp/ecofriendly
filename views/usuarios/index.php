@@ -2,6 +2,7 @@
 
 use app\helper_propio\Auxiliar;
 use app\models\Usuarios;
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
@@ -83,20 +84,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\ActionColumn',
 
-                    'template' => '{view}{delete}',
-
+                    'template' => '{viewnoajax}{delete}',
                     'buttons' => [
+                        'viewnoajax' => function ($url, $model, $key) {
+                            return Html::a(
+                                Icon::show('fa fa-binoculars'),
+                                (new yii\grid\ActionColumn())->createUrl('usuarios/viewnoajaxadmin', $model, ['id' => $model['id']], 1),
+                                [
+                                    'class' => 'btn btn-sm btn-light',
 
-                        'view' => function ($url, $model) {
-
-                            return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>', $url, [
-
-                                'title' => Yii::t('yii', 'Create'),
-
-                            ]);
+                                ]
+                            );
                         }
-
-                    ]
+                    ],
+           
 
                 ],
 

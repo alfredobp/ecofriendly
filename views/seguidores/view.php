@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Seguidores */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Seguidores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'notificaciones', 'url' => ['notificaciones/index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

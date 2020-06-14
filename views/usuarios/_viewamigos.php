@@ -382,7 +382,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     for ($i = 0; $i < sizeof($amigos); $i++) {
                         $nombreUsuario = Usuarios::findOne($amigos[$i]->seguidor_id);
 
-                        echo Auxiliar::obtenerImagenSeguidor($seguidores[$i]->usuario_id, $options) . '<h3><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></h3>';
+                        echo Auxiliar::obtenerImagenSeguidor($amigos[$i]->seguidor_id, $options) . '<h3><span class="badge badge-secondary"> ' . ucfirst($nombreUsuario->nombre)  . '</span></h3>';
                     }
                 } else {
                     echo 'Este usuario no sigue a nadie de #Ecofriendly';

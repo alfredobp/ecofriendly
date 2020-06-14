@@ -147,6 +147,21 @@ class UsuariosController extends Controller
             ]);
         }
     }
+
+    public function actionViewnoajaxadmin($id)
+    {
+        //renderizo la vista mediante consulta ajax en la ventana modal.
+        $sonAmigos = Seguidores::find()->where(['usuario_id' => Yii::$app->user->identity->id])->andWhere(['seguidor_id' => $id])->one();
+
+
+        if (Auxiliar::esAdministrador()) {
+            return $this->render('_viewamigos', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return;
+        }
+    }
     /**
      * Displays a single Usuarios model without render with ajax.
      * @param integer $id
