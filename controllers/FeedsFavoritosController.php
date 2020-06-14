@@ -136,8 +136,12 @@ class FeedsFavoritosController extends Controller
     public function actionDelete($id)
     {
         $target = FeedsFavoritos::find()->where(['feed_id' => $id, 'usuario_id' => Yii::$app->user->identity->id])->one();
+
         $borrar = Notificaciones::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->andWhere(['id_evento' => $target->id])->one();
-        $borrar->delete();
+     
+        if (Notificaciones::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->andWhere(['id_evento' => $target->id])->one()!=null) {
+            $borrar->delete();
+        };
         FeedsFavoritos::deleteAll(['feed_id' => $id, 'usuario_id' => Yii::$app->user->identity->id]);
 
         return $this->goHome();
