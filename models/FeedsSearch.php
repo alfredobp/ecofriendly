@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\helper_propio\Auxiliar;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Feeds;
@@ -41,7 +42,7 @@ class FeedsSearch extends Feeds
      */
     public function search($params)
     {
-        $query = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id]);
+        Auxiliar::esAdministrador() ? $query = Feeds::find() :  $query = Feeds::find()->where(['usuariosid' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

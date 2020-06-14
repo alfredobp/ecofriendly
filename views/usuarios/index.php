@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions' => ['style' => 'text-align:center; width:290px; '],
 
                     'value' => function ($dataProvider) {
-                        return Auxiliar::obtenerImagenSeguidor($dataProvider->id);
+                        $option =  ['class' => ['img-contenedor'], 'style' => ['width' => '75px', 'height' => '55px']];
+                        return Auxiliar::obtenerImagenSeguidor($dataProvider->id, $option);
                     },
                     'format' => 'raw',
                 ],
@@ -97,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     ],
-           
+
 
                 ],
 

@@ -231,7 +231,7 @@ $this->registerCssFile('@web/css/indexAdmin.css');
 
                         <?php
                         Consultas::usuariosRegistrados();
-                        Auxiliar::ventanaModal('Perfil de usuario', 2);
+                        Auxiliar::ventanaModal('Perfil de usuario', 2, 'xl');
 
 
                         ?>

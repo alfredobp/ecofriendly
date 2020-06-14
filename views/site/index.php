@@ -330,7 +330,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                             <div class="row mt-3">
                                 <div class="col-3 ">
-                                    <?php $options = ['class' => ['img-fluid rounded ml-1'], 'style' => ['width' => '240px', 'border-radius' => '30px']]; ?>
+                                    <?php $options = ['class' => ['img-fluid rounded ml-1'], 'style' => ['width' => '250px', 'height'=>'auto', 'border-radius' => '30px']]; ?>
 
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenSeguidor($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
@@ -438,7 +438,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                 <div class="row">
                                     <div class="col-2">
                                         <!-- FOTO DEL USUARIO QUE ESCRIBE -->
-                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '40px', 'border-radius' => '0px']]; ?>
+                                        <?php $options = ['class' => ['img-fluid rounded'], 'style' => ['width' => '80px', 'border-radius' => '0px']]; ?>
                                         <?= Auxiliar::obtenerImagenSeguidor($id, $options) ?>
 
                                     </div>
@@ -468,7 +468,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                                 <div class="col-10 border-bottom">
                                                     <div class="row">
                                                         <div class="col-2">
-                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px', 'margin-right' => '12px']]) ?>
+                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '50px', 'height' => '40px', 'margin-right' => '12px']]) ?>
 
                                                         </div>
                                                         <div class="col-10">
@@ -522,10 +522,10 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                     <p class="card-text">Encuentra personas afines y comparte experiencias ecofriendly.</p>
                     <div class="" style="overflow-x:hidden; overflow-y: scroll; width:100%; height: 300px;">
 
-                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px', 'margin-right' => '2px', 'margin-left' => '2px'], 'href' => 'www.google.es'];
+                        <?php $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '60px', 'height' => '60px']];
                         for ($i = 0; $i < sizeof($usuarios); $i++) {
                             echo '<ul class="list-group">'
-                                . '<li class="list-group-item btn-light col-12" style="margin:4px">' . Auxiliar::obtenerImagenSeguidor($usuarios[$i]->id, $optionsBarraUsuarios);
+                                . '<li class="list-group-item btn-light col-12" style="margin-bottom:5px">' . Auxiliar::obtenerImagenSeguidor($usuarios[$i]->id, $optionsBarraUsuarios);
                             echo Html::button(ucfirst($usuarios[$i]->nombre), ['value' => Url::to('/index.php?r=usuarios%2Fview&id=' . $usuarios[$i]->id), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                             echo Html::hiddenInput('seguidor_id', $usuarios[$i]->id);
                             echo '</li> </ul>';
