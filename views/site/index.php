@@ -400,7 +400,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                                             <?php $meGusta = FeedsFavoritos::meGusta($feeds['id']) ?>
                                             <?php foreach ($meGusta as $meGusta) : ?>
-                                                <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
+                                                <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor mr-1'], 'style' => ['width' => '45px', 'height' => '35px']])
                                                     . Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre  . '<br>' ?>
                                                 <br>
                                                 <div class="divider"></div>
@@ -457,10 +457,10 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                             <?php foreach (Consultas::muestraComentarios($feeds['id']) as $comentarios) : ?>
 
 
-                                                <div class="col-10 border-bottom">
+                                                <div class="col-12 border-bottom">
                                                     <div class="row">
                                                         <div class="col-2">
-                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '50px', 'height' => '40px', 'margin-right' => '12px']]) ?>
+                                                            <?= Auxiliar::obtenerImagenSeguidor($comentarios['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '50px', 'height' => '40px', 'padding-left' => '1px']]) ?>
 
                                                         </div>
                                                         <div class="col-10">

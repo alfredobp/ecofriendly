@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Comentarios */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Comentarios', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Notificaciones', 'url' => ['notificaciones/index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

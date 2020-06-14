@@ -146,7 +146,16 @@ class ComentariosController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        $target = Notificaciones::find()->where(['id_evento' => $id])->one();
+
+        // $borrar = Notificaciones::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->andWhere(['id_evento' => $target->id])->one();
+
+        if ($target!=null) {
+            $target->delete();
+        };
         Yii::$app->session->setFlash('success', 'Comentario borrado correctamente.');
+
+        
         return $this->redirect(['site/index']);
     }
 
