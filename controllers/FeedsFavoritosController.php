@@ -127,7 +127,7 @@ class FeedsFavoritosController extends Controller
     }
 
     /**
-     * Deletes an existing FeedsFavoritos model.
+     * Deletes an existing FeedsFavoritos model and the notificaction associate.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -135,6 +135,9 @@ class FeedsFavoritosController extends Controller
      */
     public function actionDelete($id)
     {
+        $target = FeedsFavoritos::find()->where(['feed_id' => $id, 'usuario_id' => Yii::$app->user->identity->id])->one();
+        $borrar = Notificaciones::find()->where(['seguidor_id' => Yii::$app->user->identity->id])->andWhere(['id_evento' => $target->id])->one();
+        $borrar->delete();
         FeedsFavoritos::deleteAll(['feed_id' => $id, 'usuario_id' => Yii::$app->user->identity->id]);
 
         return $this->goHome();

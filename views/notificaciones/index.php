@@ -100,7 +100,7 @@ $this->registerJs($script); // Registro el script javascript en el view
                             return Html::a('Borrar Notificación', ['delete', 'id' => $model->id], [
                                 'class' => '',
                                 'data' => [
-                                    'confirm' => '¿Estas seguro de querer marcar esta notificiación como leída?',
+                                    'confirm' => '¿Estas seguro de querer borrar esta notificación?',
                                     'method' => 'post',
                                 ],
                             ]);
