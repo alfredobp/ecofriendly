@@ -77,5 +77,8 @@ class FeedsFavoritos extends \yii\db\ActiveRecord
         $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds]);
         return $meGusta;
     }
-    
+    public static function meGusta($feeds)
+    {
+        return FeedsFavoritos::find()->where(['feed_id' => $feeds])->orderBy('created_at DESC')->all();
+    }
 }

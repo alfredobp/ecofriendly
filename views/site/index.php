@@ -9,13 +9,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\Modal;
 use app\helper_propio\GestionCookies as Helper_propioGestionCookies;
 use app\helper_propio\Gridpropio;
-use app\models\AccionesRetos;
-use app\models\Comentarios;
-use app\models\Ecoretos;
-use app\models\Feeds;
 use app\models\FeedsFavoritos;
-use app\models\ObjetivosPersonales;
-use app\models\Ranking;
 use app\models\RetosUsuarios;
 use app\models\Usuarios;
 use kartik\social\FacebookPlugin;
@@ -26,9 +20,7 @@ use yii\bootstrap4\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html as HelpersHtml;
 use kartik\icons\Icon;
-use yii\bootstrap4\Breadcrumbs;
 use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\web\View as WebView;
 
@@ -330,7 +322,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
 
                             <div class="row mt-3">
                                 <div class="col-3 ">
-                                    <?php $options = ['class' => ['img-fluid rounded ml-1'], 'style' => ['width' => '250px', 'height'=>'auto', 'border-radius' => '30px']]; ?>
+                                    <?php $options = ['class' => ['img-fluid rounded ml-1'], 'style' => ['width' => '250px', 'height' => 'auto', 'border-radius' => '30px']]; ?>
 
                                     <h4 class="card-title"><?= Auxiliar::obtenerImagenSeguidor($feeds['usuariosid'], $options) ?> </h4>
                                 </div>
@@ -406,7 +398,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     <div class="row">
                                         <div class="col-12" style="overflow-y: scroll; max-height: 150px;">
 
-                                            <?php $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds['id']])->orderBy('created_at DESC')->all() ?>
+                                            <?php $meGusta = FeedsFavoritos::meGusta($feeds['id']) ?>
                                             <?php foreach ($meGusta as $meGusta) : ?>
                                                 <?= Auxiliar::obtenerImagenSeguidor($meGusta['usuario_id'], $options = ['class' => ['img-contenedor'], 'style' => ['width' => '45px', 'height' => '35px']])
                                                     . Usuarios::find()->where(['id' => $meGusta['usuario_id']])->one()->nombre  . '<br>' ?>
@@ -586,13 +578,8 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
                                     echo   '<ul class="list-group">';
                                     echo Html::beginForm(['seguidores/delete', 'id' => $seguidores[$i]->id], 'post')
                                         . '<li class="list-group-item col-12" style= "margin:4px">' . Auxiliar::obtenerImagenSeguidor($seguidores[$i]->seguidor_id, $optionsBarraUsuarios);
-                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
-
-                                    //     // // . Html::submitButton(
-                                    //     // //     '<span class="glyphicon glyphicon-minus"></span>',
-                                    //     // //     ['class' => 'btn btn-danger btn-sm ml-0'],
-                                    //     // );
-                                    // echo Html::hiddenInput('id', $seguidores[$i]->id);
+                                    echo Html::button(Html::encode(ucfirst(Usuarios::find()->select('nombre')->where(['id' => $seguidores[$i]->seguidor_id])->one()->nombre)), ['value' => Url::to(['/usuarios/view', 'id' => $seguidores[$i]->seguidor_id]), 
+                                    'class' => 'btn modalButton2 btn-lg active', 'id' => 'modalButton2']);
                                     echo '</li></ul>' . Html::endForm();
                                 }
                             }

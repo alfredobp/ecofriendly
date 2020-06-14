@@ -85,15 +85,15 @@ class MensajesPrivadosController extends Controller
         $nuevoMensaje->emisor_id = Yii::$app->user->identity->id;
         $nuevoMensaje->receptor_id = $model->emisor_id;
         $nuevoMensaje->asunto = 'Re:' . $model->asunto;
-        $mensajeAnterior=$model->contenido;
-      
+        $mensajeAnterior = $model->contenido;
+
         if ($nuevoMensaje->load(Yii::$app->request->post()) && $nuevoMensaje->save()) {
             return $this->redirect(['index']);
         }
 
         return $this->render('_responder', [
             'model' => $nuevoMensaje,
-            'mensajeAnterior'=>$mensajeAnterior,
+            'mensajeAnterior' => $mensajeAnterior,
         ]);
     }
     /**
@@ -127,7 +127,7 @@ class MensajesPrivadosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'usuarios' => Auxiliar::esAdministrador()?$mensajesAdmin:$mensajes
+            'usuarios' => Auxiliar::esAdministrador() ? $mensajesAdmin : $mensajes
         ]);
     }
 
@@ -141,13 +141,18 @@ class MensajesPrivadosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $seguidores =  Usuarios::find()
+            ->select('seguidores.seguidor_id')
+            ->joinWith('seguidores')
+            ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
+        $usuarios = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'usuarios' =>  $usuarios
         ]);
     }
 
