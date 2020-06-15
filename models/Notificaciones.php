@@ -79,13 +79,26 @@ class Notificaciones extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
-
+/**
+ * Marca una notificación como leida.
+ *
+ * @param [type] $id
+ * @return void
+ */
     public static function leerNotificacion($id)
     {
         $notificacionLeida = Notificaciones::find()->where(['id_evento' => $id])->one();
         $notificacionLeida->leido = true;
         return $notificacionLeida;
     }
+    /**
+     * Crea una nueva notificación cuando se produce alguno de los eventos predefinidos
+     *
+     * @param [type] $idEvento
+     * @param [type] $due
+     * @param [type] $tipo
+     * @return void
+     */
     public static function crearNotificacion($idEvento, $dueño, $tipo)
     {
         $notificacion = new Notificaciones();

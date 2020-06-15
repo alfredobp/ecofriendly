@@ -58,20 +58,40 @@ class Ranking extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuariosid'])->inverseOf('ranking');
     }
-
+    /**
+     * Muestra el ranqking de usuarios de la plataforma
+     *
+     * @return void
+     */
     public static function dimeRanking()
     {
         return   Ranking::find()->joinWith('usuarios')->where(['!=', 'rol', 'superadministrador'])->orderBy('puntuacion DESC')->limit(10)->all();
     }
+    /**
+     * Muestra la puntucación media de los usuarios registrados en la plataforma.
+     *
+     * @return void
+     */
     public static function puntuacionMedia()
     {
         $puntuacionMedia = Ranking::find()->average('puntuacion');
         return $puntuacionMedia;
     }
+    /**
+     * Devuelve la Puntuación de un usuario
+     *
+     * @param [type] $id
+     * @return void
+     */
     public static function puntuacionUsuario($id)
     {
         return Ranking::find()->select('ranking.*')->joinWith('usuarios', false)->groupBy('ranking.id')->having(['usuariosid' => $id])->one();
     }
+    /**
+     * Devuelve los puntos totales de la red de ecofriendly
+     *
+     * @return void
+     */
     public static function puntosTotales()
     {
         $puntosTotales =  Ranking::find()->sum('puntuacion');
@@ -81,6 +101,8 @@ class Ranking extends \yii\db\ActiveRecord
      * Si el usuario no tiene retos asignados, en función de la puntuación
      *  calculada se le otorga unas serie de acciones que corresponden a un reto
      *  [0-30]->categoria1: principante [0-30] ->categoria2: intermedio  [0-60]->categoria3: avanzado
+     * @param [type] $id
+     * @return void
      */
     public static function puntuacionInicial($id)
     {
@@ -105,6 +127,13 @@ class Ranking extends \yii\db\ActiveRecord
             return;
         }
     }
+    /**
+     * Permite aumentar la puntuación de los usuarios de forma automática al superar un reto
+     *
+     * @param [type] $puntaje
+     * @param [type] $usuarios
+     * @return void
+     */
     public static function aumentarPuntuacion($puntaje, $usuarios)
     {
         $puntuacion = Ranking::find()->where(['usuariosid' => Yii::$app->user->identity->id])->one();

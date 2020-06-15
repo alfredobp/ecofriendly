@@ -113,6 +113,13 @@ class Feeds extends \yii\db\ActiveRecord
         return Feeds::find()
             ->where(['usuariosid' => Yii::$app->user->identity->id]);
     }
+    /**
+     * Función generar automático cuando un usuario supera un reto determinado
+     *
+     * @param [type] $titulo
+     * @param [type] $usuario_id
+     * @return void
+     */
     public static function publicarFeed($titulo, $usuario_id)
     {
         $feed = new Feeds();
@@ -124,6 +131,12 @@ class Feeds extends \yii\db\ActiveRecord
             $feed->save();
         }
     }
+    /**
+     * Lista los feeds dado un valor clave ($id)
+     *
+     * @param [type] $id
+     * @return void
+     */
     public static function listarFeeds($id)
     {
         $query =  Feeds::find()->select(['usuarios.*', 'seguidores.*', 'feeds.*'])

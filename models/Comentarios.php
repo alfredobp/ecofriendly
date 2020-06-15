@@ -80,10 +80,22 @@ class Comentarios extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('comentarios');
     }
+    /**
+     * Obtiene los comentarios asociados a un feed determinado
+     *
+     * @param [type] $feeds
+     * @return void
+     */
     public static function obtenerComentarios($feeds)
     {
         return Comentarios::find()->where(['comentarios_id' => $feeds]);
     }
+    /**
+     * Muestra los comentarios ordenados para la lista despegable.
+     *
+     * @param [type] $feeds
+     * @return void
+     */
     public static function muestraComentarios($feeds)
     {
         return Comentarios::find()->where(['comentarios_id' => $feeds])->orderBy('created_at DESC')->all();

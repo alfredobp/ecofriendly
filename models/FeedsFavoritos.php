@@ -72,11 +72,23 @@ class FeedsFavoritos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
     }
+    /**
+     * Muestra el numero de me gustas asociados a un determinado feed
+     *
+     * @param [type] $feeds
+     * @return void
+     */
     public static function numeroMeGustan($feeds)
     {
         $meGusta = FeedsFavoritos::find()->where(['feed_id' => $feeds]);
         return $meGusta;
     }
+    /**
+     * Devuelve el listado de me gustas asociados a una publicación
+     *
+     * @param [type] $feeds
+     * @return void
+     */
     public static function meGusta($feeds)
     {
         return FeedsFavoritos::find()->where(['feed_id' => $feeds])->orderBy('created_at DESC')->all();
