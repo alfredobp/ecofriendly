@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'label' => 'Contenido',
                     'attribute' => 'contenido',
+                    'contentOptions'=>['style'=>'text-align:center; width:0px; '],
                     'value' => function ($dataProvider) {
                         return  $dataProvider->contenido;
                     },
@@ -41,7 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions'=>['style'=>'text-align:center; width:190px; '],
                     'attribute' => 'imagen',
                     'value' => function ($dataProvider) {
-                        return $dataProvider->imagen == null ? '------------' : Auxiliar::ObtenerImagenFeed($dataProvider->imagen);
+                        $optionsBarraUsuarios = ['class' => ['img-contenedor'], 'style' => ['width' => '100px', 'height' => '100px']];
+                        return $dataProvider->imagen == null ? '------------' : Auxiliar::ObtenerImagenFeed($dataProvider->imagen, $optionsBarraUsuarios);
                     },
                     'format' => 'raw',
                 ],
