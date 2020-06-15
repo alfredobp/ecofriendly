@@ -105,6 +105,7 @@ class Auxiliar
                 'title' =>  $title . ':',
                 'id' => 'modal' . $id,
                 'size' => 'modal-' . $size,
+                'class'=>'d-none',
             ]);
         echo '<div id="modalContent' . $id . '"></div>';
 

@@ -95,10 +95,10 @@ use yii\helpers\Url;
                         <?= Html::submitButton(' <strong>Entrar</strong>', ['class' => 'btn btn-primary w-100 ', 'name' => 'login-button']) ?>
 
                     </div>
-                    <em><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
-
+                    <em class="d-none d-sm-block"><?= Html::button(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly</small>', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => ' btn btn-primary  modalButton4 ', 'id' => 'modalButton5']); ?></em>
+                    <em class="col-md-8 mb-5  d-xs-block d-sm-none "><?= Html::a(Icon::show('user-plus') . '<small>Unirse a #EcoFriendly!</small>', Url::to('/index.php?r=usuarios%2Fregistrarnoajax')) ?></em>
                     <?php
-                    Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'md');
+                    Auxiliar::ventanaModal('Registro en #ecofriendly', 7, 'sm');
                     ?>
                     <br>
 
@@ -161,5 +161,3 @@ use yii\helpers\Url;
 
 
 <?php
-
-    /* @var $this yii\web\View */

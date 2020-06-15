@@ -212,6 +212,38 @@ class UsuariosController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionRegistrarnoajax()
+    {
+        $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash(
+                'info',
+                'Confirme su dirección de correo electrónico: ' . $model->email
+            );
+
+            Yii::$app->mailer->compose()
+                ->setFrom(Yii::$app->params['smtpUsername'])
+                ->setTo($model->email)
+                ->setSubject('Validar cuenta ')
+                ->setHtmlBody(
+                    Html::a(
+                        'Haz click aquí para confirmar esta dirección de
+                                   correo electrónico',
+                        Url::to(['usuarios/validar-correo', 'token_acti' => $model->token_acti], true)
+                    ),
+                )
+                ->send();
+
+
+            return $this->redirect(['site/login']);
+        }
+
+        return $this->render('registrar', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Función que valida el correo del usuario
      *

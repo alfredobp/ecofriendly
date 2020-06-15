@@ -21,7 +21,7 @@ $this->registerJs(
 //pluguin con lista despegable provincias/municipios
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselect.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
-<div class="register-form">
+<div class="register-form mt-3 shadow p-3 mb-5 bg-white">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Introduzca los siguientes datos para registrarse:</p>
