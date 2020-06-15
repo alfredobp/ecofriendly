@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\RankingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Rankings';
+$this->title = 'Ranking de usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ranking-index">

@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-
+                'descripcion',
                 //'token_acti',
                 //'codigo_verificacion',
 

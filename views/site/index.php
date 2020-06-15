@@ -315,7 +315,7 @@ $categoriaId = Yii::$app->user->identity->categoria_id;
             <?php foreach ($feeds as $feeds) :
             ?>
                 <article>
-                    <section class="card feed">
+                    <section class="card feed  shadow-lg  bg-white rounded">
 
 
                         <div class="card-block">
