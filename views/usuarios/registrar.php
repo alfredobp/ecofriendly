@@ -19,10 +19,11 @@ $this->registerJs(
 // $this->title = 'Registrar usuario';
 // $this->params['breadcrumbs'][] = $this->title;
 //pluguin con lista despegable provincias/municipios
+$title = 'Registro en ecofriendly';
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselect.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
-<div class="register-form mt-3 shadow p-3 mb-5 bg-white">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="register-form mt-3 shadow p-3 mb-5 bg-white  mx-auto">
+    <h1>Registro en ecofriendly</h1>
 
     <p>Introduzca los siguientes datos para registrarse:</p>
 
@@ -62,13 +63,13 @@ $this->registerJsFile('https://cdn.jsdelivr.net/npm/pselect.js@4.0.1/dist/pselec
             'autoclose' => true,
             'format' => 'dd-M-yyyy',
             'endDate' => '-18Y',
-            'startDate'=>'-100Y',
+            'startDate' => '-100Y',
         ]
     ]); ?>
-   <small>* Recuerda que la edad mínima para registrate en #ecofriendly es de 18 años.</small>
-  
+    <small>* Recuerda que la edad mínima para registrate en #ecofriendly es de 18 años.</small>
+
     <div class="form-group">
-    
+
         <div class="offset-sm-2">
             <?= Html::submitButton('Registrar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>

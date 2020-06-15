@@ -33,7 +33,7 @@ use yii\helpers\Url;
                 <div class="col-md-8 mb-5 d-none d-sm-block">
                     <p class="personalizado">Que hacemos</p>
                     <hr>
-                    <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y no unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
+                    <p>Ecofriendly es una red social, totalmente, gratuita, que mediante una valoración previa de tus habitos de consumo, te da una ecopuntuación y unos retos que te harán mejorar en nuestra escala de sostenibilidad.</p>
                     <p>Simple pero efectivo. Mediante nuestra estrategia de <strong>Gamificación </strong> te proponemos retos con una determinada puntuación que te ayuda a cambair tu hábitos y ser más sostenible en tu día a día. </p>
 
                     <?= Html::button('Registro&raquo;', ['value' => Url::to('/index.php?r=usuarios%2Fregistrar'), 'class' => 'btn btn-primary modalButton4 btn-lg intro2 ', 'id' => 'modalButton4']); ?>
