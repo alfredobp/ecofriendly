@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'puntaje',
                 [
                     'class' => ActionColumn::class,
-                    'controller' => 'retos-usuarios',
+                    'controller' => 'acciones-retos',
                     'template' => Auxiliar::esAdministrador() ? '{verreto} {update} {delete}' : '{verreto}{aceptarreto}',
                     'buttons' => [
 

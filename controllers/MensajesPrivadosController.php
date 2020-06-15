@@ -111,7 +111,7 @@ class MensajesPrivadosController extends Controller
             ->joinWith('seguidores')
             ->where(['seguidores.usuario_id' => Yii::$app->user->identity->id]);
 
-        $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->indexBy('id')->column();
+        $mensajes = Usuarios::find()->select('username')->where(['id' => $seguidores])->orWhere(['username'=>'admin'])->indexBy('id')->column();
         $mensajesAdmin = Usuarios::find()->select('username')->indexBy('id')->column();
         $estaBloqueado = Bloqueos::find()->where(['bloqueadosid' => Yii::$app->user->identity->id])->andWhere(['usuariosid' => $seguidores])->all();
 

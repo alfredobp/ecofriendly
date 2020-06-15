@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helper_propio\Auxiliar;
 use Yii;
 use app\models\Bloqueos;
 use app\models\BloqueosSearch;
@@ -27,15 +28,21 @@ class BloqueosController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['update', 'view', 'index', 'create'],
+                'only' => ['update', 'index'],
                 'rules' => [
                     [
+                        
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Auxiliar::esAdministrador();
+                        },
                     ],
+
 
                 ],
             ]

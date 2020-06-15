@@ -161,7 +161,9 @@ class SeguidoresController extends Controller
 
         if ($this->findModel($id)->delete() != 0) {
             $borrado = Notificaciones::find()->where(['id_evento' => $id])->one();
-            $borrado->delete();
+            if ($borrado != null) {
+                $borrado->delete();
+            }
 
             Yii::$app->session->setFlash('success', 'Has dejado de seguir a este usuario');
 

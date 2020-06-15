@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\helper_propio\Auxiliar;
 use app\models\Feeds;
 use Yii;
 use app\models\FeedsFavoritos;
 use app\models\FeedsFavoritosSearch;
 use app\models\Notificaciones;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,7 +29,24 @@ class FeedsFavoritosController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['update', 'index'],
+                'rules' => [
+                    [
+                        //Solo el usuario admin puede acceder a los feeds favoritos
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Auxiliar::esAdministrador();
+                        },
+                    ],
+
+
+                ],
+            ]
         ];
     }
 
